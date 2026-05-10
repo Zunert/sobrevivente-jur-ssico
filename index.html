@@ -110,6 +110,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .dino-card:hover{border-color:rgba(109,181,40,.45);transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 30px rgba(109,181,40,.07)}
 .dino-card::after{content:'';position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle at top right,rgba(74,120,37,.1),transparent 70%);pointer-events:none}
 .dino-icon{font-size:2.6rem;display:block;margin-bottom:18px}
+.dino-img{width:100%;height:160px;object-fit:contain;object-position:center;margin-bottom:14px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.7));display:block}
 .dino-name{font-family:'Cinzel',serif;font-weight:700;font-size:1rem;color:var(--parchment);margin-bottom:4px;letter-spacing:.04em}
 .dino-class{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:.8;margin-bottom:14px}
 .dino-desc{font-size:.92rem;color:var(--bone);opacity:.58;line-height:1.75;margin-bottom:20px}
@@ -145,6 +146,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 #atualizacoes{background:linear-gradient(180deg,var(--black) 0%,var(--deep) 40%,var(--black) 100%)}
 .updates-header{margin-bottom:56px}
 .updates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.updates-filter{display:flex;gap:4px;margin-bottom:32px;flex-wrap:wrap}
+.utab{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;padding:9px 22px;cursor:pointer;background:transparent;color:var(--bone);opacity:.5;border:1px solid rgba(74,120,37,.15);transition:all .3s}
+.utab.active,.utab:hover{background:var(--fern);color:var(--parchment);border-color:var(--leaf);opacity:1}
+.updates-steam-link{text-align:center;margin-top:40px}
 .update-card{background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.13);padding:32px;transition:all .35s;cursor:pointer;position:relative;overflow:hidden}
 .update-card:hover{border-color:rgba(109,181,40,.4);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.45)}
 .update-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--acid),transparent);opacity:0;transition:opacity .35s}
@@ -153,7 +158,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .update-title{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:600;color:var(--parchment);margin-bottom:12px;line-height:1.4}
 .update-excerpt{font-size:.95rem;color:var(--bone);opacity:.58;line-height:1.8}
 .update-tag{display:inline-block;margin-top:18px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border:1px solid rgba(109,181,40,.25);color:var(--acid);background:rgba(109,181,40,.06)}
-.update-link{display:inline-block;margin-top:14px;margin-left:10px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);text-decoration:none;opacity:.55;transition:opacity .25s}.update-link:hover{opacity:1}
 
 /* GUIAS */
 .guias-intro{margin-bottom:56px}
@@ -415,98 +419,16 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
       <h2 class="section-heading reveal reveal-delay-1">Últimas Atualizações</h2>
       <p class="section-lead reveal reveal-delay-2">Fique por dentro de tudo que acontece no desenvolvimento do Evrima.</p>
     </div>
-    <div class="updates-grid">
-      <div class="update-card reveal">
-        <div class="update-date">30 Abr 2026</div>
-        <div class="update-title">DevBlog #68 — Biomas, Novas Criaturas e Mecânicas</div>
-        <div class="update-excerpt">Biomas Redwoods e Mangroves finalizados e prontos para chegar ao Evrima. Kentrosaurus no HordeTest com stance defensiva que reflete dano aos atacantes. Austroraptor ganha pesca e natação. Oviraptor confirmado como ladrão de ovos. Quetzalcoatlus furtivo e letal em desenvolvimento. Hill Slide implementado em todos os dinossauros.</div>
-        <span class="update-tag">Devblog</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal reveal-delay-1">
-        <div class="update-date">28 Fev 2026</div>
-        <div class="update-title">DevBlog #67 — Stance, Sons e Skins</div>
-        <div class="update-excerpt">Stance defensiva do Kentrosaurus confirmada com refluxo de dano aos atacantes. Novo color picker de skins com temas floresta, pântano e outros biomas. Sons do Quetzalcoatlus e Baryonyx finalizados pelos artistas de áudio.</div>
-        <span class="update-tag">Devblog</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal reveal-delay-2">
-        <div class="update-date">06 Fev 2026</div>
-        <div class="update-title">DevBlog #66 — Novos Horizontes</div>
-        <div class="update-excerpt">Os desenvolvedores compartilham o progresso mais recente do Evrima: avanços no sistema de biomas, novidades sobre criaturas em desenvolvimento e o roadmap para os próximos meses.</div>
-        <span class="update-tag">Devblog</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal reveal-delay-2">
-        <div class="update-date">12 Jan 2026</div>
-        <div class="update-title">Ludus Magna — A Grande Atualização</div>
-        <div class="update-excerpt">Anúncio oficial da Ludus Magna, uma das maiores atualizações da história do Evrima. Revisão completa de sistemas fundamentais, novos biomas e mudanças profundas na jogabilidade.</div>
-        <span class="update-tag">Anúncio</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal reveal-delay-2">
-        <div class="update-date">28 Dez 2025</div>
-        <div class="update-title">Patch 0.21.321 — Atualização de Natal</div>
-        <div class="update-excerpt">Patch especial de fim de ano com correções críticas, ajuste de balanceamento entre espécies e surpresas temáticas para celebrar a temporada com a comunidade do Evrima.</div>
-        <span class="update-tag">Patch Notes</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal reveal-delay-3">
-        <div class="update-date">29 Nov 2025</div>
-        <div class="update-title">DevBlog #65 — Mutações e Correções</div>
-        <div class="update-excerpt">Novas mutações chegam ao Evrima: troca de sexo e partenogênese abrem novas dinâmicas de reprodução. Spar entre T-Rex e Triceratops corrigido. Pequenos dinossauros não ficam mais inférteis ao atingir 100% de crescimento.</div>
-        <span class="update-tag">Devblog</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal">
-        <div class="update-date">01 Out 2025</div>
-        <div class="update-title">DevBlog #63 — Outubro em Foco</div>
-        <div class="update-excerpt">Devblog de outubro detalha o progresso no sistema de ferimentos e sangramento, além de revelar arte conceitual de novas espécies chegando em breve ao Evrima.</div>
-        <span class="update-tag">Devblog</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal">
-        <div class="update-date">31 Ago 2025</div>
-        <div class="update-title">DevBlog #62 — Inteligência de Manadas</div>
-        <div class="update-excerpt">Os devs apresentam melhorias profundas na IA de manadas e comportamento em grupo, tornando a experiência coletiva mais orgânica e imersiva para herbívoros e carnívoros.</div>
-        <span class="update-tag">Devblog</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal reveal-delay-1">
-        <div class="update-date">01 Ago 2025</div>
-        <div class="update-title">DevBlog #61 — Crescimento Revisitado</div>
-        <div class="update-excerpt">Detalhes sobre a revisão do sistema de crescimento e progressão dos dinossauros, com melhorias visuais nos biomas e ajustes no ciclo de dia e noite da ilha.</div>
-        <span class="update-tag">Devblog</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal reveal-delay-2">
-        <div class="update-date">01 Jul 2025</div>
-        <div class="update-title">DevBlog #60 — Marcos do Desenvolvimento</div>
-        <div class="update-excerpt">Devblog especial comemorativo com retrospectiva da evolução do Evrima e prévia das grandes atualizações planejadas para o segundo semestre de 2025.</div>
-        <span class="update-tag">Devblog</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal reveal-delay-3">
-        <div class="update-date">27 Jun 2025</div>
-        <div class="update-title">Patch 0.20.117 — Estabilidade e Ajustes</div>
-        <div class="update-excerpt">Atualização focada em estabilidade de servidores, correção de hitboxes, ajuste de balanceamento nos carnívoros e melhora significativa na performance geral do jogo.</div>
-        <span class="update-tag">Patch Notes</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal">
-        <div class="update-date">20 Jun 2025</div>
-        <div class="update-title">Patch 0.20.109 — Chegada do Triceratops</div>
-        <div class="update-excerpt">O Triceratops finalmente chega ao Evrima com mecânicas únicas de carga e combate. O herbívoro apex mais aguardado pela comunidade está disponível para todos os jogadores.</div>
-        <span class="update-tag">Patch Notes</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
-      <div class="update-card reveal reveal-delay-1">
-        <div class="update-date">30 Mai 2025</div>
-        <div class="update-title">DevBlog #59 — Maio em Movimento</div>
-        <div class="update-excerpt">Prévia do Triceratops em desenvolvimento e detalhes sobre melhorias no sistema de física de colisão. Um dos devblogs mais aguardados e comentados pela comunidade no ano.</div>
-        <span class="update-tag">Devblog</span>
-        <a class="update-link" href="https://store.steampowered.com/news/app/376210" target="_blank" rel="noopener">Ver no Steam ↗</a>
-      </div>
+    <div class="updates-filter reveal">
+      <button class="utab active" onclick="filterUpdates('todos',this)">Todos</button>
+      <button class="utab" onclick="filterUpdates('devblog',this)">DevBlogs</button>
+      <button class="utab" onclick="filterUpdates('patch',this)">Patches</button>
+      <button class="utab" onclick="filterUpdates('anuncio',this)">Anúncios</button>
+    </div>
+    <div class="updates-grid" id="updatesGrid">
+    </div>
+    <div class="updates-steam-link reveal">
+      <a href="https://store.steampowered.com/news/app/376210" target="_blank" class="btn btn-ghost"><span>Ver todas no Steam →</span></a>
     </div>
   </div>
 </section>
@@ -652,128 +574,197 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 // DINOS
 const dinos=[
   // ── HERBÍVOROS ──
-  {name:'Diabloceratops',type:'herbivoro',icon:'🔱',cls:'Herbívoro · Combativo',badge:'herb',bl:'Herbívoro',
+  {name:'Diabloceratops',img:'diabloceratops.png',type:'herbivoro',icon:'🔱',cls:'Herbívoro · Combativo',badge:'herb',bl:'Herbívoro',
    food:'Marigold, Fireweed, Cashew',
    desc:'Chifres imponentes e temperamento agressivo. Perigoso em grupo e com boa força de mordida para um herbívoro.',
    raw:{peso:3000,vel:949.8,forca:275,grupo:6},
    stats:{Peso:32,Velocidade:69,Força:31,Grupo:60}},
 
-  {name:'Dryosaurus',type:'herbivoro',icon:'🍃',cls:'Herbívoro · Velocista',badge:'herb',bl:'Herbívoro',
+  {name:'Dryosaurus',img:'dryosaurus.png',type:'herbivoro',icon:'🍃',cls:'Herbívoro · Velocista',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Agave, SunchokeRoots',
    desc:'Um dos mais rápidos herbívoros da ilha. Leve e ágil — sobrevive pela velocidade e em grandes grupos.',
    raw:{peso:130,vel:1250,forca:20,grupo:10},
    stats:{Peso:1,Velocidade:91,Força:2,Grupo:100}},
 
-  {name:'Hypsilophodon',type:'herbivoro',icon:'🌱',cls:'Herbívoro · Pequeno Porte',badge:'herb',bl:'Herbívoro',
+  {name:'Hypsilophodon',img:'hypsilophodon.png',type:'herbivoro',icon:'🌱',cls:'Herbívoro · Pequeno Porte',badge:'herb',bl:'Herbívoro',
    food:'Mango, ChanterelleMushroom, RadishRoot',
    desc:'Minúsculo e extremamente veloz. Quase indefeso em combate — sobrevive em bandos numerosos e na fuga.',
    raw:{peso:20,vel:1100,forca:2,grupo:10},
    stats:{Peso:1,Velocidade:80,Força:1,Grupo:100}},
 
-  {name:'Maiasaura',type:'herbivoro',icon:'🦕',cls:'Herbívoro · Grande Porte',badge:'herb',bl:'Herbívoro',
+  {name:'Maiasaura',img:'maiasaura.png',type:'herbivoro',icon:'🦕',cls:'Herbívoro · Grande Porte',badge:'herb',bl:'Herbívoro',
    food:'MountainAsh, WildPotatoRoot, RadishRoot',
    desc:'O herbívoro mais veloz da ilha. Grande, rápido e excelente em grupo — combinação difícil de enfrentar.',
    raw:{peso:3750,vel:1304,forca:50,grupo:10},
    stats:{Peso:39,Velocidade:95,Força:6,Grupo:100}},
 
-  {name:'Pachycephalosaurus',type:'herbivoro',icon:'💀',cls:'Herbívoro · Cabeçudo',badge:'herb',bl:'Herbívoro',
+  {name:'Pachycephalosaurus',img:'pachycephalosaurus.png',type:'herbivoro',icon:'💀',cls:'Herbívoro · Cabeçudo',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Agave, Coconut',
    desc:'Crânio espesso como armadura. Usa a cabeça como ariete. Rápido e surpreendentemente resistente.',
    raw:{peso:700,vel:1161,forca:30,grupo:8},
    stats:{Peso:7,Velocidade:84,Força:3,Grupo:80}},
 
-  {name:'Stegosaurus',type:'herbivoro',icon:'🌿',cls:'Herbívoro · Tanque',badge:'herb',bl:'Herbívoro',
+  {name:'Stegosaurus',img:'stegosaurus.png',type:'herbivoro',icon:'🌿',cls:'Herbívoro · Tanque',badge:'herb',bl:'Herbívoro',
    food:'Marigold, Sumac, Pumpkin',
    desc:'O thagomizer (cauda espinhosa) torna qualquer ataque arriscado. Lento, mas massivo e difícil de derrubar.',
    raw:{peso:6000,vel:807,forca:50,grupo:5},
    stats:{Peso:63,Velocidade:59,Força:6,Grupo:50}},
 
-  {name:'Tenontosaurus',type:'herbivoro',icon:'🦎',cls:'Herbívoro · Médio Porte',badge:'herb',bl:'Herbívoro',
+  {name:'Tenontosaurus',img:'tenontosaurus.png',type:'herbivoro',icon:'🦎',cls:'Herbívoro · Médio Porte',badge:'herb',bl:'Herbívoro',
    food:'MountainAsh, WildPotatoRoot, RadishRoot',
    desc:'Equilibrado e versátil. Boa velocidade e grupos grandes. Ideal para iniciantes aprenderem como herbívoro.',
    raw:{peso:1600,vel:1130.8,forca:35,grupo:8},
    stats:{Peso:17,Velocidade:82,Força:4,Grupo:80}},
 
-  {name:'Triceratops',type:'herbivoro',icon:'🦏',cls:'Herbívoro · Apex',badge:'herb',bl:'Herbívoro',
+  {name:'Triceratops',img:'triceratops.png',type:'herbivoro',icon:'🦏',cls:'Herbívoro · Apex',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Fiddlehead, Papaya',
    desc:'O herbívoro mais poderoso da ilha. Força de mordida brutal e chifres capazes de perfurar qualquer predador.',
    raw:{peso:9500,vel:650,forca:900,grupo:4},
    stats:{Peso:100,Velocidade:47,Força:100,Grupo:40}},
 
   // ── CARNÍVOROS ──
-  {name:'Allosaurus',type:'carnivoro',icon:'🦖',cls:'Carnívoro · Grande Porte',badge:'carn',bl:'Carnívoro',
+  {name:'Allosaurus',img:'allosaurus.png',type:'carnivoro',icon:'🦖',cls:'Carnívoro · Grande Porte',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Diabloceratops, Triceratops, Dryosaurus, Maiasaura...',
    desc:'Predador grande e rápido. Equilibrado entre peso e velocidade — uma das escolhas mais sólidas para carnívoros.',
    raw:{peso:2593,vel:1106,forca:175,grupo:3},
    stats:{Peso:27,Velocidade:80,Força:19,Grupo:30}},
 
-  {name:'Carnotaurus',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Velocista',badge:'carn',bl:'Carnívoro',
+  {name:'Carnotaurus',img:'carnotaurus.png',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Velocista',badge:'carn',bl:'Carnívoro',
    food:'Pachycephalosaurus, Tenontosaurus, Diabloceratops, Dryosaurus, Maiasaura...',
    desc:'O predador mais rápido da ilha. Ágil e mortal em perseguições — poucos conseguem escapar do Carnotaurus.',
    raw:{peso:1300,vel:1375,forca:150,grupo:3},
    stats:{Peso:14,Velocidade:100,Força:17,Grupo:30}},
 
-  {name:'Ceratosaurus',type:'carnivoro',icon:'🔴',cls:'Carnívoro · Médio Porte',badge:'carn',bl:'Carnívoro',
+  {name:'Ceratosaurus',img:'ceratosaurus.png',type:'carnivoro',icon:'🔴',cls:'Carnívoro · Médio Porte',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Pachycephalosaurus, Omniraptor, Diabloceratops...',
    desc:'Predador versátil de médio porte. Pode caçar em grupos de até 5, o que o torna formidável em cooperação.',
    raw:{peso:1450,vel:1120,forca:150,grupo:5},
    stats:{Peso:15,Velocidade:81,Força:17,Grupo:50}},
 
-  {name:'Deinosuchus',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Semi-Aquático',badge:'carn',bl:'Carnívoro',
+  {name:'Deinosuchus',img:'deinosuchus.png',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Semi-Aquático',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Carnotaurus, Omniraptor, Gallimimus, Maiasaura...',
    desc:'Crocodiliano gigante e letal. Lento em terra mas devastador na água. Força de mordida brutal e peso massivo.',
    raw:{peso:8000,vel:500,forca:500,grupo:2},
    stats:{Peso:84,Velocidade:36,Força:56,Grupo:20}},
 
-  {name:'Dilophosaurus',type:'carnivoro',icon:'💨',cls:'Carnívoro · Ágil',badge:'carn',bl:'Carnívoro',
+  {name:'Dilophosaurus',img:'dilophosaurus.png',type:'carnivoro',icon:'💨',cls:'Carnívoro · Ágil',badge:'carn',bl:'Carnívoro',
    food:'Boar, Tenontosaurus, Ceratosaurus, Diabloceratops, Hypsilophodon, Dryosaurus...',
    desc:'Rápido e mortal em grupos. Usa velocidade e coordenação para derrubar presas maiores que ele.',
    raw:{peso:700,vel:1320,forca:85,grupo:4},
    stats:{Peso:7,Velocidade:96,Força:9,Grupo:40}},
 
-  {name:'Herrerasaurus',type:'carnivoro',icon:'🌑',cls:'Carnívoro · Pequeno Porte',badge:'carn',bl:'Carnívoro',
+  {name:'Herrerasaurus',img:'herrerasaurus.png',type:'carnivoro',icon:'🌑',cls:'Carnívoro · Pequeno Porte',badge:'carn',bl:'Carnívoro',
    food:'Crab, SchoolingFish, Tenontosaurus, Pachycephalosaurus, Hypsilophodon, Dryosaurus...',
    desc:'Pequeno mas ágil e capaz de formar grupos grandes. Excelente para iniciantes no papel de carnívoro.',
    raw:{peso:175,vel:1250,forca:30,grupo:10},
    stats:{Peso:2,Velocidade:91,Força:3,Grupo:100}},
 
-  {name:'Omniraptor',type:'carnivoro',icon:'🗡️',cls:'Carnívoro · Raptor',badge:'carn',bl:'Carnívoro',
+  {name:'Omniraptor',img:'omniraptor.png',type:'carnivoro',icon:'🗡️',cls:'Carnívoro · Raptor',badge:'carn',bl:'Carnívoro',
    food:'Boar, Stegosaurus, Pachycephalosaurus, Ceratosaurus, Diabloceratops, Maiasaura...',
    desc:'Raptor veloz e inteligente. Em grupos de até 8 consegue derrubar presas muito maiores que ele.',
    raw:{peso:395,vel:1300,forca:65,grupo:8},
    stats:{Peso:4,Velocidade:95,Força:7,Grupo:80}},
 
-  {name:'Pteranodon',type:'carnivoro',icon:'🦅',cls:'Carnívoro · Voador',badge:'carn',bl:'Carnívoro',
+  {name:'Pteranodon',img:'pteranodon.png',type:'carnivoro',icon:'🦅',cls:'Carnívoro · Voador',badge:'carn',bl:'Carnívoro',
    food:'SchoolingFish, Crab, Clam, Chicken, Hypsilophodon, Bullfrog, Seaturtle...',
    desc:'O único voador do jogo. Domina os céus e pesca com maestria. Fraco no solo — mantenha-se no ar.',
    raw:{peso:45,vel:792,forca:20,grupo:6},
    stats:{Peso:1,Velocidade:58,Força:2,Grupo:60}},
 
-  {name:'Troodon',type:'carnivoro',icon:'🌙',cls:'Carnívoro · Noturno',badge:'carn',bl:'Carnívoro',
+  {name:'Troodon',img:'troodon.png',type:'carnivoro',icon:'🌙',cls:'Carnívoro · Noturno',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Crab, Tenontosaurus, Bullfrog, Chicken, Hypsilophodon, Dryosaurus...',
    desc:'Predador noturno e veloz. Grupos de até 10 tornam o Troodon letal contra presas muito maiores.',
    raw:{peso:60,vel:1250,forca:15,grupo:10},
    stats:{Peso:1,Velocidade:91,Força:2,Grupo:100}},
 
-  {name:'Tyrannosaurus',type:'carnivoro',icon:'👑',cls:'Carnívoro · Apex',badge:'carn',bl:'Carnívoro',
+  {name:'Tyrannosaurus',img:'tyrannosaurus.png',type:'carnivoro',icon:'👑',cls:'Carnívoro · Apex',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Pachycephalosaurus, Triceratops, Diabloceratops, Maiasaura...',
    desc:'O rei absoluto da ilha. Força de mordida devastadora e peso colossal. Presença que intimida todas as criaturas.',
    raw:{peso:9350,vel:806.7,forca:700,grupo:2},
    stats:{Peso:98,Velocidade:59,Força:78,Grupo:20}},
 
   // ── ONÍVOROS ──
-  {name:'Beipiaosaurus',type:'onivoro',icon:'🌊',cls:'Onívoro · Semi-Aquático',badge:'omni',bl:'Onívoro',
+  {name:'Beipiaosaurus',img:'beipiaosaurus.png',type:'onivoro',icon:'🌊',cls:'Onívoro · Semi-Aquático',badge:'omni',bl:'Onívoro',
    food:'Crab, SchoolingFish, RadishFlower, Bullfrog, WildPotatoVine, SunchokeRoots',
    desc:'Onívoro semi-aquático com dieta variada. Ágil e adaptável — consegue sobreviver em diferentes biomas da ilha.',
    raw:{peso:90,vel:889,forca:20,grupo:10},
    stats:{Peso:1,Velocidade:65,Força:2,Grupo:100}},
 
-  {name:'Gallimimus',type:'onivoro',icon:'🏃',cls:'Onívoro · Velocista',badge:'omni',bl:'Onívoro',
+  {name:'Gallimimus',img:'gallimimus.png',type:'onivoro',icon:'🏃',cls:'Onívoro · Velocista',badge:'omni',bl:'Onívoro',
    food:'Crab, Mango, Bullfrog, Sumac, Pumpkin, SunchokeRoots',
    desc:'Veloz e curioso. O Gallimimus é um dos onívoros mais rápidos — usa a velocidade para fugir de qualquer ameaça.',
    raw:{peso:535,vel:1300,forca:25,grupo:10},
    stats:{Peso:6,Velocidade:95,Força:3,Grupo:100}},
 ]
+
+// UPDATES DATA
+const updates=[
+  {date:'06 Fev 2026',type:'devblog',tag:'DevBlog #66',
+   title:'DevBlog #66 — Fevereiro 2026',
+   excerpt:'Novos dinos, áudio atualizado, animações, otimizações e futuros biomas. Primeiros insights sobre novos conteúdos: Austroraptor, Baryonyx, Kentrosaurus, Oviraptor, Avaceratops, Camarasaurus e Quetzalcoatlus confirmados.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'12 Jan 2026',type:'anuncio',tag:'Anúncio',
+   title:'Ludus Magna — Modo Arena Revelado',
+   excerpt:'Os desenvolvedores revelam o "Ludus Magna", um novo modo arena onde predadores apex competem em combates estruturados. Uma mudança significativa no gameplay do Evrima.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'28 Dez 2025',type:'patch',tag:'Patch 0.21.321',
+   title:'Patch de Natal — 0.21.321',
+   excerpt:'Tyrannosaurus recebeu o ataque RMB Muzzle Swing, um golpe leve capaz de derrubar oponentes. Diversas correções de bugs e balanceamentos após o Hordetest. Feliz Natal, Islanders!',
+   link:'https://store.steampowered.com/news/app/376210/view/507348444540569206'},
+  {date:'01 Ago 2025',type:'devblog',tag:'DevBlog #61',
+   title:'DevBlog #61 — Sistema Elder, Correções T-Rex & UE 5.6',
+   excerpt:'O jogo migrou para Unreal Engine 5.6. Sistema Elder recebeu revisão completa e bugs críticos do Tyrannosaurus foram corrigidos. Grandes melhorias de desempenho no servidor.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'22 Jun 2025',type:'patch',tag:'Patch 0.20.109',
+   title:'Patch 0.20.109 — Triceratops Chega à Ilha!',
+   excerpt:'O Triceratops entra oficialmente no Evrima. O herbívoro apex mais pesado do jogo (9500kg) com força de mordida devastadora de 900. Uma adição histórica para os fãs de herbívoros.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'04 Jun 2025',type:'devblog',tag:'DevBlog #59',
+   title:'DevBlog #59 — Os Anciões Surgem, Triceratops Pronto',
+   excerpt:'Sistema Prime Elder implementado, permitindo que dinossauros alcancem status lendário após sobreviver por muito tempo. Triceratops finalizado e aguardando lançamento no branch público.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'08 Mar 2025',type:'patch',tag:'HordeTest',
+   title:'Novo Patch HordeTest — Triceratops Jogável',
+   excerpt:'Triceratops disponível pela primeira vez no servidor HordeTest. Testes intensivos com a comunidade antes do lançamento público. Feedback massivo coletado sobre balanceamento.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'01 Mar 2025',type:'devblog',tag:'DevBlog #56',
+   title:'DevBlog #56 — Progresso de Fevereiro 2025',
+   excerpt:'Concept art do "Reaper" revelado. Novos sistemas de aninhamento em desenvolvimento, melhorias no sistema de dieta e IA dos animais selvagens aprimorada.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'21 Fev 2025',type:'patch',tag:'Patch 0.19.76',
+   title:'Patch HordeTest 0.19.76 — Tudo que Você Precisa Saber',
+   excerpt:'Grande patch de HordeTest com sistema de gestação de ovos (jogadores precisam gestar antes de botar), correções de rubberbanding nos servidores e novo painel de administração.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'01 Ago 2024',type:'devblog',tag:'DevBlog #50',
+   title:'DevBlog #50 — Diabloceratops & Novos Playables',
+   excerpt:'Finalizações no Diabloceratops confirmadas. Novos sistemas de habilidade em desenvolvimento para as próximas espécies. Ferramenta interna de comparação entre dinos implementada para balanceamento.',
+   link:'https://steamdb.info/patchnotes/15219873/'},
+];
+
+let activeUpdateFilter='todos';
+function filterUpdates(type,el){
+  activeUpdateFilter=type;
+  document.querySelectorAll('.utab').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  renderUpdates();
+}
+function renderUpdates(){
+  const grid=document.getElementById('updatesGrid');
+  if(!grid)return;
+  const filtered=activeUpdateFilter==='todos'?updates:updates.filter(u=>u.type===activeUpdateFilter);
+  grid.innerHTML=filtered.map((u,i)=>`
+    <div class="update-card reveal${i>0?' reveal-delay-'+Math.min(i,4):''}">
+      <div class="update-date">${u.date}</div>
+      <div class="update-title">${u.title}</div>
+      <div class="update-excerpt">${u.excerpt}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px">
+        <span class="update-tag">${u.tag}</span>
+        <a href="${u.link}" target="_blank" style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);text-decoration:none;opacity:.7">Ver no Steam →</a>
+      </div>
+    </div>`).join('');
+  grid.querySelectorAll('.reveal').forEach(el=>{obs.observe(el);setTimeout(()=>el.classList.add('visible'),80)});
+}
+renderUpdates();
 
 function filterDinos(t,el){
   document.querySelectorAll('.dtab').forEach(x=>x.classList.remove('active'));
@@ -783,7 +774,7 @@ function filterDinos(t,el){
   grid.innerHTML=filtered.map((d,i)=>`
     <div class="dino-card reveal${i>0?' reveal-delay-'+Math.min(i,4):''}">
       <div class="dino-badge badge-${d.badge}">${d.bl}</div>
-      <span class="dino-icon">${d.icon}</span>
+      ${d.img ? `<img class="dino-img" src="dinos/${d.img}" alt="${d.name}">` : `<span class="dino-icon">${d.icon}</span>`}
       <div class="dino-name">${d.name}</div>
       <div class="dino-class">${d.cls}</div>
       <div class="dino-desc">${d.desc}</div>
