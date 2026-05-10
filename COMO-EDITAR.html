@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como Editar o Site</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 860px; margin: 0 auto; padding: 40px 24px; background: #f7f7f5; color: #222; }
+  h1 { color: #2c4a18; border-bottom: 3px solid #6db528; padding-bottom: 12px; }
+  h2 { color: #2c4a18; margin-top: 40px; }
+  h3 { color: #4a7825; margin-top: 24px; }
+  .tip { background: #e8f5d0; border-left: 4px solid #6db528; padding: 14px 18px; margin: 16px 0; border-radius: 0 8px 8px 0; }
+  .warn { background: #fff3cd; border-left: 4px solid #f0a500; padding: 14px 18px; margin: 16px 0; border-radius: 0 8px 8px 0; }
+  code { background: #222; color: #6db528; padding: 2px 8px; border-radius: 4px; font-size: 0.95em; }
+  pre { background: #1a1a1a; color: #c5b49a; padding: 20px; border-radius: 8px; overflow-x: auto; line-height: 1.7; }
+  pre .highlight { color: #6db528; font-weight: bold; }
+  .step { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 20px 24px; margin: 16px 0; }
+  .step-num { display: inline-block; background: #2c4a18; color: white; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold; margin-right: 8px; font-size: 0.9em; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  th { background: #2c4a18; color: white; padding: 10px 14px; text-align: left; }
+  td { padding: 10px 14px; border-bottom: 1px solid #ddd; }
+  tr:nth-child(even) td { background: #f0f0f0; }
+  ul { line-height: 2; }
+  .program { background: white; border: 1px solid #ccc; border-radius: 8px; padding: 16px 20px; margin: 10px 0; display: flex; gap: 16px; align-items: center; }
+  .prog-icon { font-size: 2rem; }
+  .prog-info strong { display: block; }
+  .prog-info span { font-size: 0.9em; color: #555; }
+  a { color: #2c4a18; }
+</style>
+</head>
+<body>
+
+<h1>📋 Como Editar o Site — Guia Simples</h1>
+<p>Este guia foi feito para quem <strong>não sabe programar</strong>. Sem complicação — só siga os passos!</p>
+
+<div class="tip">💡 <strong>Dica importante:</strong> Sempre faça uma cópia de backup do arquivo antes de editar. Se errar, você terá o original para restaurar.</div>
+
+<!-- PROGRAMA -->
+<h2>🖥️ 1. Qual programa usar para editar</h2>
+<p>Você vai editar o arquivo <code>the-isle-evrima.html</code> com um editor de texto simples. Os melhores são:</p>
+
+<div class="program">
+  <div class="prog-icon">⭐</div>
+  <div class="prog-info">
+    <strong>Notepad++ (Recomendado — gratuito)</strong>
+    <span>Fácil de usar, mostra o código colorido e tem busca avançada. Baixe em: <a href="https://notepad-plus-plus.org/downloads/" target="_blank">notepad-plus-plus.org</a></span>
+  </div>
+</div>
+
+<div class="program">
+  <div class="prog-icon">🆓</div>
+  <div class="prog-info">
+    <strong>Bloco de Notas do Windows (já vem instalado)</strong>
+    <span>Funciona, mas é mais difícil. Use apenas se não tiver outra opção. Clique direito no arquivo → Abrir com → Bloco de Notas.</span>
+  </div>
+</div>
+
+<div class="warn">⚠️ <strong>Nunca abra com o Word ou LibreOffice</strong> — eles vão estragar o arquivo.</div>
+
+<!-- COMO ABRIR -->
+<h2>📂 2. Como abrir o arquivo para editar</h2>
+
+<div class="step"><span class="step-num">1</span> Clique com o <strong>botão direito</strong> no arquivo <code>the-isle-evrima.html</code></div>
+<div class="step"><span class="step-num">2</span> Clique em <strong>"Editar com Notepad++"</strong> (ou "Abrir com" → Notepad++)</div>
+<div class="step"><span class="step-num">3</span> O código vai aparecer. Não se assuste — você só vai mexer nos <strong>textos</strong>!</div>
+<div class="step"><span class="step-num">4</span> Para <strong>encontrar algo específico</strong>, use <code>Ctrl + F</code> e digite o que quer achar</div>
+<div class="step"><span class="step-num">5</span> Depois de editar, salve com <code>Ctrl + S</code></div>
+<div class="step"><span class="step-num">6</span> Para ver o resultado, dê dois cliques no arquivo HTML e ele abre no navegador</div>
+
+<!-- O QUE EDITAR -->
+<h2>✏️ 3. O que você pode editar facilmente</h2>
+
+<h3>📝 Mudar textos do site</h3>
+<p>Use <code>Ctrl + F</code> para buscar o texto que quer mudar e substitua diretamente. Exemplos:</p>
+
+<table>
+  <tr><th>Busque por...</th><th>Para mudar...</th></tr>
+  <tr><td>Sobrevivente Jurássico</td><td>O nome principal do site</td></tr>
+  <tr><td>O seu guia definitivo</td><td>O subtítulo do hero</td></tr>
+  <tr><td>Costisaque</td><td>Seu nome na seção Equipe</td></tr>
+  <tr><td>07 Nov 2024</td><td>Data das atualizações</td></tr>
+  <tr><td>Nova Mecânica de Correntes de Ar</td><td>Título de uma atualização</td></tr>
+  <tr><td>Discord</td><td>Link do Discord no footer</td></tr>
+</table>
+
+<h3>🦖 Editar os dinossauros</h3>
+<p>No arquivo, procure por <code>const dinos=[</code> — ali estão todos os dinos. Cada um tem esta estrutura:</p>
+
+<pre>
+{
+  name:'<span class="highlight">Tyrannosaurus Rex</span>',   ← Nome do dino
+  type:'<span class="highlight">carnivoro</span>',             ← Tipo: carnivoro / herbivoro / aquatico
+  icon:'<span class="highlight">🦖</span>',                    ← Emoji que aparece no card
+  cls:'<span class="highlight">Carnívoro · Apex</span>',       ← Subtítulo do card
+  badge:'<span class="highlight">carn</span>',                 ← carn / herb / omni
+  bl:'<span class="highlight">Carnívoro</span>',               ← Texto do badge
+  desc:'<span class="highlight">O rei incontestável...</span>', ← Descrição
+  stats:{
+    Vida:<span class="highlight">95</span>,      ← Número de 0 a 100
+    Ataque:<span class="highlight">98</span>,
+    Velocidade:<span class="highlight">55</span>,
+    Furtividade:<span class="highlight">30</span>
+  }
+},
+</pre>
+
+<div class="tip">💡 Para <strong>adicionar um novo dino</strong>, copie um bloco inteiro (de <code>{</code> até <code>},</code>), cole depois do último dino e mude os dados.</div>
+<div class="warn">⚠️ Não apague as vírgulas, as aspas ou as chaves <code>{ }</code> — isso quebra o site.</div>
+
+<h3>🗺️ Editar as regiões do mapa</h3>
+<p>Procure por <code>Costa Leste</code> — você vai ver os blocos de cada região. Cada um tem:</p>
+<ul>
+  <li>Um emoji (ex: 🌊)</li>
+  <li>Um nome (<code>map-loc-name</code>)</li>
+  <li>Uma descrição (<code>map-loc-desc</code>)</li>
+  <li>Uma dificuldade (<code>map-loc-tag</code>)</li>
+</ul>
+<p>Basta trocar o texto entre as tags. Exemplo: mude <code>Costa Leste</code> por outro nome que quiser.</p>
+
+<h3>📰 Editar as atualizações</h3>
+<p>Procure por <code>update-card</code> — cada card tem:</p>
+<ul>
+  <li><code>update-date</code> → a data</li>
+  <li><code>update-title</code> → o título</li>
+  <li><code>update-excerpt</code> → o texto da notícia</li>
+  <li><code>update-tag</code> → a etiqueta colorida (ex: Patch Notes)</li>
+</ul>
+
+<h3>👥 Editar a equipe</h3>
+<p>Procure por <code>team-card</code>. Cada membro tem:</p>
+<ul>
+  <li><code>team-avatar</code> → emoji de avatar</li>
+  <li><code>team-name</code> → nome</li>
+  <li><code>team-role</code> → cargo</li>
+  <li><code>team-bio</code> → bio curta</li>
+</ul>
+
+<h3>📚 Editar os guias</h3>
+<p>Procure por <code>guia-card</code>. Cada guia tem:</p>
+<ul>
+  <li><code>guia-icon</code> → emoji</li>
+  <li><code>guia-title</code> → título</li>
+  <li><code>guia-desc</code> → descrição</li>
+</ul>
+
+<!-- CORES -->
+<h2>🎨 4. Mudar cores (opcional)</h2>
+<p>No topo do arquivo, procure por <code>:root {</code> — ali estão todas as cores. As principais são:</p>
+
+<table>
+  <tr><th>Variável</th><th>Cor atual</th><th>Serve para...</th></tr>
+  <tr><td><code>--acid</code></td><td>#6db528 (verde brilhante)</td><td>Destaque principal, títulos de seção</td></tr>
+  <tr><td><code>--fern</code></td><td>#2c4a18 (verde escuro)</td><td>Botões, bordas</td></tr>
+  <tr><td><code>--parchment</code></td><td>#e6d4b4 (bege claro)</td><td>Títulos</td></tr>
+  <tr><td><code>--bone</code></td><td>#c5b49a (bege médio)</td><td>Textos normais</td></tr>
+  <tr><td><code>--black</code></td><td>#080a06 (quase preto)</td><td>Fundo geral</td></tr>
+</table>
+
+<div class="tip">💡 Para mudar uma cor, basta substituir o código hex (ex: <code>#6db528</code>) por outra cor. Use o site <a href="https://htmlcolorcodes.com/color-picker/" target="_blank">htmlcolorcodes.com</a> para pegar códigos de cor.</div>
+
+<!-- LINKS -->
+<h2>🔗 5. Adicionar links reais (Discord, etc.)</h2>
+<p>Procure por <code>href="#"</code> no arquivo — cada um desses é um link vazio. Para colocar um link real, troque o <code>#</code> pela URL completa. Exemplo:</p>
+
+<pre>
+Antes:  &lt;a href="<span class="highlight">#</span>"&gt;Discord&lt;/a&gt;
+Depois: &lt;a href="<span class="highlight">https://discord.gg/seuservidor</span>" target="_blank"&gt;Discord&lt;/a&gt;
+</pre>
+
+<!-- IMAGENS -->
+<h2>🖼️ 6. Adicionar imagens</h2>
+<p>Para adicionar uma imagem ao site, coloque o arquivo de imagem na mesma pasta que o HTML e use este código onde quiser:</p>
+
+<pre>
+&lt;img src="<span class="highlight">nome-da-imagem.jpg</span>" alt="Descrição da imagem" style="width:100%; border-radius:8px;"&gt;
+</pre>
+
+<div class="warn">⚠️ Use imagens em <code>.jpg</code> ou <code>.png</code>. Imagens muito grandes deixam o site lento — tente usar arquivos abaixo de 500KB.</div>
+
+<!-- SALVAR -->
+<h2>💾 7. Fluxo de trabalho recomendado</h2>
+
+<div class="step"><span class="step-num">1</span> Faça uma cópia do arquivo antes de mexer (<code>the-isle-evrima-backup.html</code>)</div>
+<div class="step"><span class="step-num">2</span> Abra o original no Notepad++</div>
+<div class="step"><span class="step-num">3</span> Use <code>Ctrl + F</code> para achar o texto que quer mudar</div>
+<div class="step"><span class="step-num">4</span> Faça as alterações</div>
+<div class="step"><span class="step-num">5</span> Salve com <code>Ctrl + S</code></div>
+<div class="step"><span class="step-num">6</span> Dê dois cliques no HTML para abrir no navegador e conferir</div>
+<div class="step"><span class="step-num">7</span> Se ficou bom → suba para o GitHub Pages. Se errou → restaure o backup</div>
+
+<div class="tip">🙏 <strong>Dúvidas?</strong> Se travar em alguma coisa, pode pedir ajuda ao Claude descrevendo o que quer mudar. Basta dizer: <em>"Quero mudar o texto X para Y"</em> ou <em>"Quero adicionar um dino chamado Z"</em> — eu gero o trecho pronto pra você colar!</div>
+
+<hr style="margin-top:48px; border-color:#ddd;">
+<p style="color:#999; font-size:0.85em; text-align:center;">Guia gerado pelo Claude para o site Sobrevivente Jurássico · The Isle Evrima</p>
+
+</body>
+</html>
