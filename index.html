@@ -774,7 +774,7 @@ function filterDinos(t,el){
   grid.innerHTML=filtered.map((d,i)=>`
     <div class="dino-card reveal${i>0?' reveal-delay-'+Math.min(i,4):''}">
       <div class="dino-badge badge-${d.badge}">${d.bl}</div>
-      ${d.img ? `<img class="dino-img" src="dinos/${d.img.replace(".png",".jpg")}" alt="${d.name}">` : `<span class="dino-icon">${d.icon}</span>`}
+      ${d.img ? `<img class="dino-img" src="${d.img}" alt="${d.name}">` : `<span class="dino-icon">${d.icon}</span>`}
       <div class="dino-name">${d.name}</div>
       <div class="dino-class">${d.cls}</div>
       <div class="dino-desc">${d.desc}</div>
