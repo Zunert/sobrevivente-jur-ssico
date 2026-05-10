@@ -574,123 +574,123 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 // DINOS
 const dinos=[
   // ── HERBÍVOROS ──
-  {name:'Diabloceratops',img:'diabloceratops.png',type:'herbivoro',icon:'🔱',cls:'Herbívoro · Combativo',badge:'herb',bl:'Herbívoro',
+  {name:'Diabloceratops',img:'diabloceratops.jpg',type:'herbivoro',icon:'🔱',cls:'Herbívoro · Combativo',badge:'herb',bl:'Herbívoro',
    food:'Marigold, Fireweed, Cashew',
    desc:'Chifres imponentes e temperamento agressivo. Perigoso em grupo e com boa força de mordida para um herbívoro.',
    raw:{peso:3000,vel:949.8,forca:275,grupo:6},
    stats:{Peso:32,Velocidade:69,Força:31,Grupo:60}},
 
-  {name:'Dryosaurus',img:'dryosaurus.png',type:'herbivoro',icon:'🍃',cls:'Herbívoro · Velocista',badge:'herb',bl:'Herbívoro',
+  {name:'Dryosaurus',img:'dryosaurus.jpg',type:'herbivoro',icon:'🍃',cls:'Herbívoro · Velocista',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Agave, SunchokeRoots',
    desc:'Um dos mais rápidos herbívoros da ilha. Leve e ágil — sobrevive pela velocidade e em grandes grupos.',
    raw:{peso:130,vel:1250,forca:20,grupo:10},
    stats:{Peso:1,Velocidade:91,Força:2,Grupo:100}},
 
-  {name:'Hypsilophodon',img:'hypsilophodon.png',type:'herbivoro',icon:'🌱',cls:'Herbívoro · Pequeno Porte',badge:'herb',bl:'Herbívoro',
+  {name:'Hypsilophodon',img:'hypsilophodon.jpg',type:'herbivoro',icon:'🌱',cls:'Herbívoro · Pequeno Porte',badge:'herb',bl:'Herbívoro',
    food:'Mango, ChanterelleMushroom, RadishRoot',
    desc:'Minúsculo e extremamente veloz. Quase indefeso em combate — sobrevive em bandos numerosos e na fuga.',
    raw:{peso:20,vel:1100,forca:2,grupo:10},
    stats:{Peso:1,Velocidade:80,Força:1,Grupo:100}},
 
-  {name:'Maiasaura',img:'maiasaura.png',type:'herbivoro',icon:'🦕',cls:'Herbívoro · Grande Porte',badge:'herb',bl:'Herbívoro',
+  {name:'Maiasaura',img:'maiasaura.jpg',type:'herbivoro',icon:'🦕',cls:'Herbívoro · Grande Porte',badge:'herb',bl:'Herbívoro',
    food:'MountainAsh, WildPotatoRoot, RadishRoot',
    desc:'O herbívoro mais veloz da ilha. Grande, rápido e excelente em grupo — combinação difícil de enfrentar.',
    raw:{peso:3750,vel:1304,forca:50,grupo:10},
    stats:{Peso:39,Velocidade:95,Força:6,Grupo:100}},
 
-  {name:'Pachycephalosaurus',img:'pachycephalosaurus.png',type:'herbivoro',icon:'💀',cls:'Herbívoro · Cabeçudo',badge:'herb',bl:'Herbívoro',
+  {name:'Pachycephalosaurus',img:'pachycephalosaurus.jpg',type:'herbivoro',icon:'💀',cls:'Herbívoro · Cabeçudo',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Agave, Coconut',
    desc:'Crânio espesso como armadura. Usa a cabeça como ariete. Rápido e surpreendentemente resistente.',
    raw:{peso:700,vel:1161,forca:30,grupo:8},
    stats:{Peso:7,Velocidade:84,Força:3,Grupo:80}},
 
-  {name:'Stegosaurus',img:'stegosaurus.png',type:'herbivoro',icon:'🌿',cls:'Herbívoro · Tanque',badge:'herb',bl:'Herbívoro',
+  {name:'Stegosaurus',img:'stegosaurus.jpg',type:'herbivoro',icon:'🌿',cls:'Herbívoro · Tanque',badge:'herb',bl:'Herbívoro',
    food:'Marigold, Sumac, Pumpkin',
    desc:'O thagomizer (cauda espinhosa) torna qualquer ataque arriscado. Lento, mas massivo e difícil de derrubar.',
    raw:{peso:6000,vel:807,forca:50,grupo:5},
    stats:{Peso:63,Velocidade:59,Força:6,Grupo:50}},
 
-  {name:'Tenontosaurus',img:'tenontosaurus.png',type:'herbivoro',icon:'🦎',cls:'Herbívoro · Médio Porte',badge:'herb',bl:'Herbívoro',
+  {name:'Tenontosaurus',img:'tenontosaurus.jpg',type:'herbivoro',icon:'🦎',cls:'Herbívoro · Médio Porte',badge:'herb',bl:'Herbívoro',
    food:'MountainAsh, WildPotatoRoot, RadishRoot',
    desc:'Equilibrado e versátil. Boa velocidade e grupos grandes. Ideal para iniciantes aprenderem como herbívoro.',
    raw:{peso:1600,vel:1130.8,forca:35,grupo:8},
    stats:{Peso:17,Velocidade:82,Força:4,Grupo:80}},
 
-  {name:'Triceratops',img:'triceratops.png',type:'herbivoro',icon:'🦏',cls:'Herbívoro · Apex',badge:'herb',bl:'Herbívoro',
+  {name:'Triceratops',img:'triceratops.jpg',type:'herbivoro',icon:'🦏',cls:'Herbívoro · Apex',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Fiddlehead, Papaya',
    desc:'O herbívoro mais poderoso da ilha. Força de mordida brutal e chifres capazes de perfurar qualquer predador.',
    raw:{peso:9500,vel:650,forca:900,grupo:4},
    stats:{Peso:100,Velocidade:47,Força:100,Grupo:40}},
 
   // ── CARNÍVOROS ──
-  {name:'Allosaurus',img:'allosaurus.png',type:'carnivoro',icon:'🦖',cls:'Carnívoro · Grande Porte',badge:'carn',bl:'Carnívoro',
+  {name:'Allosaurus',img:'allosaurus.jpg',type:'carnivoro',icon:'🦖',cls:'Carnívoro · Grande Porte',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Diabloceratops, Triceratops, Dryosaurus, Maiasaura...',
    desc:'Predador grande e rápido. Equilibrado entre peso e velocidade — uma das escolhas mais sólidas para carnívoros.',
    raw:{peso:2593,vel:1106,forca:175,grupo:3},
    stats:{Peso:27,Velocidade:80,Força:19,Grupo:30}},
 
-  {name:'Carnotaurus',img:'carnotaurus.png',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Velocista',badge:'carn',bl:'Carnívoro',
+  {name:'Carnotaurus',img:'carnotaurus.jpg',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Velocista',badge:'carn',bl:'Carnívoro',
    food:'Pachycephalosaurus, Tenontosaurus, Diabloceratops, Dryosaurus, Maiasaura...',
    desc:'O predador mais rápido da ilha. Ágil e mortal em perseguições — poucos conseguem escapar do Carnotaurus.',
    raw:{peso:1300,vel:1375,forca:150,grupo:3},
    stats:{Peso:14,Velocidade:100,Força:17,Grupo:30}},
 
-  {name:'Ceratosaurus',img:'ceratosaurus.png',type:'carnivoro',icon:'🔴',cls:'Carnívoro · Médio Porte',badge:'carn',bl:'Carnívoro',
+  {name:'Ceratosaurus',img:'ceratosaurus.jpg',type:'carnivoro',icon:'🔴',cls:'Carnívoro · Médio Porte',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Pachycephalosaurus, Omniraptor, Diabloceratops...',
    desc:'Predador versátil de médio porte. Pode caçar em grupos de até 5, o que o torna formidável em cooperação.',
    raw:{peso:1450,vel:1120,forca:150,grupo:5},
    stats:{Peso:15,Velocidade:81,Força:17,Grupo:50}},
 
-  {name:'Deinosuchus',img:'deinosuchus.png',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Semi-Aquático',badge:'carn',bl:'Carnívoro',
+  {name:'Deinosuchus',img:'deinosuchus.jpg',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Semi-Aquático',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Carnotaurus, Omniraptor, Gallimimus, Maiasaura...',
    desc:'Crocodiliano gigante e letal. Lento em terra mas devastador na água. Força de mordida brutal e peso massivo.',
    raw:{peso:8000,vel:500,forca:500,grupo:2},
    stats:{Peso:84,Velocidade:36,Força:56,Grupo:20}},
 
-  {name:'Dilophosaurus',img:'dilophosaurus.png',type:'carnivoro',icon:'💨',cls:'Carnívoro · Ágil',badge:'carn',bl:'Carnívoro',
+  {name:'Dilophosaurus',img:'dilophosaurus.jpg',type:'carnivoro',icon:'💨',cls:'Carnívoro · Ágil',badge:'carn',bl:'Carnívoro',
    food:'Boar, Tenontosaurus, Ceratosaurus, Diabloceratops, Hypsilophodon, Dryosaurus...',
    desc:'Rápido e mortal em grupos. Usa velocidade e coordenação para derrubar presas maiores que ele.',
    raw:{peso:700,vel:1320,forca:85,grupo:4},
    stats:{Peso:7,Velocidade:96,Força:9,Grupo:40}},
 
-  {name:'Herrerasaurus',img:'herrerasaurus.png',type:'carnivoro',icon:'🌑',cls:'Carnívoro · Pequeno Porte',badge:'carn',bl:'Carnívoro',
+  {name:'Herrerasaurus',img:'herrerasaurus.jpg',type:'carnivoro',icon:'🌑',cls:'Carnívoro · Pequeno Porte',badge:'carn',bl:'Carnívoro',
    food:'Crab, SchoolingFish, Tenontosaurus, Pachycephalosaurus, Hypsilophodon, Dryosaurus...',
    desc:'Pequeno mas ágil e capaz de formar grupos grandes. Excelente para iniciantes no papel de carnívoro.',
    raw:{peso:175,vel:1250,forca:30,grupo:10},
    stats:{Peso:2,Velocidade:91,Força:3,Grupo:100}},
 
-  {name:'Omniraptor',img:'omniraptor.png',type:'carnivoro',icon:'🗡️',cls:'Carnívoro · Raptor',badge:'carn',bl:'Carnívoro',
+  {name:'Omniraptor',img:'omniraptor.jpg',type:'carnivoro',icon:'🗡️',cls:'Carnívoro · Raptor',badge:'carn',bl:'Carnívoro',
    food:'Boar, Stegosaurus, Pachycephalosaurus, Ceratosaurus, Diabloceratops, Maiasaura...',
    desc:'Raptor veloz e inteligente. Em grupos de até 8 consegue derrubar presas muito maiores que ele.',
    raw:{peso:395,vel:1300,forca:65,grupo:8},
    stats:{Peso:4,Velocidade:95,Força:7,Grupo:80}},
 
-  {name:'Pteranodon',img:'pteranodon.png',type:'carnivoro',icon:'🦅',cls:'Carnívoro · Voador',badge:'carn',bl:'Carnívoro',
+  {name:'Pteranodon',img:'pteranodon.jpg',type:'carnivoro',icon:'🦅',cls:'Carnívoro · Voador',badge:'carn',bl:'Carnívoro',
    food:'SchoolingFish, Crab, Clam, Chicken, Hypsilophodon, Bullfrog, Seaturtle...',
    desc:'O único voador do jogo. Domina os céus e pesca com maestria. Fraco no solo — mantenha-se no ar.',
    raw:{peso:45,vel:792,forca:20,grupo:6},
    stats:{Peso:1,Velocidade:58,Força:2,Grupo:60}},
 
-  {name:'Troodon',img:'troodon.png',type:'carnivoro',icon:'🌙',cls:'Carnívoro · Noturno',badge:'carn',bl:'Carnívoro',
+  {name:'Troodon',img:'troodon.jpg',type:'carnivoro',icon:'🌙',cls:'Carnívoro · Noturno',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Crab, Tenontosaurus, Bullfrog, Chicken, Hypsilophodon, Dryosaurus...',
    desc:'Predador noturno e veloz. Grupos de até 10 tornam o Troodon letal contra presas muito maiores.',
    raw:{peso:60,vel:1250,forca:15,grupo:10},
    stats:{Peso:1,Velocidade:91,Força:2,Grupo:100}},
 
-  {name:'Tyrannosaurus',img:'tyrannosaurus.png',type:'carnivoro',icon:'👑',cls:'Carnívoro · Apex',badge:'carn',bl:'Carnívoro',
+  {name:'Tyrannosaurus',img:'tyrannosaurus.jpg',type:'carnivoro',icon:'👑',cls:'Carnívoro · Apex',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Pachycephalosaurus, Triceratops, Diabloceratops, Maiasaura...',
    desc:'O rei absoluto da ilha. Força de mordida devastadora e peso colossal. Presença que intimida todas as criaturas.',
    raw:{peso:9350,vel:806.7,forca:700,grupo:2},
    stats:{Peso:98,Velocidade:59,Força:78,Grupo:20}},
 
   // ── ONÍVOROS ──
-  {name:'Beipiaosaurus',img:'beipiaosaurus.png',type:'onivoro',icon:'🌊',cls:'Onívoro · Semi-Aquático',badge:'omni',bl:'Onívoro',
+  {name:'Beipiaosaurus',img:'beipiaosaurus.jpg',type:'onivoro',icon:'🌊',cls:'Onívoro · Semi-Aquático',badge:'omni',bl:'Onívoro',
    food:'Crab, SchoolingFish, RadishFlower, Bullfrog, WildPotatoVine, SunchokeRoots',
    desc:'Onívoro semi-aquático com dieta variada. Ágil e adaptável — consegue sobreviver em diferentes biomas da ilha.',
    raw:{peso:90,vel:889,forca:20,grupo:10},
    stats:{Peso:1,Velocidade:65,Força:2,Grupo:100}},
 
-  {name:'Gallimimus',img:'gallimimus.png',type:'onivoro',icon:'🏃',cls:'Onívoro · Velocista',badge:'omni',bl:'Onívoro',
+  {name:'Gallimimus',img:'gallimimus.jpg',type:'onivoro',icon:'🏃',cls:'Onívoro · Velocista',badge:'omni',bl:'Onívoro',
    food:'Crab, Mango, Bullfrog, Sumac, Pumpkin, SunchokeRoots',
    desc:'Veloz e curioso. O Gallimimus é um dos onívoros mais rápidos — usa a velocidade para fugir de qualquer ameaça.',
    raw:{peso:535,vel:1300,forca:25,grupo:10},
@@ -774,7 +774,7 @@ function filterDinos(t,el){
   grid.innerHTML=filtered.map((d,i)=>`
     <div class="dino-card reveal${i>0?' reveal-delay-'+Math.min(i,4):''}">
       <div class="dino-badge badge-${d.badge}">${d.bl}</div>
-      ${d.img ? `<img class="dino-img" src="dinos/${d.img}" alt="${d.name}">` : `<span class="dino-icon">${d.icon}</span>`}
+      ${d.img ? `<img class="dino-img" src="dinos/${d.img.replace(".png",".jpg")}" alt="${d.name}">` : `<span class="dino-icon">${d.icon}</span>`}
       <div class="dino-name">${d.name}</div>
       <div class="dino-class">${d.cls}</div>
       <div class="dino-desc">${d.desc}</div>
