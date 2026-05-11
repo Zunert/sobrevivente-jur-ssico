@@ -1457,7 +1457,7 @@ renderUpdates();
 // DINO AUDIO
 let _audio=null,_btn=null;
 function playDino(btn){
-  var file='sounds/'+btn.getAttribute('data-sound');
+  var file=btn.getAttribute('data-sound');
   if(_audio){
     _audio.pause();_audio.currentTime=0;
     if(_btn){_btn.classList.remove('playing');_btn.textContent='▶ Broadcast Call';}
