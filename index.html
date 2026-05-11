@@ -249,6 +249,35 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 /* Warning badges on nav */
 .nav-danger-badge{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.15em;color:var(--warn);border:1px solid rgba(139,26,10,.4);padding:2px 8px;opacity:.7}
 
+/* GUIDE MODALS */
+.guide-modal-overlay{position:fixed;inset:0;background:rgba(3,4,2,.92);z-index:9500;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .35s;backdrop-filter:blur(8px)}
+.guide-modal-overlay.open{opacity:1;pointer-events:all}
+.guide-modal{background:linear-gradient(145deg,#0e1409,#080a05);border:1px solid rgba(139,26,10,.4);max-width:720px;width:100%;max-height:88vh;overflow-y:auto;position:relative;scrollbar-width:thin;scrollbar-color:var(--fern) var(--deep)}
+.guide-modal-top{display:flex;align-items:flex-start;justify-content:space-between;padding:32px 36px 20px;border-bottom:1px solid rgba(139,26,10,.25);position:sticky;top:0;background:linear-gradient(145deg,#0e1409,#080a05);z-index:2}
+.guide-modal-icon{font-size:2.2rem;margin-right:16px;flex-shrink:0}
+.guide-modal-title-wrap{}
+.guide-modal-tag{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:var(--warn);opacity:.8;display:block;margin-bottom:6px}
+.guide-modal-title{font-family:'Cinzel Decorative',serif;font-size:1.4rem;color:var(--parchment);line-height:1.2}
+.guide-close{background:none;border:1px solid rgba(197,180,154,.2);color:var(--bone);font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:all .3s;flex-shrink:0;margin-left:16px}
+.guide-close:hover{border-color:var(--warn);color:var(--warn)}
+.guide-modal-body{padding:28px 36px 36px}
+.guide-section{margin-bottom:32px}
+.guide-section-title{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.guide-section-title::after{content:'';flex:1;height:1px;background:rgba(90,158,30,.2)}
+.guide-section p{font-size:1rem;color:var(--bone);opacity:.72;line-height:1.9;margin-bottom:10px}
+.guide-tip{background:rgba(90,158,30,.06);border-left:3px solid var(--acid);padding:12px 16px;margin:14px 0;font-size:.92rem;color:var(--bone);opacity:.8;line-height:1.7}
+.guide-warn-box{background:rgba(139,26,10,.08);border-left:3px solid var(--warn);padding:12px 16px;margin:14px 0;font-size:.92rem;color:var(--bone);opacity:.8;line-height:1.7}
+.guide-list{list-style:none;padding:0;margin:10px 0;display:flex;flex-direction:column;gap:8px}
+.guide-list li{font-size:.95rem;color:var(--bone);opacity:.7;line-height:1.7;padding-left:18px;position:relative}
+.guide-list li::before{content:'▸';position:absolute;left:0;color:var(--acid);font-size:.7rem;top:4px}
+.guide-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.guide-key{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid rgba(197,180,154,.08);padding:8px 12px}
+.guide-key kbd{font-family:'Cinzel',serif;font-size:.6rem;background:rgba(90,158,30,.12);border:1px solid rgba(90,158,30,.3);color:var(--acid);padding:3px 8px;letter-spacing:.05em}
+.guide-key span{font-size:.82rem;color:var(--bone);opacity:.6}
+
+/* Guia card hover melhorado */
+.guia-card{cursor:pointer}
+
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -516,12 +545,29 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
       <p class="section-lead reveal reveal-delay-2">Protocolos escritos às pressas. Alguns no escuro. Todos testados. Não ignore nenhum.</p>
     </div>
     <div class="guias-grid">
-      <div class="guia-card reveal"><span class="guia-icon">🥚</span><div class="guia-title">Primeiros Passos</div><div class="guia-desc">Você acabou de escolher seu primeiro dino. O que fazer? Como crescer sem morrer nos primeiros minutos?</div><a href="#" class="guia-link">Ler guia →</a></div>
-      <div class="guia-card reveal reveal-delay-1"><span class="guia-icon">🩸</span><div class="guia-title">Sistema de Combate</div><div class="guia-desc">Entenda como funciona o combate, stamina, ataques especiais e como sair vitorioso de um confronto.</div><a href="#" class="guia-link">Ler guia →</a></div>
-      <div class="guia-card reveal reveal-delay-2"><span class="guia-icon">💧</span><div class="guia-title">Sobrevivência Básica</div><div class="guia-desc">Fome, sede, temperatura — os três inimigos invisíveis. Como gerenciar suas necessidades vitais na ilha.</div><a href="#" class="guia-link">Ler guia →</a></div>
-      <div class="guia-card reveal reveal-delay-3"><span class="guia-icon">🤝</span><div class="guia-title">Manadas e Grupos</div><div class="guia-desc">A ilha é menos perigosa em grupo. Aprenda a formar manadas, comunicar e caçar em conjunto.</div><a href="#" class="guia-link">Ler guia →</a></div>
-      <div class="guia-card reveal"><span class="guia-icon">🗺️</span><div class="guia-title">Navegação no Mapa</div><div class="guia-desc">Pontos de referência, rotas seguras e como se localizar sem mini-mapa — essencial para sobreviventes.</div><a href="#" class="guia-link">Ler guia →</a></div>
-      <div class="guia-card reveal reveal-delay-1"><span class="guia-icon">⚡</span><div class="guia-title">Builds Avançadas</div><div class="guia-desc">Para veteranos: como maximizar atributos, escolher o melhor dino para seu estilo e dominar a hierarquia.</div><a href="#" class="guia-link">Ler guia →</a></div>
+      <div class="guia-card reveal" onclick="openGuide('primeiros')"><span class="guia-icon">🥚</span><div class="guia-title">Primeiros Passos</div><div class="guia-desc">Você acabou de escolher seu primeiro dino. O que fazer? Como crescer sem morrer nos primeiros minutos?</div><span class="guia-link">Abrir protocolo →</span></div>
+      <div class="guia-card reveal reveal-delay-1" onclick="openGuide('combate')"><span class="guia-icon">🩸</span><div class="guia-title">Sistema de Combate</div><div class="guia-desc">Entenda como funciona o combate, stamina, ataques especiais e como sair vitorioso de um confronto.</div><span class="guia-link">Abrir protocolo →</span></div>
+      <div class="guia-card reveal reveal-delay-2" onclick="openGuide('sobrevivencia')"><span class="guia-icon">💧</span><div class="guia-title">Sobrevivência Básica</div><div class="guia-desc">Fome, sede, temperatura — os três inimigos invisíveis. Como gerenciar suas necessidades vitais na ilha.</div><span class="guia-link">Abrir protocolo →</span></div>
+      <div class="guia-card reveal reveal-delay-3" onclick="openGuide('manadas')"><span class="guia-icon">🤝</span><div class="guia-title">Manadas e Grupos</div><div class="guia-desc">A ilha é menos perigosa em grupo. Aprenda a formar manadas, comunicar e caçar em conjunto.</div><span class="guia-link">Abrir protocolo →</span></div>
+      <div class="guia-card reveal" onclick="openGuide('mapa')"><span class="guia-icon">🗺️</span><div class="guia-title">Navegação no Mapa</div><div class="guia-desc">Pontos de referência, rotas seguras e como se localizar sem mini-mapa — essencial para sobreviventes.</div><span class="guia-link">Abrir protocolo →</span></div>
+      <div class="guia-card reveal reveal-delay-1" onclick="openGuide('avancado')"><span class="guia-icon">⚡</span><div class="guia-title">Builds Avançadas</div><div class="guia-desc">Para veteranos: como maximizar atributos, mutações, sistema Elder e dominar a hierarquia da ilha.</div><span class="guia-link">Abrir protocolo →</span></div>
+    </div>
+
+    <!-- MODAIS DOS GUIAS -->
+    <div class="guide-modal-overlay" id="guideOverlay" onclick="closeGuideOutside(event)">
+      <div class="guide-modal" id="guideModal">
+        <div class="guide-modal-top">
+          <div style="display:flex;align-items:center">
+            <span class="guide-modal-icon" id="guideIcon"></span>
+            <div class="guide-modal-title-wrap">
+              <span class="guide-modal-tag">⚠ Protocolo de Sobrevivência</span>
+              <div class="guide-modal-title" id="guideTitle"></div>
+            </div>
+          </div>
+          <button class="guide-close" onclick="closeGuide()">✕ Fechar</button>
+        </div>
+        <div class="guide-modal-body" id="guideBody"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -790,6 +836,327 @@ const dinos=[
    raw:{peso:535,vel:1300,forca:25,grupo:10},
    stats:{Peso:6,Velocidade:95,Força:3,Grupo:100}},
 ]
+
+// GUIDES DATA
+const guides = {
+  primeiros: {
+    icon: '🥚',
+    title: 'Primeiros Passos na Ilha',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">Escolha seu primeiro dino</div>
+        <p>Se é sua primeira vez na ilha, <strong style="color:var(--acid)">não comece com um carnívoro</strong>. Herbívoros são muito mais fáceis para aprender o básico — comida está em todo lugar e você não precisa caçar.</p>
+        <div class="guide-tip">💡 <strong>Melhor dino para iniciantes:</strong> Pachycephalosaurus. Rápido, resistente, chega ao adulto em ~45 minutos e a comida dele é abundante.</div>
+        <ul class="guide-list">
+          <li>Dryosaurus e Hypsilophodon são ótimos se quiser velocidade</li>
+          <li>Tenontosaurus é equilibrado e fácil de aprender</li>
+          <li>Evite T-Rex, Allosaurus e Deinosuchus como primeiros dinos</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Ao nascer — prioridades</div>
+        <p>Você nasce como juvenil — frágil, lento e vulnerável. Sua única missão nos primeiros minutos é sobreviver, não lutar.</p>
+        <ul class="guide-list">
+          <li><strong style="color:var(--acid)">1º — Água:</strong> Encontre um rio ou lago. Beba com cuidado — Deinosuchus vive emboscado nas margens</li>
+          <li><strong style="color:var(--acid)">2º — Comida:</strong> Coma sua dieta preferida (aparece no menu do dino). Dieta perfeita acelera o crescimento</li>
+          <li><strong style="color:var(--acid)">3º — Esconda-se:</strong> Fique na vegetação densa. Juvenis são alvos fáceis</li>
+          <li><strong style="color:var(--acid)">4º — Não corra sem parar:</strong> Stamina esgotada em combate = morte</li>
+        </ul>
+        <div class="guide-warn-box">⚠ <strong>NUNCA beba água em locais abertos.</strong> Escolha margens com cobertura vegetal. O Deinosuchus espera exatamente ali.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Sistema de crescimento</div>
+        <p>Você cresce em estágios: Juvenil → Subadulto → Adulto → Elder. Cada estágio muda seu tamanho, velocidade e capacidade de combate.</p>
+        <div class="guide-tip">💡 Manter sua dieta preferida ativa dá bônus de crescimento, regeneração e visão noturna. Coma o que seu dino gosta.</div>
+        <ul class="guide-list">
+          <li>Como juvenil, <strong>fuja de qualquer confronto</strong> — você não vai ganhar</li>
+          <li>Como subadulto, já pode se defender de criaturas menores</li>
+          <li>Como adulto, você finalmente está pronto para a ilha</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Controles essenciais</div>
+        <div class="guide-controls">
+          <div class="guide-key"><kbd>E</kbd><span>Comer / Beber</span></div>
+          <div class="guide-key"><kbd>X</kbd><span>Visão noturna</span></div>
+          <div class="guide-key"><kbd>Q</kbd><span>Sentar / Descansar</span></div>
+          <div class="guide-key"><kbd>F</kbd><span>Vocalizações</span></div>
+          <div class="guide-key"><kbd>Shift</kbd><span>Correr</span></div>
+          <div class="guide-key"><kbd>Ctrl</kbd><span>Agachar</span></div>
+          <div class="guide-key"><kbd>Tab</kbd><span>Status do dino</span></div>
+          <div class="guide-key"><kbd>M</kbd><span>Mapa (se disponível)</span></div>
+        </div>
+      </div>
+    `
+  },
+  combate: {
+    icon: '🩸',
+    title: 'Sistema de Combate',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">A regra de ouro</div>
+        <div class="guide-warn-box">⚠ <strong>Nesta ilha, qualquer confronto pode ser o último.</strong> Mesmo que você ganhe, pode sair com ossos quebrados, sangrando ou sem stamina — e isso pode te matar depois.</div>
+        <p>Antes de brigar, pergunte-se: <em>preciso mesmo disso?</em> Fuga inteligente vale mais que uma vitória cara.</p>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Stamina — seu recurso mais valioso</div>
+        <p>Stamina determina quanto tempo você pode correr, atacar e defender. Zerou? Você trava — e morre.</p>
+        <ul class="guide-list">
+          <li>Nunca entre em combate com stamina baixa</li>
+          <li>Dieta perfeita aumenta a regeneração de stamina</li>
+          <li>Descansar (<kbd style="font-family:monospace;background:rgba(90,158,0,.1);border:1px solid rgba(90,158,0,.3);padding:1px 6px;color:var(--acid)">Q</kbd>) recupera stamina rapidamente</li>
+          <li>Em fuga, alterne entre correr e andar para não esgotar</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Status de combate e debuffs</div>
+        <ul class="guide-list">
+          <li><strong style="color:var(--warn)">Sangrando:</strong> Perde vida continuamente. Encontre água ou descanse para parar</li>
+          <li><strong style="color:var(--warn)">Osso Quebrado:</strong> Movimento reduzido. Descanse para curar — continuar andando piora</li>
+          <li><strong style="color:var(--warn)">Ferido (Wounded):</strong> Seu dano cai pela metade. Hora de recuar</li>
+          <li><strong style="color:var(--warn)">Cabeça fraturada:</strong> Visão reduzida a um ponto central — situação crítica</li>
+        </ul>
+        <div class="guide-tip">💡 Se você estiver sangrando E com osso quebrado ao mesmo tempo, pare tudo e descanse. Continuar combatendo nestas condições é suicídio.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Ataques e controles de combate</div>
+        <div class="guide-controls">
+          <div class="guide-key"><kbd>LMB</kbd><span>Ataque primário</span></div>
+          <div class="guide-key"><kbd>RMB</kbd><span>Ataque secundário</span></div>
+          <div class="guide-key"><kbd>Hold LMB</kbd><span>Habilidade especial</span></div>
+          <div class="guide-key"><kbd>Hold RMB</kbd><span>Habilidade especial 2</span></div>
+          <div class="guide-key"><kbd>Space</kbd><span>Pular / Emboscar</span></div>
+          <div class="guide-key"><kbd>Alt+RMB</kbd><span>Muzzle Swing (T-Rex)</span></div>
+        </div>
+        <div class="guide-warn-box">⚠ Cada dino tem habilidades únicas. Leia o menu do personagem antes de entrar em combate pela primeira vez.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Quando fugir é a decisão certa</div>
+        <p>Fuja imediatamente se:</p>
+        <ul class="guide-list">
+          <li>O oponente é maior que você</li>
+          <li>Você está com menos de 50% de stamina</li>
+          <li>Você já está sangrando ou com osso quebrado</li>
+          <li>São dois ou mais contra você</li>
+          <li>Você é juvenil ou subadulto enfrentando um adulto</li>
+        </ul>
+      </div>
+    `
+  },
+  sobrevivencia: {
+    icon: '💧',
+    title: 'Sobrevivência Básica',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">Os três inimigos invisíveis</div>
+        <p>Fome, sede e dieta ruim matam mais jogadores do que predadores. Monitore sempre o painel de status (<kbd style="font-family:monospace;background:rgba(90,158,0,.1);border:1px solid rgba(90,158,0,.3);padding:1px 6px;color:var(--acid)">Tab</kbd>).</p>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">💧 Sede — prioridade máxima</div>
+        <p>Você morre de sede mais rápido do que de fome. A água é abundante na ilha — rios, lagos e poças — mas nenhum ponto de água é seguro.</p>
+        <ul class="guide-list">
+          <li>Beba em margens cobertas por vegetação</li>
+          <li>Observe o ambiente antes de descer até a água</li>
+          <li>Evite o Centro do mapa para beber — é zona de emboscada</li>
+          <li>Chuva ativa poças temporárias em terreno aberto</li>
+        </ul>
+        <div class="guide-warn-box">⚠ O Deinosuchus vive emboscado nas margens de rios. Se a água estiver muito calma e você não vê nenhum animal bebendo — há algo errado.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">🍖 Fome e dieta preferida</div>
+        <p>Comer qualquer coisa sustenta você, mas comer sua <strong style="color:var(--acid)">dieta preferida</strong> dá bônus poderosos:</p>
+        <ul class="guide-list">
+          <li>Crescimento mais rápido</li>
+          <li>Regeneração de vida e stamina melhoradas</li>
+          <li>Maior alcance do olfato (scent)</li>
+          <li>Melhor visão noturna</li>
+          <li>Recuperação mais rápida de ossos quebrados</li>
+        </ul>
+        <div class="guide-tip">💡 Você pode acumular dieta até 200-300%. Encha quando encontrar comida boa e não precise voltar tão cedo.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">🌿 Sanctuários e locais seguros</div>
+        <p>Espalhados pela ilha existem <strong style="color:var(--acid)">Sanctuários</strong> — zonas com comida garantida e menor presença de predadores. Ideais para juvenis crescerem.</p>
+        <ul class="guide-list">
+          <li>Identificados por cogumelos brilhantes no chão</li>
+          <li>Visitar um sanctuário conta para o sistema Elder</li>
+          <li>Não são completamente seguros — continue alerta</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">🌙 Noite e visão noturna</div>
+        <p>A noite é perigosa — predadores noturnos como o Troodon ficam muito mais fortes. Use visão noturna (<kbd style="font-family:monospace;background:rgba(90,158,0,.1);border:1px solid rgba(90,158,0,.3);padding:1px 6px;color:var(--acid)">X</kbd>) e prefira descansar em locais cobertos.</p>
+        <div class="guide-warn-box">⚠ O Megalosaurus e o Troodon ganham bônus massivos à noite. Se ouvir passos e for noite — não mexa. Congele.</div>
+      </div>
+    `
+  },
+  manadas: {
+    icon: '🤝',
+    title: 'Manadas e Grupos',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">Por que jogar em grupo?</div>
+        <p>A ilha foi desenhada para punir os solitários. Em grupo, suas chances de sobreviver aumentam drasticamente — e a experiência se torna muito mais interessante.</p>
+        <div class="guide-tip">💡 Use Discord para comunicação em voz. O chat de texto do jogo faz seu dino vocalizar — o que revela sua posição para predadores.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Limite de grupo por espécie</div>
+        <p>Cada espécie tem um <strong style="color:var(--acid)">tamanho máximo de grupo</strong>. Você só pode se agrupar com dinos da mesma espécie.</p>
+        <ul class="guide-list">
+          <li>Troodon: até 10 — manada letal à noite</li>
+          <li>Herrerasaurus: até 10 — rápido e coordenado</li>
+          <li>Omniraptor: até 8 — combate cooperativo eficiente</li>
+          <li>Carnotaurus: até 3 — trio de velocidade</li>
+          <li>T-Rex: até 2 — dupla apex devastadora</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Vocalizações e comunicação</div>
+        <p>Pressione <kbd style="font-family:monospace;background:rgba(90,158,0,.1);border:1px solid rgba(90,158,0,.3);padding:1px 6px;color:var(--acid)">F</kbd> para abrir o menu de vocalizações:</p>
+        <ul class="guide-list">
+          <li><strong style="color:var(--acid)">Broadcast:</strong> O mais alto — aliados e inimigos ouvem. Use com cuidado</li>
+          <li><strong style="color:var(--acid)">Friendly:</strong> Sinaliza que você não é ameaça</li>
+          <li><strong style="color:var(--acid)">Aggressive:</strong> Aviso de ataque</li>
+          <li><strong style="color:var(--acid)">Help:</strong> Pede socorro aos aliados próximos</li>
+          <li><strong style="color:var(--acid)">Paleo Calls (T-Rex adulto):</strong> Hold F + LMB ou RMB</li>
+        </ul>
+        <div class="guide-warn-box">⚠ Usar o chat de texto faz seu dino emitir sons automaticamente. Em situação de fuga ou emboscada, evite digitar.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Ninhos e reprodução</div>
+        <p>Grupos podem criar ninhos e chocar ovos juntos. É uma das formas mais poderosas de progredir no sistema Elder.</p>
+        <ul class="guide-list">
+          <li>Um macho e uma fêmea são necessários (ou Partenogênese via mutação)</li>
+          <li>A mutação <strong>Sequential Hermaphroditism</strong> permite trocar de sexo uma vez</li>
+          <li>Ovos nascidos de ninhos contam para objetivos Elder</li>
+          <li>Proteja o ninho — outros dinos podem roubar os ovos (especialmente Oviraptor)</li>
+        </ul>
+      </div>
+    `
+  },
+  mapa: {
+    icon: '🗺️',
+    title: 'Navegação no Mapa',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">O mapa Gateway</div>
+        <p>O mapa atual do Evrima é o <strong style="color:var(--acid)">Gateway</strong> — enorme, com biomas variados e estruturas humanas espalhadas. Não há mini-mapa. Você aprende a se localizar por referências visuais.</p>
+        <div class="guide-tip">💡 Use o <strong>VulnonaMAP</strong> (disponível na seção Mapa deste site) para digitar suas coordenadas e ver sua posição exata.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Como ver suas coordenadas</div>
+        <p>No jogo, suas coordenadas aparecem no HUD. Use-as no VulnonaMAP para se localizar.</p>
+        <ul class="guide-list">
+          <li>O grid do mapa usa base de ~580m por célula</li>
+          <li>Configure o espaço de grid para 58.000 no VulnonaMAP para melhor precisão</li>
+          <li>Pontos de água e estradas são ótimas referências visuais</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Pontos de referência essenciais</div>
+        <ul class="guide-list">
+          <li><strong style="color:var(--acid)">O Domo (The Dome):</strong> Estrutura hexagonal enorme ao sul. Visível de longe — use como bússola</li>
+          <li><strong style="color:var(--acid)">Rio Central:</strong> Atravessa o mapa de norte a sul. Água garantida, mas perigoso</li>
+          <li><strong style="color:var(--acid)">West Rail:</strong> Linha férrea a oeste — boa referência linear para navegação</li>
+          <li><strong style="color:var(--acid)">Redwoods:</strong> Árvores gigantes únicas ao sudoeste — impossível confundir</li>
+          <li><strong style="color:var(--acid)">Estruturas humanas:</strong> Postos de observação, labs e abrigos espalhados — bons pontos de referência</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Dicas de navegação segura</div>
+        <ul class="guide-list">
+          <li>Nunca corra em linha reta por campo aberto — use a cobertura vegetal</li>
+          <li>Evite cristas e topos de colina — você fica em silhueta visível</li>
+          <li>Aprenda os caminhos entre pontos de água seguros da sua zona</li>
+          <li>A vegetação densa no mapa atual é muito mais densa que nas versões antigas</li>
+        </ul>
+        <div class="guide-warn-box">⚠ O ambiente mata tanto quanto os predadores. Vegetação densa pode esconder bordas de penhascos. Explore devagar em áreas desconhecidas.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Zonas de migração e patrulha</div>
+        <p>O jogo tem <strong style="color:var(--acid)">Patrol Zones</strong> e <strong style="color:var(--acid)">Migration Zones</strong> — áreas marcadas no HUD que, ao serem visitadas, contam para o sistema Elder e revelam comida e água.</p>
+        <ul class="guide-list">
+          <li>Visitar 2 Migration Zones conta para objetivo Elder</li>
+          <li>Visitar 4 Patrol Zones conta para objetivo Elder</li>
+          <li>Zones variam por espécie — siga os indicadores do seu dino</li>
+        </ul>
+      </div>
+    `
+  },
+  avancado: {
+    icon: '⚡',
+    title: 'Builds Avançadas e Sistema Elder',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">Sistema de mutações</div>
+        <p>Ao nascer, você escolhe mutações que afetam o estilo de jogo. Algumas são passivas, outras ativas — e algumas só se desbloqueiam com experiência.</p>
+        <ul class="guide-list">
+          <li><strong style="color:var(--acid)">Multichambered Lungs:</strong> Viaje 2km — aumenta capacidade de stamina</li>
+          <li><strong style="color:var(--acid)">Reniculated Kidneys:</strong> Beba 1000 unidades de água — reduz consumo de água</li>
+          <li><strong style="color:var(--acid)">Osteophagic:</strong> Consuma osso com fratura — cura fraturas mais rápido</li>
+          <li><strong style="color:var(--acid)">Sequential Hermaphroditism:</strong> Troca seu sexo uma vez</li>
+          <li><strong style="color:var(--acid)">Parthenogenesis:</strong> Fêmeas botam ovos sem macho</li>
+        </ul>
+        <div class="guide-tip">💡 Mutações herdadas do sistema Elder ficam mais fortes a cada ciclo de vida. Planeje sua build pensando nos próximos ciclos.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Sistema Elder — o loop de progressão</div>
+        <p>Quando atinge 100% de crescimento, você pode <strong style="color:var(--acid)">Entombar</strong> — morrer voluntariamente e renascer da mesma espécie, mantendo suas mutações mais fortes.</p>
+        <p>Existem dois tipos de Elder:</p>
+        <ul class="guide-list">
+          <li><strong style="color:var(--warn)">Frail Elder:</strong> Mais fraco que o adulto padrão — você falhou nos objetivos</li>
+          <li><strong style="color:var(--acid)">Prime Elder:</strong> Mais forte que o adulto — você completou 5 dos 8 objetivos</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Os 8 objetivos para Prime Elder</div>
+        <p>Complete <strong style="color:var(--acid)">qualquer 5 destes antes de atingir 75% de crescimento:</strong></p>
+        <ul class="guide-list">
+          <li>Visitar um Sanctuário</li>
+          <li>Atingir Dieta Perfeita pelo menos uma vez</li>
+          <li>Nunca ficar "Temporariamente Infértil" (mantenha ao menos 1 dieta ativa)</li>
+          <li>Nunca sofrer "Muscle Spasms" (não pratique canibalismo anormal)</li>
+          <li>Visitar 2 Migration Zones</li>
+          <li>Visitar 4 Patrol Zones</li>
+          <li>Criar ninho e criar um filhote até 50%</li>
+          <li>Nascer de um ovo em ninho ativo</li>
+        </ul>
+        <div class="guide-warn-box">⚠ Após atingir 75%, você pode escolher a última mutação para garantir o Prime. Não entombe antes de verificar.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Dinos por estilo de jogo</div>
+        <ul class="guide-list">
+          <li><strong style="color:var(--acid)">Solo agressivo:</strong> Carnotaurus, Dilophosaurus, Ceratosaurus</li>
+          <li><strong style="color:var(--acid)">Pack predador:</strong> Omniraptor, Troodon, Herrerasaurus</li>
+          <li><strong style="color:var(--acid)">Apex solo:</strong> Tyrannosaurus, Deinosuchus, Allosaurus</li>
+          <li><strong style="color:var(--acid)">Herbívoro tanque:</strong> Triceratops, Stegosaurus</li>
+          <li><strong style="color:var(--acid)">Herbívoro veloz:</strong> Maiasaura, Dryosaurus, Gallimimus</li>
+          <li><strong style="color:var(--acid)">Furtivo/noturno:</strong> Troodon, Megalosaurus</li>
+        </ul>
+      </div>
+    `
+  }
+};
+
+function openGuide(id) {
+  const g = guides[id];
+  if (!g) return;
+  document.getElementById('guideIcon').textContent = g.icon;
+  document.getElementById('guideTitle').textContent = g.title;
+  document.getElementById('guideBody').innerHTML = g.html;
+  document.getElementById('guideOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeGuide() {
+  document.getElementById('guideOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeGuideOutside(e) {
+  if (e.target === document.getElementById('guideOverlay')) closeGuide();
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeGuide();
+});
 
 // UPDATES DATA
 const updates=[
