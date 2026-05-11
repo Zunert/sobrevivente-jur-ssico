@@ -4,38 +4,49 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sobrevivente Jurássico | The Isle Evrima</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black:      #080a06;
-  --deep:       #0d100a;
-  --forest:     #141d0f;
-  --moss:       #1e2d14;
-  --fern:       #2c4a18;
-  --leaf:       #4a7825;
-  --acid:       #6db528;
-  --acid-light: #8fd44a;
-  --earth:      #5c3f1e;
-  --mud:        #3a2810;
-  --bone:       #c5b49a;
-  --parchment:  #e6d4b4;
-  --white:      #f2e8d5;
+  --black:      #050603;
+  --deep:       #080a05;
+  --forest:     #0e1409;
+  --moss:       #162010;
+  --fern:       #1e3510;
+  --leaf:       #3a6018;
+  --acid:       #5a9e1e;
+  --acid-light: #7ac836;
+  --earth:      #4a2e10;
+  --mud:        #2a1808;
+  --bone:       #b8a888;
+  --parchment:  #d8c89a;
+  --white:      #e8d8b5;
+  --blood:      #8b1a0a;
+  --blood-dim:  #5a1008;
+  --rust:       #6b2e0a;
+  --warn:       #c83010;
+  --warn-dim:   rgba(139,26,10,0.15);
+  --scratch:    rgba(90,158,30,0.12);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--black);color:var(--bone);font-family:'Crimson Pro',Georgia,serif;font-size:18px;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.7}
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:var(--deep)}
 ::-webkit-scrollbar-thumb{background:var(--fern);border-radius:3px}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.45}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:62px;background:linear-gradient(180deg,rgba(8,10,6,.97) 0%,rgba(8,10,6,.7) 100%);backdrop-filter:blur(16px);border-bottom:1px solid rgba(74,120,37,.18);transition:background .4s}
-.nav-logo{font-family:'Cinzel Decorative',serif;font-size:.72rem;color:var(--acid);text-decoration:none;letter-spacing:.04em;text-shadow:0 0 24px rgba(109,181,40,.55)}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:62px;background:linear-gradient(180deg,rgba(5,6,3,.99) 0%,rgba(5,6,3,.85) 100%);backdrop-filter:blur(16px);border-bottom:1px solid rgba(139,26,10,.35);transition:background .4s;box-shadow:0 1px 20px rgba(139,26,10,.15)}
+nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(90,158,30,.3) 30%,rgba(139,26,10,.5) 50%,rgba(90,158,30,.3) 70%,transparent)}
+.nav-logo{font-family:'Cinzel Decorative',serif;font-size:.72rem;color:var(--acid);text-decoration:none;letter-spacing:.04em;text-shadow:0 0 20px rgba(90,158,30,.5),0 0 40px rgba(139,26,10,.3)}
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bone);text-decoration:none;opacity:.65;transition:all .3s;position:relative;padding-bottom:4px}
 .nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--acid);transform:scaleX(0);transform-origin:left;transition:transform .35s}
 .nav-links a:hover{opacity:1;color:var(--acid-light)}
+.nav-alert{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--warn);opacity:.8;animation:warnpulse 3s ease-in-out infinite}
+@keyframes warnpulse{0%,100%{opacity:.5}50%{opacity:1}}
 .nav-links a:hover::after{transform:scaleX(1)}
 .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
 .nav-burger span{display:block;width:24px;height:1px;background:var(--bone);transition:.3s}
@@ -49,8 +60,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .slide:nth-child(2){background-image:url('bg2.jpg')}
 .slide:nth-child(3){background-image:url('bg3.jpg')}
 .slide:nth-child(4){background-image:url('bg4.jpg')}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,6,.45) 0%,rgba(8,10,6,.2) 40%,rgba(8,10,6,.7) 80%,rgba(8,10,6,.97) 100%);z-index:1}
-.hero-overlay2{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(8,10,6,.85) 0%,transparent 60%);z-index:1}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,6,3,.6) 0%,rgba(5,6,3,.25) 35%,rgba(5,6,3,.75) 80%,rgba(5,6,3,.98) 100%);z-index:1}
+.hero-overlay2{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(5,6,3,.9) 0%,transparent 60%);z-index:1}
+.hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse 100% 100% at 50% 50%,transparent 40%,rgba(139,26,10,.08) 70%,rgba(5,6,3,.4) 100%);z-index:1;pointer-events:none}
 .slide-dots{position:absolute;bottom:76px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:3}
 .slide-dot{width:6px;height:6px;border-radius:50%;background:rgba(197,180,154,.3);cursor:pointer;transition:all .3s;border:none}
 .slide-dot.active{background:var(--acid);transform:scale(1.4)}
@@ -114,7 +126,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .dino-name{font-family:'Cinzel',serif;font-weight:700;font-size:1rem;color:var(--parchment);margin-bottom:4px;letter-spacing:.04em}
 .dino-class{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:.8;margin-bottom:14px}
 .dino-desc{font-size:.92rem;color:var(--bone);opacity:.58;line-height:1.75;margin-bottom:20px}
-.dino-food{font-size:.78rem;color:var(--acid);opacity:.75;margin-bottom:12px;line-height:1.5}
+.dino-food{font-size:.78rem;color:var(--acid);opacity:.75;margin-bottom:12px;line-height:1.5;display:flex;align-items:flex-start;gap:6px}
 .dino-food span{color:var(--bone);opacity:.6}
 .dino-rawstats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;padding:10px;background:rgba(255,255,255,.03);border:1px solid rgba(74,120,37,.1)}
 .raw-item{display:flex;flex-direction:column;gap:2px}
@@ -205,6 +217,24 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 .footer-bottom{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:32px;border-top:1px solid rgba(74,120,37,.1)}
 .footer-copy{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bone);opacity:.28}
 
+/* SURVIVOR AESTHETIC */
+.hero-warning-tape{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--warn);background:rgba(139,26,10,.12);border:1px solid rgba(139,26,10,.3);padding:6px 20px;margin-bottom:20px;display:inline-block;animation:riseIn .9s .1s ease forwards;opacity:0}
+.hero-classified{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone);opacity:.35;margin-top:12px;animation:riseIn .9s .65s ease forwards}
+.survivor-stamp{display:inline-block;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;border:2px solid var(--warn);color:var(--warn);padding:3px 12px;opacity:.7;transform:rotate(-2deg);margin-top:12px}
+.danger-line{width:100%;height:3px;background:repeating-linear-gradient(90deg,var(--warn) 0px,var(--warn) 20px,transparent 20px,transparent 30px);opacity:.4;margin:8px 0}
+.field-note{font-style:italic;font-size:.9rem;color:var(--bone);opacity:.5;border-left:2px solid var(--warn);padding-left:12px;margin-top:12px;line-height:1.7}
+
+/* Scratch overlay on cards */
+.dino-card::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(127deg,transparent 0,transparent 40px,rgba(90,158,30,.015) 40px,rgba(90,158,30,.015) 41px);pointer-events:none}
+.update-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--warn),transparent);opacity:0;transition:opacity .35s}
+.update-card:hover::before{opacity:.6}
+
+/* Worn section divider */
+.full-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(139,26,10,.4) 20%,rgba(90,158,30,.5) 50%,rgba(139,26,10,.4) 80%,transparent 100%)}
+
+/* Warning badges on nav */
+.nav-danger-badge{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.15em;color:var(--warn);border:1px solid rgba(139,26,10,.4);padding:2px 8px;opacity:.7}
+
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -261,14 +291,17 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-overlay2"></div>
+  <div class="hero-vignette"></div>
   <div id="particles"></div>
   <div class="hero-content">
-    <span class="hero-eyebrow">The Isle Evrima</span>
+    <div class="hero-warning-tape">⚠ ZONA DE PERIGO EXTREMO ⚠</div>
+    <span class="hero-eyebrow">The Isle · Evrima</span>
     <h1 class="hero-title">Sobrevivente<br><span class="accent">Jurássico</span></h1>
-    <p class="hero-sub">O seu guia definitivo para dominar a ilha. Dinos, mapas, mecânicas e tudo que você precisa para sobreviver.</p>
+    <div class="hero-classified">[ GUIA DE CAMPO — CLASSIFICADO ]</div>
+    <p class="hero-sub">Compilado por um sobrevivente. Escrito com sangue, experiência e muito medo. Se você está lendo isso — ainda há tempo. Use cada palavra.</p>
     <div class="hero-cta">
-      <a href="#dinos" class="btn btn-fill"><span>Ver Dinossauros</span></a>
-      <a href="#guias" class="btn btn-ghost"><span>Guias para Iniciantes</span></a>
+      <a href="#dinos" class="btn btn-fill"><span>⚠ Identificar Ameaças</span></a>
+      <a href="#guias" class="btn btn-ghost"><span>Protocolos de Sobrevivência</span></a>
     </div>
   </div>
   <div class="slide-dots" id="slideDots">
@@ -289,12 +322,12 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 <section id="sobre">
   <div class="section-wrap">
     <div class="about-text">
-      <span class="section-tag reveal">Quem somos</span>
-      <h2 class="section-heading reveal reveal-delay-1">Sobre o<br>Sobrevivente Jurássico</h2>
-      <div class="about-body reveal reveal-delay-2">
-        <p>O Sobrevivente Jurássico nasceu da paixão de um grupo de jogadores dedicados a The Isle Evrima — um dos mais imersivos e brutais jogos de sobrevivência com dinossauros já criados.</p>
-        <p>Nossa missão é simples: reunir tudo que você precisa saber em um só lugar. Seja você um iniciante tentando sobreviver seus primeiros minutos, ou um veterano buscando otimizar estratégias, temos conteúdo para você.</p>
-        <p>Atualizamos constantemente conforme o jogo evolui. Cada patch, cada novo dino, cada mudança de mapa — estamos aqui para documentar tudo.</p>
+      <span class="section-tag reveal">⚠ Entrada no Diário</span>
+      <h2 class="section-heading reveal reveal-delay-1">O Diário do<br><span style="color:var(--warn)">Sobrevivente</span></h2>
+      <div class="about-body reveal reveal-delay-2" style="position:relative">
+        <p>Sobrevivi à ilha. Não sei por quanto tempo mais vou durar — mas enquanto ainda consigo segurar este caderno, vou registrar tudo que aprendi. Isso pode salvar a sua vida.</p>
+        <p>Este guia foi compilado com experiências reais na ilha. Cada registro custou sangue — meu ou de criaturas que não tiveram pena de mim. Aqui não há teorias. Só o que funciona.</p>
+        <p>Se você encontrou este guia, mantenha-o consigo. Atualize-o. Adicione suas próprias anotações. Nesta ilha, conhecimento é a única arma que não se parte.</p>
       </div>
     </div>
     <div class="reveal reveal-delay-3">
@@ -304,7 +337,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
           <div><div class="stat-num">5</div><div class="stat-lbl">Biomas</div></div>
           <div><div class="stat-num">∞</div><div class="stat-lbl">Horas de jogo</div></div>
         </div>
-        <blockquote class="about-quote">"A ilha não tem misericórdia. Cada refeição é uma luta. Cada amanhecer, uma vitória."</blockquote>
+        <blockquote class="about-quote">"Acordei hoje. Isso já é vitória. O Rex passou a noite inteira circulando o perímetro. Não movi um músculo."</blockquote>
         <div class="about-panel-deco">🦖</div>
       </div>
     </div>
@@ -317,9 +350,9 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 <section id="dinos">
   <div class="section-wrap">
     <div class="dinos-intro">
-      <span class="section-tag reveal">Bestiário</span>
-      <h2 class="section-heading reveal reveal-delay-1">Dinossauros do Evrima</h2>
-      <p class="section-lead reveal reveal-delay-2">Conheça as criaturas que habitam a ilha. Cada uma com seus pontos fortes, fraquezas e estilo de jogo único.</p>
+      <span class="section-tag reveal" style="color:var(--warn)">⚠ Registro de Ameaças</span>
+      <h2 class="section-heading reveal reveal-delay-1">Criaturas da <span style="color:var(--warn)">Ilha</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Catalogadas em campo. Cada entrada representa uma fuga, um confronto ou a morte de alguém que não era eu. Aprenda com elas.</p>
     </div>
     <div class="dinos-tabs reveal">
       <div class="dtab active" onclick="filterDinos('todos',this)">Todos</div>
@@ -337,15 +370,15 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 <section id="mapa">
   <div class="section-wrap">
     <div class="map-info">
-      <span class="section-tag reveal">Território</span>
-      <h2 class="section-heading reveal reveal-delay-1">O Mapa da Ilha</h2>
-      <p class="section-lead reveal reveal-delay-2">A ilha é vasta e repleta de perigos. Conheça as regiões principais e saiba onde encontrar recursos, água e rivais.</p>
+      <span class="section-tag reveal" style="color:var(--warn)">⚠ Mapeamento de Risco</span>
+      <h2 class="section-heading reveal reveal-delay-1">A <span style="color:var(--warn)">Ilha</span> — Nenhum Lugar é Seguro</h2>
+      <p class="section-lead reveal reveal-delay-2">Mapeei cada região. Cada uma tem seus predadores, suas armadilhas, sua forma de te matar. Memorize isso antes de sair do esconderijo.</p>
       <div class="map-locations reveal reveal-delay-3">
-        <div class="map-loc"><div class="map-loc-icon">🌊</div><div><div class="map-loc-name">Costa Leste</div><div class="map-loc-desc">Ideal para dinossauros semi-aquáticos. Peixes abundantes e rotas de fuga pelo mar.</div><span class="map-loc-tag">Dificuldade: Média</span></div></div>
-        <div class="map-loc"><div class="map-loc-icon">🌿</div><div><div class="map-loc-name">Floresta Central</div><div class="map-loc-desc">Densa cobertura vegetal. Herbívoros dominam, mas predadores emboscam entre as sombras.</div><span class="map-loc-tag">Dificuldade: Alta</span></div></div>
-        <div class="map-loc"><div class="map-loc-icon">🏔️</div><div><div class="map-loc-name">Montanhas do Norte</div><div class="map-loc-desc">Terreno acidentado favorece criaturas ágeis. Temperatura baixa — monitore sua termorregulação.</div><span class="map-loc-tag">Dificuldade: Muito Alta</span></div></div>
-        <div class="map-loc"><div class="map-loc-icon">☀️</div><div><div class="map-loc-name">Planície Árida</div><div class="map-loc-desc">Alta visibilidade. Confrontos abertos são comuns. Boa fonte de água no centro.</div><span class="map-loc-tag">Dificuldade: Média-Alta</span></div></div>
-        <div class="map-loc"><div class="map-loc-icon">🌋</div><div><div class="map-loc-name">Zona Vulcânica</div><div class="map-loc-desc">Risco extremo. Calor intenso e terreno instável. Apenas os mais experientes sobrevivem.</div><span class="map-loc-tag">Dificuldade: Extrema</span></div></div>
+        <div class="map-loc"><div class="map-loc-icon">🌿</div><div><div class="map-loc-name">Northern Jungle</div><div class="map-loc-desc">Densa vegetação tropical ao norte. Predadores médios dominam o interior. Água abundante nos rios internos.</div><span class="map-loc-tag">⚠ Dificuldade: Alta</span></div></div>
+        <div class="map-loc"><div class="map-loc-icon">🌾</div><div><div class="map-loc-name">North Plains</div><div class="map-loc-desc">Planícies abertas ao nordeste. Alta visibilidade — perigoso para criaturas pequenas, favorável para herbívoros grandes.</div><span class="map-loc-tag">⚠ Dificuldade: Média</span></div></div>
+        <div class="map-loc"><div class="map-loc-icon">🌊</div><div><div class="map-loc-name">Central Jungle · Delta</div><div class="map-loc-desc">Coração da ilha. Rio central e delta com água constante. Área de alto tráfego — encontros são inevitáveis.</div><span class="map-loc-tag">⚠ Dificuldade: Muito Alta</span></div></div>
+        <div class="map-loc"><div class="map-loc-icon">⛰️</div><div><div class="map-loc-name">Highland · West Rail</div><div class="map-loc-desc">Terras altas centrais e ferrovia a oeste. Bom ponto de observação. Ruínas humanas oferecem abrigo temporário.</div><span class="map-loc-tag">⚠ Dificuldade: Média-Alta</span></div></div>
+        <div class="map-loc"><div class="map-loc-icon">🌿</div><div><div class="map-loc-name">Eastern Jungle</div><div class="map-loc-desc">Selva densa a leste com acesso à costa. Predadores ágeis patrulham o interior. Deinosuchus nos rios.</div><span class="map-loc-tag">⚠ Dificuldade: Alta</span></div></div><div class="map-loc"><div class="map-loc-icon">🌾</div><div><div class="map-loc-name">South Plains</div><div class="map-loc-desc">Planícies ao sul dominadas pelo Domo. Zona de confronto constante entre apex predators. Evite ao anoitecer.</div><span class="map-loc-tag">⚠ Dificuldade: Extrema</span></div></div><div class="map-loc"><div class="map-loc-icon">💀</div><div><div class="map-loc-name">Swamps · The Pit</div><div class="map-loc-desc">Pântanos ao sul e a fossa a sudoeste. Os piores lugares da ilha. Deinosuchus em massa. Não há escapatória fácil.</div><span class="map-loc-tag">⚠ EXTREMA — EVITE A TODO CUSTO</span></div></div>
       </div>
     </div>
     <div class="map-visual reveal reveal-delay-2" style="aspect-ratio:unset;">
@@ -415,9 +448,9 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 <section id="atualizacoes">
   <div class="section-wrap">
     <div class="updates-header">
-      <span class="section-tag reveal">Notícias</span>
-      <h2 class="section-heading reveal reveal-delay-1">Últimas Atualizações</h2>
-      <p class="section-lead reveal reveal-delay-2">Fique por dentro de tudo que acontece no desenvolvimento do Evrima.</p>
+      <span class="section-tag reveal">⚠ Transmissões Interceptadas</span>
+      <h2 class="section-heading reveal reveal-delay-1">Últimos <span style="color:var(--acid)">Registros</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Sinais captados de fora da ilha. Os desenvolvedores ainda monitoram a situação. Estas são as últimas transmissões recebidas.</p>
     </div>
     <div class="updates-filter reveal">
       <button class="utab active" onclick="filterUpdates('todos',this)">Todos</button>
@@ -439,9 +472,9 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 <section id="guias">
   <div class="section-wrap">
     <div class="guias-intro">
-      <span class="section-tag reveal">Conhecimento</span>
-      <h2 class="section-heading reveal reveal-delay-1">Guias Essenciais</h2>
-      <p class="section-lead reveal reveal-delay-2">Do básico ao avançado. Tudo que você precisa para não virar refeição.</p>
+      <span class="section-tag reveal" style="color:var(--warn)">⚠ Protocolos de Sobrevivência</span>
+      <h2 class="section-heading reveal reveal-delay-1">Como <span style="color:var(--acid)">Sobreviver</span> à Ilha</h2>
+      <p class="section-lead reveal reveal-delay-2">Protocolos escritos às pressas. Alguns no escuro. Todos testados. Não ignore nenhum.</p>
     </div>
     <div class="guias-grid">
       <div class="guia-card reveal"><span class="guia-icon">🥚</span><div class="guia-title">Primeiros Passos</div><div class="guia-desc">Você acabou de escolher seu primeiro dino. O que fazer? Como crescer sem morrer nos primeiros minutos?</div><a href="#" class="guia-link">Ler guia →</a></div>
@@ -460,9 +493,9 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 <section id="equipe">
   <div class="section-wrap">
     <div class="team-header">
-      <span class="section-tag reveal">Por trás do site</span>
-      <h2 class="section-heading reveal reveal-delay-1">Nossa Equipe</h2>
-      <p class="section-lead reveal reveal-delay-2">Jogadores apaixonados que dedicam tempo para manter esse guia vivo.</p>
+      <span class="section-tag reveal">⚠ Grupo de Sobreviventes</span>
+      <h2 class="section-heading reveal reveal-delay-1">Os que <span style="color:var(--acid)">Resistiram</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Sobreviventes que contribuíram com este registro. Se você quiser se juntar — encontre-nos. Se ainda estiver vivo.</p>
     </div>
     <div class="team-grid">
       <div class="team-card reveal"><div class="team-avatar">🦖</div><div class="team-name">Costisaque</div><div class="team-role">Fundador & Editor</div><div class="team-bio">Criador do Sobrevivente Jurássico. Jogador veterano desde as primeiras versões do Evrima.</div></div>
@@ -480,11 +513,11 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   <div class="section-wrap">
     <div class="nl-text">
       <span class="section-tag">Fique atualizado</span>
-      <h2 class="section-heading">Receba as novidades<br>em primeira mão</h2>
-      <p class="section-lead" style="margin-top:10px;">Cada novo patch, guia e devblog direto no seu e-mail.</p>
+      <h2 class="section-heading">Receba os Próximos<br><span style="color:var(--warn)">Alertas</span></h2>
+      <p class="section-lead" style="margin-top:10px;">Novos registros, alertas de criaturas e transmissões da ilha. Deixe seu contato — caso ainda seja possível enviar.</p>
     </div>
     <div class="nl-form">
-      <input class="nl-input" type="email" placeholder="seu@email.com">
+      <input class="nl-input" type="email" placeholder="seu@email.com — se ainda tiver sinal...">
       <button class="nl-btn">Inscrever</button>
     </div>
   </div>
@@ -495,7 +528,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   <div class="footer-inner">
     <div class="footer-brand">
       <a class="nav-logo" href="#hero">The Isle Evrima</a>
-      <p>Sobrevivente Jurássico — o guia definitivo para fãs de The Isle Evrima. Feito por jogadores, para jogadores.</p>
+      <p>Um registro compilado na ilha. Cada palavra custou algo. Use com sabedoria — e nunca baixe a guarda.</p>
     </div>
     <div class="footer-col">
       <h4>Navegar</h4>
@@ -778,7 +811,7 @@ function filterDinos(t,el){
       <div class="dino-name">${d.name}</div>
       <div class="dino-class">${d.cls}</div>
       <div class="dino-desc">${d.desc}</div>
-      <div class="dino-food">🌿 <span>${d.food}</span></div>
+      <div class="dino-food">🍽️ <span>${d.food}</span></div>
       <div class="dino-rawstats">
         <div class="raw-item"><span class="raw-lbl">Peso</span><span class="raw-val">${d.raw.peso}${typeof d.raw.peso==='number'?' kg':''}</span></div>
         <div class="raw-item"><span class="raw-lbl">Vel.</span><span class="raw-val">${typeof d.raw.vel==='number'?d.raw.vel.toFixed(0):d.raw.vel}</span></div>
