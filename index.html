@@ -143,7 +143,8 @@ nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;backg
 .badge-omni{color:#c8972a;border-color:rgba(200,151,42,.3);background:rgba(200,151,42,.08)}
 
 /* MAPA */
-#mapa .section-wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:70px;align-items:start}
+#mapa .section-wrap{display:flex;flex-direction:column;gap:40px}
+.mapa-top{display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:start}
 .map-locations{display:flex;flex-direction:column;gap:14px;margin-top:36px}
 .map-loc{display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:linear-gradient(135deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.12);transition:all .3s;cursor:pointer}
 .map-loc:hover{border-color:rgba(109,181,40,.4);background:linear-gradient(135deg,var(--moss),var(--forest))}
@@ -151,7 +152,20 @@ nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;backg
 .map-loc-name{font-family:'Cinzel',serif;font-size:.88rem;font-weight:600;color:var(--parchment);margin-bottom:4px}
 .map-loc-desc{font-size:.88rem;color:var(--bone);opacity:.55;line-height:1.6}
 .map-loc-tag{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);margin-top:6px;display:block}
-.map-visual{position:relative;aspect-ratio:4/3;background:linear-gradient(145deg,var(--forest),var(--moss),var(--deep));border:1px solid rgba(74,120,37,.2);overflow:hidden}
+.map-iframe-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(5,6,3,.95);border-bottom:1px solid rgba(139,26,10,.35)}
+.map-iframe-label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acid);opacity:.8}
+.map-ctrl-btn{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);opacity:.55;text-decoration:none;background:rgba(255,255,255,.04);border:1px solid rgba(197,180,154,.15);padding:5px 14px;cursor:pointer;transition:all .3s}
+.map-ctrl-btn:hover{opacity:1;color:var(--acid);border-color:rgba(90,158,30,.4)}
+.map-iframe-wrap{width:100%;border:1px solid rgba(139,26,10,.3);overflow:hidden;display:flex;flex-direction:column;background:var(--deep)}
+.map-iframe-wrap.fullscreen-map{position:fixed;inset:0;z-index:9000;border:none}
+.map-iframe-wrap.fullscreen-map iframe{height:calc(100vh - 44px) !important}
+.map-visual{position:relative;background:linear-gradient(145deg,var(--forest),var(--moss),var(--deep));border:1px solid rgba(74,120,37,.2);overflow:hidden}
+
+/* Zones grid above map */
+.mapa-top{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:32px}
+.map-zones-grid{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;padding-top:8px}
+.map-zone-pill{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.1em;padding:6px 14px;background:rgba(14,20,9,.8);border:1px solid rgba(90,158,30,.2);color:var(--bone);opacity:.75;display:flex;gap:8px;align-items:center}
+.map-zone-pill span{color:var(--acid);opacity:.8}
 .map-svg{width:100%;height:100%}
 
 /* ATUALIZAÇÕES */
@@ -369,20 +383,44 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 <!-- MAPA -->
 <section id="mapa">
   <div class="section-wrap">
-    <div class="map-info">
-      <span class="section-tag reveal" style="color:var(--warn)">⚠ Mapeamento de Risco</span>
-      <h2 class="section-heading reveal reveal-delay-1">A <span style="color:var(--warn)">Ilha</span> — Nenhum Lugar é Seguro</h2>
-      <p class="section-lead reveal reveal-delay-2">Mapeei cada região. Cada uma tem seus predadores, suas armadilhas, sua forma de te matar. Memorize isso antes de sair do esconderijo.</p>
-      <div class="map-locations reveal reveal-delay-3">
-        <div class="map-loc"><div class="map-loc-icon">🌿</div><div><div class="map-loc-name">Northern Jungle</div><div class="map-loc-desc">Densa vegetação tropical ao norte. Predadores médios dominam o interior. Água abundante nos rios internos.</div><span class="map-loc-tag">⚠ Dificuldade: Alta</span></div></div>
-        <div class="map-loc"><div class="map-loc-icon">🌾</div><div><div class="map-loc-name">North Plains</div><div class="map-loc-desc">Planícies abertas ao nordeste. Alta visibilidade — perigoso para criaturas pequenas, favorável para herbívoros grandes.</div><span class="map-loc-tag">⚠ Dificuldade: Média</span></div></div>
-        <div class="map-loc"><div class="map-loc-icon">🌊</div><div><div class="map-loc-name">Central Jungle · Delta</div><div class="map-loc-desc">Coração da ilha. Rio central e delta com água constante. Área de alto tráfego — encontros são inevitáveis.</div><span class="map-loc-tag">⚠ Dificuldade: Muito Alta</span></div></div>
-        <div class="map-loc"><div class="map-loc-icon">⛰️</div><div><div class="map-loc-name">Highland · West Rail</div><div class="map-loc-desc">Terras altas centrais e ferrovia a oeste. Bom ponto de observação. Ruínas humanas oferecem abrigo temporário.</div><span class="map-loc-tag">⚠ Dificuldade: Média-Alta</span></div></div>
-        <div class="map-loc"><div class="map-loc-icon">🌿</div><div><div class="map-loc-name">Eastern Jungle</div><div class="map-loc-desc">Selva densa a leste com acesso à costa. Predadores ágeis patrulham o interior. Deinosuchus nos rios.</div><span class="map-loc-tag">⚠ Dificuldade: Alta</span></div></div><div class="map-loc"><div class="map-loc-icon">🌾</div><div><div class="map-loc-name">South Plains</div><div class="map-loc-desc">Planícies ao sul dominadas pelo Domo. Zona de confronto constante entre apex predators. Evite ao anoitecer.</div><span class="map-loc-tag">⚠ Dificuldade: Extrema</span></div></div><div class="map-loc"><div class="map-loc-icon">💀</div><div><div class="map-loc-name">Swamps · The Pit</div><div class="map-loc-desc">Pântanos ao sul e a fossa a sudoeste. Os piores lugares da ilha. Deinosuchus em massa. Não há escapatória fácil.</div><span class="map-loc-tag">⚠ EXTREMA — EVITE A TODO CUSTO</span></div></div>
+
+    <!-- Cabeçalho e zonas -->
+    <div class="mapa-top">
+      <div class="map-info">
+        <span class="section-tag reveal" style="color:var(--warn)">⚠ Mapeamento de Risco</span>
+        <h2 class="section-heading reveal reveal-delay-1">A <span style="color:var(--warn)">Ilha</span> — Nenhum Lugar é Seguro</h2>
+        <p class="section-lead reveal reveal-delay-2">Mapeei cada região. Cada uma tem seus predadores, suas armadilhas, sua forma de te matar. Memorize isso antes de sair do esconderijo.</p>
+      </div>
+      <div class="map-zones-grid reveal reveal-delay-2">
+        <div class="map-zone-pill">🌿 Northern Jungle <span>Média-Baixa</span></div>
+        <div class="map-zone-pill">🌾 North Plains <span>Média</span></div>
+        <div class="map-zone-pill">🌊 Central Jungle · Delta <span style="color:var(--warn)">Extrema — Prepare-se</span></div>
+        <div class="map-zone-pill">⛰️ Highland <span style="color:var(--warn)">Extrema</span> · West Rail <span style="color:var(--warn)">Alta–Extrema</span></div>
+        <div class="map-zone-pill">🌿 Eastern Jungle <span>Alta</span></div>
+        <div class="map-zone-pill">🌾 South Plains <span>Média</span></div>
+        <div class="map-zone-pill">💀 Swamps · The Pit <span>Média-Baixa</span></div>
       </div>
     </div>
-    <div class="map-visual reveal reveal-delay-2" style="aspect-ratio:unset;">
-      <img src="mapa.jpg" alt="Mapa The Isle Evrima" style="width:100%;height:auto;display:block;border:1px solid rgba(74,120,37,.2);">
+
+    <!-- Mapa interativo em largura total -->
+    <div class="map-iframe-wrap reveal">
+      <!-- Barra de controles -->
+      <div class="map-iframe-header">
+        <span class="map-iframe-label">🗺️ MAPA INTERATIVO — VulnonaMAP</span>
+        <div style="display:flex;gap:12px;align-items:center">
+          <button onclick="toggleFullscreenMap()" class="map-ctrl-btn" title="Tela cheia">⛶ Tela cheia</button>
+          <a href="https://vulnona.com/game/map/#" target="_blank" class="map-ctrl-btn">↗ Abrir no site original</a>
+        </div>
+      </div>
+      <iframe
+        id="vulnonaFrame"
+        src="https://vulnona.com/game/map/#"
+        style="width:100%;height:780px;border:none;display:block;"
+        allow="fullscreen"
+        loading="lazy"
+        title="VulnonaMAP — The Isle Evrima"
+      ></iframe>
+
       <!-- SVG backup hidden -->
       <svg style="display:none" viewBox="0 0 500 375" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -438,7 +476,8 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
           <line x1="-10" x2="10" stroke="rgba(197,180,154,0.3)" stroke-width="0.8"/>
         </g>
       </svg>
-    </div>
+    </div><!-- end map-iframe-wrap -->
+
   </div>
 </section>
 
@@ -559,6 +598,28 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 </footer>
 
 <script>
+// MAP FULLSCREEN
+function toggleFullscreenMap(){
+  const wrap = document.querySelector('.map-iframe-wrap');
+  wrap.classList.toggle('fullscreen-map');
+  const btn = document.querySelector('.map-ctrl-btn[onclick]');
+  if(wrap.classList.contains('fullscreen-map')){
+    btn.textContent = '✕ Sair da tela cheia';
+    document.body.style.overflow = 'hidden';
+  } else {
+    btn.textContent = '⛶ Tela cheia';
+    document.body.style.overflow = '';
+  }
+}
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='Escape') {
+    const wrap = document.querySelector('.map-iframe-wrap');
+    if(wrap.classList.contains('fullscreen-map')){
+      toggleFullscreenMap();
+    }
+  }
+});
+
 // SLIDESHOW
 (function(){
   const slides=document.querySelectorAll('.slide');
