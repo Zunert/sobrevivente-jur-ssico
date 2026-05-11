@@ -152,6 +152,11 @@ nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;backg
 .map-loc-name{font-family:'Cinzel',serif;font-size:.88rem;font-weight:600;color:var(--parchment);margin-bottom:4px}
 .map-loc-desc{font-size:.88rem;color:var(--bone);opacity:.55;line-height:1.6}
 .map-loc-tag{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);margin-top:6px;display:block}
+.map-activate-btn{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:16px 48px;background:rgba(14,20,9,.8);color:var(--parchment);border:1px solid rgba(90,158,30,.4);cursor:pointer;transition:all .4s;position:relative;overflow:hidden}
+.map-activate-btn::before{content:'';position:absolute;inset:0;background:var(--acid);transform:translateX(-100%);transition:transform .4s;z-index:0}
+.map-activate-btn:hover::before{transform:translateX(0)}
+.map-activate-btn:hover{color:var(--black);border-color:var(--acid)}
+.map-activate-btn span{position:relative;z-index:1}
 .map-iframe-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(5,6,3,.95);border-bottom:1px solid rgba(139,26,10,.35)}
 .map-iframe-label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acid);opacity:.8}
 .map-ctrl-btn{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);opacity:.55;text-decoration:none;background:rgba(255,255,255,.04);border:1px solid rgba(197,180,154,.15);padding:5px 14px;cursor:pointer;transition:all .3s}
@@ -432,23 +437,55 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     </div>
 
     <!-- Mapa interativo em largura total -->
-    <div class="map-iframe-wrap reveal">
-      <!-- Barra de controles -->
-      <div class="map-iframe-header">
-        <span class="map-iframe-label">🗺️ MAPA INTERATIVO — VulnonaMAP</span>
-        <div style="display:flex;gap:12px;align-items:center">
-          <button onclick="toggleFullscreenMap()" class="map-ctrl-btn" title="Tela cheia">⛶ Tela cheia</button>
-          <a href="https://vulnona.com/game/map/#" target="_blank" class="map-ctrl-btn">↗ Abrir no site original</a>
+    <div class="map-iframe-wrap reveal" id="mapWrap">
+
+      <!-- ESTADO 1: Imagem estática com botão de ativar -->
+      <div id="mapStatic" style="position:relative;cursor:pointer;" onclick="activateMap()">
+        <img src="mapa.jpg" alt="Mapa The Isle Evrima" style="width:100%;display:block;opacity:.75;filter:brightness(.8) saturate(.8);">
+        <!-- Overlay escuro gradiente -->
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,6,3,.3) 0%,rgba(5,6,3,.5) 100%);"></div>
+        <!-- Botão central -->
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;">
+          <div style="font-family:'Cinzel Decorative',serif;font-size:clamp(1.2rem,3vw,2rem);color:var(--parchment);text-shadow:0 0 30px rgba(90,158,30,.5);text-align:center;line-height:1.3;">A ILHA INTERATIVA</div>
+          <button class="map-activate-btn" onclick="activateMap()">
+            <span>🗺️ Ativar Mapa Interativo</span>
+          </button>
+          <p style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bone);opacity:.4;text-align:center;">Clique para carregar o VulnonaMAP</p>
         </div>
+        <!-- Warning de zona --> 
+        <div style="position:absolute;bottom:16px;left:16px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--warn);opacity:.7;">⚠ Nenhum lugar é seguro</div>
       </div>
-      <iframe
-        id="vulnonaFrame"
-        src="https://vulnona.com/game/map/#"
-        style="width:100%;height:780px;border:none;display:block;"
-        allow="fullscreen"
-        loading="lazy"
-        title="VulnonaMAP — The Isle Evrima"
-      ></iframe>
+
+      <!-- ESTADO 2: Iframe ativo (oculto inicialmente) -->
+      <div id="mapIframe" style="display:none;flex-direction:column;">
+        <div class="map-iframe-header">
+          <span class="map-iframe-label">🗺️ MAPA INTERATIVO — VulnonaMAP</span>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <button onclick="toggleFullscreenMap()" class="map-ctrl-btn">⛶ Tela cheia</button>
+            <a href="https://vulnona.com/game/map/#" target="_blank" class="map-ctrl-btn">↗ Site original</a>
+            <button onclick="deactivateMap()" class="map-ctrl-btn" style="color:var(--warn);border-color:rgba(139,26,10,.3);">✕ Desativar</button>
+          </div>
+        </div>
+
+        <!-- Aviso de como selecionar o mapa certo -->
+        <div id="mapHint" style="background:rgba(139,26,10,.12);border-bottom:1px solid rgba(139,26,10,.3);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:1.1rem;">⚠️</span>
+            <div>
+              <span style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--warn);">Selecione o mapa correto: </span>
+              <span style="font-family:'Cinzel',serif;font-size:.62rem;color:var(--parchment);">No canto superior esquerdo do mapa, clique no seletor e escolha <strong style="color:var(--acid);">"Gateway v0.21"</strong> ou <strong style="color:var(--acid);">"Evrima"</strong></span>
+            </div>
+          </div>
+          <button onclick="document.getElementById('mapHint').style.display='none'" style="background:none;border:1px solid rgba(139,26,10,.3);color:var(--bone);font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;cursor:pointer;flex-shrink:0;opacity:.6;">Entendi ✕</button>
+        </div>
+
+        <iframe
+          id="vulnonaFrame"
+          style="width:100%;height:780px;border:none;display:block;"
+          allow="fullscreen"
+          title="VulnonaMAP — The Isle Evrima"
+        ></iframe>
+      </div>
 
       <!-- SVG backup hidden -->
       <svg style="display:none" viewBox="0 0 500 375" xmlns="http://www.w3.org/2000/svg">
@@ -644,6 +681,31 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 </footer>
 
 <script>
+// MAP ACTIVATE / DEACTIVATE
+function activateMap(){
+  document.getElementById('mapStatic').style.display='none';
+  const iframeDiv = document.getElementById('mapIframe');
+  iframeDiv.style.display='flex';
+  iframeDiv.style.flexDirection='column';
+  // Carrega o iframe só agora
+  const frame = document.getElementById('vulnonaFrame');
+  if(!frame.src || frame.src === 'about:blank' || frame.src === ''){
+    frame.src = 'https://vulnona.com/game/map/#';
+  }
+}
+function deactivateMap(){
+  document.getElementById('mapStatic').style.display='block';
+  document.getElementById('mapIframe').style.display='none';
+  // Remove o src para parar de consumir recursos
+  document.getElementById('vulnonaFrame').src='about:blank';
+  // Fecha fullscreen se estiver ativo
+  const wrap = document.querySelector('.map-iframe-wrap');
+  if(wrap.classList.contains('fullscreen-map')){
+    wrap.classList.remove('fullscreen-map');
+    document.body.style.overflow='';
+  }
+}
+
 // MAP FULLSCREEN
 function toggleFullscreenMap(){
   const wrap = document.querySelector('.map-iframe-wrap');
