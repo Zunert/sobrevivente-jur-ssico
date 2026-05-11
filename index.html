@@ -95,7 +95,7 @@ nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;backg
 
 /* SECTIONS */
 .section-wrap{max-width:1160px;margin:0 auto;padding:100px 40px}
-.section-tag{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.45em;text-transform:uppercase;color:var(--acid);display:block;margin-bottom:14px}
+.section-tag{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:var(--acid);display:block;margin-bottom:14px}
 .section-heading{font-family:'Cinzel Decorative',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);color:var(--parchment);line-height:1.2}
 .section-lead{font-size:1.05rem;font-style:italic;color:var(--bone);opacity:.62;line-height:1.85;max-width:560px;margin-top:14px}
 
@@ -118,11 +118,11 @@ nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;backg
 .dtab{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;padding:10px 24px;cursor:pointer;background:transparent;color:var(--bone);opacity:.5;border:1px solid rgba(74,120,37,.15);transition:all .3s}
 .dtab.active,.dtab:hover{background:var(--fern);color:var(--parchment);border-color:var(--leaf);opacity:1}
 .dinos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
-.dino-card{background:linear-gradient(145deg,var(--forest) 0%,var(--deep) 100%);border:1px solid rgba(74,120,37,.13);padding:30px;position:relative;overflow:hidden;transition:all .4s;cursor:pointer}
+.dino-card{background:linear-gradient(145deg,var(--forest) 0%,var(--deep) 100%);border:1px solid rgba(74,120,37,.13);padding:30px;padding-top:44px;position:relative;overflow:hidden;transition:all .4s;cursor:pointer}
 .dino-card:hover{border-color:rgba(109,181,40,.45);transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 30px rgba(109,181,40,.07)}
 .dino-card::after{content:'';position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle at top right,rgba(74,120,37,.1),transparent 70%);pointer-events:none}
 .dino-icon{font-size:2.6rem;display:block;margin-bottom:18px}
-.dino-img{width:100%;height:160px;object-fit:contain;object-position:center;margin-bottom:14px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.7));display:block}
+.dino-img{width:100%;height:160px;object-fit:contain;object-position:center bottom;margin-bottom:14px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.7));display:block;background:transparent}
 .dino-name{font-family:'Cinzel',serif;font-weight:700;font-size:1rem;color:var(--parchment);margin-bottom:4px;letter-spacing:.04em}
 .dino-class{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:.8;margin-bottom:14px}
 .dino-desc{font-size:.92rem;color:var(--bone);opacity:.58;line-height:1.75;margin-bottom:20px}
@@ -130,14 +130,25 @@ nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;backg
 .dino-food span{color:var(--bone);opacity:.6}
 .dino-rawstats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;padding:10px;background:rgba(255,255,255,.03);border:1px solid rgba(74,120,37,.1)}
 .raw-item{display:flex;flex-direction:column;gap:2px}
-.raw-lbl{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:.65}
-.raw-val{font-family:'Cinzel',serif;font-size:.82rem;color:var(--parchment);font-weight:600}
+.raw-lbl{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:1}
+.raw-val{font-family:'Cinzel',serif;font-size:.88rem;color:var(--white);font-weight:700}
 .dino-bars{display:flex;flex-direction:column;gap:8px}
+.dino-audio{margin-top:14px;display:flex;align-items:center;gap:10px}
+.dino-play-btn{background:rgba(90,158,30,.1);border:1px solid rgba(90,158,30,.3);color:var(--acid);font-size:.65rem;font-family:'Cinzel',serif;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:6px}
+.dino-play-btn:hover{background:rgba(90,158,30,.2);border-color:var(--acid)}
+.dino-play-btn.playing{background:rgba(139,26,10,.15);border-color:rgba(139,26,10,.5);color:var(--warn)}
+.dino-audio-label{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);opacity:.4}
+.dino-sound-old{margin-top:14px;display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(0,0,0,.3);border:1px solid rgba(90,158,30,.15)}
+.sound-btn{background:none;border:1px solid rgba(90,158,30,.4);color:var(--acid);width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .3s;flex-shrink:0}
+.sound-btn:hover{background:rgba(90,158,30,.15);border-color:var(--acid)}
+.sound-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);opacity:.5}
+.sound-bar{flex:1;height:3px;background:rgba(255,255,255,.08);position:relative;overflow:hidden}
+.sound-progress{height:100%;background:var(--acid);width:0%;transition:width .1s linear}
 .dbar-row{display:flex;align-items:center;gap:10px}
-.dbar-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bone);opacity:.45;width:56px;flex-shrink:0}
+.dbar-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bone);opacity:.8;width:56px;flex-shrink:0}
 .dbar-track{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
 .dbar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--fern),var(--acid));transition:width .8s ease}
-.dino-badge{position:absolute;top:16px;right:16px;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border:1px solid;border-radius:2px}
+.dino-badge{position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border:1px solid;border-radius:2px;z-index:2}
 .badge-herb{color:#6db528;border-color:rgba(109,181,40,.3);background:rgba(109,181,40,.08)}
 .badge-carn{color:#c04a2a;border-color:rgba(192,74,42,.3);background:rgba(192,74,42,.08)}
 .badge-omni{color:#c8972a;border-color:rgba(200,151,42,.3);background:rgba(200,151,42,.08)}
@@ -152,16 +163,23 @@ nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;backg
 .map-loc-name{font-family:'Cinzel',serif;font-size:.88rem;font-weight:600;color:var(--parchment);margin-bottom:4px}
 .map-loc-desc{font-size:.88rem;color:var(--bone);opacity:.55;line-height:1.6}
 .map-loc-tag{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);margin-top:6px;display:block}
-.map-activate-btn{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:16px 48px;background:rgba(14,20,9,.8);color:var(--parchment);border:1px solid rgba(90,158,30,.4);cursor:pointer;transition:all .4s;position:relative;overflow:hidden}
-.map-activate-btn::before{content:'';position:absolute;inset:0;background:var(--acid);transform:translateX(-100%);transition:transform .4s;z-index:0}
-.map-activate-btn:hover::before{transform:translateX(0)}
-.map-activate-btn:hover{color:var(--black);border-color:var(--acid)}
-.map-activate-btn span{position:relative;z-index:1}
+.map-balloon{position:absolute;right:20px;top:20px;background:rgba(5,8,3,.96);border:2px solid rgba(90,158,30,.7);backdrop-filter:blur(12px);padding:14px 18px;display:flex;align-items:center;gap:14px;z-index:10;box-shadow:0 0 0 1px rgba(90,158,30,.15),0 6px 32px rgba(0,0,0,.7),0 0 24px rgba(90,158,30,.12);transition:all .35s;animation:balloonPulse 3s ease-in-out infinite}
+@keyframes balloonPulse{0%,100%{box-shadow:0 0 0 1px rgba(90,158,30,.15),0 6px 32px rgba(0,0,0,.7),0 0 24px rgba(90,158,30,.12)}50%{box-shadow:0 0 0 1px rgba(90,158,30,.3),0 6px 32px rgba(0,0,0,.7),0 0 36px rgba(90,158,30,.25)}}
+.map-balloon:hover{border-color:rgba(90,158,30,1);box-shadow:0 0 0 1px rgba(90,158,30,.3),0 6px 32px rgba(0,0,0,.7),0 0 40px rgba(90,158,30,.3);animation:none}
+.map-balloon-icon{font-size:1.8rem;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(90,158,30,.5))}
+.map-balloon-text{display:flex;flex-direction:column;gap:3px}
+.map-balloon-title{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--parchment);font-weight:600}
+.map-balloon-sub{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:.9}
+.map-balloon-btn{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,var(--fern),var(--leaf));color:var(--parchment);border:1px solid var(--acid);padding:9px 20px;cursor:pointer;transition:all .3s;flex-shrink:0;position:relative;overflow:hidden}
+.map-balloon-btn::before{content:'';position:absolute;inset:0;background:var(--acid);transform:translateX(-100%);transition:transform .35s;z-index:0}
+.map-balloon-btn:hover::before{transform:translateX(0)}
+.map-balloon-btn:hover{color:var(--black)}
+.map-balloon-btn span{position:relative;z-index:1}
 .map-iframe-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(5,6,3,.95);border-bottom:1px solid rgba(139,26,10,.35)}
 .map-iframe-label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acid);opacity:.8}
 .map-ctrl-btn{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);opacity:.55;text-decoration:none;background:rgba(255,255,255,.04);border:1px solid rgba(197,180,154,.15);padding:5px 14px;cursor:pointer;transition:all .3s}
 .map-ctrl-btn:hover{opacity:1;color:var(--acid);border-color:rgba(90,158,30,.4)}
-.map-iframe-wrap{width:100%;border:1px solid rgba(139,26,10,.3);overflow:hidden;display:flex;flex-direction:column;background:var(--deep)}
+.map-iframe-wrap{width:100%;border:1px solid rgba(139,26,10,.3);overflow:hidden;display:flex;flex-direction:column;background:var(--deep);position:relative}
 .map-iframe-wrap.fullscreen-map{position:fixed;inset:0;z-index:9000;border:none}
 .map-iframe-wrap.fullscreen-map iframe{height:calc(100vh - 44px) !important}
 .map-visual{position:relative;background:linear-gradient(145deg,var(--forest),var(--moss),var(--deep));border:1px solid rgba(74,120,37,.2);overflow:hidden}
@@ -283,6 +301,12 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 /* Guia card hover melhorado */
 .guia-card{cursor:pointer}
 
+/* Mobile tabs — hidden on desktop */
+.mobile-tabs{display:none}
+@media(max-width:900px){
+  .mobile-tabs{display:flex}
+}
+
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -293,20 +317,106 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  nav{padding:0 24px}
+  /* ── HIDE DESKTOP NAV ── */
+  nav{padding:0 16px;height:52px}
   .nav-links{display:none}
   .nav-burger{display:flex}
-  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:rgba(8,10,6,.98);padding:32px 24px;gap:24px;border-bottom:1px solid rgba(74,120,37,.2)}
-  .nav-links.open a{font-size:.8rem}
-  #sobre .section-wrap{grid-template-columns:1fr;gap:40px}
-  #mapa .section-wrap{grid-template-columns:1fr;gap:40px}
-  #newsletter .section-wrap{flex-direction:column;gap:32px;padding:60px 24px}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:52px;left:0;right:0;background:rgba(5,6,3,.99);padding:24px 20px;gap:20px;border-bottom:1px solid rgba(139,26,10,.3);z-index:899}
+  .nav-links.open a{font-size:.85rem}
+  .nav-logo{font-size:.62rem}
+
+  /* ── MOBILE BOTTOM TABS ── */
+  .mobile-tabs{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:800;background:rgba(5,6,3,.98);border-top:1px solid rgba(139,26,10,.3);height:62px}
+  .mob-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;border:none;background:none;padding:6px 2px}
+  .mob-tab-icon{font-size:1.2rem;line-height:1}
+  .mob-tab-label{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bone);opacity:.4;transition:all .2s}
+  .mob-tab.active .mob-tab-label{color:var(--acid);opacity:1}
+  .mob-tab.active .mob-tab-icon{filter:drop-shadow(0 0 6px rgba(90,158,30,.8))}
+  .mob-tab-indicator{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--acid);transition:width .3s;border-radius:0 0 2px 2px}
+  .mob-tab.active .mob-tab-indicator{width:80%}
+
+  /* ── MOBILE SECTIONS ── */
+  body{padding-bottom:62px}
+  section{scroll-margin-top:52px}
+  .section-wrap{padding:48px 16px 32px}
+
+  /* ── HERO ── */
+  #hero{min-height:100svh;padding:70px 16px 80px}
+  .hero-title{font-size:clamp(2.2rem,12vw,3.5rem)}
+  .hero-warning-tape{font-size:.5rem;letter-spacing:.2em;padding:5px 12px}
+  .hero-classified{font-size:.5rem}
+  .hero-sub{font-size:.95rem}
+  .hero-cta{flex-direction:column;align-items:center;gap:10px;margin-top:32px}
+  .btn{padding:12px 28px;font-size:.65rem}
+
+  /* ── SOBRE ── */
+  #sobre .section-wrap{grid-template-columns:1fr;gap:24px}
+  .stat-row{gap:16px}
+  .stat-num{font-size:2rem}
+  .about-panel{padding:28px 20px}
+
+  /* ── DINOS ── */
+  .dinos-tabs{gap:6px;margin-bottom:24px}
+  .dtab{font-size:.55rem;padding:8px 14px;letter-spacing:.1em}
+  .dinos-grid{grid-template-columns:1fr;gap:14px}
+  .dino-card{padding:20px}
+  .dino-img{height:120px}
+
+  /* ── MAPA ── */
+  .mapa-top{grid-template-columns:1fr;gap:20px}
+  .map-zones-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .map-zone-pill{font-size:.52rem;padding:5px 8px}
+  .map-iframe-wrap iframe{height:420px}
+  .map-balloon{right:10px;top:10px;padding:8px 10px;gap:8px}
+  .map-balloon-title{font-size:.6rem}
+  .map-balloon-sub{display:none}
+  .map-balloon-btn{padding:6px 12px;font-size:.55rem}
+
+  /* ── UPDATES ── */
+  .updates-grid{grid-template-columns:1fr;gap:14px}
+  .update-card{padding:20px}
+  .updates-filter{gap:6px}
+  .utab{font-size:.55rem;padding:7px 12px}
+
+  /* ── GUIAS ── */
+  .guias-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .guia-card{padding:18px 14px}
+  .guia-icon{font-size:1.5rem;margin-bottom:10px}
+  .guia-title{font-size:.78rem}
+  .guia-desc{font-size:.8rem}
+
+  /* ── EQUIPE ── */
+  .team-grid{grid-template-columns:1fr 1fr;gap:14px}
+  .team-card{padding:20px 14px}
+
+  /* ── NEWSLETTER ── */
+  #newsletter .section-wrap{flex-direction:column;gap:24px;padding:48px 16px}
   .nl-form{flex-direction:column;width:100%}
   .nl-input{min-width:unset;width:100%;border-right:1px solid rgba(74,120,37,.25);border-bottom:0}
   .nl-btn{width:100%}
-  .footer-inner{grid-template-columns:1fr;gap:40px}
-  .section-wrap{padding:70px 24px}
-  .stat-row{gap:24px}
+
+  /* ── FOOTER ── */
+  .footer-inner{grid-template-columns:1fr;gap:28px}
+  footer{padding:40px 16px 24px}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+
+  /* ── GUIDE MODAL ── */
+  .guide-modal{max-height:95vh;border-radius:0}
+  .guide-modal-top{padding:20px 18px 14px}
+  .guide-modal-title{font-size:1.1rem}
+  .guide-modal-body{padding:18px 18px 28px}
+  .guide-controls{grid-template-columns:1fr}
+  .guide-modal-overlay{padding:0;align-items:flex-end}
+
+  /* ── SECTION TITLES ── */
+  .section-heading{font-size:clamp(1.4rem,7vw,2.2rem)}
+}
+
+/* Extra pequeno */
+@media(max-width:400px){
+  .guias-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .map-zones-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -373,7 +483,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
       <span class="section-tag reveal">⚠ Entrada no Diário</span>
       <h2 class="section-heading reveal reveal-delay-1">O Diário do<br><span style="color:var(--warn)">Sobrevivente</span></h2>
       <div class="about-body reveal reveal-delay-2" style="position:relative">
-        <p>Sobrevivi à ilha. Não sei por quanto tempo mais vou durar — mas enquanto ainda consigo segurar este caderno, vou registrar tudo que aprendi. Isso pode salvar a sua vida.</p>
+        <p>Três semanas na ilha. Perdi a conta de quantas vezes quase não voltei. Vi criaturas que não deveriam existir. Aprendi que aqui, a única diferença entre viver e morrer é o que você sabe — e o que você faz com esse conhecimento antes que seja tarde demais.</p>
         <p>Este guia foi compilado com experiências reais na ilha. Cada registro custou sangue — meu ou de criaturas que não tiveram pena de mim. Aqui não há teorias. Só o que funciona.</p>
         <p>Se você encontrou este guia, mantenha-o consigo. Atualize-o. Adicione suas próprias anotações. Nesta ilha, conhecimento é a única arma que não se parte.</p>
       </div>
@@ -439,21 +549,20 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <!-- Mapa interativo em largura total -->
     <div class="map-iframe-wrap reveal" id="mapWrap">
 
-      <!-- ESTADO 1: Imagem estática com botão de ativar -->
-      <div id="mapStatic" style="position:relative;cursor:pointer;" onclick="activateMap()">
-        <img src="mapa.jpg" alt="Mapa The Isle Evrima" style="width:100%;display:block;opacity:.75;filter:brightness(.8) saturate(.8);">
-        <!-- Overlay escuro gradiente -->
-        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,6,3,.3) 0%,rgba(5,6,3,.5) 100%);"></div>
-        <!-- Botão central -->
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;">
-          <div style="font-family:'Cinzel Decorative',serif;font-size:clamp(1.2rem,3vw,2rem);color:var(--parchment);text-shadow:0 0 30px rgba(90,158,30,.5);text-align:center;line-height:1.3;">A ILHA INTERATIVA</div>
-          <button class="map-activate-btn" onclick="activateMap()">
-            <span>🗺️ Ativar Mapa Interativo</span>
-          </button>
-          <p style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bone);opacity:.4;text-align:center;">Clique para carregar o VulnonaMAP</p>
-        </div>
-        <!-- Warning de zona --> 
+      <!-- ESTADO 1: Imagem estática limpa -->
+      <div id="mapStatic" style="position:relative;">
+        <img src="mapa.jpg" alt="Mapa The Isle Evrima" style="width:100%;display:block;">
         <div style="position:absolute;bottom:16px;left:16px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--warn);opacity:.7;">⚠ Nenhum lugar é seguro</div>
+      </div>
+
+      <!-- Balão flutuante do mapa interativo -->
+      <div id="mapBalloon" class="map-balloon">
+        <div class="map-balloon-icon">🗺️</div>
+        <div class="map-balloon-text">
+          <span class="map-balloon-title">Mapa Interativo</span>
+          <span class="map-balloon-sub">VulnonaMAP</span>
+        </div>
+        <button class="map-balloon-btn" onclick="activateMap()"><span>🗺️ Ativar →</span></button>
       </div>
 
       <!-- ESTADO 2: Iframe ativo (oculto inicialmente) -->
@@ -467,16 +576,16 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
           </div>
         </div>
 
-        <!-- Aviso de como selecionar o mapa certo -->
-        <div id="mapHint" style="background:rgba(139,26,10,.12);border-bottom:1px solid rgba(139,26,10,.3);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <span style="font-size:1.1rem;">⚠️</span>
-            <div>
-              <span style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--warn);">Selecione o mapa correto: </span>
-              <span style="font-family:'Cinzel',serif;font-size:.62rem;color:var(--parchment);">No canto superior esquerdo do mapa, clique no seletor e escolha <strong style="color:var(--acid);">"Gateway v0.21"</strong> ou <strong style="color:var(--acid);">"Evrima"</strong></span>
+        <!-- Instrução destacada de troca de mapa -->
+        <div id="mapHint" style="background:linear-gradient(135deg,rgba(139,26,10,.2),rgba(90,40,5,.15));border-bottom:2px solid rgba(200,48,16,.5);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="background:rgba(200,48,16,.2);border:1px solid rgba(200,48,16,.5);padding:8px 10px;flex-shrink:0;font-size:1.4rem;line-height:1;">⚠️</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <span style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--warn);font-weight:700;">Atenção — Mapa Incorreto</span>
+              <span style="font-family:'Crimson Pro',serif;font-size:1rem;color:var(--parchment);line-height:1.5;">O mapa pode abrir em outro jogo. No <strong style="color:var(--acid)">canto superior esquerdo</strong> do mapa, clique no seletor e escolha <strong style="color:var(--acid);">"Gateway v0.21"</strong> para jogar no mapa correto do Evrima.</span>
             </div>
           </div>
-          <button onclick="document.getElementById('mapHint').style.display='none'" style="background:none;border:1px solid rgba(139,26,10,.3);color:var(--bone);font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;cursor:pointer;flex-shrink:0;opacity:.6;">Entendi ✕</button>
+          <button onclick="document.getElementById('mapHint').style.display='none'" style="background:rgba(139,26,10,.3);border:1px solid rgba(200,48,16,.5);color:var(--parchment);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:8px 16px;cursor:pointer;flex-shrink:0;transition:all .3s;white-space:nowrap;">✓ Entendi</button>
         </div>
 
         <iframe
@@ -620,10 +729,10 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
       <p class="section-lead reveal reveal-delay-2">Sobreviventes que contribuíram com este registro. Se você quiser se juntar — encontre-nos. Se ainda estiver vivo.</p>
     </div>
     <div class="team-grid">
-      <div class="team-card reveal"><div class="team-avatar">🦖</div><div class="team-name">Costisaque</div><div class="team-role">Fundador & Editor</div><div class="team-bio">Criador do Sobrevivente Jurássico. Jogador veterano desde as primeiras versões do Evrima.</div></div>
-      <div class="team-card reveal reveal-delay-1"><div class="team-avatar">🌿</div><div class="team-name">Slot Aberto</div><div class="team-role">Escritor de Guias</div><div class="team-bio">Quer ajudar a escrever guias e conteúdo? Entre em contato conosco!</div></div>
-      <div class="team-card reveal reveal-delay-2"><div class="team-avatar">🗺️</div><div class="team-name">Slot Aberto</div><div class="team-role">Cartógrafo</div><div class="team-bio">Precisamos de alguém especialista em mapas e localizações do Evrima.</div></div>
-      <div class="team-card reveal reveal-delay-3"><div class="team-avatar">📸</div><div class="team-name">Slot Aberto</div><div class="team-role">Fotógrafo / Media</div><div class="team-bio">Gosta de capturar momentos épicos no jogo? Temos espaço para você aqui.</div></div>
+      <div class="team-card reveal"><div class="team-avatar">🦖</div><div class="team-name">Zunert</div><div class="team-role">Fundador · Editor · Cartógrafo</div><div class="team-bio">Criador do Sobrevivente Jurássico. Mapeou cada região da ilha com as próprias patas. Veterano desde as primeiras versões do Evrima.</div></div>
+      
+      
+      <div class="team-card reveal reveal-delay-2"><div class="team-avatar">📸</div><div class="team-name">The Luis</div><div class="team-role">Editor de Guias · Fotógrafo</div><div class="team-bio">Responsável por capturar os momentos mais épicos da ilha. Câmera sempre em punho, mesmo com um Rex atrás.</div></div>
     </div>
   </div>
 </section>
@@ -680,14 +789,43 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   </div>
 </footer>
 
+<!-- MOBILE BOTTOM TABS -->
+<div class="mobile-tabs" id="mobileTabs">
+  <button class="mob-tab active" onclick="scrollToSection('hero',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">🏠</span>
+    <span class="mob-tab-label">Início</span>
+  </button>
+  <button class="mob-tab" onclick="scrollToSection('dinos',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">🦖</span>
+    <span class="mob-tab-label">Dinos</span>
+  </button>
+  <button class="mob-tab" onclick="scrollToSection('mapa',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">🗺️</span>
+    <span class="mob-tab-label">Mapa</span>
+  </button>
+  <button class="mob-tab" onclick="scrollToSection('guias',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">📋</span>
+    <span class="mob-tab-label">Guias</span>
+  </button>
+  <button class="mob-tab" onclick="scrollToSection('atualizacoes',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">📡</span>
+    <span class="mob-tab-label">Updates</span>
+  </button>
+</div>
+
 <script>
 // MAP ACTIVATE / DEACTIVATE
 function activateMap(){
   document.getElementById('mapStatic').style.display='none';
+  document.getElementById('mapBalloon').style.display='none';
   const iframeDiv = document.getElementById('mapIframe');
   iframeDiv.style.display='flex';
   iframeDiv.style.flexDirection='column';
-  // Carrega o iframe só agora
   const frame = document.getElementById('vulnonaFrame');
   if(!frame.src || frame.src === 'about:blank' || frame.src === ''){
     frame.src = 'https://vulnona.com/game/map/#';
@@ -695,10 +833,9 @@ function activateMap(){
 }
 function deactivateMap(){
   document.getElementById('mapStatic').style.display='block';
+  document.getElementById('mapBalloon').style.display='flex';
   document.getElementById('mapIframe').style.display='none';
-  // Remove o src para parar de consumir recursos
   document.getElementById('vulnonaFrame').src='about:blank';
-  // Fecha fullscreen se estiver ativo
   const wrap = document.querySelector('.map-iframe-wrap');
   if(wrap.classList.contains('fullscreen-map')){
     wrap.classList.remove('fullscreen-map');
@@ -727,6 +864,32 @@ document.addEventListener('keydown',(e)=>{
     }
   }
 });
+
+// MOBILE TABS
+function scrollToSection(id, btn){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.mob-tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+// Update active tab on scroll
+if(window.innerWidth <= 900){
+  const sections = ['hero','dinos','mapa','guias','atualizacoes'];
+  const tabs = document.querySelectorAll('.mob-tab');
+  window.addEventListener('scroll', () => {
+    let current = 'hero';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if(el && window.scrollY >= el.offsetTop - 120) current = id;
+    });
+    sections.forEach((id, i) => {
+      if(id === current) tabs[i]?.classList.add('active');
+      else tabs[i]?.classList.remove('active');
+    });
+  }, {passive:true});
+}
 
 // SLIDESHOW
 (function(){
@@ -770,132 +933,134 @@ function toggleMenu(){document.getElementById('navLinks').classList.toggle('open
 document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
 
 // SCROLL REVEAL
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.12});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.05});
+// Fallback: force all reveals visible after 2s in case observer fails
+setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible')),800);
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 // DINOS
 const dinos=[
   // ── HERBÍVOROS ──
-  {name:'Diabloceratops',img:'diabloceratops.jpg',type:'herbivoro',icon:'🔱',cls:'Herbívoro · Combativo',badge:'herb',bl:'Herbívoro',
+  {name:'Diabloceratops',audio:'diabloceratops.mp3',img:'diabloceratops.jpg',type:'herbivoro',icon:'🔱',cls:'Herbívoro · Combativo',badge:'herb',bl:'Herbívoro',
    food:'Marigold, Fireweed, Cashew',
    desc:'Chifres imponentes e temperamento agressivo. Perigoso em grupo e com boa força de mordida para um herbívoro.',
-   raw:{peso:3000,vel:949.8,forca:275,grupo:6},
+   raw:{peso:3000,vel:34.8,forca:275,grupo:6},
    stats:{Peso:32,Velocidade:69,Força:31,Grupo:60}},
 
-  {name:'Dryosaurus',img:'dryosaurus.jpg',type:'herbivoro',icon:'🍃',cls:'Herbívoro · Velocista',badge:'herb',bl:'Herbívoro',
+  {name:'Dryosaurus',audio:'dryosaurus.mp3',img:'dryosaurus.jpg',type:'herbivoro',icon:'🍃',cls:'Herbívoro · Velocista',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Agave, SunchokeRoots',
    desc:'Um dos mais rápidos herbívoros da ilha. Leve e ágil — sobrevive pela velocidade e em grandes grupos.',
-   raw:{peso:130,vel:1250,forca:20,grupo:10},
+   raw:{peso:130,vel:45,forca:20,grupo:10},
    stats:{Peso:1,Velocidade:91,Força:2,Grupo:100}},
 
-  {name:'Hypsilophodon',img:'hypsilophodon.jpg',type:'herbivoro',icon:'🌱',cls:'Herbívoro · Pequeno Porte',badge:'herb',bl:'Herbívoro',
+  {name:'Hypsilophodon',audio:'hypsilophodon.mp3',img:'hypsilophodon.jpg',type:'herbivoro',icon:'🌱',cls:'Herbívoro · Pequeno Porte',badge:'herb',bl:'Herbívoro',
    food:'Mango, ChanterelleMushroom, RadishRoot',
    desc:'Minúsculo e extremamente veloz. Quase indefeso em combate — sobrevive em bandos numerosos e na fuga.',
-   raw:{peso:20,vel:1100,forca:2,grupo:10},
+   raw:{peso:20,vel:40,forca:2,grupo:10},
    stats:{Peso:1,Velocidade:80,Força:1,Grupo:100}},
 
-  {name:'Maiasaura',img:'maiasaura.jpg',type:'herbivoro',icon:'🦕',cls:'Herbívoro · Grande Porte',badge:'herb',bl:'Herbívoro',
+  {name:'Maiasaura',audio:'maiasaura.mp3',img:'maiasaura.jpg',type:'herbivoro',icon:'🦕',cls:'Herbívoro · Grande Porte',badge:'herb',bl:'Herbívoro',
    food:'MountainAsh, WildPotatoRoot, RadishRoot',
    desc:'O herbívoro mais veloz da ilha. Grande, rápido e excelente em grupo — combinação difícil de enfrentar.',
-   raw:{peso:3750,vel:1304,forca:50,grupo:10},
+   raw:{peso:3750,vel:47,forca:50,grupo:10},
    stats:{Peso:39,Velocidade:95,Força:6,Grupo:100}},
 
-  {name:'Pachycephalosaurus',img:'pachycephalosaurus.jpg',type:'herbivoro',icon:'💀',cls:'Herbívoro · Cabeçudo',badge:'herb',bl:'Herbívoro',
+  {name:'Pachycephalosaurus',audio:'pachycephalosaurus.mp3',img:'pachycephalosaurus.jpg',type:'herbivoro',icon:'💀',cls:'Herbívoro · Cabeçudo',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Agave, Coconut',
    desc:'Crânio espesso como armadura. Usa a cabeça como ariete. Rápido e surpreendentemente resistente.',
-   raw:{peso:700,vel:1161,forca:30,grupo:8},
+   raw:{peso:700,vel:42,forca:30,grupo:8},
    stats:{Peso:7,Velocidade:84,Força:3,Grupo:80}},
 
-  {name:'Stegosaurus',img:'stegosaurus.jpg',type:'herbivoro',icon:'🌿',cls:'Herbívoro · Tanque',badge:'herb',bl:'Herbívoro',
+  {name:'Stegosaurus',audio:'stegosaurus.mp3',img:'stegosaurus.jpg',type:'herbivoro',icon:'🌿',cls:'Herbívoro · Tanque',badge:'herb',bl:'Herbívoro',
    food:'Marigold, Sumac, Pumpkin',
    desc:'O thagomizer (cauda espinhosa) torna qualquer ataque arriscado. Lento, mas massivo e difícil de derrubar.',
-   raw:{peso:6000,vel:807,forca:50,grupo:5},
+   raw:{peso:6000,vel:29,forca:50,grupo:5},
    stats:{Peso:63,Velocidade:59,Força:6,Grupo:50}},
 
-  {name:'Tenontosaurus',img:'tenontosaurus.jpg',type:'herbivoro',icon:'🦎',cls:'Herbívoro · Médio Porte',badge:'herb',bl:'Herbívoro',
+  {name:'Tenontosaurus',audio:'tenontosaurus.mp3',img:'tenontosaurus.jpg',type:'herbivoro',icon:'🦎',cls:'Herbívoro · Médio Porte',badge:'herb',bl:'Herbívoro',
    food:'MountainAsh, WildPotatoRoot, RadishRoot',
    desc:'Equilibrado e versátil. Boa velocidade e grupos grandes. Ideal para iniciantes aprenderem como herbívoro.',
-   raw:{peso:1600,vel:1130.8,forca:35,grupo:8},
+   raw:{peso:1600,vel:41,forca:35,grupo:8},
    stats:{Peso:17,Velocidade:82,Força:4,Grupo:80}},
 
-  {name:'Triceratops',img:'triceratops.jpg',type:'herbivoro',icon:'🦏',cls:'Herbívoro · Apex',badge:'herb',bl:'Herbívoro',
+  {name:'Triceratops',audio:'triceratops.mp3',img:'triceratops.jpg',type:'herbivoro',icon:'🦏',cls:'Herbívoro · Apex',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Fiddlehead, Papaya',
    desc:'O herbívoro mais poderoso da ilha. Força de mordida brutal e chifres capazes de perfurar qualquer predador.',
-   raw:{peso:9500,vel:650,forca:900,grupo:4},
+   raw:{peso:9500,vel:23,forca:900,grupo:4},
    stats:{Peso:100,Velocidade:47,Força:100,Grupo:40}},
 
   // ── CARNÍVOROS ──
-  {name:'Allosaurus',img:'allosaurus.jpg',type:'carnivoro',icon:'🦖',cls:'Carnívoro · Grande Porte',badge:'carn',bl:'Carnívoro',
+  {name:'Allosaurus',audio:'allosaurus.mp3',img:'allosaurus.jpg',type:'carnivoro',icon:'🦖',cls:'Carnívoro · Grande Porte',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Diabloceratops, Triceratops, Dryosaurus, Maiasaura...',
    desc:'Predador grande e rápido. Equilibrado entre peso e velocidade — uma das escolhas mais sólidas para carnívoros.',
-   raw:{peso:2593,vel:1106,forca:175,grupo:3},
+   raw:{peso:2593,vel:40,forca:175,grupo:3},
    stats:{Peso:27,Velocidade:80,Força:19,Grupo:30}},
 
-  {name:'Carnotaurus',img:'carnotaurus.jpg',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Velocista',badge:'carn',bl:'Carnívoro',
+  {name:'Carnotaurus',audio:'carnotaurus.mp3',img:'carnotaurus.jpg',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Velocista',badge:'carn',bl:'Carnívoro',
    food:'Pachycephalosaurus, Tenontosaurus, Diabloceratops, Dryosaurus, Maiasaura...',
    desc:'O predador mais rápido da ilha. Ágil e mortal em perseguições — poucos conseguem escapar do Carnotaurus.',
-   raw:{peso:1300,vel:1375,forca:150,grupo:3},
+   raw:{peso:1300,vel:49,forca:150,grupo:3},
    stats:{Peso:14,Velocidade:100,Força:17,Grupo:30}},
 
-  {name:'Ceratosaurus',img:'ceratosaurus.jpg',type:'carnivoro',icon:'🔴',cls:'Carnívoro · Médio Porte',badge:'carn',bl:'Carnívoro',
+  {name:'Ceratosaurus',audio:'ceratosaurus.mp3',img:'ceratosaurus.jpg',type:'carnivoro',icon:'🔴',cls:'Carnívoro · Médio Porte',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Pachycephalosaurus, Omniraptor, Diabloceratops...',
    desc:'Predador versátil de médio porte. Pode caçar em grupos de até 5, o que o torna formidável em cooperação.',
-   raw:{peso:1450,vel:1120,forca:150,grupo:5},
+   raw:{peso:1450,vel:40,forca:150,grupo:5},
    stats:{Peso:15,Velocidade:81,Força:17,Grupo:50}},
 
-  {name:'Deinosuchus',img:'deinosuchus.jpg',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Semi-Aquático',badge:'carn',bl:'Carnívoro',
+  {name:'Deinosuchus',audio:'deinosuchus.mp3',img:'deinosuchus.jpg',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Semi-Aquático',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Carnotaurus, Omniraptor, Gallimimus, Maiasaura...',
    desc:'Crocodiliano gigante e letal. Lento em terra mas devastador na água. Força de mordida brutal e peso massivo.',
-   raw:{peso:8000,vel:500,forca:500,grupo:2},
+   raw:{peso:8000,vel:18,forca:500,grupo:2},
    stats:{Peso:84,Velocidade:36,Força:56,Grupo:20}},
 
-  {name:'Dilophosaurus',img:'dilophosaurus.jpg',type:'carnivoro',icon:'💨',cls:'Carnívoro · Ágil',badge:'carn',bl:'Carnívoro',
+  {name:'Dilophosaurus',audio:'dilophosaurus.mp3',img:'dilophosaurus.jpg',type:'carnivoro',icon:'💨',cls:'Carnívoro · Ágil',badge:'carn',bl:'Carnívoro',
    food:'Boar, Tenontosaurus, Ceratosaurus, Diabloceratops, Hypsilophodon, Dryosaurus...',
    desc:'Rápido e mortal em grupos. Usa velocidade e coordenação para derrubar presas maiores que ele.',
-   raw:{peso:700,vel:1320,forca:85,grupo:4},
+   raw:{peso:700,vel:47,forca:85,grupo:4},
    stats:{Peso:7,Velocidade:96,Força:9,Grupo:40}},
 
-  {name:'Herrerasaurus',img:'herrerasaurus.jpg',type:'carnivoro',icon:'🌑',cls:'Carnívoro · Pequeno Porte',badge:'carn',bl:'Carnívoro',
+  {name:'Herrerasaurus',audio:'herrerasaurus.mp3',img:'herrerasaurus.jpg',type:'carnivoro',icon:'🌑',cls:'Carnívoro · Pequeno Porte',badge:'carn',bl:'Carnívoro',
    food:'Crab, SchoolingFish, Tenontosaurus, Pachycephalosaurus, Hypsilophodon, Dryosaurus...',
    desc:'Pequeno mas ágil e capaz de formar grupos grandes. Excelente para iniciantes no papel de carnívoro.',
-   raw:{peso:175,vel:1250,forca:30,grupo:10},
+   raw:{peso:175,vel:45,forca:30,grupo:10},
    stats:{Peso:2,Velocidade:91,Força:3,Grupo:100}},
 
-  {name:'Omniraptor',img:'omniraptor.jpg',type:'carnivoro',icon:'🗡️',cls:'Carnívoro · Raptor',badge:'carn',bl:'Carnívoro',
+  {name:'Omniraptor',audio:'omniraptor.mp3',img:'omniraptor.jpg',type:'carnivoro',icon:'🗡️',cls:'Carnívoro · Raptor',badge:'carn',bl:'Carnívoro',
    food:'Boar, Stegosaurus, Pachycephalosaurus, Ceratosaurus, Diabloceratops, Maiasaura...',
    desc:'Raptor veloz e inteligente. Em grupos de até 8 consegue derrubar presas muito maiores que ele.',
-   raw:{peso:395,vel:1300,forca:65,grupo:8},
+   raw:{peso:395,vel:47,forca:65,grupo:8},
    stats:{Peso:4,Velocidade:95,Força:7,Grupo:80}},
 
-  {name:'Pteranodon',img:'pteranodon.jpg',type:'carnivoro',icon:'🦅',cls:'Carnívoro · Voador',badge:'carn',bl:'Carnívoro',
+  {name:'Pteranodon',audio:'pteranodon.mp3',img:'pteranodon.jpg',type:'carnivoro',icon:'🦅',cls:'Carnívoro · Voador',badge:'carn',bl:'Carnívoro',
    food:'SchoolingFish, Crab, Clam, Chicken, Hypsilophodon, Bullfrog, Seaturtle...',
    desc:'O único voador do jogo. Domina os céus e pesca com maestria. Fraco no solo — mantenha-se no ar.',
-   raw:{peso:45,vel:792,forca:20,grupo:6},
+   raw:{peso:45,vel:28,forca:20,grupo:6},
    stats:{Peso:1,Velocidade:58,Força:2,Grupo:60}},
 
-  {name:'Troodon',img:'troodon.jpg',type:'carnivoro',icon:'🌙',cls:'Carnívoro · Noturno',badge:'carn',bl:'Carnívoro',
+  {name:'Troodon',audio:'troodon.mp3',img:'troodon.jpg',type:'carnivoro',icon:'🌙',cls:'Carnívoro · Noturno',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Crab, Tenontosaurus, Bullfrog, Chicken, Hypsilophodon, Dryosaurus...',
    desc:'Predador noturno e veloz. Grupos de até 10 tornam o Troodon letal contra presas muito maiores.',
-   raw:{peso:60,vel:1250,forca:15,grupo:10},
+   raw:{peso:60,vel:45,forca:15,grupo:10},
    stats:{Peso:1,Velocidade:91,Força:2,Grupo:100}},
 
-  {name:'Tyrannosaurus',img:'tyrannosaurus.jpg',type:'carnivoro',icon:'👑',cls:'Carnívoro · Apex',badge:'carn',bl:'Carnívoro',
+  {name:'Tyrannosaurus',audio:'tyrannosaurus.mp3',img:'tyrannosaurus.jpg',type:'carnivoro',icon:'👑',cls:'Carnívoro · Apex',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Pachycephalosaurus, Triceratops, Diabloceratops, Maiasaura...',
    desc:'O rei absoluto da ilha. Força de mordida devastadora e peso colossal. Presença que intimida todas as criaturas.',
-   raw:{peso:9350,vel:806.7,forca:700,grupo:2},
+   raw:{peso:9350,vel:29,forca:700,grupo:2},
    stats:{Peso:98,Velocidade:59,Força:78,Grupo:20}},
 
   // ── ONÍVOROS ──
-  {name:'Beipiaosaurus',img:'beipiaosaurus.jpg',type:'onivoro',icon:'🌊',cls:'Onívoro · Semi-Aquático',badge:'omni',bl:'Onívoro',
+  {name:'Beipiaosaurus',audio:'beipiaosaurus.mp3',img:'beipiaosaurus.jpg',type:'onivoro',icon:'🌊',cls:'Onívoro · Semi-Aquático',badge:'omni',bl:'Onívoro',
    food:'Crab, SchoolingFish, RadishFlower, Bullfrog, WildPotatoVine, SunchokeRoots',
    desc:'Onívoro semi-aquático com dieta variada. Ágil e adaptável — consegue sobreviver em diferentes biomas da ilha.',
-   raw:{peso:90,vel:889,forca:20,grupo:10},
+   raw:{peso:90,vel:32,forca:20,grupo:10},
    stats:{Peso:1,Velocidade:65,Força:2,Grupo:100}},
 
-  {name:'Gallimimus',img:'gallimimus.jpg',type:'onivoro',icon:'🏃',cls:'Onívoro · Velocista',badge:'omni',bl:'Onívoro',
+  {name:'Gallimimus',audio:'gallimimus.mp3',img:'gallimimus.jpg',type:'onivoro',icon:'🏃',cls:'Onívoro · Velocista',badge:'omni',bl:'Onívoro',
    food:'Crab, Mango, Bullfrog, Sumac, Pumpkin, SunchokeRoots',
    desc:'Veloz e curioso. O Gallimimus é um dos onívoros mais rápidos — usa a velocidade para fugir de qualquer ameaça.',
-   raw:{peso:535,vel:1300,forca:25,grupo:10},
+   raw:{peso:535,vel:47,forca:25,grupo:10},
    stats:{Peso:6,Velocidade:95,Força:3,Grupo:100}},
 ]
 
@@ -1289,6 +1454,22 @@ function renderUpdates(){
 }
 renderUpdates();
 
+// DINO AUDIO
+let _audio=null,_btn=null;
+function playDino(btn){
+  var file='sounds/'+btn.getAttribute('data-sound');
+  if(_audio){
+    _audio.pause();_audio.currentTime=0;
+    if(_btn){_btn.classList.remove('playing');_btn.textContent='▶ Broadcast Call';}
+    if(_btn===btn){_audio=null;_btn=null;return;}
+  }
+  var a=new Audio(file);
+  a.play().catch(function(){});
+  btn.classList.add('playing');btn.textContent='⏹ Parar';
+  _audio=a;_btn=btn;
+  a.onended=function(){btn.classList.remove('playing');btn.textContent='▶ Broadcast Call';_audio=null;_btn=null;};
+}
+
 function filterDinos(t,el){
   document.querySelectorAll('.dtab').forEach(x=>x.classList.remove('active'));
   el.classList.add('active');
@@ -1304,8 +1485,8 @@ function filterDinos(t,el){
       <div class="dino-food">🍽️ <span>${d.food}</span></div>
       <div class="dino-rawstats">
         <div class="raw-item"><span class="raw-lbl">Peso</span><span class="raw-val">${d.raw.peso}${typeof d.raw.peso==='number'?' kg':''}</span></div>
-        <div class="raw-item"><span class="raw-lbl">Vel.</span><span class="raw-val">${typeof d.raw.vel==='number'?d.raw.vel.toFixed(0):d.raw.vel}</span></div>
-        <div class="raw-item"><span class="raw-lbl">Força</span><span class="raw-val">${d.raw.forca}</span></div>
+        <div class="raw-item"><span class="raw-lbl">Vel. km/h</span><span class="raw-val">${typeof d.raw.vel==='number'?d.raw.vel.toFixed(0):d.raw.vel}</span></div>
+        <div class="raw-item"><span class="raw-lbl">F. Ataque</span><span class="raw-val">${d.raw.forca}</span></div>
         <div class="raw-item"><span class="raw-lbl">Grupo</span><span class="raw-val">${d.raw.grupo}</span></div>
       </div>
       <div class="dino-bars">${Object.entries(d.stats).map(([k,v])=>`
@@ -1314,10 +1495,13 @@ function filterDinos(t,el){
           <div class="dbar-track"><div class="dbar-fill" style="width:${v}%"></div></div>
         </div>`).join('')}
       </div>
+      <div class="dino-audio" id="audio-${i}"><button class="dino-play-btn" data-sound="${d.audio||''}" onclick="playDino(this)">&#9654; Broadcast Call</button><span class="dino-audio-label">Som real do jogo</span></div>
     </div>`).join('');
   grid.querySelectorAll('.reveal').forEach(el=>{obs.observe(el);setTimeout(()=>el.classList.add('visible'),80)});
 }
 filterDinos('todos',document.querySelector('.dtab'));
+// Also force re-observe after render
+setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>{obs.observe(el);el.classList.add('visible');}),100);
 </script>
 </body>
 </html>
