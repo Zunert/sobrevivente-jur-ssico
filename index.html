@@ -2,6 +2,14 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-21Q91YYK7Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-21Q91YYK7Y');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sobrevivente Jurássico | The Isle Evrima</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -876,15 +884,6 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 
     <!-- Cards de conteúdo aprovado -->
     <div class="com-grid reveal reveal-delay-2" id="comGrid">
-      <div class="com-card">
-        <div class="com-badge com-badge-video">🔗 Link</div>
-        <div class="com-thumb"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0a0a,#1a1a1a);font-size:2.5rem">🔗</div></div>
-        <div class="com-info">
-          <div class="com-title">suco tv teste</div>
-          <div class="com-desc">livezinha de the isle</div>
-          <a class="com-link" href="https://www.youtube.com/watch?v=7BbQUkI5v_o" target="_blank" rel="noopener">Acessar →</a>
-        </div>
-      </div>
       <!-- Exemplos iniciais -->
       <div class="com-card">
         <div class="com-badge com-badge-youtube">YouTube</div>
@@ -1194,7 +1193,7 @@ async function submitCom(e){
   txt.textContent='Enviando...';
 
   try {
-    const res = await fetch('https://formspree.io/f/mojrrvjd', {
+    const res = await fetch('https://formspree.io/f/SEU_ID_AQUI', {
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body: JSON.stringify({
