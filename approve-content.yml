@@ -1,0 +1,54 @@
+name: Aprovar Conteúdo da Comunidade
+
+on:
+  workflow_dispatch:
+    inputs:
+      nome:
+        description: 'Nome do canal/criador'
+        required: true
+      tipo:
+        description: 'Tipo (YouTube, LiveYouTube, Twitch, LiveTwitch, TikTok, Discord, Video)'
+        required: true
+      link:
+        description: 'Link do conteúdo'
+        required: true
+      descricao:
+        description: 'Descrição curta'
+        required: true
+      video_id:
+        description: 'ID do vídeo YouTube (só para YouTube/Video)'
+        required: false
+
+jobs:
+  aprovar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Adicionar conteúdo ao site
+        run: python approve_content.py
+        env:
+          NOME: ${{ github.event.inputs.nome }}
+          TIPO: ${{ github.event.inputs.tipo }}
+          LINK: ${{ github.event.inputs.link }}
+          DESCRICAO: ${{ github.event.inputs.descricao }}
+          VIDEO_ID: ${{ github.event.inputs.video_id }}
+
+      - name: Commitar e publicar
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git diff --staged --quiet || git commit -m "Comunidade: adicionado ${{ github.event.inputs.nome }} (${{ github.event.inputs.tipo }})"
+          git push
