@@ -1,5 +1,6 @@
 import os
 import re
+from datetime import datetime
 
 nome = os.environ.get('NOME', '')
 tipo = os.environ.get('TIPO', '')
@@ -12,21 +13,20 @@ print(f"Processando: {nome} ({tipo})")
 with open('index.html', 'r', encoding='utf-8') as f:
     content = f.read()
 
-# ── Definir badge e ícone por tipo ──
+approved_date = datetime.now().strftime('%Y-%m-%d')
+
 badge_map = {
-    'YouTube':     ('com-badge-youtube', '📺 YouTube'),
-    'LiveYouTube': ('com-badge-live',    '🔴 Live YT'),
-    'Twitch':      ('com-badge-twitch',  '🎮 Twitch'),
-    'LiveTwitch':  ('com-badge-live',    '🔴 Live Twitch'),
-    'TikTok':      ('com-badge-tiktok',  '🎵 TikTok'),
-    'Discord':     ('com-badge-discord', '💬 Discord'),
-    'Video':       ('com-badge-video',   '▶ Vídeo'),
-    'Outro':       ('com-badge-video',   '🔗 Link'),
+    'YouTube':     ('com-badge-youtube', '📺 YouTube',  'youtube'),
+    'LiveYouTube': ('com-badge-live',    '🔴 Live YT',  'youtube'),
+    'Twitch':      ('com-badge-twitch',  '🎮 Twitch',   'twitch'),
+    'LiveTwitch':  ('com-badge-live',    '🔴 Live',     'twitch'),
+    'TikTok':      ('com-badge-tiktok',  '🎵 TikTok',   'tiktok'),
+    'Discord':     ('com-badge-discord', '💬 Discord',  'discord'),
+    'Video':       ('com-badge-video',   '▶ Vídeo',     'youtube'),
+    'Outro':       ('com-badge-video',   '🔗 Link',     'outro'),
 }
+badge_class, badge_label, dir_tipo = badge_map.get(tipo, ('com-badge-video', '🔗 Link', 'outro'))
 
-badge_class, badge_label = badge_map.get(tipo, ('com-badge-video', '🔗 Link'))
-
-# ── Thumb ──
 if tipo in ('YouTube', 'LiveYouTube', 'Video') and video_id:
     thumb_html = f'<img class="com-thumb" src="https://img.youtube.com/vi/{video_id}/maxresdefault.jpg" alt="{nome}" style="width:100%;height:100%;object-fit:cover">'
 elif tipo in ('Twitch', 'LiveTwitch'):
@@ -39,9 +39,13 @@ elif tipo == 'Discord':
 else:
     thumb_html = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0a0a0a,#1a1a1a);font-size:2.5rem">🔗</div>'
 
-# ── Novo card ──
+icon_map = {'youtube': '📺', 'twitch': '🎮', 'tiktok': '🎵', 'discord': '💬', 'outro': '🔗'}
+dir_icon = icon_map.get(dir_tipo, '🔗')
+
+is_video = tipo in ('Video', 'YouTube', 'LiveYouTube')
+
 new_card = f'''
-      <div class="com-card">
+      <div class="com-card" data-approved="{approved_date}" data-tipo="{dir_tipo}">
         <div class="com-badge {badge_class}">{badge_label}</div>
         <div class="com-thumb">{thumb_html}</div>
         <div class="com-info">
@@ -51,45 +55,32 @@ new_card = f'''
         </div>
       </div>'''
 
-# ── Inserir na seção correta ──
-# Vídeos vão para videosGrid, o resto para comGrid
-if tipo in ('Video', 'YouTube', 'LiveYouTube'):
-    # Adicionar na seção de vídeos
-    target = '<div class="videos-grid reveal reveal-delay-2" id="videosGrid">'
-    
-    if target in content:
-        content = content.replace(target, target + new_card)
-        print(f"✅ Adicionado em videosGrid")
-    else:
-        print("❌ videosGrid não encontrado")
-else:
-    # Adicionar na seção de comunidade
-    target = '<div class="com-grid reveal reveal-delay-2" id="comGrid">'
-    
-    if target in content:
-        content = content.replace(target, target + new_card)
-        print(f"✅ Adicionado em comGrid")
-    else:
-        print("❌ comGrid não encontrado")
+dir_card = f'''
+      <div class="dir-card" data-tipo="{dir_tipo}">
+        <div class="dir-icon">{dir_icon}</div>
+        <div class="dir-info">
+          <div class="dir-name">{nome}</div>
+          <div class="dir-type">{badge_label}</div>
+        </div>
+        <a href="{link}" target="_blank" rel="noopener" class="dir-link">Visitar →</a>
+      </div>'''
 
-# ── Para Twitch ao vivo, adicionar também na barra de lives ──
-if tipo in ('LiveTwitch', 'LiveYouTube'):
-    channel = link.rstrip('/').split('/')[-1]
-    if tipo == 'LiveTwitch':
-        thumb_url = f"https://static-cdn.jtvnw.net/previews-ttv/live_user_{channel}-320x180.jpg"
-    else:
-        thumb_url = f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg" if video_id else ""
-    
-    platform = '📺 YouTube' if 'YouTube' in tipo else '🎮 Twitch'
-    
-    live_entry = f"  {{ name: '{nome}', platform: '{platform}', thumb: '{thumb_url}', url: '{link}' }},"
-    
-    target_lives = 'const youtubeLives = ['
-    if target_lives in content:
-        content = content.replace(target_lives, target_lives + '\n' + live_entry)
-        print(f"✅ Adicionado em lives")
+if is_video:
+    target = '<div class="videos-grid reveal reveal-delay-2" id="videosGrid">'
+    if target in content:
+        content = content.replace(target, target + new_card)
+        print("OK: adicionado em videosGrid")
+else:
+    target = '<div class="com-grid reveal reveal-delay-2" id="comGrid">'
+    if target in content:
+        content = content.replace(target, target + new_card)
+        print("OK: adicionado em comGrid")
+    dir_target = '<div class="dir-grid reveal reveal-delay-3" id="dirGrid">'
+    if dir_target in content:
+        content = content.replace(dir_target, dir_target + dir_card)
+        print("OK: adicionado em dirGrid")
 
 with open('index.html', 'w', encoding='utf-8') as f:
     f.write(content)
 
-print("✅ index.html atualizado com sucesso!")
+print("index.html atualizado!")

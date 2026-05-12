@@ -2,6 +2,14 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-21Q91YYK7Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-21Q91YYK7Y');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sobrevivente Jurássico | The Isle Evrima</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -389,6 +397,28 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .com-grid{grid-template-columns:1fr}
 }
 
+/* DIRETORIO */
+.dir-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.dir-tab{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;background:none;border:1px solid rgba(74,120,37,.2);color:var(--bone);opacity:.55;cursor:pointer;transition:all .3s}
+.dir-tab:hover{opacity:.8;border-color:rgba(90,158,30,.4)}
+.dir-tab.active{background:rgba(90,158,30,.1);border-color:var(--acid);color:var(--acid);opacity:1}
+.dir-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.dir-card{display:flex;align-items:center;gap:14px;background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.13);padding:14px 16px;transition:all .3s}
+.dir-card:hover{border-color:rgba(109,181,40,.35);transform:translateX(4px)}
+.dir-card[style*="display:none"]{display:none!important}
+.dir-icon{font-size:1.6rem;flex-shrink:0}
+.dir-info{flex:1;min-width:0}
+.dir-name{font-family:'Cinzel',serif;font-size:.78rem;color:var(--parchment);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.dir-type{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);opacity:.65}
+.dir-link{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);text-decoration:none;flex-shrink:0;opacity:.7;transition:opacity .3s}
+.dir-link:hover{opacity:1}
+
+@media(max-width:900px){
+  .dir-grid{grid-template-columns:1fr}
+  .dir-filters{gap:6px}
+  .dir-tab{font-size:.52rem;padding:6px 12px}
+}
+
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -564,6 +594,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <li><a href="#equipe">Equipe</a></li>
     <li><a href="#comunidade">Comunidade</a></li>
     <li><a href="#videos">Vídeos</a></li>
+    <li><a href="#diretorio">Diretório</a></li>
     <li><a href="#newsletter">Contato</a></li>
   </ul>
   <div class="nav-burger" id="burger" onclick="toggleMenu()">
@@ -1001,6 +1032,43 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   </div>
 </section>
 
+<!-- DIRETORIO DE CANAIS -->
+<div class="full-divider"></div>
+<section id="diretorio">
+  <div class="section-wrap">
+    <div class="videos-header">
+      <span class="section-tag reveal">📋 Comunidade</span>
+      <h2 class="section-heading reveal reveal-delay-1">Diretório de <span style="color:var(--acid)">Canais</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Todos os canais já aprovados pela comunidade. Aqui ficam para sempre.</p>
+    </div>
+
+    <!-- Filtros por tipo -->
+    <div class="dir-filters reveal reveal-delay-2">
+      <button class="dir-tab active" onclick="filterDir('todos',this)">Todos</button>
+      <button class="dir-tab" onclick="filterDir('youtube',this)">📺 YouTube</button>
+      <button class="dir-tab" onclick="filterDir('twitch',this)">🎮 Twitch</button>
+      <button class="dir-tab" onclick="filterDir('tiktok',this)">🎵 TikTok</button>
+      <button class="dir-tab" onclick="filterDir('discord',this)">💬 Discord</button>
+    </div>
+
+    <div class="dir-grid reveal reveal-delay-3" id="dirGrid">
+      <!-- Cards adicionados pelo GitHub Action -->
+      <div class="dir-card" data-tipo="youtube">
+        <div class="dir-icon">📺</div>
+        <div class="dir-info">
+          <div class="dir-name">Exemplo de Canal</div>
+          <div class="dir-type">YouTube</div>
+        </div>
+        <a href="https://youtube.com" target="_blank" class="dir-link">Visitar →</a>
+      </div>
+    </div>
+
+    <div id="dirEmpty" style="display:none;text-align:center;padding:40px;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bone);opacity:.3">
+      Nenhum canal encontrado
+    </div>
+  </div>
+</section>
+
 <!-- NEWSLETTER -->
 <section id="newsletter">
   <div class="section-wrap">
@@ -1081,6 +1149,23 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 </div>
 
 <script>
+// DIRETORIO FILTER
+function filterDir(tipo, el){
+  document.querySelectorAll('.dir-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const cards = document.querySelectorAll('.dir-card');
+  let visible = 0;
+  cards.forEach(c=>{
+    if(tipo==='todos' || c.dataset.tipo===tipo){
+      c.style.display='flex';
+      visible++;
+    } else {
+      c.style.display='none';
+    }
+  });
+  document.getElementById('dirEmpty').style.display = visible===0 ? 'block' : 'none';
+}
+
 // LIVES SYSTEM
 // Configurar seus canais Twitch aqui:
 const twitchChannels = [
