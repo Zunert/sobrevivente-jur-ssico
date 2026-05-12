@@ -1,18 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-21Q91YYK7Y"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-21Q91YYK7Y');
-  </script>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sobrevivente Jurássico | The Isle Evrima</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
@@ -317,6 +307,47 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .mobile-tabs{display:flex}
 }
 
+/* COMUNIDADE */
+.comunidade-header{margin-bottom:48px}
+.com-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:48px}
+.com-card{background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.13);overflow:hidden;transition:all .35s;position:relative}
+.com-card:hover{border-color:rgba(109,181,40,.4);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.com-badge{position:absolute;top:10px;left:10px;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border:1px solid;border-radius:2px;z-index:2}
+.com-badge-youtube{color:#ff4444;border-color:rgba(255,68,68,.3);background:rgba(255,68,68,.1)}
+.com-badge-twitch{color:#9b59ff;border-color:rgba(155,89,255,.3);background:rgba(155,89,255,.1)}
+.com-badge-discord{color:#5b85ff;border-color:rgba(91,133,255,.3);background:rgba(91,133,255,.1)}
+.com-badge-video{color:var(--acid);border-color:rgba(90,158,30,.3);background:rgba(90,158,30,.1)}
+.com-thumb{height:140px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(74,120,37,.1)}
+.com-info{padding:18px}
+.com-title{font-family:'Cinzel',serif;font-size:.92rem;font-weight:700;color:var(--parchment);margin-bottom:6px}
+.com-desc{font-size:.88rem;color:var(--bone);opacity:.58;line-height:1.7;margin-bottom:10px}
+.com-author{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);opacity:.7}
+.com-link{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);text-decoration:none;transition:gap .3s}
+.com-link:hover{gap:10px}
+
+/* Formulário */
+.com-form-wrap{background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.15);padding:36px}
+.com-form-header{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid rgba(74,120,37,.1)}
+.com-form{display:flex;flex-direction:column;gap:18px}
+.com-form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.com-form-group{display:flex;flex-direction:column;gap:7px}
+.com-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--acid);opacity:.8}
+.com-input{background:rgba(5,6,3,.6);border:1px solid rgba(74,120,37,.2);color:var(--bone);font-family:'Crimson Pro',serif;font-size:1rem;padding:11px 14px;outline:none;transition:border .3s;width:100%}
+.com-input:focus{border-color:rgba(90,158,30,.5)}
+.com-input option{background:var(--deep)}
+.com-textarea{resize:vertical;min-height:80px}
+.com-form-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:4px}
+.com-disclaimer{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--warn);opacity:.6}
+.com-submit-btn{padding:12px 32px}
+
+@media(max-width:900px){
+  .com-form-row{grid-template-columns:1fr}
+  .com-form-wrap{padding:20px}
+  .com-form-footer{flex-direction:column;align-items:flex-start}
+  .com-submit-btn{width:100%}
+  .com-grid{grid-template-columns:1fr}
+}
+
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -422,11 +453,59 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .section-heading{font-size:clamp(1.4rem,7vw,2.2rem)}
 }
 
-/* Extra pequeno */
+/* ── MOBILE MELHORIAS FINAS ── */
+@media(max-width:900px){
+  /* Dino card padding-top pra não sobrepor badge */
+  .dino-card{padding-top:44px !important}
+  .dino-badge{top:10px;right:10px}
+  
+  /* Raw stats legíveis no mobile */
+  .dino-rawstats{grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px}
+  .raw-val{font-size:.9rem}
+  .raw-lbl{font-size:.52rem}
+  
+  /* Audio button full width no mobile */
+  .dino-audio{flex-direction:column;align-items:flex-start;gap:6px}
+  .dino-play-btn{width:100%;justify-content:center;padding:10px}
+  
+  /* Barras mais visíveis */
+  .dbar-track{height:5px}
+  .dbar-label{font-size:.58rem;width:62px}
+  
+  /* Dino grid: 2 colunas em tablet, 1 em celular */
+  .dinos-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  
+  /* Sobre panel menor */
+  .about-quote{font-size:.88rem}
+  
+  /* Hero warning tape */
+  .hero-warning-tape{font-size:.52rem;padding:5px 12px;letter-spacing:.2em}
+  
+  /* Mapa balloon melhor posicionado */
+  .map-balloon{right:8px;top:8px;padding:8px 12px;gap:8px}
+  
+  /* Update cards full width */
+  .updates-grid{grid-template-columns:1fr}
+  
+  /* Footer compact */
+  .footer-copy{font-size:.5rem}
+}
+
+/* Extra pequeno — celulares menores que 480px */
+@media(max-width:480px){
+  .dinos-grid{grid-template-columns:1fr}
+  .dino-img{height:140px}
+  .hero-title{font-size:clamp(2rem,13vw,3rem)}
+  .hero-warning-tape{font-size:.45rem;letter-spacing:.15em}
+}
+
+/* Extra pequeno 400px */
 @media(max-width:400px){
   .guias-grid{grid-template-columns:1fr}
   .team-grid{grid-template-columns:1fr}
   .map-zones-grid{grid-template-columns:1fr}
+  .stat-row{flex-wrap:wrap;gap:12px}
+  .dino-rawstats{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -442,6 +521,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <li><a href="#atualizacoes">Atualizações</a></li>
     <li><a href="#guias">Guias</a></li>
     <li><a href="#equipe">Equipe</a></li>
+    <li><a href="#comunidade">Comunidade</a></li>
     <li><a href="#newsletter">Contato</a></li>
   </ul>
   <div class="nav-burger" id="burger" onclick="toggleMenu()">
@@ -730,6 +810,93 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 
 <div class="full-divider"></div>
 
+<!-- COMUNIDADE -->
+<div class="full-divider"></div>
+<section id="comunidade">
+  <div class="section-wrap">
+    <div class="comunidade-header">
+      <span class="section-tag reveal">⚠ Transmissões da Comunidade</span>
+      <h2 class="section-heading reveal reveal-delay-1">Conteúdo da <span style="color:var(--acid)">Comunidade</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Canais, vídeos e servidores criados por sobreviventes como você. Quer divulgar seu conteúdo? Envie abaixo.</p>
+    </div>
+
+    <!-- Cards de conteúdo aprovado -->
+    <div class="com-grid reveal reveal-delay-2" id="comGrid">
+      <!-- Exemplos iniciais -->
+      <div class="com-card">
+        <div class="com-badge com-badge-youtube">YouTube</div>
+        <div class="com-thumb" style="background:linear-gradient(135deg,#1a0a0a,#2a0a0a)">
+          <span style="font-size:2.5rem">▶</span>
+        </div>
+        <div class="com-info">
+          <div class="com-title">Seu canal aqui</div>
+          <div class="com-desc">Envie seu canal pelo formulário abaixo e apareça nesta seção após aprovação.</div>
+          <div class="com-author">📺 YouTube</div>
+        </div>
+      </div>
+      <div class="com-card">
+        <div class="com-badge com-badge-discord">Discord</div>
+        <div class="com-thumb" style="background:linear-gradient(135deg,#0a0a2a,#12124a)">
+          <span style="font-size:2.5rem">💬</span>
+        </div>
+        <div class="com-info">
+          <div class="com-title">Seu servidor aqui</div>
+          <div class="com-desc">Tem um servidor de The Isle? Divulgue aqui para a comunidade encontrar você.</div>
+          <div class="com-author">🎮 Discord</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulário de envio -->
+    <div class="com-form-wrap reveal">
+      <div class="com-form-header">
+        <span class="section-tag" style="margin-bottom:8px">Enviar Conteúdo</span>
+        <h3 style="font-family:'Cinzel',serif;font-size:1rem;color:var(--parchment);margin-bottom:6px">Divulgue seu canal ou servidor</h3>
+        <p style="font-size:.9rem;color:var(--bone);opacity:.55;line-height:1.7">Todo conteúdo é revisado antes de aparecer. Spam e conteúdo inapropriado são rejeitados automaticamente.</p>
+      </div>
+      <form class="com-form" id="comForm" onsubmit="submitCom(event)">
+        <div class="com-form-row">
+          <div class="com-form-group">
+            <label class="com-label">Seu nome / canal</label>
+            <input class="com-input" type="text" id="comNome" placeholder="Ex: Zunert Gaming" required maxlength="60">
+          </div>
+          <div class="com-form-group">
+            <label class="com-label">Tipo de conteúdo</label>
+            <select class="com-input" id="comTipo" required>
+              <option value="">Selecione...</option>
+              <option value="YouTube">📺 Canal YouTube</option>
+              <option value="Twitch">🎮 Canal Twitch</option>
+              <option value="Discord">💬 Servidor Discord</option>
+              <option value="Video">▶ Vídeo específico</option>
+              <option value="Outro">🔗 Outro</option>
+            </select>
+          </div>
+        </div>
+        <div class="com-form-group">
+          <label class="com-label">Link</label>
+          <input class="com-input" type="url" id="comLink" placeholder="https://..." required>
+        </div>
+        <div class="com-form-group">
+          <label class="com-label">Descrição curta</label>
+          <textarea class="com-input com-textarea" id="comDesc" placeholder="Descreva seu conteúdo em até 120 caracteres..." maxlength="120" required></textarea>
+        </div>
+        <div class="com-form-footer">
+          <p class="com-disclaimer">⚠ Ao enviar, você concorda que o conteúdo será revisado antes de ser publicado.</p>
+          <button type="submit" class="btn btn-fill com-submit-btn" id="comSubmitBtn"><span id="comSubmitText">Enviar para revisão →</span></button>
+        </div>
+      </form>
+      <div id="comSuccess" style="display:none;text-align:center;padding:32px;border:1px solid rgba(90,158,30,.3);background:rgba(90,158,30,.05)">
+        <div style="font-size:2rem;margin-bottom:12px">✅</div>
+        <div style="font-family:'Cinzel',serif;font-size:.9rem;color:var(--acid);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Enviado com sucesso!</div>
+        <div style="font-size:.95rem;color:var(--bone);opacity:.6">Seu conteúdo será revisado em breve. Obrigado por contribuir com a comunidade!</div>
+      </div>
+      <div id="comError" style="display:none;text-align:center;padding:24px;border:1px solid rgba(139,26,10,.3);background:rgba(139,26,10,.05)">
+        <div style="font-family:'Cinzel',serif;font-size:.8rem;color:var(--warn);letter-spacing:.1em;text-transform:uppercase" id="comErrorMsg">Erro ao enviar. Tente novamente.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- EQUIPE -->
 <section id="equipe">
   <div class="section-wrap">
@@ -829,6 +996,62 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 </div>
 
 <script>
+// COMUNIDADE FORM
+async function submitCom(e){
+  e.preventDefault();
+  const btn = document.getElementById('comSubmitBtn');
+  const txt = document.getElementById('comSubmitText');
+  const nome = document.getElementById('comNome').value;
+  const tipo = document.getElementById('comTipo').value;
+  const link = document.getElementById('comLink').value;
+  const desc = document.getElementById('comDesc').value;
+
+  // Basic validation
+  document.getElementById('comError').style.display='none';
+
+  // Check for obvious spam/bad content
+  const badWords = ['porn','xxx','hack','cheat','free money','bitcoin','crypto giveaway'];
+  const allText = (nome+desc+link).toLowerCase();
+  if(badWords.some(w=>allText.includes(w))){
+    document.getElementById('comErrorMsg').textContent='⚠ Conteúdo não permitido detectado.';
+    document.getElementById('comError').style.display='block';
+    return;
+  }
+
+  // Check URL is valid
+  try { new URL(link); } catch {
+    document.getElementById('comErrorMsg').textContent='⚠ Link inválido. Use o formato https://...';
+    document.getElementById('comError').style.display='block';
+    return;
+  }
+
+  btn.disabled=true;
+  txt.textContent='Enviando...';
+
+  try {
+    const res = await fetch('https://formspree.io/f/SEU_ID_AQUI', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        nome, tipo, link, descricao: desc,
+        _subject: `[Comunidade] Nova submissão: ${tipo} - ${nome}`
+      })
+    });
+
+    if(res.ok){
+      document.getElementById('comForm').style.display='none';
+      document.getElementById('comSuccess').style.display='block';
+    } else {
+      throw new Error('Erro no servidor');
+    }
+  } catch(err) {
+    document.getElementById('comErrorMsg').textContent='⚠ Erro ao enviar. Tente novamente em instantes.';
+    document.getElementById('comError').style.display='block';
+    btn.disabled=false;
+    txt.textContent='Enviar para revisão →';
+  }
+}
+
 // MAP ACTIVATE / DEACTIVATE
 function activateMap(){
   document.getElementById('mapStatic').style.display='none';
