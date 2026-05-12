@@ -1,4 +1,4 @@
-name: Atualizar Notícias The Isle
+name: Atualizar Noticias The Isle
 
 on:
   schedule:
@@ -10,26 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
-      - name: Baixar repositório
-        uses: actions/checkout@v4
-
-      - name: Instalar Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Instalar dependências
-        run: pip install requests feedparser
-
-      - name: Rodar script de atualização
-        run: python update_news.py
-
-      - name: Commitar mudanças se houver
-        run: |
+      - run: pip install requests feedparser
+      - run: python update_news.py
+      - run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add index.html
-          git diff --staged --quiet || git commit -m "Auto: novas atualizacoes do Evrima"
+          git diff --staged --quiet || git commit -m "Auto: noticias atualizadas"
           git push
