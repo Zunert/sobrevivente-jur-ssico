@@ -1,0 +1,2323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-21Q91YYK7Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-21Q91YYK7Y');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sobrevivente Jurássico | The Isle Evrima</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:      #050603;
+  --deep:       #080a05;
+  --forest:     #0e1409;
+  --moss:       #162010;
+  --fern:       #1e3510;
+  --leaf:       #3a6018;
+  --acid:       #5a9e1e;
+  --acid-light: #7ac836;
+  --earth:      #4a2e10;
+  --mud:        #2a1808;
+  --bone:       #b8a888;
+  --parchment:  #d8c89a;
+  --white:      #e8d8b5;
+  --blood:      #8b1a0a;
+  --blood-dim:  #5a1008;
+  --rust:       #6b2e0a;
+  --warn:       #c83010;
+  --warn-dim:   rgba(139,26,10,0.15);
+  --scratch:    rgba(90,158,30,0.12);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--bone);font-family:'Crimson Pro',Georgia,serif;font-size:18px;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.7}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--deep)}
+::-webkit-scrollbar-thumb{background:var(--fern);border-radius:3px}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.45}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:62px;background:linear-gradient(180deg,rgba(5,6,3,.99) 0%,rgba(5,6,3,.85) 100%);backdrop-filter:blur(16px);border-bottom:1px solid rgba(139,26,10,.35);transition:background .4s;box-shadow:0 1px 20px rgba(139,26,10,.15)}
+nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(90,158,30,.3) 30%,rgba(139,26,10,.5) 50%,rgba(90,158,30,.3) 70%,transparent)}
+.nav-logo{font-family:'Cinzel Decorative',serif;font-size:.72rem;color:var(--acid);text-decoration:none;letter-spacing:.04em;text-shadow:0 0 20px rgba(90,158,30,.5),0 0 40px rgba(139,26,10,.3)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bone);text-decoration:none;opacity:.65;transition:all .3s;position:relative;padding-bottom:4px}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--acid);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.nav-links a:hover{opacity:1;color:var(--acid-light)}
+.nav-alert{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--warn);opacity:.8;animation:warnpulse 3s ease-in-out infinite}
+@keyframes warnpulse{0%,100%{opacity:.5}50%{opacity:1}}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-burger span{display:block;width:24px;height:1px;background:var(--bone);transition:.3s}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 24px 80px;overflow:hidden}
+.slideshow{position:absolute;inset:0;z-index:0}
+.slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.8s ease-in-out}
+.slide.active{opacity:1}
+.slide:nth-child(1){background-image:url('bg1.jpg')}
+.slide:nth-child(2){background-image:url('bg2.jpg')}
+.slide:nth-child(3){background-image:url('bg3.jpg')}
+.slide:nth-child(4){background-image:url('bg4.jpg')}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,6,3,.6) 0%,rgba(5,6,3,.25) 35%,rgba(5,6,3,.75) 80%,rgba(5,6,3,.98) 100%);z-index:1}
+.hero-overlay2{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(5,6,3,.9) 0%,transparent 60%);z-index:1}
+.hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse 100% 100% at 50% 50%,transparent 40%,rgba(139,26,10,.08) 70%,rgba(5,6,3,.4) 100%);z-index:1;pointer-events:none}
+.slide-dots{position:absolute;bottom:76px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:3}
+.slide-dot{width:6px;height:6px;border-radius:50%;background:rgba(197,180,154,.3);cursor:pointer;transition:all .3s;border:none}
+.slide-dot.active{background:var(--acid);transform:scale(1.4)}
+#particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.pt{position:absolute;top:-20px;width:2px;border-radius:2px;background:var(--leaf);opacity:0;animation:ptfall linear infinite}
+@keyframes ptfall{0%{opacity:0;transform:translateY(0) rotate(0deg)}8%{opacity:.55}92%{opacity:.2}100%{opacity:0;transform:translateY(110vh) rotate(720deg)}}
+.hero-content{position:relative;z-index:2}
+.hero-eyebrow{font-family:'Cinzel',serif;font-size:.63rem;letter-spacing:.45em;text-transform:uppercase;color:var(--acid);margin-bottom:28px;display:block;opacity:0;animation:riseIn .9s .3s ease forwards}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'── ';opacity:.45}
+.hero-title{font-family:'Cinzel Decorative',serif;font-size:clamp(2.6rem,9vw,7rem);font-weight:900;line-height:1.02;color:var(--parchment);text-shadow:0 0 80px rgba(109,181,40,.25),3px 6px 0 rgba(0,0,0,.7);opacity:0;animation:riseIn 1s .5s ease forwards}
+.hero-title .accent{color:var(--acid);text-shadow:0 0 30px rgba(109,181,40,.9),0 0 70px rgba(109,181,40,.45)}
+.hero-sub{font-size:clamp(1rem,2vw,1.25rem);font-style:italic;color:var(--bone);opacity:0;line-height:1.75;max-width:500px;margin:22px auto 0;animation:riseIn 1s .75s ease forwards}
+.hero-cta{display:flex;gap:16px;margin-top:52px;flex-wrap:wrap;justify-content:center;opacity:0;animation:riseIn 1s 1s ease forwards}
+@keyframes riseIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.btn{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;padding:14px 38px;text-decoration:none;transition:all .35s;position:relative;overflow:hidden;display:inline-block}
+.btn-fill{background:var(--fern);color:var(--parchment);border:1px solid var(--leaf)}
+.btn-fill::before{content:'';position:absolute;inset:0;background:var(--acid);transform:translateX(-100%);transition:transform .4s;z-index:0}
+.btn-fill:hover::before{transform:translateX(0)}
+.btn-fill:hover{color:var(--black);border-color:var(--acid)}
+.btn-fill span,.btn-ghost span{position:relative;z-index:1}
+.btn-ghost{background:transparent;color:var(--bone);border:1px solid rgba(197,180,154,.25)}
+.btn-ghost:hover{border-color:var(--bone);background:rgba(197,180,154,.05);color:var(--white)}
+.hero-scroll{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:riseIn 1s 1.5s ease forwards}
+.hero-scroll span{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;opacity:.4}
+.scroll-chevron{width:18px;height:18px;border-right:1px solid rgba(197,180,154,.4);border-bottom:1px solid rgba(197,180,154,.4);transform:rotate(45deg);animation:chevronBounce 2s ease-in-out infinite}
+@keyframes chevronBounce{0%,100%{transform:rotate(45deg) translate(0,0)}50%{transform:rotate(45deg) translate(4px,4px)}}
+
+/* DIVIDER */
+.full-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(74,120,37,.35) 30%,rgba(109,181,40,.6) 50%,rgba(74,120,37,.35) 70%,transparent 100%)}
+
+/* SECTIONS */
+.section-wrap{max-width:1160px;margin:0 auto;padding:100px 40px}
+.section-tag{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.35em;text-transform:uppercase;color:var(--acid);display:block;margin-bottom:14px}
+.section-heading{font-family:'Cinzel Decorative',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);color:var(--parchment);line-height:1.2}
+.section-lead{font-size:1.05rem;font-style:italic;color:var(--bone);opacity:.62;line-height:1.85;max-width:560px;margin-top:14px}
+
+/* SOBRE */
+#sobre .section-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center}
+.about-body{margin-top:28px;font-size:1.05rem;line-height:1.9;color:var(--bone);opacity:.72}
+.about-body p+p{margin-top:16px}
+.about-panel{background:linear-gradient(145deg,var(--forest) 0%,var(--deep) 100%);border:1px solid rgba(74,120,37,.18);padding:48px;position:relative;overflow:hidden}
+.about-panel::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:linear-gradient(180deg,var(--acid),var(--fern),transparent)}
+.about-panel-deco{position:absolute;bottom:-16px;right:16px;font-size:8rem;opacity:.05;pointer-events:none;transform:scaleX(-1)}
+.stat-row{display:flex;gap:40px;margin-bottom:36px}
+.stat-num{font-family:'Cinzel Decorative',serif;font-size:2.6rem;color:var(--acid);line-height:1;text-shadow:0 0 20px rgba(109,181,40,.45)}
+.stat-lbl{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bone);opacity:.5;margin-top:5px}
+.about-quote{border-left:2px solid var(--fern);padding-left:20px;margin-top:32px;font-style:italic;font-size:1rem;color:var(--bone);opacity:.55;line-height:1.8}
+
+/* DINOS */
+#dinos{background:linear-gradient(180deg,var(--black) 0%,var(--deep) 50%,var(--black) 100%)}
+.dinos-intro{margin-bottom:60px}
+.dinos-tabs{display:flex;gap:4px;margin-bottom:40px;flex-wrap:wrap}
+.dtab{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;padding:10px 24px;cursor:pointer;background:transparent;color:var(--bone);opacity:.5;border:1px solid rgba(74,120,37,.15);transition:all .3s}
+.dtab.active,.dtab:hover{background:var(--fern);color:var(--parchment);border-color:var(--leaf);opacity:1}
+.dinos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.dino-card{background:linear-gradient(145deg,var(--forest) 0%,var(--deep) 100%);border:1px solid rgba(74,120,37,.13);padding:30px;padding-top:44px;position:relative;overflow:hidden;transition:all .4s;cursor:pointer}
+.dino-card:hover{border-color:rgba(109,181,40,.45);transform:translateY(-5px);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 30px rgba(109,181,40,.07)}
+.dino-card::after{content:'';position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle at top right,rgba(74,120,37,.1),transparent 70%);pointer-events:none}
+.dino-icon{font-size:2.6rem;display:block;margin-bottom:18px}
+.dino-img{width:100%;height:160px;object-fit:contain;object-position:center bottom;margin-bottom:14px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.7));display:block;background:transparent}
+.dino-name{font-family:'Cinzel',serif;font-weight:700;font-size:1rem;color:var(--parchment);margin-bottom:4px;letter-spacing:.04em}
+.dino-class{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:.8;margin-bottom:14px}
+.dino-desc{font-size:.92rem;color:var(--bone);opacity:.58;line-height:1.75;margin-bottom:20px}
+.dino-food{font-size:.78rem;color:var(--acid);opacity:.75;margin-bottom:12px;line-height:1.5;display:flex;align-items:flex-start;gap:6px}
+.dino-food span{color:var(--bone);opacity:.6}
+.dino-rawstats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;padding:10px;background:rgba(255,255,255,.03);border:1px solid rgba(74,120,37,.1)}
+.raw-item{display:flex;flex-direction:column;gap:2px}
+.raw-lbl{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:1}
+.raw-val{font-family:'Cinzel',serif;font-size:.88rem;color:var(--white);font-weight:700}
+.dino-bars{display:flex;flex-direction:column;gap:8px}
+.dino-audio{margin-top:14px;display:flex;align-items:center;gap:10px}
+.dino-play-btn{background:rgba(90,158,30,.1);border:1px solid rgba(90,158,30,.3);color:var(--acid);font-size:.65rem;font-family:'Cinzel',serif;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:6px}
+.dino-play-btn:hover{background:rgba(90,158,30,.2);border-color:var(--acid)}
+.dino-play-btn.playing{background:rgba(139,26,10,.15);border-color:rgba(139,26,10,.5);color:var(--warn)}
+.dino-audio-label{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);opacity:.4}
+.dino-sound-old{margin-top:14px;display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(0,0,0,.3);border:1px solid rgba(90,158,30,.15)}
+.sound-btn{background:none;border:1px solid rgba(90,158,30,.4);color:var(--acid);width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .3s;flex-shrink:0}
+.sound-btn:hover{background:rgba(90,158,30,.15);border-color:var(--acid)}
+.sound-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);opacity:.5}
+.sound-bar{flex:1;height:3px;background:rgba(255,255,255,.08);position:relative;overflow:hidden}
+.sound-progress{height:100%;background:var(--acid);width:0%;transition:width .1s linear}
+.dbar-row{display:flex;align-items:center;gap:10px}
+.dbar-label{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bone);opacity:.8;width:56px;flex-shrink:0}
+.dbar-track{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.dbar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--fern),var(--acid));transition:width .8s ease}
+.dino-badge{position:absolute;top:12px;right:12px;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border:1px solid;border-radius:2px;z-index:2}
+.badge-herb{color:#6db528;border-color:rgba(109,181,40,.3);background:rgba(109,181,40,.08)}
+.badge-carn{color:#c04a2a;border-color:rgba(192,74,42,.3);background:rgba(192,74,42,.08)}
+.badge-omni{color:#c8972a;border-color:rgba(200,151,42,.3);background:rgba(200,151,42,.08)}
+
+/* MAPA */
+#mapa .section-wrap{display:flex;flex-direction:column;gap:40px}
+.mapa-top{display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:start}
+.map-locations{display:flex;flex-direction:column;gap:14px;margin-top:36px}
+.map-loc{display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:linear-gradient(135deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.12);transition:all .3s;cursor:pointer}
+.map-loc:hover{border-color:rgba(109,181,40,.4);background:linear-gradient(135deg,var(--moss),var(--forest))}
+.map-loc-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px}
+.map-loc-name{font-family:'Cinzel',serif;font-size:.88rem;font-weight:600;color:var(--parchment);margin-bottom:4px}
+.map-loc-desc{font-size:.88rem;color:var(--bone);opacity:.55;line-height:1.6}
+.map-loc-tag{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);margin-top:6px;display:block}
+.map-balloon{position:absolute;right:20px;top:20px;background:rgba(5,8,3,.96);border:2px solid rgba(90,158,30,.7);backdrop-filter:blur(12px);padding:14px 18px;display:flex;align-items:center;gap:14px;z-index:10;box-shadow:0 0 0 1px rgba(90,158,30,.15),0 6px 32px rgba(0,0,0,.7),0 0 24px rgba(90,158,30,.12);transition:all .35s;animation:balloonPulse 3s ease-in-out infinite}
+@keyframes balloonPulse{0%,100%{box-shadow:0 0 0 1px rgba(90,158,30,.15),0 6px 32px rgba(0,0,0,.7),0 0 24px rgba(90,158,30,.12)}50%{box-shadow:0 0 0 1px rgba(90,158,30,.3),0 6px 32px rgba(0,0,0,.7),0 0 36px rgba(90,158,30,.25)}}
+.map-balloon:hover{border-color:rgba(90,158,30,1);box-shadow:0 0 0 1px rgba(90,158,30,.3),0 6px 32px rgba(0,0,0,.7),0 0 40px rgba(90,158,30,.3);animation:none}
+.map-balloon-icon{font-size:1.8rem;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(90,158,30,.5))}
+.map-balloon-text{display:flex;flex-direction:column;gap:3px}
+.map-balloon-title{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--parchment);font-weight:600}
+.map-balloon-sub{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:.9}
+.map-balloon-btn{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,var(--fern),var(--leaf));color:var(--parchment);border:1px solid var(--acid);padding:9px 20px;cursor:pointer;transition:all .3s;flex-shrink:0;position:relative;overflow:hidden}
+.map-balloon-btn::before{content:'';position:absolute;inset:0;background:var(--acid);transform:translateX(-100%);transition:transform .35s;z-index:0}
+.map-balloon-btn:hover::before{transform:translateX(0)}
+.map-balloon-btn:hover{color:var(--black)}
+.map-balloon-btn span{position:relative;z-index:1}
+.map-iframe-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(5,6,3,.95);border-bottom:1px solid rgba(139,26,10,.35)}
+.map-iframe-label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acid);opacity:.8}
+.map-ctrl-btn{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);opacity:.55;text-decoration:none;background:rgba(255,255,255,.04);border:1px solid rgba(197,180,154,.15);padding:5px 14px;cursor:pointer;transition:all .3s}
+.map-ctrl-btn:hover{opacity:1;color:var(--acid);border-color:rgba(90,158,30,.4)}
+.map-iframe-wrap{width:100%;border:1px solid rgba(139,26,10,.3);overflow:hidden;display:flex;flex-direction:column;background:var(--deep);position:relative}
+.map-iframe-wrap.fullscreen-map{position:fixed;inset:0;z-index:9000;border:none}
+.map-iframe-wrap.fullscreen-map iframe{height:calc(100vh - 44px) !important}
+.map-visual{position:relative;background:linear-gradient(145deg,var(--forest),var(--moss),var(--deep));border:1px solid rgba(74,120,37,.2);overflow:hidden}
+
+/* Zones grid above map */
+.mapa-top{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-bottom:32px}
+.map-zones-grid{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;padding-top:8px}
+.map-zone-pill{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.1em;padding:6px 14px;background:rgba(14,20,9,.8);border:1px solid rgba(90,158,30,.2);color:var(--bone);opacity:.75;display:flex;gap:8px;align-items:center}
+.map-zone-pill span{color:var(--acid);opacity:.8}
+.map-svg{width:100%;height:100%}
+
+/* ATUALIZAÇÕES */
+#atualizacoes{background:linear-gradient(180deg,var(--black) 0%,var(--deep) 40%,var(--black) 100%)}
+.updates-header{margin-bottom:56px}
+.updates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.updates-filter{display:flex;gap:4px;margin-bottom:32px;flex-wrap:wrap}
+.utab{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;padding:9px 22px;cursor:pointer;background:transparent;color:var(--bone);opacity:.5;border:1px solid rgba(74,120,37,.15);transition:all .3s}
+.utab.active,.utab:hover{background:var(--fern);color:var(--parchment);border-color:var(--leaf);opacity:1}
+.updates-steam-link{text-align:center;margin-top:40px}
+.update-card{background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.13);padding:32px;transition:all .35s;cursor:pointer;position:relative;overflow:hidden}
+.update-card:hover{border-color:rgba(109,181,40,.4);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.update-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--acid),transparent);opacity:0;transition:opacity .35s}
+.update-card:hover::before{opacity:1}
+.update-date{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);opacity:.75;margin-bottom:12px}
+.update-title{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:600;color:var(--parchment);margin-bottom:12px;line-height:1.4}
+.update-excerpt{font-size:.95rem;color:var(--bone);opacity:.58;line-height:1.8}
+.update-tag{display:inline-block;margin-top:18px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border:1px solid rgba(109,181,40,.25);color:var(--acid);background:rgba(109,181,40,.06)}
+
+/* GUIAS */
+.guias-intro{margin-bottom:56px}
+.guias-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.guia-card{padding:28px 24px;position:relative;background:linear-gradient(160deg,var(--forest) 0%,var(--deep) 100%);border:1px solid rgba(74,120,37,.12);transition:all .35s;cursor:pointer;overflow:hidden}
+.guia-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--acid),transparent);transform:scaleX(0);transition:transform .4s}
+.guia-card:hover::before{transform:scaleX(1)}
+.guia-card:hover{border-color:rgba(109,181,40,.3);transform:translateY(-3px)}
+.guia-icon{font-size:2rem;margin-bottom:18px;display:block}
+.guia-title{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;color:var(--parchment);margin-bottom:8px}
+.guia-desc{font-size:.88rem;color:var(--bone);opacity:.55;line-height:1.7}
+.guia-link{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--acid);text-decoration:none;transition:gap .3s}
+.guia-link:hover{gap:10px}
+
+/* EQUIPE */
+#equipe{background:linear-gradient(180deg,var(--black) 0%,var(--deep) 50%,var(--black) 100%)}
+.team-header{margin-bottom:60px}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px}
+.team-card{padding:36px 28px;text-align:center;background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.12);transition:all .35s}
+.team-card:hover{border-color:rgba(109,181,40,.35);transform:translateY(-4px)}
+.team-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--fern),var(--moss));border:2px solid rgba(74,120,37,.3);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+.team-name{font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;color:var(--parchment);margin-bottom:6px}
+.team-role{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--acid);opacity:.8;margin-bottom:14px}
+.team-bio{font-size:.88rem;color:var(--bone);opacity:.52;line-height:1.7}
+
+/* NEWSLETTER */
+#newsletter{background:linear-gradient(135deg,var(--forest) 0%,var(--deep) 100%);border-top:1px solid rgba(74,120,37,.15);border-bottom:1px solid rgba(74,120,37,.15)}
+#newsletter .section-wrap{display:flex;align-items:center;justify-content:space-between;gap:60px;padding:80px 40px}
+.nl-text .section-heading{font-size:clamp(1.4rem,3vw,2rem)}
+.nl-form{display:flex;gap:0;flex-shrink:0}
+.nl-input{padding:14px 24px;background:rgba(8,10,6,.6);color:var(--bone);border:1px solid rgba(74,120,37,.25);border-right:0;font-family:'Crimson Pro',serif;font-size:1rem;outline:none;min-width:280px;transition:border .3s}
+.nl-input::placeholder{opacity:.4}
+.nl-input:focus{border-color:rgba(109,181,40,.5)}
+.nl-btn{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;padding:14px 28px;background:var(--fern);color:var(--parchment);border:1px solid var(--leaf);cursor:pointer;transition:all .3s}
+.nl-btn:hover{background:var(--acid);color:var(--black);border-color:var(--acid)}
+
+/* FOOTER */
+footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(74,120,37,.12)}
+.footer-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:60px;margin-bottom:56px}
+.footer-brand p{font-size:.95rem;color:var(--bone);opacity:.45;line-height:1.8;max-width:280px;margin-top:14px}
+.footer-col h4{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-bottom:18px;opacity:.8}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col ul li a{font-size:.95rem;color:var(--bone);opacity:.45;text-decoration:none;transition:opacity .3s}
+.footer-col ul li a:hover{opacity:.85;color:var(--parchment)}
+.footer-bottom{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:32px;border-top:1px solid rgba(74,120,37,.1)}
+.footer-copy{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bone);opacity:.28}
+
+/* SURVIVOR AESTHETIC */
+.hero-warning-tape{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--warn);background:rgba(139,26,10,.12);border:1px solid rgba(139,26,10,.3);padding:6px 20px;margin-bottom:20px;display:inline-block;animation:riseIn .9s .1s ease forwards;opacity:0}
+.hero-classified{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bone);opacity:.35;margin-top:12px;animation:riseIn .9s .65s ease forwards}
+.survivor-stamp{display:inline-block;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;border:2px solid var(--warn);color:var(--warn);padding:3px 12px;opacity:.7;transform:rotate(-2deg);margin-top:12px}
+.danger-line{width:100%;height:3px;background:repeating-linear-gradient(90deg,var(--warn) 0px,var(--warn) 20px,transparent 20px,transparent 30px);opacity:.4;margin:8px 0}
+.field-note{font-style:italic;font-size:.9rem;color:var(--bone);opacity:.5;border-left:2px solid var(--warn);padding-left:12px;margin-top:12px;line-height:1.7}
+
+/* Scratch overlay on cards */
+.dino-card::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(127deg,transparent 0,transparent 40px,rgba(90,158,30,.015) 40px,rgba(90,158,30,.015) 41px);pointer-events:none}
+.update-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--warn),transparent);opacity:0;transition:opacity .35s}
+.update-card:hover::before{opacity:.6}
+
+/* Worn section divider */
+.full-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent 0%,rgba(139,26,10,.4) 20%,rgba(90,158,30,.5) 50%,rgba(139,26,10,.4) 80%,transparent 100%)}
+
+/* Warning badges on nav */
+.nav-danger-badge{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.15em;color:var(--warn);border:1px solid rgba(139,26,10,.4);padding:2px 8px;opacity:.7}
+
+/* DINO DETAIL MODAL */
+.dino-modal-overlay{position:fixed;inset:0;background:rgba(3,4,2,.95);z-index:9600;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .35s;backdrop-filter:blur(10px)}
+.dino-modal-overlay.open{opacity:1;pointer-events:all}
+.dino-modal{background:linear-gradient(145deg,#0e1409,#080a05);border:1px solid rgba(139,26,10,.4);max-width:860px;width:100%;max-height:92vh;overflow-y:auto;position:relative;scrollbar-width:thin;scrollbar-color:var(--fern) var(--deep);display:grid;grid-template-columns:1fr 1fr}
+.dino-modal-left{padding:32px;border-right:1px solid rgba(139,26,10,.2);display:flex;flex-direction:column;gap:20px}
+.dino-modal-right{padding:32px;display:flex;flex-direction:column;gap:20px}
+.dino-modal-img{width:100%;height:200px;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.8))}
+.dino-modal-name{font-family:'Cinzel Decorative',serif;font-size:1.6rem;color:var(--parchment);line-height:1.2}
+.dino-modal-cls{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);opacity:.8;margin-top:4px}
+.dino-modal-desc{font-size:1rem;color:var(--bone);opacity:.7;line-height:1.9}
+.dino-modal-section{display:flex;flex-direction:column;gap:10px}
+.dino-modal-section-title{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);display:flex;align-items:center;gap:8px}
+.dino-modal-section-title::after{content:'';flex:1;height:1px;background:rgba(90,158,30,.2)}
+.dino-modal-close{position:absolute;top:16px;right:16px;background:none;border:1px solid rgba(197,180,154,.2);color:var(--bone);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .3s;z-index:2}
+.dino-modal-close:hover{border-color:var(--warn);color:var(--warn)}
+.dino-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dino-stat-box{background:rgba(255,255,255,.03);border:1px solid rgba(74,120,37,.1);padding:10px 12px}
+.dino-stat-lbl{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:.65;margin-bottom:4px}
+.dino-stat-val{font-family:'Cinzel',serif;font-size:.95rem;color:var(--parchment);font-weight:600}
+.dino-tier{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase}
+.dino-tier-S{color:#ffd700;border-color:rgba(255,215,0,.4);background:rgba(255,215,0,.08)}
+.dino-tier-A{color:#c8f070;border-color:rgba(200,240,112,.4);background:rgba(200,240,112,.08)}
+.dino-tier-B{color:#5a9e1e;border-color:rgba(90,158,30,.4);background:rgba(90,158,30,.08)}
+.dino-tier-C{color:#b8a888;border-color:rgba(184,168,136,.3);background:rgba(184,168,136,.06)}
+.dino-matchup{display:flex;flex-direction:column;gap:6px}
+.dino-matchup-item{display:flex;align-items:center;justify-content:space-between;font-size:.88rem;color:var(--bone);opacity:.7;padding:5px 0;border-bottom:1px solid rgba(74,120,37,.07)}
+.dino-matchup-result{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.08em;text-transform:uppercase}
+.result-win{color:#5a9e1e}.result-loss{color:var(--warn)}.result-even{color:#b8a888}
+.dino-habitat-tags{display:flex;flex-wrap:wrap;gap:6px}
+.dino-habitat-tag{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;background:rgba(14,20,9,.8);border:1px solid rgba(90,158,30,.2);color:var(--bone);opacity:.7}
+.dino-elder-box{background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.2);padding:16px;display:flex;flex-direction:column;gap:8px}
+.dino-elder-title{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#ffd700;opacity:.8}
+.dino-elder-text{font-size:.9rem;color:var(--bone);opacity:.6;line-height:1.8}
+.dino-play-btn-modal{margin-top:8px;background:rgba(90,158,30,.08);border:1px solid rgba(90,158,30,.25);color:var(--acid);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 20px;cursor:pointer;transition:all .3s;align-self:flex-start}
+.dino-play-btn-modal:hover{background:rgba(90,158,30,.18);border-color:var(--acid)}
+.dino-play-btn-modal.playing{background:rgba(139,26,10,.15);border-color:rgba(200,48,16,.5);color:var(--warn)}
+
+@media(max-width:700px){
+  .dino-modal{grid-template-columns:1fr;max-height:95vh}
+  .dino-modal-left{border-right:none;border-bottom:1px solid rgba(139,26,10,.2);padding:20px}
+  .dino-modal-right{padding:20px}
+  .dino-modal-name{font-size:1.2rem}
+  .dino-modal-overlay{padding:0;align-items:flex-end}
+  .dino-modal{max-height:90vh}
+}
+
+/* GUIDE MODALS */
+.guide-modal-overlay{position:fixed;inset:0;background:rgba(3,4,2,.92);z-index:9500;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .35s;backdrop-filter:blur(8px)}
+.guide-modal-overlay.open{opacity:1;pointer-events:all}
+.guide-modal{background:linear-gradient(145deg,#0e1409,#080a05);border:1px solid rgba(139,26,10,.4);max-width:720px;width:100%;max-height:88vh;overflow-y:auto;position:relative;scrollbar-width:thin;scrollbar-color:var(--fern) var(--deep)}
+.guide-modal-top{display:flex;align-items:flex-start;justify-content:space-between;padding:32px 36px 20px;border-bottom:1px solid rgba(139,26,10,.25);position:sticky;top:0;background:linear-gradient(145deg,#0e1409,#080a05);z-index:2}
+.guide-modal-icon{font-size:2.2rem;margin-right:16px;flex-shrink:0}
+.guide-modal-title-wrap{}
+.guide-modal-tag{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:var(--warn);opacity:.8;display:block;margin-bottom:6px}
+.guide-modal-title{font-family:'Cinzel Decorative',serif;font-size:1.4rem;color:var(--parchment);line-height:1.2}
+.guide-close{background:none;border:1px solid rgba(197,180,154,.2);color:var(--bone);font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:all .3s;flex-shrink:0;margin-left:16px}
+.guide-close:hover{border-color:var(--warn);color:var(--warn)}
+.guide-modal-body{padding:28px 36px 36px}
+.guide-section{margin-bottom:32px}
+.guide-section-title{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.guide-section-title::after{content:'';flex:1;height:1px;background:rgba(90,158,30,.2)}
+.guide-section p{font-size:1rem;color:var(--bone);opacity:.72;line-height:1.9;margin-bottom:10px}
+.guide-tip{background:rgba(90,158,30,.06);border-left:3px solid var(--acid);padding:12px 16px;margin:14px 0;font-size:.92rem;color:var(--bone);opacity:.8;line-height:1.7}
+.guide-warn-box{background:rgba(139,26,10,.08);border-left:3px solid var(--warn);padding:12px 16px;margin:14px 0;font-size:.92rem;color:var(--bone);opacity:.8;line-height:1.7}
+.guide-list{list-style:none;padding:0;margin:10px 0;display:flex;flex-direction:column;gap:8px}
+.guide-list li{font-size:.95rem;color:var(--bone);opacity:.7;line-height:1.7;padding-left:18px;position:relative}
+.guide-list li::before{content:'▸';position:absolute;left:0;color:var(--acid);font-size:.7rem;top:4px}
+.guide-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.guide-key{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.03);border:1px solid rgba(197,180,154,.08);padding:8px 12px}
+.guide-key kbd{font-family:'Cinzel',serif;font-size:.6rem;background:rgba(90,158,30,.12);border:1px solid rgba(90,158,30,.3);color:var(--acid);padding:3px 8px;letter-spacing:.05em}
+.guide-key span{font-size:.82rem;color:var(--bone);opacity:.6}
+
+/* Guia card hover melhorado */
+.guia-card{cursor:pointer}
+
+/* Mobile tabs — hidden on desktop */
+.mobile-tabs{display:none}
+@media(max-width:900px){
+  .mobile-tabs{display:flex}
+}
+
+/* LIVES CAROUSEL */
+.lives-carousel{display:flex;gap:14px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.lives-carousel::-webkit-scrollbar{display:none}
+.live-card{flex-shrink:0;width:200px;border:1px solid rgba(255,34,68,.25);background:rgba(8,10,5,.8);transition:all .3s;text-decoration:none;display:block;cursor:pointer}
+.live-card:hover{border-color:rgba(255,34,68,.6);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.live-thumb-wrap{position:relative;height:110px;overflow:hidden;background:#0a0a0a}
+.live-thumb{width:100%;height:100%;object-fit:cover;opacity:.85}
+.live-badge{position:absolute;top:6px;left:6px;background:#ff2244;color:#fff;font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;animation:livePulse 1.5s infinite}
+.live-info{padding:8px 10px}
+.live-name{font-family:'Cinzel',serif;font-size:.65rem;color:var(--parchment);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.live-platform{font-family:'Cinzel',serif;font-size:.52rem;color:var(--warn);opacity:.7;margin-top:2px}
+
+/* VIDEOS */
+.videos-header{margin-bottom:40px}
+.videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.video-card{display:block;text-decoration:none;background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.13);overflow:hidden;transition:all .35s}
+.video-card:hover{border-color:rgba(109,181,40,.4);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.5)}
+.video-thumb-wrap{position:relative;height:165px;overflow:hidden;background:#050603}
+.video-thumb{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.video-card:hover .video-thumb{transform:scale(1.05)}
+.video-play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:#fff;opacity:0;background:rgba(0,0,0,.4);transition:opacity .3s}
+.video-card:hover .video-play-overlay{opacity:1}
+.video-platform-badge{position:absolute;bottom:8px;right:8px;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;background:rgba(5,6,3,.85);color:var(--acid);border:1px solid rgba(90,158,30,.3);padding:3px 8px}
+.video-info{padding:14px 16px}
+.video-title{font-family:'Cinzel',serif;font-size:.82rem;color:var(--parchment);margin-bottom:5px;line-height:1.4}
+.video-author{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);opacity:.7}
+
+@media(max-width:900px){
+  #livesBar{padding:12px 16px}
+  .live-card{width:160px}
+  .live-thumb-wrap{height:88px}
+  .videos-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .video-thumb-wrap{height:130px}
+}
+@media(max-width:480px){
+  .videos-grid{grid-template-columns:1fr}
+}
+
+/* COMUNIDADE */
+.comunidade-header{margin-bottom:48px}
+.com-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-bottom:48px}
+.com-card{background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.13);overflow:hidden;transition:all .35s;position:relative}
+.com-card:hover{border-color:rgba(109,181,40,.4);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.com-badge{position:absolute;top:10px;left:10px;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border:1px solid;border-radius:2px;z-index:2}
+.com-badge-youtube{color:#ff4444;border-color:rgba(255,68,68,.3);background:rgba(255,68,68,.1)}
+.com-badge-twitch{color:#9b59ff;border-color:rgba(155,89,255,.3);background:rgba(155,89,255,.1)}
+.com-badge-discord{color:#5b85ff;border-color:rgba(91,133,255,.3);background:rgba(91,133,255,.1)}
+.com-badge-video{color:var(--acid);border-color:rgba(90,158,30,.3);background:rgba(90,158,30,.1)}
+.com-badge-live{color:#ff2244;border-color:rgba(255,34,68,.4);background:rgba(255,34,68,.12);animation:livePulse 2s ease-in-out infinite}
+@keyframes livePulse{0%,100%{opacity:1}50%{opacity:.6}}
+.com-badge-tiktok{color:#ee1d52;border-color:rgba(238,29,82,.3);background:rgba(238,29,82,.1)}
+.com-thumb{height:140px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid rgba(74,120,37,.1)}
+.com-info{padding:18px}
+.com-title{font-family:'Cinzel',serif;font-size:.92rem;font-weight:700;color:var(--parchment);margin-bottom:6px}
+.com-desc{font-size:.88rem;color:var(--bone);opacity:.58;line-height:1.7;margin-bottom:10px}
+.com-author{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);opacity:.7}
+.com-link{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);text-decoration:none;transition:gap .3s}
+.com-link:hover{gap:10px}
+
+/* Formulário */
+.com-form-wrap{background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.15);padding:36px}
+.com-form-header{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid rgba(74,120,37,.1)}
+.com-form{display:flex;flex-direction:column;gap:18px}
+.com-form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.com-form-group{display:flex;flex-direction:column;gap:7px}
+.com-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--acid);opacity:.8}
+.com-input{background:rgba(5,6,3,.6);border:1px solid rgba(74,120,37,.2);color:var(--bone);font-family:'Crimson Pro',serif;font-size:1rem;padding:11px 14px;outline:none;transition:border .3s;width:100%}
+.com-input:focus{border-color:rgba(90,158,30,.5)}
+.com-input option{background:var(--deep)}
+.com-textarea{resize:vertical;min-height:80px}
+.com-form-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:4px}
+.com-disclaimer{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--warn);opacity:.6}
+.com-submit-btn{padding:12px 32px}
+
+@media(max-width:900px){
+  .com-form-row{grid-template-columns:1fr}
+  .com-form-wrap{padding:20px}
+  .com-form-footer{flex-direction:column;align-items:flex-start}
+  .com-submit-btn{width:100%}
+  .com-grid{grid-template-columns:1fr}
+}
+
+/* DIRETORIO */
+.dir-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.dir-tab{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;background:none;border:1px solid rgba(74,120,37,.2);color:var(--bone);opacity:.55;cursor:pointer;transition:all .3s}
+.dir-tab:hover{opacity:.8;border-color:rgba(90,158,30,.4)}
+.dir-tab.active{background:rgba(90,158,30,.1);border-color:var(--acid);color:var(--acid);opacity:1}
+.dir-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.dir-card{display:flex;align-items:center;gap:14px;background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.13);padding:14px 16px;transition:all .3s}
+.dir-card:hover{border-color:rgba(109,181,40,.35);transform:translateX(4px)}
+.dir-card[style*="display:none"]{display:none!important}
+.dir-icon{font-size:1.6rem;flex-shrink:0}
+.dir-info{flex:1;min-width:0}
+.dir-name{font-family:'Cinzel',serif;font-size:.78rem;color:var(--parchment);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.dir-type{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);opacity:.65}
+.dir-link{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);text-decoration:none;flex-shrink:0;opacity:.7;transition:opacity .3s}
+.dir-link:hover{opacity:1}
+
+@media(max-width:900px){
+  .dir-grid{grid-template-columns:1fr}
+  .dir-filters{gap:6px}
+  .dir-tab{font-size:.52rem;padding:6px 12px}
+}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.12s}
+.reveal-delay-2{transition-delay:.24s}
+.reveal-delay-3{transition-delay:.36s}
+.reveal-delay-4{transition-delay:.48s}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  /* ── HIDE DESKTOP NAV ── */
+  nav{padding:0 16px;height:52px}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:52px;left:0;right:0;background:rgba(5,6,3,.99);padding:24px 20px;gap:20px;border-bottom:1px solid rgba(139,26,10,.3);z-index:899}
+  .nav-links.open a{font-size:.85rem}
+  .nav-logo{font-size:.62rem}
+
+  /* ── MOBILE BOTTOM TABS ── */
+  .mobile-tabs{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:800;background:rgba(5,6,3,.98);border-top:1px solid rgba(139,26,10,.3);height:62px}
+  .mob-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;border:none;background:none;padding:6px 2px}
+  .mob-tab-icon{font-size:1.2rem;line-height:1}
+  .mob-tab-label{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bone);opacity:.4;transition:all .2s}
+  .mob-tab.active .mob-tab-label{color:var(--acid);opacity:1}
+  .mob-tab.active .mob-tab-icon{filter:drop-shadow(0 0 6px rgba(90,158,30,.8))}
+  .mob-tab-indicator{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--acid);transition:width .3s;border-radius:0 0 2px 2px}
+  .mob-tab.active .mob-tab-indicator{width:80%}
+
+  /* ── MOBILE SECTIONS ── */
+  body{padding-bottom:62px}
+  section{scroll-margin-top:52px}
+  .section-wrap{padding:48px 16px 32px}
+
+  /* ── HERO ── */
+  #hero{min-height:100svh;padding:70px 16px 80px}
+  .hero-title{font-size:clamp(2.2rem,12vw,3.5rem)}
+  .hero-warning-tape{font-size:.5rem;letter-spacing:.2em;padding:5px 12px}
+  .hero-classified{font-size:.5rem}
+  .hero-sub{font-size:.95rem}
+  .hero-cta{flex-direction:column;align-items:center;gap:10px;margin-top:32px}
+  .btn{padding:12px 28px;font-size:.65rem}
+
+  /* ── SOBRE ── */
+  #sobre .section-wrap{grid-template-columns:1fr;gap:24px}
+  .stat-row{gap:16px}
+  .stat-num{font-size:2rem}
+  .about-panel{padding:28px 20px}
+
+  /* ── DINOS ── */
+  .dinos-tabs{gap:6px;margin-bottom:24px}
+  .dtab{font-size:.55rem;padding:8px 14px;letter-spacing:.1em}
+  .dinos-grid{grid-template-columns:1fr;gap:14px}
+  .dino-card{padding:20px}
+  .dino-img{height:120px}
+
+  /* ── MAPA ── */
+  .mapa-top{grid-template-columns:1fr;gap:20px}
+  .map-zones-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .map-zone-pill{font-size:.52rem;padding:5px 8px}
+  .map-iframe-wrap iframe{height:420px}
+  .map-balloon{right:10px;top:10px;padding:8px 10px;gap:8px}
+  .map-balloon-title{font-size:.6rem}
+  .map-balloon-sub{display:none}
+  .map-balloon-btn{padding:6px 12px;font-size:.55rem}
+
+  /* ── UPDATES ── */
+  .updates-grid{grid-template-columns:1fr;gap:14px}
+  .update-card{padding:20px}
+  .updates-filter{gap:6px}
+  .utab{font-size:.55rem;padding:7px 12px}
+
+  /* ── GUIAS ── */
+  .guias-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .guia-card{padding:18px 14px}
+  .guia-icon{font-size:1.5rem;margin-bottom:10px}
+  .guia-title{font-size:.78rem}
+  .guia-desc{font-size:.8rem}
+
+  /* ── EQUIPE ── */
+  .team-grid{grid-template-columns:1fr 1fr;gap:14px}
+  .team-card{padding:20px 14px}
+
+  /* ── NEWSLETTER ── */
+  #newsletter .section-wrap{flex-direction:column;gap:24px;padding:48px 16px}
+  .nl-form{flex-direction:column;width:100%}
+  .nl-input{min-width:unset;width:100%;border-right:1px solid rgba(74,120,37,.25);border-bottom:0}
+  .nl-btn{width:100%}
+
+  /* ── FOOTER ── */
+  .footer-inner{grid-template-columns:1fr;gap:28px}
+  footer{padding:40px 16px 24px}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+
+  /* ── GUIDE MODAL ── */
+  .guide-modal{max-height:95vh;border-radius:0}
+  .guide-modal-top{padding:20px 18px 14px}
+  .guide-modal-title{font-size:1.1rem}
+  .guide-modal-body{padding:18px 18px 28px}
+  .guide-controls{grid-template-columns:1fr}
+  .guide-modal-overlay{padding:0;align-items:flex-end}
+
+  /* ── SECTION TITLES ── */
+  .section-heading{font-size:clamp(1.4rem,7vw,2.2rem)}
+}
+
+/* ── MOBILE MELHORIAS FINAS ── */
+@media(max-width:900px){
+  /* Dino card padding-top pra não sobrepor badge */
+  .dino-card{padding-top:44px !important}
+  .dino-badge{top:10px;right:10px}
+  
+  /* Raw stats legíveis no mobile */
+  .dino-rawstats{grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px}
+  .raw-val{font-size:.9rem}
+  .raw-lbl{font-size:.52rem}
+  
+  /* Audio button full width no mobile */
+  .dino-audio{flex-direction:column;align-items:flex-start;gap:6px}
+  .dino-play-btn{width:100%;justify-content:center;padding:10px}
+  
+  /* Barras mais visíveis */
+  .dbar-track{height:5px}
+  .dbar-label{font-size:.58rem;width:62px}
+  
+  /* Dino grid: 2 colunas em tablet, 1 em celular */
+  .dinos-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  
+  /* Sobre panel menor */
+  .about-quote{font-size:.88rem}
+  
+  /* Hero warning tape */
+  .hero-warning-tape{font-size:.52rem;padding:5px 12px;letter-spacing:.2em}
+  
+  /* Mapa balloon melhor posicionado */
+  .map-balloon{right:8px;top:8px;padding:8px 12px;gap:8px}
+  
+  /* Update cards full width */
+  .updates-grid{grid-template-columns:1fr}
+  
+  /* Footer compact */
+  .footer-copy{font-size:.5rem}
+}
+
+/* Extra pequeno — celulares menores que 480px */
+@media(max-width:480px){
+  .dinos-grid{grid-template-columns:1fr}
+  .dino-img{height:140px}
+  .hero-title{font-size:clamp(2rem,13vw,3rem)}
+  .hero-warning-tape{font-size:.45rem;letter-spacing:.15em}
+}
+
+/* Extra pequeno 400px */
+@media(max-width:400px){
+  .guias-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
+  .map-zones-grid{grid-template-columns:1fr}
+  .stat-row{flex-wrap:wrap;gap:12px}
+  .dino-rawstats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">The Isle Evrima</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#dinos">Dinos</a></li>
+    <li><a href="#mapa">Mapa</a></li>
+    <li><a href="#atualizacoes">Atualizações</a></li>
+    <li><a href="#guias">Guias</a></li>
+    <li><a href="#equipe">Equipe</a></li>
+    <li><a href="#comunidade">Comunidade</a></li>
+    <li><a href="#videos">Vídeos</a></li>
+    <li><a href="#diretorio">Canais</a></li>
+    <li><a href="#newsletter">Contato</a></li>
+  </ul>
+  <div class="nav-burger" id="burger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="slideshow" id="slideshow">
+    <div class="slide active"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-overlay2"></div>
+  <div class="hero-vignette"></div>
+  <div id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-warning-tape">⚠ ZONA DE PERIGO EXTREMO ⚠</div>
+    <span class="hero-eyebrow">The Isle · Evrima</span>
+    <h1 class="hero-title">Sobrevivente<br><span class="accent">Jurássico</span></h1>
+    <div class="hero-classified">[ GUIA DE CAMPO — CLASSIFICADO ]</div>
+    <p class="hero-sub">Compilado por um sobrevivente. Escrito com sangue, experiência e muito medo. Se você está lendo isso — ainda há tempo. Use cada palavra.</p>
+    <div class="hero-cta">
+      <a href="#dinos" class="btn btn-fill"><span>⚠ Identificar Ameaças</span></a>
+      <a href="#guias" class="btn btn-ghost"><span>Protocolos de Sobrevivência</span></a>
+    </div>
+  </div>
+  <div class="slide-dots" id="slideDots">
+    <button class="slide-dot active" onclick="goSlide(0)"></button>
+    <button class="slide-dot" onclick="goSlide(1)"></button>
+    <button class="slide-dot" onclick="goSlide(2)"></button>
+    <button class="slide-dot" onclick="goSlide(3)"></button>
+  </div>
+  <div class="hero-scroll">
+    <span>Explorar</span>
+    <div class="scroll-chevron"></div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- LIVES AO VIVO -->
+<div id="livesBar" style="display:none;background:linear-gradient(135deg,rgba(8,10,5,.98),rgba(14,20,9,.98));border-bottom:1px solid rgba(139,26,10,.3);padding:16px 40px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+      <div style="width:8px;height:8px;border-radius:50%;background:#ff2244;animation:livePulse 1.5s ease-in-out infinite;flex-shrink:0"></div>
+      <span style="font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--warn)">Ao Vivo Agora</span>
+      <span style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;color:var(--bone);opacity:.4" id="liveCount"></span>
+    </div>
+    <div class="lives-carousel" id="livesCarousel"></div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="section-wrap">
+    <div class="about-text">
+      <span class="section-tag reveal">⚠ Entrada no Diário</span>
+      <h2 class="section-heading reveal reveal-delay-1">O Diário do<br><span style="color:var(--warn)">Sobrevivente</span></h2>
+      <div class="about-body reveal reveal-delay-2" style="position:relative">
+        <p>Três semanas na ilha. Perdi a conta de quantas vezes quase não voltei. Vi criaturas que não deveriam existir. Aprendi que aqui, a única diferença entre viver e morrer é o que você sabe — e o que você faz com esse conhecimento antes que seja tarde demais.</p>
+        <p>Este guia foi compilado com experiências reais na ilha. Cada registro custou sangue — meu ou de criaturas que não tiveram pena de mim. Aqui não há teorias. Só o que funciona.</p>
+        <p>Se você encontrou este guia, mantenha-o consigo. Atualize-o. Adicione suas próprias anotações. Nesta ilha, conhecimento é a única arma que não se parte.</p>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-3">
+      <div class="about-panel">
+        <div class="stat-row">
+          <div><div class="stat-num">20+</div><div class="stat-lbl">Dinossauros</div></div>
+          <div><div class="stat-num">5</div><div class="stat-lbl">Biomas</div></div>
+          <div><div class="stat-num">∞</div><div class="stat-lbl">Horas de jogo</div></div>
+        </div>
+        <blockquote class="about-quote">"Acordei hoje. Isso já é vitória. O Rex passou a noite inteira circulando o perímetro. Não movi um músculo."</blockquote>
+        <div class="about-panel-deco">🦖</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- DINOS -->
+<section id="dinos">
+  <div class="section-wrap">
+    <div class="dinos-intro">
+      <span class="section-tag reveal" style="color:var(--warn)">⚠ Registro de Ameaças</span>
+      <h2 class="section-heading reveal reveal-delay-1">Criaturas da <span style="color:var(--warn)">Ilha</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Catalogadas em campo. Cada entrada representa uma fuga, um confronto ou a morte de alguém que não era eu. Aprenda com elas.</p>
+    </div>
+    <div class="dinos-tabs reveal">
+      <div class="dtab active" onclick="filterDinos('todos',this)">Todos</div>
+      <div class="dtab" onclick="filterDinos('carnivoro',this)">Carnívoros</div>
+      <div class="dtab" onclick="filterDinos('herbivoro',this)">Herbívoros</div>
+      <div class="dtab" onclick="filterDinos('onivoro',this)">Onívoros</div>
+    </div>
+    <div class="dinos-grid" id="dinosGrid"></div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- MAPA -->
+<section id="mapa">
+  <div class="section-wrap">
+
+    <!-- Cabeçalho e zonas -->
+    <div class="mapa-top">
+      <div class="map-info">
+        <span class="section-tag reveal" style="color:var(--warn)">⚠ Mapeamento de Risco</span>
+        <h2 class="section-heading reveal reveal-delay-1">A <span style="color:var(--warn)">Ilha</span> — Nenhum Lugar é Seguro</h2>
+        <p class="section-lead reveal reveal-delay-2">Mapeei cada região. Cada uma tem seus predadores, suas armadilhas, sua forma de te matar. Memorize isso antes de sair do esconderijo.</p>
+      </div>
+      <div class="map-zones-grid reveal reveal-delay-2">
+        <div class="map-zone-pill">🌿 Northern Jungle <span>Média-Baixa</span></div>
+        <div class="map-zone-pill">🌾 North Plains <span>Média</span></div>
+        <div class="map-zone-pill">🌊 Central Jungle · Delta <span style="color:var(--warn)">Extrema — Prepare-se</span></div>
+        <div class="map-zone-pill">⛰️ Highland <span style="color:var(--warn)">Extrema</span> · West Rail <span style="color:var(--warn)">Alta–Extrema</span></div>
+        <div class="map-zone-pill">🌿 Eastern Jungle <span>Alta</span></div>
+        <div class="map-zone-pill">🌾 South Plains <span>Média</span></div>
+        <div class="map-zone-pill">💀 Swamps · The Pit <span>Média-Baixa</span></div>
+      </div>
+    </div>
+
+    <!-- Mapa interativo em largura total -->
+    <div class="map-iframe-wrap reveal" id="mapWrap">
+
+      <!-- ESTADO 1: Imagem estática limpa -->
+      <div id="mapStatic" style="position:relative;">
+        <img src="mapa.jpg" alt="Mapa The Isle Evrima" style="width:100%;display:block;">
+        <div style="position:absolute;bottom:16px;left:16px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--warn);opacity:.7;">⚠ Nenhum lugar é seguro</div>
+      </div>
+
+      <!-- Balão flutuante do mapa interativo -->
+      <div id="mapBalloon" class="map-balloon">
+        <div class="map-balloon-icon">🗺️</div>
+        <div class="map-balloon-text">
+          <span class="map-balloon-title">Mapa Interativo</span>
+          <span class="map-balloon-sub">VulnonaMAP</span>
+        </div>
+        <button class="map-balloon-btn" onclick="activateMap()"><span>🗺️ Ativar →</span></button>
+      </div>
+
+      <!-- ESTADO 2: Iframe ativo (oculto inicialmente) -->
+      <div id="mapIframe" style="display:none;flex-direction:column;">
+        <div class="map-iframe-header">
+          <span class="map-iframe-label">🗺️ MAPA INTERATIVO — VulnonaMAP</span>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <button onclick="toggleFullscreenMap()" class="map-ctrl-btn">⛶ Tela cheia</button>
+            <a href="https://vulnona.com/game/map/#" target="_blank" class="map-ctrl-btn">↗ Site original</a>
+            <button onclick="deactivateMap()" class="map-ctrl-btn" style="color:var(--warn);border-color:rgba(139,26,10,.3);">✕ Desativar</button>
+          </div>
+        </div>
+
+        <!-- Instrução destacada de troca de mapa -->
+        <div id="mapHint" style="background:linear-gradient(135deg,rgba(139,26,10,.2),rgba(90,40,5,.15));border-bottom:2px solid rgba(200,48,16,.5);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="background:rgba(200,48,16,.2);border:1px solid rgba(200,48,16,.5);padding:8px 10px;flex-shrink:0;font-size:1.4rem;line-height:1;">⚠️</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <span style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--warn);font-weight:700;">Atenção — Mapa Incorreto</span>
+              <span style="font-family:'Crimson Pro',serif;font-size:1rem;color:var(--parchment);line-height:1.5;">O mapa pode abrir em outro jogo. No <strong style="color:var(--acid)">canto superior esquerdo</strong> do mapa, clique no seletor e escolha <strong style="color:var(--acid);">"Gateway v0.21"</strong> para jogar no mapa correto do Evrima.</span>
+            </div>
+          </div>
+          <button onclick="document.getElementById('mapHint').style.display='none'" style="background:rgba(139,26,10,.3);border:1px solid rgba(200,48,16,.5);color:var(--parchment);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:8px 16px;cursor:pointer;flex-shrink:0;transition:all .3s;white-space:nowrap;">✓ Entendi</button>
+        </div>
+
+        <iframe
+          id="vulnonaFrame"
+          style="width:100%;height:780px;border:none;display:block;"
+          allow="fullscreen"
+          title="VulnonaMAP — The Isle Evrima"
+        ></iframe>
+      </div>
+
+      <!-- SVG backup hidden -->
+      <svg style="display:none" viewBox="0 0 500 375" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="og" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#0d2030"/><stop offset="100%" stop-color="#060e16"/></radialGradient>
+          <radialGradient id="fg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1a2c0f"/><stop offset="100%" stop-color="#0d1a08"/></radialGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <rect width="500" height="375" fill="url(#og)"/>
+        <path d="M80,320 Q40,280 55,220 Q45,160 70,120 Q90,70 140,50 Q190,25 250,30 Q310,28 360,55 Q410,80 430,130 Q450,180 445,240 Q440,290 410,320 Q370,350 300,360 Q230,368 170,355 Q110,342 80,320Z" fill="url(#fg)" stroke="rgba(74,120,37,0.3)" stroke-width="1.5"/>
+        <path d="M150,80 Q170,65 200,75 Q220,85 210,105 Q195,120 170,115 Q145,108 150,80Z" fill="#1e3010" opacity="0.8"/>
+        <path d="M280,60 Q310,48 340,65 Q355,80 345,100 Q328,115 305,108 Q282,98 280,60Z" fill="#1e3010" opacity="0.7"/>
+        <g fill="#2c4018" stroke="rgba(74,120,37,0.4)" stroke-width="0.8">
+          <polygon points="165,68 175,48 185,68"/><polygon points="178,70 190,46 202,70"/>
+          <polygon points="300,55 312,32 324,55"/><polygon points="315,57 328,30 342,57"/>
+        </g>
+        <polygon points="175,48 178,55 172,55" fill="rgba(230,212,180,0.5)"/>
+        <polygon points="190,46 193,54 187,54" fill="rgba(230,212,180,0.5)"/>
+        <polygon points="312,32 315,42 309,42" fill="rgba(230,212,180,0.5)"/>
+        <g fill="#2d4a18" opacity="0.6">
+          <circle cx="120" cy="160" r="12"/><circle cx="140" cy="175" r="9"/><circle cx="160" cy="160" r="11"/>
+          <circle cx="130" cy="145" r="8"/><circle cx="175" cy="145" r="10"/><circle cx="110" cy="175" r="7"/>
+          <circle cx="220" cy="200" r="13"/><circle cx="240" cy="185" r="10"/><circle cx="260" cy="200" r="12"/>
+        </g>
+        <ellipse cx="340" cy="200" rx="70" ry="55" fill="#1a2808" opacity="0.5"/>
+        <path d="M370,270 Q385,250 400,265 Q415,280 405,295 Q390,308 370,300 Q355,288 370,270Z" fill="#2a1008" opacity="0.9"/>
+        <polygon points="385,255 393,235 401,255" fill="#3a1808" stroke="#c04a2a" stroke-width="0.8"/>
+        <path d="M250,100 Q260,130 250,160 Q240,190 260,220 Q275,240 260,270" stroke="#1a4060" stroke-width="2.5" fill="none" opacity="0.6" stroke-linecap="round"/>
+        <path d="M420,160 Q440,180 435,220 Q430,250 415,270" stroke="#1a5070" stroke-width="3" fill="none" opacity="0.35" stroke-linecap="round"/>
+        <g filter="url(#glow)">
+          <circle cx="430" cy="195" r="5" fill="#6db528" opacity="0.9"/><circle cx="430" cy="195" r="9" fill="none" stroke="#6db528" stroke-width="1" opacity="0.4"/>
+          <circle cx="190" cy="175" r="5" fill="#6db528" opacity="0.9"/><circle cx="190" cy="175" r="9" fill="none" stroke="#6db528" stroke-width="1" opacity="0.4"/>
+          <circle cx="255" cy="70" r="5" fill="#8fd44a" opacity="0.9"/><circle cx="255" cy="70" r="9" fill="none" stroke="#8fd44a" stroke-width="1" opacity="0.4"/>
+          <circle cx="345" cy="195" r="5" fill="#c8972a" opacity="0.9"/><circle cx="345" cy="195" r="9" fill="none" stroke="#c8972a" stroke-width="1" opacity="0.4"/>
+          <circle cx="390" cy="272" r="5" fill="#c04a2a" opacity="0.9"/><circle cx="390" cy="272" r="9" fill="none" stroke="#c04a2a" stroke-width="1" opacity="0.4"/>
+        </g>
+        <g font-family="serif" fill="rgba(197,180,154,0.65)" font-size="9">
+          <text x="415" y="185" text-anchor="middle">Costa</text><text x="415" y="196" text-anchor="middle">Leste</text>
+          <text x="178" y="162" text-anchor="middle">Floresta</text>
+          <text x="255" y="56" text-anchor="middle">Montanhas</text>
+          <text x="345" y="180" text-anchor="middle">Planície</text>
+          <text x="388" y="257" text-anchor="middle">Vulcão</text>
+        </g>
+        <g stroke="rgba(30,80,120,0.25)" stroke-width="1" fill="none">
+          <path d="M30,150 Q40,145 50,150 Q60,155 70,150"/><path d="M30,165 Q40,160 50,165 Q60,170 70,165"/>
+        </g>
+        <g transform="translate(36,36)">
+          <circle r="16" fill="rgba(8,10,6,0.7)" stroke="rgba(74,120,37,0.4)" stroke-width="1"/>
+          <text y="-6" text-anchor="middle" fill="rgba(197,180,154,0.7)" font-size="8" font-family="serif">N</text>
+          <text y="14" text-anchor="middle" fill="rgba(197,180,154,0.35)" font-size="7" font-family="serif">S</text>
+          <text x="9" y="4" text-anchor="middle" fill="rgba(197,180,154,0.35)" font-size="7" font-family="serif">E</text>
+          <text x="-9" y="4" text-anchor="middle" fill="rgba(197,180,154,0.35)" font-size="7" font-family="serif">O</text>
+          <line y1="-10" y2="10" stroke="rgba(109,181,40,0.6)" stroke-width="1"/>
+          <line x1="-10" x2="10" stroke="rgba(197,180,154,0.3)" stroke-width="0.8"/>
+        </g>
+      </svg>
+    </div><!-- end map-iframe-wrap -->
+
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ATUALIZAÇÕES -->
+<section id="atualizacoes">
+  <div class="section-wrap">
+    <div class="updates-header">
+      <span class="section-tag reveal">⚠ Transmissões Interceptadas</span>
+      <h2 class="section-heading reveal reveal-delay-1">Últimos <span style="color:var(--acid)">Registros</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Sinais captados de fora da ilha. Os desenvolvedores ainda monitoram a situação. Estas são as últimas transmissões recebidas.</p>
+    </div>
+    <div class="updates-filter reveal">
+      <button class="utab active" onclick="filterUpdates('todos',this)">Todos</button>
+      <button class="utab" onclick="filterUpdates('devblog',this)">DevBlogs</button>
+      <button class="utab" onclick="filterUpdates('patch',this)">Patches</button>
+      <button class="utab" onclick="filterUpdates('anuncio',this)">Anúncios</button>
+    </div>
+    <div class="updates-grid" id="updatesGrid">
+    </div>
+    <div class="updates-steam-link reveal">
+      <a href="https://store.steampowered.com/news/app/376210" target="_blank" class="btn btn-ghost"><span>Ver todas no Steam →</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- GUIAS -->
+<section id="guias">
+  <div class="section-wrap">
+    <div class="guias-intro">
+      <span class="section-tag reveal" style="color:var(--warn)">⚠ Protocolos de Sobrevivência</span>
+      <h2 class="section-heading reveal reveal-delay-1">Como <span style="color:var(--acid)">Sobreviver</span> à Ilha</h2>
+      <p class="section-lead reveal reveal-delay-2">Protocolos escritos às pressas. Alguns no escuro. Todos testados. Não ignore nenhum.</p>
+    </div>
+    <div class="guias-grid">
+      <div class="guia-card reveal" onclick="openGuide('primeiros')"><span class="guia-icon">🥚</span><div class="guia-title">Primeiros Passos</div><div class="guia-desc">Você acabou de escolher seu primeiro dino. O que fazer? Como crescer sem morrer nos primeiros minutos?</div><span class="guia-link">Abrir protocolo →</span></div>
+      <div class="guia-card reveal reveal-delay-1" onclick="openGuide('combate')"><span class="guia-icon">🩸</span><div class="guia-title">Sistema de Combate</div><div class="guia-desc">Entenda como funciona o combate, stamina, ataques especiais e como sair vitorioso de um confronto.</div><span class="guia-link">Abrir protocolo →</span></div>
+      <div class="guia-card reveal reveal-delay-2" onclick="openGuide('sobrevivencia')"><span class="guia-icon">💧</span><div class="guia-title">Sobrevivência Básica</div><div class="guia-desc">Fome, sede, temperatura — os três inimigos invisíveis. Como gerenciar suas necessidades vitais na ilha.</div><span class="guia-link">Abrir protocolo →</span></div>
+      <div class="guia-card reveal reveal-delay-3" onclick="openGuide('manadas')"><span class="guia-icon">🤝</span><div class="guia-title">Manadas e Grupos</div><div class="guia-desc">A ilha é menos perigosa em grupo. Aprenda a formar manadas, comunicar e caçar em conjunto.</div><span class="guia-link">Abrir protocolo →</span></div>
+      <div class="guia-card reveal" onclick="openGuide('mapa')"><span class="guia-icon">🗺️</span><div class="guia-title">Navegação no Mapa</div><div class="guia-desc">Pontos de referência, rotas seguras e como se localizar sem mini-mapa — essencial para sobreviventes.</div><span class="guia-link">Abrir protocolo →</span></div>
+      <div class="guia-card reveal reveal-delay-1" onclick="openGuide('avancado')"><span class="guia-icon">⚡</span><div class="guia-title">Builds Avançadas</div><div class="guia-desc">Para veteranos: como maximizar atributos, mutações, sistema Elder e dominar a hierarquia da ilha.</div><span class="guia-link">Abrir protocolo →</span></div>
+    </div>
+
+    <!-- MODAIS DOS GUIAS -->
+    <div class="guide-modal-overlay" id="guideOverlay" onclick="closeGuideOutside(event)">
+      <div class="guide-modal" id="guideModal">
+        <div class="guide-modal-top">
+          <div style="display:flex;align-items:center">
+            <span class="guide-modal-icon" id="guideIcon"></span>
+            <div class="guide-modal-title-wrap">
+              <span class="guide-modal-tag">⚠ Protocolo de Sobrevivência</span>
+              <div class="guide-modal-title" id="guideTitle"></div>
+            </div>
+          </div>
+          <button class="guide-close" onclick="closeGuide()">✕ Fechar</button>
+        </div>
+        <div class="guide-modal-body" id="guideBody"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- COMUNIDADE -->
+<div class="full-divider"></div>
+<section id="comunidade">
+  <div class="section-wrap">
+    <div class="comunidade-header">
+      <span class="section-tag reveal">⚠ Transmissões da Comunidade</span>
+      <h2 class="section-heading reveal reveal-delay-1">Conteúdo da <span style="color:var(--acid)">Comunidade</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Canais, vídeos e servidores criados por sobreviventes como você. Quer divulgar seu conteúdo? Envie abaixo.</p>
+    </div>
+
+    <!-- Cards de conteúdo aprovado -->
+    <div class="com-grid reveal reveal-delay-2" id="comGrid">
+      <!-- Exemplos iniciais -->
+      <div class="com-card">
+        <div class="com-badge com-badge-youtube">YouTube</div>
+        <div class="com-thumb" style="background:linear-gradient(135deg,#1a0a0a,#2a0a0a)">
+          <span style="font-size:2.5rem">▶</span>
+        </div>
+        <div class="com-info">
+          <div class="com-title">Seu canal aqui</div>
+          <div class="com-desc">Envie seu canal pelo formulário abaixo e apareça nesta seção após aprovação.</div>
+          <div class="com-author">📺 YouTube</div>
+        </div>
+      </div>
+      <div class="com-card">
+        <div class="com-badge com-badge-discord">Discord</div>
+        <div class="com-thumb" style="background:linear-gradient(135deg,#0a0a2a,#12124a)">
+          <span style="font-size:2.5rem">💬</span>
+        </div>
+        <div class="com-info">
+          <div class="com-title">Seu servidor aqui</div>
+          <div class="com-desc">Tem um servidor de The Isle? Divulgue aqui para a comunidade encontrar você.</div>
+          <div class="com-author">🎮 Discord</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulário de envio -->
+    <div class="com-form-wrap reveal">
+      <div class="com-form-header">
+        <span class="section-tag" style="margin-bottom:8px">Enviar Conteúdo</span>
+        <h3 style="font-family:'Cinzel',serif;font-size:1rem;color:var(--parchment);margin-bottom:6px">Divulgue seu canal ou servidor</h3>
+        <p style="font-size:.9rem;color:var(--bone);opacity:.55;line-height:1.7">Todo conteúdo é revisado antes de aparecer. Spam e conteúdo inapropriado são rejeitados automaticamente.</p>
+      </div>
+      <form class="com-form" id="comForm" onsubmit="submitCom(event)">
+        <div class="com-form-row">
+          <div class="com-form-group">
+            <label class="com-label">Seu nome / canal</label>
+            <input class="com-input" type="text" id="comNome" placeholder="Ex: Zunert Gaming" required maxlength="60">
+          </div>
+          <div class="com-form-group">
+            <label class="com-label">Tipo de conteúdo</label>
+            <select class="com-input" id="comTipo" required>
+              <option value="">Selecione...</option>
+              <option value="YouTube">📺 Canal YouTube</option>
+              <option value="LiveYouTube">🔴 Live YouTube</option>
+              <option value="Twitch">🎮 Canal Twitch</option>
+              <option value="LiveTwitch">🔴 Live Twitch</option>
+              <option value="TikTok">🎵 Canal TikTok</option>
+              <option value="Discord">💬 Servidor Discord</option>
+              <option value="Video">▶ Vídeo específico</option>
+              <option value="Outro">🔗 Outro</option></select>
+          </div>
+        </div>
+        <div class="com-form-group">
+          <label class="com-label">Link</label>
+          <input class="com-input" type="url" id="comLink" placeholder="https://..." required>
+        </div>
+        <div class="com-form-group">
+          <label class="com-label">Descrição curta</label>
+          <textarea class="com-input com-textarea" id="comDesc" placeholder="Descreva seu conteúdo em até 120 caracteres..." maxlength="120" required></textarea>
+        </div>
+        <div class="com-form-footer">
+          <p class="com-disclaimer">⚠ Ao enviar, você concorda que o conteúdo será revisado antes de ser publicado.</p>
+          <button type="submit" class="btn btn-fill com-submit-btn" id="comSubmitBtn"><span id="comSubmitText">Enviar para revisão →</span></button>
+        </div>
+      </form>
+      <div id="comSuccess" style="display:none;text-align:center;padding:32px;border:1px solid rgba(90,158,30,.3);background:rgba(90,158,30,.05)">
+        <div style="font-size:2rem;margin-bottom:12px">✅</div>
+        <div style="font-family:'Cinzel',serif;font-size:.9rem;color:var(--acid);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Enviado com sucesso!</div>
+        <div style="font-size:.95rem;color:var(--bone);opacity:.6">Seu conteúdo será revisado em breve. Obrigado por contribuir com a comunidade!</div>
+      </div>
+      <div id="comError" style="display:none;text-align:center;padding:24px;border:1px solid rgba(139,26,10,.3);background:rgba(139,26,10,.05)">
+        <div style="font-family:'Cinzel',serif;font-size:.8rem;color:var(--warn);letter-spacing:.1em;text-transform:uppercase" id="comErrorMsg">Erro ao enviar. Tente novamente.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPE -->
+<section id="equipe">
+  <div class="section-wrap">
+    <div class="team-header">
+      <span class="section-tag reveal">⚠ Grupo de Sobreviventes</span>
+      <h2 class="section-heading reveal reveal-delay-1">Os que <span style="color:var(--acid)">Resistiram</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Sobreviventes que contribuíram com este registro. Se você quiser se juntar — encontre-nos. Se ainda estiver vivo.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal"><div class="team-avatar">🦖</div><div class="team-name">Zunert</div><div class="team-role">Fundador · Editor · Cartógrafo</div><div class="team-bio">Criador do Sobrevivente Jurássico. Mapeou cada região da ilha com as próprias patas. Veterano desde as primeiras versões do Evrima.</div></div>
+      
+      
+      <div class="team-card reveal reveal-delay-2"><div class="team-avatar">📸</div><div class="team-name">The Luis</div><div class="team-role">Editor de Guias · Fotógrafo</div><div class="team-bio">Responsável por capturar os momentos mais épicos da ilha. Câmera sempre em punho, mesmo com um Rex atrás.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- VIDEOS DA COMUNIDADE -->
+<div class="full-divider"></div>
+<section id="videos">
+  <div class="section-wrap">
+    <div class="videos-header">
+      <span class="section-tag reveal">📹 Comunidade</span>
+      <h2 class="section-heading reveal reveal-delay-1">Vídeos da <span style="color:var(--acid)">Comunidade</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Vídeos enviados por sobreviventes da ilha. Clique para assistir.</p>
+    </div>
+    <div class="videos-grid reveal reveal-delay-2" id="videosGrid">
+      <!-- Vídeo de exemplo -->
+      <a class="video-card" href="https://youtube.com" target="_blank">
+        <div class="video-thumb-wrap">
+          <img class="video-thumb" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Exemplo" onerror="this.src='mapa.jpg'">
+          <div class="video-play-overlay">▶</div>
+          <div class="video-platform-badge">📺 YouTube</div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Exemplo — Envie seu vídeo!</div>
+          <div class="video-author">Canal da Comunidade</div>
+        </div>
+      </a>
+    </div>
+    <div class="reveal" style="text-align:center;margin-top:32px;">
+      <a href="#comunidade" class="btn btn-ghost"><span>Enviar seu vídeo →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- DIRETORIO DE CANAIS -->
+<div class="full-divider"></div>
+<section id="diretorio">
+  <div class="section-wrap">
+    <div class="videos-header">
+      <span class="section-tag reveal">📋 Canais</span>
+      <h2 class="section-heading reveal reveal-delay-1">Canais da <span style="color:var(--acid)">Comunidade</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Todos os canais aprovados pela comunidade. Ficam aqui para sempre.</p>
+    </div>
+
+    <!-- Filtros por tipo -->
+    <div class="dir-filters reveal reveal-delay-2">
+      <button class="dir-tab active" onclick="filterDir('todos',this)">Todos</button>
+      <button class="dir-tab" onclick="filterDir('youtube',this)">📺 YouTube</button>
+      <button class="dir-tab" onclick="filterDir('twitch',this)">🎮 Twitch</button>
+      <button class="dir-tab" onclick="filterDir('tiktok',this)">🎵 TikTok</button>
+      <button class="dir-tab" onclick="filterDir('discord',this)">💬 Discord</button>
+    </div>
+
+    <div class="dir-grid reveal reveal-delay-3" id="dirGrid">
+      <!-- Cards adicionados pelo GitHub Action -->
+      <div class="dir-card" data-tipo="youtube">
+        <div class="dir-icon">📺</div>
+        <div class="dir-info">
+          <div class="dir-name">Exemplo de Canal</div>
+          <div class="dir-type">YouTube</div>
+        </div>
+        <a href="https://youtube.com" target="_blank" class="dir-link">Visitar →</a>
+      </div>
+    </div>
+
+    <div id="dirEmpty" style="display:none;text-align:center;padding:40px;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bone);opacity:.3">
+      Nenhum canal encontrado
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="section-wrap">
+    <div class="nl-text">
+      <span class="section-tag">Fique atualizado</span>
+      <h2 class="section-heading">Receba os Próximos<br><span style="color:var(--warn)">Alertas</span></h2>
+      <p class="section-lead" style="margin-top:10px;">Novos registros, alertas de criaturas e transmissões da ilha. Deixe seu contato — caso ainda seja possível enviar.</p>
+    </div>
+    <div class="nl-form">
+      <input class="nl-input" type="email" placeholder="seu@email.com — se ainda tiver sinal...">
+      <button class="nl-btn">Inscrever</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#hero">The Isle Evrima</a>
+      <p>Um registro compilado na ilha. Cada palavra custou algo. Use com sabedoria — e nunca baixe a guarda.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegar</h4>
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#dinos">Dinossauros</a></li>
+        <li><a href="#mapa">Mapa</a></li>
+        <li><a href="#atualizacoes">Atualizações</a></li>
+        <li><a href="#guias">Guias</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Comunidade</h4>
+      <ul>
+        <li><a href="#">Discord</a></li>
+        <li><a href="#">Grupos</a></li>
+        <li><a href="#">Membros</a></li>
+        <li><a href="#">Contato</a></li>
+        <li><a href="#">Privacidade</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Sobrevivente Jurássico · The Isle Evrima Fan Site · Não oficial</span>
+    <span class="footer-copy">Feito com paixão pelo Evrima</span>
+  </div>
+</footer>
+
+<!-- MOBILE BOTTOM TABS -->
+<div class="mobile-tabs" id="mobileTabs">
+  <button class="mob-tab active" onclick="scrollToSection('hero',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">🏠</span>
+    <span class="mob-tab-label">Início</span>
+  </button>
+  <button class="mob-tab" onclick="scrollToSection('dinos',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">🦖</span>
+    <span class="mob-tab-label">Dinos</span>
+  </button>
+  <button class="mob-tab" onclick="scrollToSection('mapa',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">🗺️</span>
+    <span class="mob-tab-label">Mapa</span>
+  </button>
+  <button class="mob-tab" onclick="scrollToSection('guias',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">📋</span>
+    <span class="mob-tab-label">Guias</span>
+  </button>
+  <button class="mob-tab" onclick="scrollToSection('atualizacoes',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">📡</span>
+    <span class="mob-tab-label">Updates</span>
+  </button>
+</div>
+
+<script>
+// DINO DETAIL MODAL
+function openDinoModal(name) {
+  const d = dinos.find(x => x.name === name);
+  if (!d) return;
+
+  // Image
+  document.getElementById('dmImg').src = d.img || '';
+  document.getElementById('dmImg').alt = d.name;
+
+  // Name & class
+  document.getElementById('dmName').textContent = d.name;
+  document.getElementById('dmCls').textContent = d.cls;
+
+  // Tier
+  const tier = d.detail ? d.detail.tier : 'B';
+  const tierLabel = d.detail ? d.detail.tierLabel : 'Tier B';
+  document.getElementById('dmTier').innerHTML = `<span class="dino-tier dino-tier-${tier}">${tierLabel}</span>`;
+
+  // Lore
+  document.getElementById('dmLore').textContent = d.detail ? d.detail.lore : d.desc;
+
+  // Audio button
+  const audioBtn = document.getElementById('dmAudioBtn');
+  audioBtn.setAttribute('data-sound', d.audio || '');
+  audioBtn.style.display = d.audio ? 'flex' : 'none';
+  audioBtn.classList.remove('playing');
+  audioBtn.textContent = '▶ Broadcast Call';
+
+  // Stats
+  const peso = d.raw.peso >= 1000 ? (d.raw.peso/1000).toFixed(1) + ' ton' : d.raw.peso + ' kg';
+  const elderPeso = d.raw.peso >= 1000
+    ? ((d.raw.peso * 1.25)/1000).toFixed(1) + ' ton'
+    : Math.round(d.raw.peso * 1.25) + ' kg';
+
+  document.getElementById('dmStats').innerHTML = `
+    <div class="dino-stat-box"><div class="dino-stat-lbl">Peso Adulto</div><div class="dino-stat-val">${peso}</div></div>
+    <div class="dino-stat-box"><div class="dino-stat-lbl">Vel. km/h</div><div class="dino-stat-val">${typeof d.raw.vel === 'number' ? d.raw.vel.toFixed(0) : d.raw.vel}</div></div>
+    <div class="dino-stat-box"><div class="dino-stat-lbl">F. Ataque</div><div class="dino-stat-val">${d.raw.forca}</div></div>
+    <div class="dino-stat-box"><div class="dino-stat-lbl">Grupo Máx.</div><div class="dino-stat-val">${d.raw.grupo}</div></div>`;
+
+  // Elder stats
+  document.getElementById('dmElderStats').innerHTML = `
+    <div class="dino-stat-box" style="border-color:rgba(255,215,0,.2)"><div class="dino-stat-lbl" style="color:#ffd700">Peso Prime</div><div class="dino-stat-val" style="color:#ffd700">~${elderPeso}</div></div>
+    <div class="dino-stat-box" style="border-color:rgba(255,215,0,.2)"><div class="dino-stat-lbl" style="color:#ffd700">Slot Extra</div><div class="dino-stat-val" style="color:#ffd700">+1 Mutação</div></div>`;
+
+  // Habitats
+  const habitats = d.detail ? d.detail.habitats : [];
+  document.getElementById('dmHabitats').innerHTML = habitats.map(h =>
+    `<span class="dino-habitat-tag">${h}</span>`).join('');
+
+  // Strategy
+  document.getElementById('dmStrategy').textContent = d.detail ? d.detail.strategy : '';
+
+  // Matchups
+  const matchups = d.detail ? d.detail.matchups : [];
+  document.getElementById('dmMatchups').innerHTML = matchups.map(m =>
+    `<div class="dino-matchup-item">
+      <span>${m.name}</span>
+      <span class="dino-matchup-result result-${m.result}">${m.label}</span>
+    </div>`).join('');
+
+  // Elder text
+  document.getElementById('dmElder').textContent = d.detail ? d.detail.elder : '';
+
+  // Open modal
+  document.getElementById('dinoModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDinoModal() {
+  document.getElementById('dinoModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  // Stop audio if playing
+  if (currentBtn && currentBtn.id === 'dmAudioBtn') {
+    if (_audio) { _audio.pause(); _audio.currentTime = 0; }
+    currentBtn.classList.remove('playing');
+    currentBtn.textContent = '▶ Broadcast Call';
+    _audio = null; currentBtn = null;
+  }
+}
+
+function closeDinoModalOutside(e) {
+  if (e.target === document.getElementById('dinoModalOverlay')) closeDinoModal();
+}
+
+function playDinoModalSound(btn) {
+  playDino(btn);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeDinoModal();
+    closeGuide();
+  }
+});
+
+// DIRETORIO FILTER
+function filterDir(tipo, el){
+  document.querySelectorAll('.dir-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const cards = document.querySelectorAll('.dir-card');
+  let visible = 0;
+  cards.forEach(c=>{
+    if(tipo==='todos' || c.dataset.tipo===tipo){
+      c.style.display='flex';
+      visible++;
+    } else {
+      c.style.display='none';
+    }
+  });
+  document.getElementById('dirEmpty').style.display = visible===0 ? 'block' : 'none';
+}
+
+// LIVES SYSTEM
+// Configurar seus canais Twitch aqui:
+const twitchChannels = [
+  // Adicione os nomes dos canais Twitch da comunidade aqui
+  // Exemplo: 'zunert', 'theluis', 'canal3'
+];
+
+// YouTube lives (manual - adicione o ID do video quando estiver ao vivo)
+const youtubeLives = [
+  // Exemplo: { id: 'dQw4w9WgXcQ', name: 'Zunert', url: 'https://youtube.com/watch?v=dQw4w9WgXcQ' }
+];
+
+function buildLiveCard(name, platform, thumbUrl, url) {
+  const card = document.createElement('a');
+  card.className = 'live-card';
+  card.href = url;
+  card.target = '_blank';
+  card.rel = 'noopener';
+  card.innerHTML = `
+    <div class="live-thumb-wrap">
+      <img class="live-thumb" src="${thumbUrl}" alt="${name}" onerror="this.parentElement.style.background='#1a0a0a'">
+      <div class="live-badge">🔴 AO VIVO</div>
+    </div>
+    <div class="live-info">
+      <div class="live-name">${name}</div>
+      <div class="live-platform">${platform}</div>
+    </div>`;
+  return card;
+}
+
+async function loadLives() {
+  const carousel = document.getElementById('livesCarousel');
+  const bar = document.getElementById('livesBar');
+  const countEl = document.getElementById('liveCount');
+  const cards = [];
+
+  // YouTube lives (manual)
+  for (const yt of youtubeLives) {
+    const thumb = `https://img.youtube.com/vi/${yt.id}/maxresdefault.jpg`;
+    cards.push(buildLiveCard(yt.name, '📺 YouTube', thumb, yt.url));
+  }
+
+  // Twitch lives (automático via API pública)
+  if (twitchChannels.length > 0) {
+    try {
+      for (const ch of twitchChannels) {
+        const thumb = `https://static-cdn.jtvnw.net/previews-ttv/live_user_${ch}-320x180.jpg?t=${Date.now()}`;
+        const url = `https://twitch.tv/${ch}`;
+        cards.push(buildLiveCard(ch, '🎮 Twitch', thumb, url));
+      }
+    } catch(e) {}
+  }
+
+  if (cards.length > 0) {
+    carousel.innerHTML = '';
+    cards.forEach(c => carousel.appendChild(c));
+    bar.style.display = 'block';
+    countEl.textContent = `(${cards.length} canal${cards.length > 1 ? 'is' : ''})`;
+
+    // Auto scroll se mais de 4 lives
+    if (cards.length > 4) {
+      let idx = 0;
+      setInterval(() => {
+        idx = (idx + 1) % cards.length;
+        cards[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }, 5000);
+    }
+  }
+}
+loadLives();
+
+// COMUNIDADE FORM
+async function submitCom(e){
+  e.preventDefault();
+  const btn = document.getElementById('comSubmitBtn');
+  const txt = document.getElementById('comSubmitText');
+  const nome = document.getElementById('comNome').value;
+  const tipo = document.getElementById('comTipo').value;
+  const link = document.getElementById('comLink').value;
+  const desc = document.getElementById('comDesc').value;
+
+  // Basic validation
+  document.getElementById('comError').style.display='none';
+
+  // Check for obvious spam/bad content
+  const badWords = ['porn','xxx','hack','cheat','free money','bitcoin','crypto giveaway'];
+  const allText = (nome+desc+link).toLowerCase();
+  if(badWords.some(w=>allText.includes(w))){
+    document.getElementById('comErrorMsg').textContent='⚠ Conteúdo não permitido detectado.';
+    document.getElementById('comError').style.display='block';
+    return;
+  }
+
+  // Check URL is valid
+  try { new URL(link); } catch {
+    document.getElementById('comErrorMsg').textContent='⚠ Link inválido. Use o formato https://...';
+    document.getElementById('comError').style.display='block';
+    return;
+  }
+
+  btn.disabled=true;
+  txt.textContent='Enviando...';
+
+  try {
+    const res = await fetch('https://formspree.io/f/SEU_ID_AQUI', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        nome, tipo, link, descricao: desc,
+        _subject: `[Comunidade] Nova submissão: ${tipo} - ${nome}`
+      })
+    });
+
+    if(res.ok){
+      document.getElementById('comForm').style.display='none';
+      document.getElementById('comSuccess').style.display='block';
+    } else {
+      throw new Error('Erro no servidor');
+    }
+  } catch(err) {
+    document.getElementById('comErrorMsg').textContent='⚠ Erro ao enviar. Tente novamente em instantes.';
+    document.getElementById('comError').style.display='block';
+    btn.disabled=false;
+    txt.textContent='Enviar para revisão →';
+  }
+}
+
+// MAP ACTIVATE / DEACTIVATE
+function activateMap(){
+  document.getElementById('mapStatic').style.display='none';
+  document.getElementById('mapBalloon').style.display='none';
+  const iframeDiv = document.getElementById('mapIframe');
+  iframeDiv.style.display='flex';
+  iframeDiv.style.flexDirection='column';
+  const frame = document.getElementById('vulnonaFrame');
+  if(!frame.src || frame.src === 'about:blank' || frame.src === ''){
+    frame.src = 'https://vulnona.com/game/map/#';
+  }
+}
+function deactivateMap(){
+  document.getElementById('mapStatic').style.display='block';
+  document.getElementById('mapBalloon').style.display='flex';
+  document.getElementById('mapIframe').style.display='none';
+  document.getElementById('vulnonaFrame').src='about:blank';
+  const wrap = document.querySelector('.map-iframe-wrap');
+  if(wrap.classList.contains('fullscreen-map')){
+    wrap.classList.remove('fullscreen-map');
+    document.body.style.overflow='';
+  }
+}
+
+// MAP FULLSCREEN
+function toggleFullscreenMap(){
+  const wrap = document.querySelector('.map-iframe-wrap');
+  wrap.classList.toggle('fullscreen-map');
+  const btn = document.querySelector('.map-ctrl-btn[onclick]');
+  if(wrap.classList.contains('fullscreen-map')){
+    btn.textContent = '✕ Sair da tela cheia';
+    document.body.style.overflow = 'hidden';
+  } else {
+    btn.textContent = '⛶ Tela cheia';
+    document.body.style.overflow = '';
+  }
+}
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='Escape') {
+    const wrap = document.querySelector('.map-iframe-wrap');
+    if(wrap.classList.contains('fullscreen-map')){
+      toggleFullscreenMap();
+    }
+  }
+});
+
+// MOBILE TABS
+function scrollToSection(id, btn){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.mob-tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+// Update active tab on scroll
+if(window.innerWidth <= 900){
+  const sections = ['hero','dinos','mapa','guias','atualizacoes'];
+  const tabs = document.querySelectorAll('.mob-tab');
+  window.addEventListener('scroll', () => {
+    let current = 'hero';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if(el && window.scrollY >= el.offsetTop - 120) current = id;
+    });
+    sections.forEach((id, i) => {
+      if(id === current) tabs[i]?.classList.add('active');
+      else tabs[i]?.classList.remove('active');
+    });
+  }, {passive:true});
+}
+
+// SLIDESHOW
+(function(){
+  const slides=document.querySelectorAll('.slide');
+  const dots=document.querySelectorAll('.slide-dot');
+  let cur=0,timer=null;
+  function goTo(n){
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur=(n+slides.length)%slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+  window.goSlide=goTo;
+  function next(){goTo(cur+1);}
+  timer=setInterval(next,5000);
+  document.getElementById('slideshow').addEventListener('mouseenter',()=>clearInterval(timer));
+  document.getElementById('slideshow').addEventListener('mouseleave',()=>{timer=setInterval(next,5000);});
+})();
+
+// PARTICLES (subtle, on top of slideshow)
+(function(){
+  const c=document.getElementById('particles');
+  for(let i=0;i<14;i++){
+    const p=document.createElement('div');
+    p.className='pt';
+    const s=1.5+Math.random()*2.5;
+    p.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${6+Math.random()*14}px;animation-duration:${10+Math.random()*14}s;animation-delay:${-Math.random()*22}s;`;
+    c.appendChild(p);
+  }
+})();
+
+// NAV SCROLL
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').style.background=
+    window.scrollY>60?'rgba(8,10,6,0.99)':'linear-gradient(180deg,rgba(8,10,6,.97) 0%,rgba(8,10,6,.7) 100%)';
+});
+
+// MOBILE MENU
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('open')}
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.05});
+// Fallback: force all reveals visible after 2s in case observer fails
+setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible')),800);
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// DINOS
+const dinos=[
+  // ── HERBÍVOROS ──
+  {name:'Diabloceratops',detail:{lore:'Um dos herbívoros mais agressivos da ilha. Não fuja — o Diabloceratops persegue. Enfrente-o com espaço e stamina cheia.',tier:'B',tierLabel:'Tier B — Competitivo',habitats:['Northern Jungle','North Plains','Cedrus Forest'],elder:'Prime Elder aumenta a força de mordida e resistência a knockdown. Excelente para defesa de manada.',strategy:'Use o charge para interromper ataques. Em grupo de 6 é quase imbatível contra carnívoros médios.',matchups:[{name:'Dryosaurus',detail:{lore:'Velocidade é sua única armadura. O Dryo não luta — ele desaparece. Aprenda as rotas de fuga antes de qualquer confronto.',tier:'C',tierLabel:'Tier C — Suporte/Fuga',habitats:['Northern Jungle','Tallbrush Coasts','North Plains'],elder:'Prime Elder melhora stamina e velocidade de sprint. Com mutação de pulmões aumenta absurdamente a fuga.',strategy:'Fique em grupo grande. Nunca pare de se mover. Em manada de 10 a distração salva vidas.',matchups:[{name:'Hypsilophodon',detail:{lore:'O menor dino jogável. Invisível entre folhas, mortal em bandos. Sozinho é presa fácil — em grupo vira pesadelo.',tier:'C',tierLabel:'Tier C — Bando',habitats:['Northern Jungle','Eastern Jungle','Tallbrush Coasts'],elder:'Prime Elder com Sequential Hermaphroditism permite reprodução solo. Ideal para criar colônias.',strategy:'Grupo de 10 com coordenação vocal. Evite qualquer carnívoro solo. Habitat denso é obrigatório.',matchups:[{name:'Dryosaurus',result:'even',label:'Equilibrado'},{name:'Omniraptor solo',result:'loss',label:'Perde'},{name:'Troodon',detail:{lore:'De dia é comum. À noite é um serial killer. O bônus noturno do Troodon é tão absurdo que transforma o jogo completamente após o anoitecer.',tier:'A',tierLabel:'Tier A — Noturno',habitats:['Eastern Jungle','Northern Jungle','Central Jungle'],elder:'Prime Elder maximiza bônus noturno. Em grupo de 10 à noite é o predador mais letal da ilha.',strategy:'Durma de dia, caçe à noite. Em grupo coordenado consegue derrubar T-Rex descuidado no escuro.',matchups:[{name:'Qualquer dino à noite',result:'win',label:'Domina'},{name:'De dia contra Allosaurus',result:'loss',label:'Perde'},{name:'De dia contra Carnotaurus',result:'loss',label:'Perde'}]},result:'loss',label:'Perde'}]},result:'even',label:'Equilibrado'},{name:'Dilophosaurus',detail:{lore:'Ágil, venenoso e subestimado. O Dilo em grupo é um pesadelo para herbívoros médios e uma ameaça constante para qualquer um.',tier:'B',tierLabel:'Tier B — Veneno',habitats:['Northern Jungle','Eastern Jungle','Tallbrush Coasts'],elder:'Prime Elder aumenta o efeito do veneno e velocidade. Sangramento + veneno simultaneamente é letal.',strategy:'Use o veneno para sangrar primeiro, depois persiga. Em grupo de 6 derruba presas muito maiores.',matchups:[{name:'Hypsilophodon',result:'win',label:'Vence'},{name:'Dryosaurus',result:'win',label:'Vence'},{name:'Pachycephalosaurus',result:'even',label:'Equilibrado'},{name:'Allosaurus',result:'loss',label:'Perde'}]},result:'loss',label:'Perde'},{name:'Omniraptor',detail:{lore:'O predador mais adaptável da ilha. Rápido o suficiente para fugir, forte o suficiente para lutar. Excelente para iniciantes em carnívoros.',tier:'B',tierLabel:'Tier B — Adaptável',habitats:['Northern Jungle','Eastern Jungle','Central Jungle'],elder:'Prime Elder com Multichambered Lungs permite perseguições longas. Muito eficiente em grupo.',strategy:'Use o terreno a seu favor. Em grupo de 8 consegue derrubar Tenonto e Maiasaura.',matchups:[{name:'Dryosaurus',result:'win',label:'Vence'},{name:'Hypsilophodon',result:'win',label:'Vence'},{name:'Pachycephalosaurus',result:'even',label:'Equilibrado'},{name:'Carnotaurus',result:'loss',label:'Perde'}]},result:'loss',label:'Perde'},{name:'Troodon',result:'loss',label:'Perde'}]},result:'win',label:'Vence'},{name:'Hypsilophodon',result:'win',label:'Vence'},{name:'Carnotaurus',detail:{lore:'O mais rápido da ilha. Ninguém escapa de um Carno motivado. Sua fraqueza é a sustentação — hit and run é a lei.',tier:'A',tierLabel:'Tier A — Velocista',habitats:['South Plains','North Plains','Eastern Jungle'],elder:'Prime Elder com pulmões maximizados permite perseguições infinitas. Aterrorizante.',strategy:'Hit and run. Nunca fique parado após atacar. Em trio sem nada para fugir na ilha.',matchups:[{name:'Dryosaurus',result:'win',label:'Vence sempre'},{name:'Hypsilophodon',result:'win',label:'Vence'},{name:'Maiasaura solo',result:'win',label:'Vence'},{name:'Diabloceratops',result:'win',label:'Vence'},{name:'Stegosaurus',result:'loss',label:'Evite'},{name:'Triceratops',result:'loss',label:'Perde'}]},result:'loss',label:'Perde'},{name:'Allosaurus',detail:{lore:'O predador de grupo mais eficiente da ilha. Em trio coordenado derruba qualquer presa — incluindo T-Rex descuidado.',tier:'A',tierLabel:'Tier A — Pack Hunter',habitats:['Central Jungle','Eastern Jungle','Highland'],elder:'Prime Elder aumenta velocidade e dano. Em trio de Prime Elders é devastador.',strategy:'Nunca ataque Trice ou T-Rex solo. Em trio coordenem os ataques para dividir a atenção.',matchups:[{name:'Ceratosaurus',detail:{lore:'O predador de rio. Versátil em terra e letal perto da água — mas sem o kit do Deinosuchus. Equilíbrio entre poder e mobilidade.',tier:'B',tierLabel:'Tier B — Versátil',habitats:['Central Jungle','Delta','Eastern Jungle'],elder:'Prime Elder aumenta dano de mordida e velocidade aquática. Dominante em zonas de rio.',strategy:'Use rios como vantagem. Perto da água ganha mobilidade extra. Evite campo aberto contra grupos.',matchups:[{name:'Tenontosaurus',result:'win',label:'Vence'},{name:'Pachycephalosaurus',result:'win',label:'Vence'},{name:'Allosaurus',result:'loss',label:'Perde'},{name:'Stegosaurus',result:'loss',label:'Cuidado com cauda'}]},result:'win',label:'Vence'},{name:'Carnotaurus',result:'win',label:'Vence'},{name:'Stegosaurus',result:'even',label:'Cuidado com cauda'},{name:'T-Rex',result:'loss',label:'Perde solo'},{name:'Triceratops',result:'loss',label:'Perde'}]},result:'loss',label:'Perde'},{name:'Ceratosaurus',result:'even',label:'Equilibrado'}]},audio:'diabloceratops.mp3',img:'diabloceratops.jpg',type:'herbivoro',icon:'🔱',cls:'Herbívoro · Combativo',badge:'herb',bl:'Herbívoro',
+   food:'Marigold, Fireweed, Cashew',
+   desc:'Chifres imponentes e temperamento agressivo. Perigoso em grupo e com boa força de mordida para um herbívoro.',
+   raw:{peso:3000,vel:34.8,forca:275,grupo:6},
+   stats:{Peso:32,Velocidade:69,Força:31,Grupo:60}},
+
+  {name:'Dryosaurus',audio:'dryosaurus.mp3',img:'dryosaurus.jpg',type:'herbivoro',icon:'🍃',cls:'Herbívoro · Velocista',badge:'herb',bl:'Herbívoro',
+   food:'VariegatedOrange, Agave, SunchokeRoots',
+   desc:'Um dos mais rápidos herbívoros da ilha. Leve e ágil — sobrevive pela velocidade e em grandes grupos.',
+   raw:{peso:130,vel:45,forca:20,grupo:10},
+   stats:{Peso:1,Velocidade:91,Força:2,Grupo:100}},
+
+  {name:'Hypsilophodon',audio:'hypsilophodon.mp3',img:'hypsilophodon.jpg',type:'herbivoro',icon:'🌱',cls:'Herbívoro · Pequeno Porte',badge:'herb',bl:'Herbívoro',
+   food:'Mango, ChanterelleMushroom, RadishRoot',
+   desc:'Minúsculo e extremamente veloz. Quase indefeso em combate — sobrevive em bandos numerosos e na fuga.',
+   raw:{peso:20,vel:40,forca:2,grupo:10},
+   stats:{Peso:1,Velocidade:80,Força:1,Grupo:100}},
+
+  {name:'Maiasaura',detail:{lore:'O herbívoro mais veloz e mais social da ilha. Em manada grande vira uma força imparável — difícil de matar e impossível de parar.',tier:'A',tierLabel:'Tier A — Manada',habitats:['North Plains','Eastern Jungle','South Plains'],elder:'Prime Elder com Parthenogenesis permite ninhos solo. Excelente para objetivos Elder em grupo.',strategy:'Mantenha grupo de 8-10. Use a velocidade para separar predadores. Nunca pare de se mover em campo aberto.',matchups:[{name:'Carnotaurus',result:'win',label:'Vence em grupo'},{name:'Ceratosaurus',result:'win',label:'Vence'},{name:'Allosaurus',result:'even',label:'Equilibrado'},{name:'T-Rex',result:'loss',label:'Perde'}]},audio:'maiasaura.mp3',img:'maiasaura.jpg',type:'herbivoro',icon:'🦕',cls:'Herbívoro · Grande Porte',badge:'herb',bl:'Herbívoro',
+   food:'MountainAsh, WildPotatoRoot, RadishRoot',
+   desc:'O herbívoro mais veloz da ilha. Grande, rápido e excelente em grupo — combinação difícil de enfrentar.',
+   raw:{peso:3750,vel:47,forca:50,grupo:10},
+   stats:{Peso:39,Velocidade:95,Força:6,Grupo:100}},
+
+  {name:'Pachycephalosaurus',detail:{lore:'Cabeça como ariete. O Pachy é o melhor dino para iniciantes — rápido, resistente e com comida fácil de encontrar.',tier:'B',tierLabel:'Tier B — Iniciante',habitats:['North Plains','Highland','Eastern Jungle'],elder:'Prime Elder aumenta o dano do headbutt e reduz o cooldown. Pode stunnar carnívoros médios.',strategy:'Use o headbutt para interromper ataques. Em grupo de 8 consegue repelir Allosaurus.',matchups:[{name:'Omniraptor',result:'even',label:'Equilibrado'},{name:'Dilophosaurus',result:'even',label:'Equilibrado'},{name:'Carnotaurus',result:'loss',label:'Perde'},{name:'Herrerasaurus',detail:{lore:'Veloz, ágil e mortal em bando. O Herrera domina o início do jogo e continua relevante como adulto em grupos coordenados.',tier:'B',tierLabel:'Tier B — Pack',habitats:['Central Jungle','Highland','Cedrus Forest'],elder:'Prime Elder com velocidade maximizada torna o Herrera um dos predadores mais difíceis de escapar.',strategy:'Em grupo de 10 coordenado com vocalizações é devastador. Foque em presas isoladas.',matchups:[{name:'Hypsilophodon',result:'win',label:'Vence'},{name:'Dryosaurus',result:'win',label:'Vence'},{name:'Tenontosaurus',result:'loss',label:'Perde solo'},{name:'Allosaurus',result:'loss',label:'Perde'}]},result:'loss',label:'Perde'}]},audio:'pachycephalosaurus.mp3',img:'pachycephalosaurus.jpg',type:'herbivoro',icon:'💀',cls:'Herbívoro · Cabeçudo',badge:'herb',bl:'Herbívoro',
+   food:'VariegatedOrange, Agave, Coconut',
+   desc:'Crânio espesso como armadura. Usa a cabeça como ariete. Rápido e surpreendentemente resistente.',
+   raw:{peso:700,vel:42,forca:30,grupo:8},
+   stats:{Peso:7,Velocidade:84,Força:3,Grupo:80}},
+
+  {name:'Stegosaurus',detail:{lore:'Lento mas devastador. O thagomizer é uma das armas mais poderosas da ilha — errou o timing, perdeu um membro.',tier:'A',tierLabel:'Tier A — Tanque',habitats:['Cedrus Forest','Highland','Western Rail'],elder:'Prime Elder aumenta o dano do thagomizer e a resistência a sangramento. Quase intocável.',strategy:'Fique de costas para a ameaça. Nunca entre na água. Em grupo de 5 é quase intocável.',matchups:[{name:'Carnotaurus',result:'win',label:'Vence'},{name:'Ceratosaurus',result:'win',label:'Vence'},{name:'Allosaurus',result:'even',label:'Equilibrado'},{name:'T-Rex',result:'loss',label:'Perde'},{name:'Deinosuchus',detail:{lore:'O terror das margens. Em terra é lento demais — na água é inescapável. Qualquer dino que beber água perto dele já morreu.',tier:'S',tierLabel:'Tier S — Apex Aquático',habitats:['Swamps','Delta','Coastland Swamp','Eastern Jungle'],elder:'Prime Elder maximiza dano aquático e resistência. Praticamente impossível de matar na água.',strategy:'Fique SEMPRE na água. Nunca persiga presas por mais de 5 segundos em terra. Emboscada é sua especialidade.',matchups:[{name:'Qualquer dino na água',result:'win',label:'Vence sempre'},{name:'T-Rex em terra',result:'loss',label:'Perde'},{name:'Triceratops em terra',result:'loss',label:'Perde'}]},result:'loss',label:'Evite água'}]},audio:'stegosaurus.mp3',img:'stegosaurus.jpg',type:'herbivoro',icon:'🌿',cls:'Herbívoro · Tanque',badge:'herb',bl:'Herbívoro',
+   food:'Marigold, Sumac, Pumpkin',
+   desc:'O thagomizer (cauda espinhosa) torna qualquer ataque arriscado. Lento, mas massivo e difícil de derrubar.',
+   raw:{peso:6000,vel:29,forca:50,grupo:5},
+   stats:{Peso:63,Velocidade:59,Força:6,Grupo:50}},
+
+  {name:'Tenontosaurus',detail:{lore:'Grande, resistente e versátil. O Tenonto é difícil de matar e fácil de jogar — bom equilíbrio para jogadores intermediários.',tier:'B',tierLabel:'Tier B — Versátil',habitats:['Central Jungle','North Plains','Eastern Jungle'],elder:'Prime Elder com Osteophagic cura fraturas rapidamente em combate prolongado.',strategy:'Use o tamanho para bloquear rotas de fuga de predadores menores. Em grupo domina zonas.',matchups:[{name:'Dilophosaurus',result:'win',label:'Vence'},{name:'Omniraptor',result:'win',label:'Vence'},{name:'Carnotaurus',result:'loss',label:'Perde'},{name:'Allosaurus',result:'loss',label:'Perde'}]},audio:'tenontosaurus.mp3',img:'tenontosaurus.jpg',type:'herbivoro',icon:'🦎',cls:'Herbívoro · Médio Porte',badge:'herb',bl:'Herbívoro',
+   food:'MountainAsh, WildPotatoRoot, RadishRoot',
+   desc:'Equilibrado e versátil. Boa velocidade e grupos grandes. Ideal para iniciantes aprenderem como herbívoro.',
+   raw:{peso:1600,vel:41,forca:35,grupo:8},
+   stats:{Peso:17,Velocidade:82,Força:4,Grupo:80}},
+
+  {name:'Triceratops',detail:{lore:'O apex dos herbívoros. Chifres que perfuram qualquer predador, resistência absurda. Até o T-Rex respeita um Trice adulto.',tier:'S',tierLabel:'Tier S — Apex Herbívoro',habitats:['Highland','Central Jungle','South Plains'],elder:'Prime Elder transforma o Trice em praticamente imortal. Resistência máxima e dano de chifre devastador.',strategy:'Em grupo de 4 domina qualquer zona. Nunca vire as costas — o charge é sua arma principal.',matchups:[{name:'Carnotaurus',result:'win',label:'Vence facilmente'},{name:'Allosaurus',result:'win',label:'Vence'},{name:'Ceratosaurus',result:'win',label:'Vence'},{name:'T-Rex',result:'even',label:'Equilibrado'},{name:'Deinosuchus',result:'loss',label:'Evite água'}]},audio:'triceratops.mp3',img:'triceratops.jpg',type:'herbivoro',icon:'🦏',cls:'Herbívoro · Apex',badge:'herb',bl:'Herbívoro',
+   food:'VariegatedOrange, Fiddlehead, Papaya',
+   desc:'O herbívoro mais poderoso da ilha. Força de mordida brutal e chifres capazes de perfurar qualquer predador.',
+   raw:{peso:9500,vel:23,forca:900,grupo:4},
+   stats:{Peso:100,Velocidade:47,Força:100,Grupo:40}},
+
+  // ── CARNÍVOROS ──
+  {name:'Allosaurus',audio:'allosaurus.mp3',img:'allosaurus.jpg',type:'carnivoro',icon:'🦖',cls:'Carnívoro · Grande Porte',badge:'carn',bl:'Carnívoro',
+   food:'Stegosaurus, Tenontosaurus, Diabloceratops, Triceratops, Dryosaurus, Maiasaura...',
+   desc:'Predador grande e rápido. Equilibrado entre peso e velocidade — uma das escolhas mais sólidas para carnívoros.',
+   raw:{peso:2593,vel:40,forca:175,grupo:3},
+   stats:{Peso:27,Velocidade:80,Força:19,Grupo:30}},
+
+  {name:'Carnotaurus',audio:'carnotaurus.mp3',img:'carnotaurus.jpg',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Velocista',badge:'carn',bl:'Carnívoro',
+   food:'Pachycephalosaurus, Tenontosaurus, Diabloceratops, Dryosaurus, Maiasaura...',
+   desc:'O predador mais rápido da ilha. Ágil e mortal em perseguições — poucos conseguem escapar do Carnotaurus.',
+   raw:{peso:1300,vel:49,forca:150,grupo:3},
+   stats:{Peso:14,Velocidade:100,Força:17,Grupo:30}},
+
+  {name:'Ceratosaurus',audio:'ceratosaurus.mp3',img:'ceratosaurus.jpg',type:'carnivoro',icon:'🔴',cls:'Carnívoro · Médio Porte',badge:'carn',bl:'Carnívoro',
+   food:'Stegosaurus, Tenontosaurus, Pachycephalosaurus, Omniraptor, Diabloceratops...',
+   desc:'Predador versátil de médio porte. Pode caçar em grupos de até 5, o que o torna formidável em cooperação.',
+   raw:{peso:1450,vel:40,forca:150,grupo:5},
+   stats:{Peso:15,Velocidade:81,Força:17,Grupo:50}},
+
+  {name:'Deinosuchus',audio:'deinosuchus.mp3',img:'deinosuchus.jpg',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Semi-Aquático',badge:'carn',bl:'Carnívoro',
+   food:'Stegosaurus, Tenontosaurus, Carnotaurus, Omniraptor, Gallimimus, Maiasaura...',
+   desc:'Crocodiliano gigante e letal. Lento em terra mas devastador na água. Força de mordida brutal e peso massivo.',
+   raw:{peso:8000,vel:18,forca:500,grupo:2},
+   stats:{Peso:84,Velocidade:36,Força:56,Grupo:20}},
+
+  {name:'Dilophosaurus',audio:'dilophosaurus.mp3',img:'dilophosaurus.jpg',type:'carnivoro',icon:'💨',cls:'Carnívoro · Ágil',badge:'carn',bl:'Carnívoro',
+   food:'Boar, Tenontosaurus, Ceratosaurus, Diabloceratops, Hypsilophodon, Dryosaurus...',
+   desc:'Rápido e mortal em grupos. Usa velocidade e coordenação para derrubar presas maiores que ele.',
+   raw:{peso:700,vel:47,forca:85,grupo:4},
+   stats:{Peso:7,Velocidade:96,Força:9,Grupo:40}},
+
+  {name:'Herrerasaurus',audio:'herrerasaurus.mp3',img:'herrerasaurus.jpg',type:'carnivoro',icon:'🌑',cls:'Carnívoro · Pequeno Porte',badge:'carn',bl:'Carnívoro',
+   food:'Crab, SchoolingFish, Tenontosaurus, Pachycephalosaurus, Hypsilophodon, Dryosaurus...',
+   desc:'Pequeno mas ágil e capaz de formar grupos grandes. Excelente para iniciantes no papel de carnívoro.',
+   raw:{peso:175,vel:45,forca:30,grupo:10},
+   stats:{Peso:2,Velocidade:91,Força:3,Grupo:100}},
+
+  {name:'Omniraptor',audio:'omniraptor.mp3',img:'omniraptor.jpg',type:'carnivoro',icon:'🗡️',cls:'Carnívoro · Raptor',badge:'carn',bl:'Carnívoro',
+   food:'Boar, Stegosaurus, Pachycephalosaurus, Ceratosaurus, Diabloceratops, Maiasaura...',
+   desc:'Raptor veloz e inteligente. Em grupos de até 8 consegue derrubar presas muito maiores que ele.',
+   raw:{peso:395,vel:47,forca:65,grupo:8},
+   stats:{Peso:4,Velocidade:95,Força:7,Grupo:80}},
+
+  {name:'Pteranodon',detail:{lore:'O único voador. Acesso a qualquer ponto do mapa, visão privilegiada e fuga garantida. Mas em combate direto é frágil.',tier:'B',tierLabel:'Tier B — Explorador',habitats:['Coastal Bluffs','Tallbrush Coasts','Toda a ilha'],elder:'Prime Elder aumenta a velocidade de voo e capacidade de carga. Exploração do mapa sem igual.',strategy:'Nunca pouse perto de predadores. Use a altitude para reconhecer o terreno antes de descer.',matchups:[{name:'Qualquer dino terrestre',result:'win',label:'Foge voando'},{name:'No chão',result:'loss',label:'Vulnerável'}]},audio:'pteranodon.mp3',img:'pteranodon.jpg',type:'carnivoro',icon:'🦅',cls:'Carnívoro · Voador',badge:'carn',bl:'Carnívoro',
+   food:'SchoolingFish, Crab, Clam, Chicken, Hypsilophodon, Bullfrog, Seaturtle...',
+   desc:'O único voador do jogo. Domina os céus e pesca com maestria. Fraco no solo — mantenha-se no ar.',
+   raw:{peso:45,vel:28,forca:20,grupo:6},
+   stats:{Peso:1,Velocidade:58,Força:2,Grupo:60}},
+
+  {name:'Troodon',audio:'troodon.mp3',img:'troodon.jpg',type:'carnivoro',icon:'🌙',cls:'Carnívoro · Noturno',badge:'carn',bl:'Carnívoro',
+   food:'Stegosaurus, Crab, Tenontosaurus, Bullfrog, Chicken, Hypsilophodon, Dryosaurus...',
+   desc:'Predador noturno e veloz. Grupos de até 10 tornam o Troodon letal contra presas muito maiores.',
+   raw:{peso:60,vel:45,forca:15,grupo:10},
+   stats:{Peso:1,Velocidade:91,Força:2,Grupo:100}},
+
+  {name:'Tyrannosaurus',detail:{lore:'O rei absoluto. Nada na ilha ignora um T-Rex adulto. Lento para crescer, difícil de dominar, impossível de ignorar.',tier:'S',tierLabel:'Tier S — Apex Predador',habitats:['South Plains','Central Jungle','Highland'],elder:'Prime Elder com Paleo Calls desbloqueados torna o T-Rex a criatura mais dominante da ilha.',strategy:'Paciência. Cresça sem morrer. Use os Paleo Calls para comunicar território. Em dupla domina qualquer zona.',matchups:[{name:'Stegosaurus',result:'win',label:'Vence'},{name:'Triceratops',result:'even',label:'Equilibrado'},{name:'Allosaurus solo',result:'win',label:'Vence'},{name:'Deinosuchus na água',result:'loss',label:'Evite água'}]},audio:'tyrannosaurus.mp3',img:'tyrannosaurus.jpg',type:'carnivoro',icon:'👑',cls:'Carnívoro · Apex',badge:'carn',bl:'Carnívoro',
+   food:'Stegosaurus, Tenontosaurus, Pachycephalosaurus, Triceratops, Diabloceratops, Maiasaura...',
+   desc:'O rei absoluto da ilha. Força de mordida devastadora e peso colossal. Presença que intimida todas as criaturas.',
+   raw:{peso:9350,vel:29,forca:700,grupo:2},
+   stats:{Peso:98,Velocidade:59,Força:78,Grupo:20}},
+
+  // ── ONÍVOROS ──
+  {name:'Beipiaosaurus',detail:{lore:'Onívoro subestimado. Come de tudo, sobrevive em qualquer zona e é difícil de matar para seu tamanho. Ótimo para explorar o mapa.',tier:'C',tierLabel:'Tier C — Generalista',habitats:['Northern Jungle','Eastern Jungle','Tallbrush Coasts'],elder:'Prime Elder com dieta flexível maximizada. Nunca passa fome em nenhuma zona do mapa.',strategy:'Use a versatilidade da dieta para explorar todo o mapa. Evite confrontos diretos com carnívoros.',matchups:[{name:'Dryosaurus',result:'win',label:'Vence'},{name:'Herrerasaurus',result:'loss',label:'Perde'},{name:'Omniraptor',result:'loss',label:'Perde'}]},audio:'beipiaosaurus.mp3',img:'beipiaosaurus.jpg',type:'onivoro',icon:'🌊',cls:'Onívoro · Semi-Aquático',badge:'omni',bl:'Onívoro',
+   food:'Crab, SchoolingFish, RadishFlower, Bullfrog, WildPotatoVine, SunchokeRoots',
+   desc:'Onívoro semi-aquático com dieta variada. Ágil e adaptável — consegue sobreviver em diferentes biomas da ilha.',
+   raw:{peso:90,vel:32,forca:20,grupo:10},
+   stats:{Peso:1,Velocidade:65,Força:2,Grupo:100}},
+
+  {name:'Gallimimus',detail:{lore:'Velocidade pura. O Galli não luta — ele simplesmente não é alcançado. Em grupo é uma das presas mais frustrantes da ilha.',tier:'B',tierLabel:'Tier B — Fuga',habitats:['North Plains','South Plains','Eastern Jungle'],elder:'Prime Elder com Multichambered Lungs é literalmente inalcançável por qualquer predador.',strategy:'Nunca pare. Use o terreno aberto a seu favor. Em grupo de 10 consegue confundir qualquer predador.',matchups:[{name:'Carnotaurus',result:'even',label:'Depende da stamina'},{name:'Qualquer predador',result:'win',label:'Foge sempre'},{name:'Troodon à noite',result:'loss',label:'Cuidado'}]},audio:'gallimimus.mp3',img:'gallimimus.jpg',type:'onivoro',icon:'🏃',cls:'Onívoro · Velocista',badge:'omni',bl:'Onívoro',
+   food:'Crab, Mango, Bullfrog, Sumac, Pumpkin, SunchokeRoots',
+   desc:'Veloz e curioso. O Gallimimus é um dos onívoros mais rápidos — usa a velocidade para fugir de qualquer ameaça.',
+   raw:{peso:535,vel:47,forca:25,grupo:10},
+   stats:{Peso:6,Velocidade:95,Força:3,Grupo:100}},
+]
+
+// GUIDES DATA
+const guides = {
+  primeiros: {
+    icon: '🥚',
+    title: 'Primeiros Passos na Ilha',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">Escolha seu primeiro dino</div>
+        <p>Se é sua primeira vez na ilha, <strong style="color:var(--acid)">não comece com um carnívoro</strong>. Herbívoros são muito mais fáceis para aprender o básico — comida está em todo lugar e você não precisa caçar.</p>
+        <div class="guide-tip">💡 <strong>Melhor dino para iniciantes:</strong> Pachycephalosaurus. Rápido, resistente, chega ao adulto em ~45 minutos e a comida dele é abundante.</div>
+        <ul class="guide-list">
+          <li>Dryosaurus e Hypsilophodon são ótimos se quiser velocidade</li>
+          <li>Tenontosaurus é equilibrado e fácil de aprender</li>
+          <li>Evite T-Rex, Allosaurus e Deinosuchus como primeiros dinos</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Ao nascer — prioridades</div>
+        <p>Você nasce como juvenil — frágil, lento e vulnerável. Sua única missão nos primeiros minutos é sobreviver, não lutar.</p>
+        <ul class="guide-list">
+          <li><strong style="color:var(--acid)">1º — Água:</strong> Encontre um rio ou lago. Beba com cuidado — Deinosuchus vive emboscado nas margens</li>
+          <li><strong style="color:var(--acid)">2º — Comida:</strong> Coma sua dieta preferida (aparece no menu do dino). Dieta perfeita acelera o crescimento</li>
+          <li><strong style="color:var(--acid)">3º — Esconda-se:</strong> Fique na vegetação densa. Juvenis são alvos fáceis</li>
+          <li><strong style="color:var(--acid)">4º — Não corra sem parar:</strong> Stamina esgotada em combate = morte</li>
+        </ul>
+        <div class="guide-warn-box">⚠ <strong>NUNCA beba água em locais abertos.</strong> Escolha margens com cobertura vegetal. O Deinosuchus espera exatamente ali.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Sistema de crescimento</div>
+        <p>Você cresce em estágios: Juvenil → Subadulto → Adulto → Elder. Cada estágio muda seu tamanho, velocidade e capacidade de combate.</p>
+        <div class="guide-tip">💡 Manter sua dieta preferida ativa dá bônus de crescimento, regeneração e visão noturna. Coma o que seu dino gosta.</div>
+        <ul class="guide-list">
+          <li>Como juvenil, <strong>fuja de qualquer confronto</strong> — você não vai ganhar</li>
+          <li>Como subadulto, já pode se defender de criaturas menores</li>
+          <li>Como adulto, você finalmente está pronto para a ilha</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Controles essenciais</div>
+        <div class="guide-controls">
+          <div class="guide-key"><kbd>E</kbd><span>Comer / Beber</span></div>
+          <div class="guide-key"><kbd>X</kbd><span>Visão noturna</span></div>
+          <div class="guide-key"><kbd>Q</kbd><span>Sentar / Descansar</span></div>
+          <div class="guide-key"><kbd>F</kbd><span>Vocalizações</span></div>
+          <div class="guide-key"><kbd>Shift</kbd><span>Correr</span></div>
+          <div class="guide-key"><kbd>Ctrl</kbd><span>Agachar</span></div>
+          <div class="guide-key"><kbd>Tab</kbd><span>Status do dino</span></div>
+          <div class="guide-key"><kbd>M</kbd><span>Mapa (se disponível)</span></div>
+        </div>
+      </div>
+    `
+  },
+  combate: {
+    icon: '🩸',
+    title: 'Sistema de Combate',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">A regra de ouro</div>
+        <div class="guide-warn-box">⚠ <strong>Nesta ilha, qualquer confronto pode ser o último.</strong> Mesmo que você ganhe, pode sair com ossos quebrados, sangrando ou sem stamina — e isso pode te matar depois.</div>
+        <p>Antes de brigar, pergunte-se: <em>preciso mesmo disso?</em> Fuga inteligente vale mais que uma vitória cara.</p>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Stamina — seu recurso mais valioso</div>
+        <p>Stamina determina quanto tempo você pode correr, atacar e defender. Zerou? Você trava — e morre.</p>
+        <ul class="guide-list">
+          <li>Nunca entre em combate com stamina baixa</li>
+          <li>Dieta perfeita aumenta a regeneração de stamina</li>
+          <li>Descansar (<kbd style="font-family:monospace;background:rgba(90,158,0,.1);border:1px solid rgba(90,158,0,.3);padding:1px 6px;color:var(--acid)">Q</kbd>) recupera stamina rapidamente</li>
+          <li>Em fuga, alterne entre correr e andar para não esgotar</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Status de combate e debuffs</div>
+        <ul class="guide-list">
+          <li><strong style="color:var(--warn)">Sangrando:</strong> Perde vida continuamente. Encontre água ou descanse para parar</li>
+          <li><strong style="color:var(--warn)">Osso Quebrado:</strong> Movimento reduzido. Descanse para curar — continuar andando piora</li>
+          <li><strong style="color:var(--warn)">Ferido (Wounded):</strong> Seu dano cai pela metade. Hora de recuar</li>
+          <li><strong style="color:var(--warn)">Cabeça fraturada:</strong> Visão reduzida a um ponto central — situação crítica</li>
+        </ul>
+        <div class="guide-tip">💡 Se você estiver sangrando E com osso quebrado ao mesmo tempo, pare tudo e descanse. Continuar combatendo nestas condições é suicídio.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Ataques e controles de combate</div>
+        <div class="guide-controls">
+          <div class="guide-key"><kbd>LMB</kbd><span>Ataque primário</span></div>
+          <div class="guide-key"><kbd>RMB</kbd><span>Ataque secundário</span></div>
+          <div class="guide-key"><kbd>Hold LMB</kbd><span>Habilidade especial</span></div>
+          <div class="guide-key"><kbd>Hold RMB</kbd><span>Habilidade especial 2</span></div>
+          <div class="guide-key"><kbd>Space</kbd><span>Pular / Emboscar</span></div>
+          <div class="guide-key"><kbd>Alt+RMB</kbd><span>Muzzle Swing (T-Rex)</span></div>
+        </div>
+        <div class="guide-warn-box">⚠ Cada dino tem habilidades únicas. Leia o menu do personagem antes de entrar em combate pela primeira vez.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Quando fugir é a decisão certa</div>
+        <p>Fuja imediatamente se:</p>
+        <ul class="guide-list">
+          <li>O oponente é maior que você</li>
+          <li>Você está com menos de 50% de stamina</li>
+          <li>Você já está sangrando ou com osso quebrado</li>
+          <li>São dois ou mais contra você</li>
+          <li>Você é juvenil ou subadulto enfrentando um adulto</li>
+        </ul>
+      </div>
+    `
+  },
+  sobrevivencia: {
+    icon: '💧',
+    title: 'Sobrevivência Básica',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">Os três inimigos invisíveis</div>
+        <p>Fome, sede e dieta ruim matam mais jogadores do que predadores. Monitore sempre o painel de status (<kbd style="font-family:monospace;background:rgba(90,158,0,.1);border:1px solid rgba(90,158,0,.3);padding:1px 6px;color:var(--acid)">Tab</kbd>).</p>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">💧 Sede — prioridade máxima</div>
+        <p>Você morre de sede mais rápido do que de fome. A água é abundante na ilha — rios, lagos e poças — mas nenhum ponto de água é seguro.</p>
+        <ul class="guide-list">
+          <li>Beba em margens cobertas por vegetação</li>
+          <li>Observe o ambiente antes de descer até a água</li>
+          <li>Evite o Centro do mapa para beber — é zona de emboscada</li>
+          <li>Chuva ativa poças temporárias em terreno aberto</li>
+        </ul>
+        <div class="guide-warn-box">⚠ O Deinosuchus vive emboscado nas margens de rios. Se a água estiver muito calma e você não vê nenhum animal bebendo — há algo errado.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">🍖 Fome e dieta preferida</div>
+        <p>Comer qualquer coisa sustenta você, mas comer sua <strong style="color:var(--acid)">dieta preferida</strong> dá bônus poderosos:</p>
+        <ul class="guide-list">
+          <li>Crescimento mais rápido</li>
+          <li>Regeneração de vida e stamina melhoradas</li>
+          <li>Maior alcance do olfato (scent)</li>
+          <li>Melhor visão noturna</li>
+          <li>Recuperação mais rápida de ossos quebrados</li>
+        </ul>
+        <div class="guide-tip">💡 Você pode acumular dieta até 200-300%. Encha quando encontrar comida boa e não precise voltar tão cedo.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">🌿 Sanctuários e locais seguros</div>
+        <p>Espalhados pela ilha existem <strong style="color:var(--acid)">Sanctuários</strong> — zonas com comida garantida e menor presença de predadores. Ideais para juvenis crescerem.</p>
+        <ul class="guide-list">
+          <li>Identificados por cogumelos brilhantes no chão</li>
+          <li>Visitar um sanctuário conta para o sistema Elder</li>
+          <li>Não são completamente seguros — continue alerta</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">🌙 Noite e visão noturna</div>
+        <p>A noite é perigosa — predadores noturnos como o Troodon ficam muito mais fortes. Use visão noturna (<kbd style="font-family:monospace;background:rgba(90,158,0,.1);border:1px solid rgba(90,158,0,.3);padding:1px 6px;color:var(--acid)">X</kbd>) e prefira descansar em locais cobertos.</p>
+        <div class="guide-warn-box">⚠ O Troodon ganha bônus massivos à noite. Se ouvir passos e for noite — não mexa. Congele.</div>
+      </div>
+    `
+  },
+  manadas: {
+    icon: '🤝',
+    title: 'Manadas e Grupos',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">Por que jogar em grupo?</div>
+        <p>A ilha foi desenhada para punir os solitários. Em grupo, suas chances de sobreviver aumentam drasticamente — e a experiência se torna muito mais interessante.</p>
+        <div class="guide-tip">💡 Use Discord para comunicação em voz. O chat de texto do jogo faz seu dino vocalizar — o que revela sua posição para predadores.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Limite de grupo por espécie</div>
+        <p>Cada espécie tem um <strong style="color:var(--acid)">tamanho máximo de grupo</strong>. Você só pode se agrupar com dinos da mesma espécie.</p>
+        <ul class="guide-list">
+          <li>Troodon: até 10 — manada letal à noite</li>
+          <li>Herrerasaurus: até 10 — rápido e coordenado</li>
+          <li>Omniraptor: até 8 — combate cooperativo eficiente</li>
+          <li>Carnotaurus: até 3 — trio de velocidade</li>
+          <li>T-Rex: até 2 — dupla apex devastadora</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Vocalizações e comunicação</div>
+        <p>Pressione <kbd style="font-family:monospace;background:rgba(90,158,0,.1);border:1px solid rgba(90,158,0,.3);padding:1px 6px;color:var(--acid)">F</kbd> para abrir o menu de vocalizações:</p>
+        <ul class="guide-list">
+          <li><strong style="color:var(--acid)">Broadcast:</strong> O mais alto — aliados e inimigos ouvem. Use com cuidado</li>
+          <li><strong style="color:var(--acid)">Friendly:</strong> Sinaliza que você não é ameaça</li>
+          <li><strong style="color:var(--acid)">Aggressive:</strong> Aviso de ataque</li>
+          <li><strong style="color:var(--acid)">Help:</strong> Pede socorro aos aliados próximos</li>
+          <li><strong style="color:var(--acid)">Paleo Calls (T-Rex adulto):</strong> Hold F + LMB ou RMB</li>
+        </ul>
+        <div class="guide-warn-box">⚠ Usar o chat de texto faz seu dino emitir sons automaticamente. Em situação de fuga ou emboscada, evite digitar.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Ninhos e reprodução</div>
+        <p>Grupos podem criar ninhos e chocar ovos juntos. É uma das formas mais poderosas de progredir no sistema Elder.</p>
+        <ul class="guide-list">
+          <li>Um macho e uma fêmea são necessários (ou Partenogênese via mutação)</li>
+          <li>A mutação <strong>Sequential Hermaphroditism</strong> permite trocar de sexo uma vez</li>
+          <li>Ovos nascidos de ninhos contam para objetivos Elder</li>
+          <li>Proteja o ninho — outros dinos podem roubar os ovos (especialmente Oviraptor)</li>
+        </ul>
+      </div>
+    `
+  },
+  mapa: {
+    icon: '🗺️',
+    title: 'Navegação no Mapa',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">O mapa Gateway</div>
+        <p>O mapa atual do Evrima é o <strong style="color:var(--acid)">Gateway</strong> — enorme, com biomas variados e estruturas humanas espalhadas. Não há mini-mapa. Você aprende a se localizar por referências visuais.</p>
+        <div class="guide-tip">💡 Use o <strong>VulnonaMAP</strong> (disponível na seção Mapa deste site) para digitar suas coordenadas e ver sua posição exata.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Como ver suas coordenadas</div>
+        <p>No jogo, suas coordenadas aparecem no HUD. Use-as no VulnonaMAP para se localizar.</p>
+        <ul class="guide-list">
+          <li>O grid do mapa usa base de ~580m por célula</li>
+          <li>Configure o espaço de grid para 58.000 no VulnonaMAP para melhor precisão</li>
+          <li>Pontos de água e estradas são ótimas referências visuais</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Pontos de referência essenciais</div>
+        <ul class="guide-list">
+          <li><strong style="color:var(--acid)">O Domo (The Dome):</strong> Estrutura hexagonal enorme ao sul. Visível de longe — use como bússola</li>
+          <li><strong style="color:var(--acid)">Rio Central:</strong> Atravessa o mapa de norte a sul. Água garantida, mas perigoso</li>
+          <li><strong style="color:var(--acid)">West Rail:</strong> Linha férrea a oeste — boa referência linear para navegação</li>
+          <li><strong style="color:var(--acid)">Redwoods:</strong> Árvores gigantes únicas ao sudoeste — impossível confundir</li>
+          <li><strong style="color:var(--acid)">Estruturas humanas:</strong> Postos de observação, labs e abrigos espalhados — bons pontos de referência</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Dicas de navegação segura</div>
+        <ul class="guide-list">
+          <li>Nunca corra em linha reta por campo aberto — use a cobertura vegetal</li>
+          <li>Evite cristas e topos de colina — você fica em silhueta visível</li>
+          <li>Aprenda os caminhos entre pontos de água seguros da sua zona</li>
+          <li>A vegetação densa no mapa atual é muito mais densa que nas versões antigas</li>
+        </ul>
+        <div class="guide-warn-box">⚠ O ambiente mata tanto quanto os predadores. Vegetação densa pode esconder bordas de penhascos. Explore devagar em áreas desconhecidas.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Zonas de migração e patrulha</div>
+        <p>O jogo tem <strong style="color:var(--acid)">Patrol Zones</strong> e <strong style="color:var(--acid)">Migration Zones</strong> — áreas marcadas no HUD que, ao serem visitadas, contam para o sistema Elder e revelam comida e água.</p>
+        <ul class="guide-list">
+          <li>Visitar 2 Migration Zones conta para objetivo Elder</li>
+          <li>Visitar 4 Patrol Zones conta para objetivo Elder</li>
+          <li>Zones variam por espécie — siga os indicadores do seu dino</li>
+        </ul>
+      </div>
+    `
+  },
+  avancado: {
+    icon: '⚡',
+    title: 'Builds Avançadas e Sistema Elder',
+    html: `
+      <div class="guide-section">
+        <div class="guide-section-title">Sistema de mutações</div>
+        <p>Ao nascer, você escolhe mutações que afetam o estilo de jogo. Algumas são passivas, outras ativas — e algumas só se desbloqueiam com experiência.</p>
+        <ul class="guide-list">
+          <li><strong style="color:var(--acid)">Multichambered Lungs:</strong> Viaje 2km — aumenta capacidade de stamina</li>
+          <li><strong style="color:var(--acid)">Reniculated Kidneys:</strong> Beba 1000 unidades de água — reduz consumo de água</li>
+          <li><strong style="color:var(--acid)">Osteophagic:</strong> Consuma osso com fratura — cura fraturas mais rápido</li>
+          <li><strong style="color:var(--acid)">Sequential Hermaphroditism:</strong> Troca seu sexo uma vez</li>
+          <li><strong style="color:var(--acid)">Parthenogenesis:</strong> Fêmeas botam ovos sem macho</li>
+        </ul>
+        <div class="guide-tip">💡 Mutações herdadas do sistema Elder ficam mais fortes a cada ciclo de vida. Planeje sua build pensando nos próximos ciclos.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Sistema Elder — o loop de progressão</div>
+        <p>Quando atinge 100% de crescimento, você pode <strong style="color:var(--acid)">Entombar</strong> — morrer voluntariamente e renascer da mesma espécie, mantendo suas mutações mais fortes.</p>
+        <p>Existem dois tipos de Elder:</p>
+        <ul class="guide-list">
+          <li><strong style="color:var(--warn)">Frail Elder:</strong> Mais fraco que o adulto padrão — você falhou nos objetivos</li>
+          <li><strong style="color:var(--acid)">Prime Elder:</strong> Mais forte que o adulto — você completou 5 dos 8 objetivos</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Os 8 objetivos para Prime Elder</div>
+        <p>Complete <strong style="color:var(--acid)">qualquer 5 destes antes de atingir 75% de crescimento:</strong></p>
+        <ul class="guide-list">
+          <li>Visitar um Sanctuário</li>
+          <li>Atingir Dieta Perfeita pelo menos uma vez</li>
+          <li>Nunca ficar "Temporariamente Infértil" (mantenha ao menos 1 dieta ativa)</li>
+          <li>Nunca sofrer "Muscle Spasms" (não pratique canibalismo anormal)</li>
+          <li>Visitar 2 Migration Zones</li>
+          <li>Visitar 4 Patrol Zones</li>
+          <li>Criar ninho e criar um filhote até 50%</li>
+          <li>Nascer de um ovo em ninho ativo</li>
+        </ul>
+        <div class="guide-warn-box">⚠ Após atingir 75%, você pode escolher a última mutação para garantir o Prime. Não entombe antes de verificar.</div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-section-title">Dinos por estilo de jogo</div>
+        <ul class="guide-list">
+          <li><strong style="color:var(--acid)">Solo agressivo:</strong> Carnotaurus, Dilophosaurus, Ceratosaurus</li>
+          <li><strong style="color:var(--acid)">Pack predador:</strong> Omniraptor, Troodon, Herrerasaurus</li>
+          <li><strong style="color:var(--acid)">Apex solo:</strong> Tyrannosaurus, Deinosuchus, Allosaurus</li>
+          <li><strong style="color:var(--acid)">Herbívoro tanque:</strong> Triceratops, Stegosaurus</li>
+          <li><strong style="color:var(--acid)">Herbívoro veloz:</strong> Maiasaura, Dryosaurus, Gallimimus</li>
+          <li><strong style="color:var(--acid)">Furtivo/noturno:</strong> Troodon</li>
+        </ul>
+      </div>
+    `
+  }
+};
+
+function openGuide(id) {
+  const g = guides[id];
+  if (!g) return;
+  document.getElementById('guideIcon').textContent = g.icon;
+  document.getElementById('guideTitle').textContent = g.title;
+  document.getElementById('guideBody').innerHTML = g.html;
+  document.getElementById('guideOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeGuide() {
+  document.getElementById('guideOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeGuideOutside(e) {
+  if (e.target === document.getElementById('guideOverlay')) closeGuide();
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeGuide();
+});
+
+// UPDATES DATA
+const updates=[
+  {date:'30 Abr 2026',type:'devblog',tag:'DevBlog #68',
+   title:'DevBlog #68 — Manguezais, Domo e Novos Dinos',
+   excerpt:'Ilha completamente atualizada com manguezais finalizados. Domo ganha 4 entradas colossais e rotas internas. Austroraptor e Oviraptor chegam ao HordeTest. Hill Slide, pequenos animais de IA e ajustes ao sistema Elder.',
+   link:'https://store.steampowered.com/news/app/376210/view/653727478219539022'},
+  {date:'28 Fev 2026',type:'devblog',tag:'DevBlog #67',
+   title:'DevBlog #67 — Kentrosaurus, Hill Slide e Sons',
+   excerpt:'Kentrosaurus recebe stance defensiva que reflete dano nos espinhos. Hill Slide em desenvolvimento para todos os dinos. Sons do Quetzalcoatlus finalizados. Baryonyx com vocalizações únicas tipo bolhas aquáticas. Oviraptor com sons aviários de papagaio.',
+   link:'https://store.steampowered.com/news/app/376210/view/532124583945306865'},
+  {date:'06 Fev 2026',type:'devblog',tag:'DevBlog #66',
+   title:'DevBlog #66 — Fevereiro 2026',
+   excerpt:'Novos dinos, áudio atualizado, animações, otimizações e futuros biomas. Primeiros insights sobre novos conteúdos: Austroraptor, Baryonyx, Kentrosaurus, Oviraptor, Avaceratops, Camarasaurus e Quetzalcoatlus confirmados.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'12 Jan 2026',type:'anuncio',tag:'Anúncio',
+   title:'Ludus Magna — Modo Arena Revelado',
+   excerpt:'Os desenvolvedores revelam o "Ludus Magna", um novo modo arena onde predadores apex competem em combates estruturados. Uma mudança significativa no gameplay do Evrima.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'28 Dez 2025',type:'patch',tag:'Patch 0.21.321',
+   title:'Patch de Natal — 0.21.321',
+   excerpt:'Tyrannosaurus recebeu o ataque RMB Muzzle Swing, um golpe leve capaz de derrubar oponentes. Diversas correções de bugs e balanceamentos após o Hordetest. Feliz Natal, Islanders!',
+   link:'https://store.steampowered.com/news/app/376210/view/507348444540569206'},
+  {date:'01 Ago 2025',type:'devblog',tag:'DevBlog #61',
+   title:'DevBlog #61 — Sistema Elder, Correções T-Rex & UE 5.6',
+   excerpt:'O jogo migrou para Unreal Engine 5.6. Sistema Elder recebeu revisão completa e bugs críticos do Tyrannosaurus foram corrigidos. Grandes melhorias de desempenho no servidor.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'22 Jun 2025',type:'patch',tag:'Patch 0.20.109',
+   title:'Patch 0.20.109 — Triceratops Chega à Ilha!',
+   excerpt:'O Triceratops entra oficialmente no Evrima. O herbívoro apex mais pesado do jogo (9500kg) com força de mordida devastadora de 900. Uma adição histórica para os fãs de herbívoros.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'04 Jun 2025',type:'devblog',tag:'DevBlog #59',
+   title:'DevBlog #59 — Os Anciões Surgem, Triceratops Pronto',
+   excerpt:'Sistema Prime Elder implementado, permitindo que dinossauros alcancem status lendário após sobreviver por muito tempo. Triceratops finalizado e aguardando lançamento no branch público.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'08 Mar 2025',type:'patch',tag:'HordeTest',
+   title:'Novo Patch HordeTest — Triceratops Jogável',
+   excerpt:'Triceratops disponível pela primeira vez no servidor HordeTest. Testes intensivos com a comunidade antes do lançamento público. Feedback massivo coletado sobre balanceamento.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'01 Mar 2025',type:'devblog',tag:'DevBlog #56',
+   title:'DevBlog #56 — Progresso de Fevereiro 2025',
+   excerpt:'Concept art do "Reaper" revelado. Novos sistemas de aninhamento em desenvolvimento, melhorias no sistema de dieta e IA dos animais selvagens aprimorada.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'21 Fev 2025',type:'patch',tag:'Patch 0.19.76',
+   title:'Patch HordeTest 0.19.76 — Tudo que Você Precisa Saber',
+   excerpt:'Grande patch de HordeTest com sistema de gestação de ovos (jogadores precisam gestar antes de botar), correções de rubberbanding nos servidores e novo painel de administração.',
+   link:'https://store.steampowered.com/news/app/376210'},
+  {date:'01 Ago 2024',type:'devblog',tag:'DevBlog #50',
+   title:'DevBlog #50 — Diabloceratops & Novos Playables',
+   excerpt:'Finalizações no Diabloceratops confirmadas. Novos sistemas de habilidade em desenvolvimento para as próximas espécies. Ferramenta interna de comparação entre dinos implementada para balanceamento.',
+   link:'https://steamdb.info/patchnotes/15219873/'},
+];
+
+let activeUpdateFilter='todos';
+function filterUpdates(type,el){
+  activeUpdateFilter=type;
+  document.querySelectorAll('.utab').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  renderUpdates();
+}
+function renderUpdates(){
+  const grid=document.getElementById('updatesGrid');
+  if(!grid)return;
+  const filtered=activeUpdateFilter==='todos'?updates:updates.filter(u=>u.type===activeUpdateFilter);
+  grid.innerHTML=filtered.map((u,i)=>`
+    <div class="update-card reveal${i>0?' reveal-delay-'+Math.min(i,4):''}">
+      <div class="update-date">${u.date}</div>
+      <div class="update-title">${u.title}</div>
+      <div class="update-excerpt">${u.excerpt}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px">
+        <span class="update-tag">${u.tag}</span>
+        <a href="${u.link}" target="_blank" style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);text-decoration:none;opacity:.7">Ver no Steam →</a>
+      </div>
+    </div>`).join('');
+  grid.querySelectorAll('.reveal').forEach(el=>{obs.observe(el);setTimeout(()=>el.classList.add('visible'),80)});
+}
+renderUpdates();
+
+// DINO DETAIL MODAL
+let _dinoModalAudio = null;
+let _dinoModalBtn = null;
+
+function openDinoModal(d){
+  if(!d) return;
+  document.getElementById('dmImg').src = d.img || '';
+  document.getElementById('dmImg').alt = d.name;
+  document.getElementById('dmName').textContent = d.name;
+  document.getElementById('dmCls').textContent = d.cls;
+  document.getElementById('dmPeso').textContent = d.raw.peso + ' kg';
+  document.getElementById('dmVel').textContent = d.raw.vel.toFixed ? d.raw.vel.toFixed(0) : d.raw.vel;
+  document.getElementById('dmForca').textContent = d.raw.forca;
+  document.getElementById('dmGrupo').textContent = d.raw.grupo;
+
+  if(d.detail){
+    document.getElementById('dmLore').textContent = d.detail.lore;
+    document.getElementById('dmStrategy').textContent = d.detail.strategy;
+    document.getElementById('dmElder').textContent = d.detail.elder;
+
+    // Tier
+    const tier = d.detail.tier;
+    document.getElementById('dmTier').innerHTML = `<div class="dino-tier dino-tier-${tier}">${d.detail.tierLabel}</div>`;
+
+    // Matchups
+    const mHtml = d.detail.matchups.map(m=>
+      `<div class="dino-matchup-item">
+        <span>${m.name}</span>
+        <span class="dino-matchup-result result-${m.result}">${m.label}</span>
+      </div>`
+    ).join('');
+    document.getElementById('dmMatchups').innerHTML = mHtml;
+
+    // Habitats
+    const hHtml = d.detail.habitats.map(h=>`<span class="dino-habitat-tag">${h}</span>`).join('');
+    document.getElementById('dmHabitats').innerHTML = hHtml;
+  }
+
+  // Audio button
+  const audioBtn = document.getElementById('dmAudioBtn');
+  audioBtn.dataset.sound = d.audio || '';
+  audioBtn.textContent = '▶ Ouvir som';
+  audioBtn.classList.remove('playing');
+  if(_dinoModalAudio){ _dinoModalAudio.pause(); _dinoModalAudio=null; }
+
+  document.getElementById('dinoModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDinoDetailModal(){
+  document.getElementById('dinoModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  if(_dinoModalAudio){ _dinoModalAudio.pause(); _dinoModalAudio=null; }
+  const btn = document.getElementById('dmAudioBtn');
+  if(btn){ btn.textContent='▶ Ouvir som'; btn.classList.remove('playing'); }
+}
+
+function closeDinoModal(e){
+  if(e.target === document.getElementById('dinoModalOverlay')) closeDinoDetailModal();
+}
+
+function playDinoModal(){
+  const btn = document.getElementById('dmAudioBtn');
+  const file = btn.dataset.sound;
+  if(!file) return;
+  if(_dinoModalAudio){
+    _dinoModalAudio.pause(); _dinoModalAudio=null;
+    btn.textContent='▶ Ouvir som'; btn.classList.remove('playing');
+    return;
+  }
+  const audio = new Audio(file);
+  audio.play().catch(()=>{});
+  btn.textContent='⏹ Parar'; btn.classList.add('playing');
+  _dinoModalAudio = audio;
+  audio.onended = ()=>{ btn.textContent='▶ Ouvir som'; btn.classList.remove('playing'); _dinoModalAudio=null; };
+}
+
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDinoDetailModal(); });
+
+// DINO AUDIO
+let _audio=null,_btn=null;
+function playDino(btn){
+  var file=btn.getAttribute('data-sound');
+  if(_audio){
+    _audio.pause();_audio.currentTime=0;
+    if(_btn){_btn.classList.remove('playing');_btn.textContent='▶ Broadcast Call';}
+    if(_btn===btn){_audio=null;_btn=null;return;}
+  }
+  var a=new Audio(file);
+  a.play().catch(function(){});
+  btn.classList.add('playing');btn.textContent='⏹ Parar';
+  _audio=a;_btn=btn;
+  a.onended=function(){btn.classList.remove('playing');btn.textContent='▶ Broadcast Call';_audio=null;_btn=null;};
+}
+
+function filterDinos(t,el){
+  document.querySelectorAll('.dtab').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  const filtered=t==='todos'?dinos:dinos.filter(d=>d.type===t);
+  const grid=document.getElementById('dinosGrid');
+  grid.innerHTML=filtered.map((d,i)=>`
+    <div class="dino-card reveal${i>0?' reveal-delay-'+Math.min(i,4):''}" onclick="openDinoModal(dinos.find(x=>x.name===\'${d.name}\'))" style="cursor:pointer">
+      <div class="dino-badge badge-${d.badge}">${d.bl}</div>
+      ${d.img ? `<img class="dino-img" src="${d.img}" alt="${d.name}">` : `<span class="dino-icon">${d.icon}</span>`}
+      <div class="dino-name">${d.name}</div>
+      <div class="dino-class">${d.cls}</div>
+      <div class="dino-desc">${d.desc}</div>
+      <div class="dino-food">🍽️ <span>${d.food}</span></div>
+      <div class="dino-rawstats">
+        <div class="raw-item"><span class="raw-lbl">Peso</span><span class="raw-val">${d.raw.peso}${typeof d.raw.peso==='number'?' kg':''}</span></div>
+        <div class="raw-item"><span class="raw-lbl">Vel. km/h</span><span class="raw-val">${typeof d.raw.vel==='number'?d.raw.vel.toFixed(0):d.raw.vel}</span></div>
+        <div class="raw-item"><span class="raw-lbl">F. Ataque</span><span class="raw-val">${d.raw.forca}</span></div>
+        <div class="raw-item"><span class="raw-lbl">Grupo</span><span class="raw-val">${d.raw.grupo}</span></div>
+      </div>
+      <div class="dino-bars">${Object.entries(d.stats).map(([k,v])=>`
+        <div class="dbar-row">
+          <span class="dbar-label">${k}</span>
+          <div class="dbar-track"><div class="dbar-fill" style="width:${v}%"></div></div>
+        </div>`).join('')}
+      </div>
+      <div class="dino-audio" id="audio-${i}"><button class="dino-play-btn" data-sound="${d.audio||''}" onclick="playDino(this)">&#9654; Broadcast Call</button><span class="dino-audio-label">Som real do jogo</span></div>
+    </div>`).join('');
+  grid.querySelectorAll('.reveal').forEach(el=>{obs.observe(el);setTimeout(()=>el.classList.add('visible'),80)});
+}
+filterDinos('todos',document.querySelector('.dtab'));
+// Also force re-observe after render
+setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>{obs.observe(el);el.classList.add('visible');}),100);
+</script>
+<!-- DINO DETAIL MODAL -->
+<div class="dino-modal-overlay" id="dinoModalOverlay" onclick="closeDinoModal(event)">
+  <div class="dino-modal" id="dinoModal">
+    <button class="dino-modal-close" onclick="closeDinoDetailModal()">✕ Fechar</button>
+
+    <!-- ESQUERDA -->
+    <div class="dino-modal-left">
+      <img class="dino-modal-img" id="dmImg" src="" alt="">
+      <div>
+        <div class="dino-modal-name" id="dmName"></div>
+        <div class="dino-modal-cls" id="dmCls"></div>
+      </div>
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">Lore</div>
+        <p class="dino-modal-desc" id="dmLore"></p>
+      </div>
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">Estratégia</div>
+        <p class="dino-modal-desc" id="dmStrategy"></p>
+      </div>
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">Broadcast Call</div>
+        <button class="dino-play-btn-modal" id="dmAudioBtn" onclick="playDinoModal()">▶ Ouvir som</button>
+      </div>
+    </div>
+
+    <!-- DIREITA -->
+    <div class="dino-modal-right">
+      <!-- Tier -->
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">Tier de Combate</div>
+        <div id="dmTier"></div>
+      </div>
+
+      <!-- Stats -->
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">Stats Oficiais</div>
+        <div class="dino-stat-grid">
+          <div class="dino-stat-box"><div class="dino-stat-lbl">Peso</div><div class="dino-stat-val" id="dmPeso"></div></div>
+          <div class="dino-stat-box"><div class="dino-stat-lbl">Vel. km/h</div><div class="dino-stat-val" id="dmVel"></div></div>
+          <div class="dino-stat-box"><div class="dino-stat-lbl">F. Ataque</div><div class="dino-stat-val" id="dmForca"></div></div>
+          <div class="dino-stat-box"><div class="dino-stat-lbl">Grupo Máx.</div><div class="dino-stat-val" id="dmGrupo"></div></div>
+        </div>
+      </div>
+
+      <!-- Matchups -->
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">Matchups</div>
+        <div class="dino-matchup" id="dmMatchups"></div>
+      </div>
+
+      <!-- Habitats -->
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">Habitats</div>
+        <div class="dino-habitat-tags" id="dmHabitats"></div>
+      </div>
+
+      <!-- Elder -->
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">Sistema Elder</div>
+        <div class="dino-elder-box">
+          <div class="dino-elder-title">⭐ Prime Elder</div>
+          <div class="dino-elder-text" id="dmElder"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DINO DETAIL MODAL -->
+<div class="dino-modal-overlay" id="dinoModalOverlay" onclick="closeDinoModalOutside(event)">
+  <div class="dino-modal" id="dinoModal">
+    <button class="dino-modal-close" onclick="closeDinoModal()">✕ Fechar</button>
+
+    <div class="dino-modal-left">
+      <img class="dino-modal-img" id="dmImg" src="" alt="">
+      <div>
+        <div class="dino-modal-name" id="dmName"></div>
+        <div class="dino-modal-cls" id="dmCls"></div>
+      </div>
+      <div id="dmTier"></div>
+      <div class="dino-modal-desc" id="dmLore"></div>
+      <button class="dino-play-btn-modal" id="dmAudioBtn" data-sound="" onclick="playDinoModalSound(this)">▶ Broadcast Call</button>
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">📊 Estatísticas Adulto</div>
+        <div class="dino-stat-grid" id="dmStats"></div>
+      </div>
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">🗺️ Zonas de Spawn</div>
+        <div class="dino-habitat-tags" id="dmHabitats"></div>
+      </div>
+    </div>
+
+    <div class="dino-modal-right">
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">⚔️ Estratégia de Jogo</div>
+        <p style="font-size:.95rem;color:var(--bone);opacity:.7;line-height:1.9" id="dmStrategy"></p>
+      </div>
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">🔴 Matchups</div>
+        <div class="dino-matchup" id="dmMatchups"></div>
+      </div>
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">👑 Prime Elder</div>
+        <div class="dino-elder-box">
+          <div class="dino-elder-title">Peso Prime Elder (pico em 87,5%)</div>
+          <div class="dino-stat-grid" style="margin-bottom:12px" id="dmElderStats"></div>
+          <div class="dino-elder-text" id="dmElder"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
