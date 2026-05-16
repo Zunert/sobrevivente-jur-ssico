@@ -283,9 +283,9 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 /* DINO DETAIL MODAL */
 .dino-modal-overlay{position:fixed;inset:0;background:rgba(3,4,2,.95);z-index:9600;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .35s;backdrop-filter:blur(10px)}
 .dino-modal-overlay.open{opacity:1;pointer-events:all}
-.dino-modal{background:linear-gradient(145deg,#0e1409,#080a05);border:1px solid rgba(139,26,10,.4);max-width:960px;width:100%;max-height:92vh;overflow-y:auto;position:relative;scrollbar-width:thin;scrollbar-color:var(--fern) var(--deep);display:grid;grid-template-columns:1fr 1fr}
-.dino-modal-left{padding:24px 24px 32px 32px;border-right:1px solid rgba(139,26,10,.2);display:flex;flex-direction:column;gap:14px}
-.dino-modal-right{padding:16px 32px 32px 32px;display:flex;flex-direction:column;gap:14px}
+.dino-modal{background:linear-gradient(145deg,#0e1409,#080a05);border:1px solid rgba(139,26,10,.4);max-width:860px;width:100%;max-height:92vh;overflow-y:auto;position:relative;scrollbar-width:thin;scrollbar-color:var(--fern) var(--deep);display:grid;grid-template-columns:1fr 1fr}
+.dino-modal-left{padding:32px;border-right:1px solid rgba(139,26,10,.2);display:flex;flex-direction:column;gap:20px}
+.dino-modal-right{padding:32px;display:flex;flex-direction:column;gap:20px}
 .dino-modal-img{width:100%;height:200px;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.8))}
 .dino-modal-name{font-family:'Cinzel Decorative',serif;font-size:1.6rem;color:var(--parchment);line-height:1.2}
 .dino-modal-cls{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);opacity:.8;margin-top:4px}
@@ -397,6 +397,35 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 }
 @media(max-width:480px){
   .videos-grid{grid-template-columns:1fr}
+}
+
+/* FAQ */
+.faq-submit-wrap{background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.15);padding:24px 28px;margin-bottom:32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.faq-submit-header{flex:1;min-width:200px}
+.faq-submit-label{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--parchment);display:block;margin-bottom:4px}
+.faq-submit-desc{font-size:.9rem;color:var(--bone);opacity:.5;margin:0}
+.faq-form{display:flex;gap:10px;flex:2;min-width:280px}
+.faq-input{flex:1;background:rgba(5,6,3,.6);border:1px solid rgba(74,120,37,.2);color:var(--bone);font-family:'Crimson Pro',serif;font-size:1rem;padding:10px 14px;outline:none;transition:border .3s}
+.faq-input:focus{border-color:rgba(90,158,30,.5)}
+.faq-btn{white-space:nowrap;padding:10px 24px}
+
+.faq-list{display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid rgba(74,120,37,.12)}
+.faq-item:first-child{border-top:1px solid rgba(74,120,37,.12)}
+.faq-q{width:100%;background:none;border:none;padding:20px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;text-align:left;transition:all .3s}
+.faq-q span:first-child{font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.05em;color:var(--parchment);line-height:1.4}
+.faq-q:hover span:first-child{color:var(--acid)}
+.faq-arrow{font-size:.9rem;color:var(--acid);opacity:.7;transition:transform .35s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(90deg)}
+.faq-a{display:none;padding:0 0 22px 0;display:flex;flex-direction:column;gap:12px}
+.faq-a p{font-size:.97rem;color:var(--bone);opacity:.68;line-height:1.9}
+.faq-a{overflow:hidden;max-height:0;padding:0;transition:max-height .4s ease,padding .3s}
+.faq-item.open .faq-a{max-height:600px;padding-bottom:22px}
+
+@media(max-width:900px){
+  .faq-submit-wrap{flex-direction:column;gap:14px}
+  .faq-form{width:100%}
+  .faq-q span:first-child{font-size:.78rem}
 }
 
 /* COMUNIDADE */
@@ -624,6 +653,64 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .stat-row{flex-wrap:wrap;gap:12px}
   .dino-rawstats{grid-template-columns:1fr 1fr}
 }
+
+/* DÚVIDAS EVRIMA */
+.duvidas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.duvida-card{background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.15);cursor:pointer;transition:all .35s;overflow:hidden}
+.duvida-card:hover{border-color:rgba(90,158,30,.4);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.duvida-card.open{border-color:rgba(90,158,30,.35)}
+.duvida-header{display:flex;align-items:center;gap:14px;padding:18px 20px}
+.duvida-icon{font-size:1.4rem;flex-shrink:0}
+.duvida-title{font-family:'Cinzel',serif;font-size:.82rem;font-weight:700;color:var(--parchment);flex:1;line-height:1.4}
+.duvida-toggle{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.15em;color:var(--acid);opacity:.6;flex-shrink:0;transition:opacity .3s}
+.duvida-card.open .duvida-toggle{opacity:0}
+.duvida-body{max-height:0;overflow:hidden;transition:max-height .5s ease,padding .4s}
+.duvida-card.open .duvida-body{max-height:800px;padding:0 20px 22px}
+.duvida-body::before{content:'';display:block;height:1px;background:rgba(90,158,30,.15);margin-bottom:16px}
+.duvida-tag{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--warn);opacity:.7;margin-bottom:12px}
+.duvida-body p{font-size:.95rem;color:var(--bone);opacity:.65;line-height:1.9;margin-bottom:10px}
+.duvida-body strong{color:#7ac836}
+.duvida-list{padding-left:16px;margin-bottom:12px}
+.duvida-list li{font-size:.9rem;color:var(--bone);opacity:.6;line-height:1.8;margin-bottom:3px}
+.duvida-dica{font-family:'Cinzel',serif;font-size:.68rem;color:var(--warn);opacity:.7;border-left:2px solid rgba(200,48,16,.3);padding-left:12px;margin-top:14px}
+.duvida-form-wrap{background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.15);padding:36px}
+@media(max-width:900px){.duvidas-grid{grid-template-columns:1fr}.duvida-form-wrap{padding:20px}}
+
+/* SERVIDORES */
+.servers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+.server-card{background:linear-gradient(145deg,var(--forest),var(--deep));border:1px solid rgba(74,120,37,.15);padding:28px;position:relative;overflow:hidden;transition:all .35s}
+.server-card:hover{border-color:rgba(90,158,30,.4);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.server-rank{position:absolute;top:0;right:0;font-family:'Cinzel Decorative',serif;font-size:2.5rem;color:var(--acid);opacity:.06;line-height:1;padding:8px 12px}
+.server-badge-new{position:absolute;top:14px;right:14px;font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;padding:3px 10px;border:1px solid rgba(200,48,16,.4);color:var(--warn);background:rgba(200,48,16,.08)}
+.server-header{margin-bottom:12px}
+.server-name{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:700;color:var(--parchment);margin-bottom:4px}
+.server-region{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:.7}
+.server-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.server-tag{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border:1px solid rgba(90,158,30,.2);color:var(--bone);opacity:.6}
+.server-desc{font-size:.95rem;color:var(--bone);opacity:.58;line-height:1.8;margin-bottom:16px}
+.server-players{display:flex;align-items:center;gap:8px;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);opacity:.7;margin-bottom:18px}
+.server-players-dot{width:7px;height:7px;border-radius:50%;background:var(--acid);animation:livePulse 2s ease-in-out infinite;flex-shrink:0}
+.server-btn{display:inline-flex;align-items:center;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);text-decoration:none;border:1px solid rgba(90,158,30,.3);padding:9px 20px;transition:all .3s}
+.server-btn:hover{background:rgba(90,158,30,.1);border-color:var(--acid)}
+@media(max-width:900px){.servers-grid{grid-template-columns:1fr}}
+
+@keyframes soundPulse {
+  0%,100%{box-shadow:0 0 0 0 rgba(90,158,30,0)}
+  50%{box-shadow:0 0 0 5px rgba(90,158,30,.18)}
+}
+#soundBtn.sound-active{
+  background:rgba(90,158,30,.18);
+  border-color:rgba(90,158,30,.7);
+  color:var(--acid-light);
+  animation:none;
+}
+#soundBtn.sound-muted{
+  background:rgba(139,26,10,.08);
+  border-color:rgba(139,26,10,.3);
+  color:var(--warn);
+  opacity:.7;
+  animation:none;
+}
 </style>
 </head>
 <body>
@@ -638,11 +725,28 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <li><a href="#atualizacoes">Atualizações</a></li>
     <li><a href="#guias">Guias</a></li>
     <li><a href="#equipe">Equipe</a></li>
+    <li><a href="#faq">Dúvidas</a></li>
+    <li><a href="#servidores">Servidores</a></li>
     <li><a href="#comunidade">Comunidade</a></li>
     <li><a href="#videos">Vídeos</a></li>
     <li><a href="#diretorio">Canais</a></li>
     <li><a href="#newsletter">Contato</a></li>
   </ul>
+  <button id="soundBtn" onclick="toggleSound()" style="
+  background:rgba(90,158,30,.1);
+  border:1px solid rgba(90,158,30,.4);
+  color:var(--acid);
+  font-family:'Cinzel',serif;
+  font-size:.58rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:7px 18px;
+  cursor:pointer;
+  transition:all .3s;
+  margin-right:14px;
+  display:flex;align-items:center;gap:7px;
+  animation:soundPulse 2.5s ease-in-out infinite;
+">🔇 Som</button>
   <div class="nav-burger" id="burger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
@@ -941,6 +1045,170 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 
 <div class="full-divider"></div>
 
+<!-- FAQ -->
+<div class="full-divider"></div>
+<section id="faq">
+  <div class="section-wrap">
+    <div style="margin-bottom:48px">
+      <span class="section-tag reveal" style="color:var(--warn)">📖 Diário de Campo</span>
+      <h2 class="section-heading reveal reveal-delay-1">Dúvidas sobre o <span style="color:var(--acid)">Evrima</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Anotações de sobreviventes que já erraram antes de você. Clique numa dúvida para abrir o protocolo.</p>
+    </div>
+
+    <div class="duvidas-grid reveal reveal-delay-2">
+
+      <div class="duvida-card" onclick="toggleDuvida(this)">
+        <div class="duvida-header">
+          <div class="duvida-icon">👑</div>
+          <div class="duvida-title">O que é Prime Elder?</div>
+          <div class="duvida-toggle">[ ABRIR ]</div>
+        </div>
+        <div class="duvida-body">
+          <div class="duvida-tag">Sistema Elder</div>
+          <p>Prime Elder é o <strong>pico físico</strong> de qualquer dino no Evrima — acontece quando o animal atinge <strong>87,5% do crescimento total</strong>. Nesse momento o dino está no auge: velocidade máxima, dano máximo, resistência máxima.</p>
+          <p>Depois disso começa o envelhecimento. Os stats decaem gradualmente até o <strong>Elder Fraco (100% Frail)</strong> — o estágio final antes do entomb.</p>
+          <p class="duvida-dica">⚠ Dica de sobrevivente: Aproveite o Prime Elder para completar os objetivos mais difíceis. É seu melhor momento.</p>
+        </div>
+      </div>
+
+      <div class="duvida-card" onclick="toggleDuvida(this)">
+        <div class="duvida-header">
+          <div class="duvida-icon">⚰️</div>
+          <div class="duvida-title">O que é Entomb?</div>
+          <div class="duvida-toggle">[ ABRIR ]</div>
+        </div>
+        <div class="duvida-body">
+          <div class="duvida-tag">Progressão</div>
+          <p>Entomb é o sistema de <strong>reencarnação</strong> do Evrima. Quando seu dino atinge 100% de crescimento você pode ativar — seu dino morre e você renasce como filhote da mesma espécie.</p>
+          <p>O que você carrega para a próxima vida:</p>
+          <ul class="duvida-list">
+            <li>Mutações da vida anterior, mais fortes</li>
+            <li>Opção de escolher mutações adicionais</li>
+            <li>Memória de habilidades desbloqueadas</li>
+          </ul>
+          <p class="duvida-dica">⚠ Dica: Quanto mais vidas você completar, mais poderoso fica. O Entomb é o caminho para o dino perfeito.</p>
+        </div>
+      </div>
+
+      <div class="duvida-card" onclick="toggleDuvida(this)">
+        <div class="duvida-header">
+          <div class="duvida-icon">🎯</div>
+          <div class="duvida-title">Como chegar ao Prime Elder?</div>
+          <div class="duvida-toggle">[ ABRIR ]</div>
+        </div>
+        <div class="duvida-body">
+          <div class="duvida-tag">Guia Prático</div>
+          <p>Para atingir o Prime Elder você completa os <strong>objetivos de crescimento</strong> da sua espécie. Cada dino tem os seus, mas geralmente envolvem:</p>
+          <ul class="duvida-list">
+            <li>Percorrer distância total (ex: 2km com Multichambered Lungs)</li>
+            <li>Comer e beber quantidades específicas</li>
+            <li>Sobreviver por tempo determinado</li>
+            <li>Criar ninho ou botar ovos (espécies compatíveis)</li>
+            <li>Objetivos de combate ou interação social</li>
+          </ul>
+          <p class="duvida-dica">⚠ Atenção: Deinosuchus, Troodon e Hypsilophodon têm dificuldade maior para atingir o Prime. Os devs já confirmaram ajustes futuros.</p>
+        </div>
+      </div>
+
+      <div class="duvida-card" onclick="toggleDuvida(this)">
+        <div class="duvida-header">
+          <div class="duvida-icon">🗺️</div>
+          <div class="duvida-title">Como se achar no mapa?</div>
+          <div class="duvida-toggle">[ ABRIR ]</div>
+        </div>
+        <div class="duvida-body">
+          <div class="duvida-tag">Navegação</div>
+          <p>O Evrima não tem minimapa — você aprende o território com o tempo. Para se orientar:</p>
+          <ul class="duvida-list">
+            <li>Use o <strong>VulnonaMAP</strong> na aba Mapa deste site — o mais completo da comunidade</li>
+            <li>O sol nasce a leste e se põe a oeste</li>
+            <li>Cada bioma tem visual único: redwoods ao norte, pântanos ao sul, savana a leste</li>
+            <li>O som da água indica rios próximos</li>
+            <li>O domo fica aproximadamente ao centro do mapa</li>
+          </ul>
+          <p class="duvida-dica">⚠ Dica: Comece sempre perto de um rio. Água é sobrevivência — e rios são os melhores pontos de referência.</p>
+        </div>
+      </div>
+
+      <div class="duvida-card" onclick="toggleDuvida(this)">
+        <div class="duvida-header">
+          <div class="duvida-icon">🧪</div>
+          <div class="duvida-title">O que é HordeTest?</div>
+          <div class="duvida-toggle">[ ABRIR ]</div>
+        </div>
+        <div class="duvida-body">
+          <div class="duvida-tag">Servidores</div>
+          <p>HordeTest (HT) é o <strong>servidor de testes públicos</strong> do The Isle. Os devs liberam atualizações experimentais aqui antes do lançamento oficial no Evrima.</p>
+          <p>No HordeTest você encontra:</p>
+          <ul class="duvida-list">
+            <li>Dinos novos antes do lançamento (Kentrosaurus, Austroraptor...)</li>
+            <li>Mecânicas em teste como Hill Slide e sistema Elder</li>
+            <li>Crescimento 5x mais rápido para testar mais</li>
+            <li>Bugs e instabilidade — é esperado</li>
+          </ul>
+          <p class="duvida-dica">⚠ O HordeTest é separado do servidor principal. Bugs e crashes fazem parte — reporte tudo no Discord oficial.</p>
+        </div>
+      </div>
+
+      <div class="duvida-card" onclick="toggleDuvida(this)">
+        <div class="duvida-header">
+          <div class="duvida-icon">🎮</div>
+          <div class="duvida-title">Como jogar o HordeTest?</div>
+          <div class="duvida-toggle">[ ABRIR ]</div>
+        </div>
+        <div class="duvida-body">
+          <div class="duvida-tag">Acesso</div>
+          <p>Para entrar no HordeTest:</p>
+          <ul class="duvida-list">
+            <li>Abra o Steam → biblioteca → The Isle</li>
+            <li>Botão direito → <strong>Propriedades → Betas</strong></li>
+            <li>No menu selecione <strong>hordetestevrima</strong></li>
+            <li>Aguarde o download e inicie o jogo</li>
+            <li>Selecione um servidor HordeTest na lista</li>
+          </ul>
+          <p>Para voltar ao Evrima normal selecione <strong>Nenhum</strong> no mesmo menu de Betas.</p>
+          <p class="duvida-dica">⚠ Dica: No HordeTest o crescimento é 5x mais rápido — ótimo para testar builds e mutações sem perder horas.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Formulário de envio de dúvida -->
+    <div class="duvida-form-wrap reveal" style="margin-top:56px">
+      <div style="text-align:center;margin-bottom:28px">
+        <span class="section-tag" style="color:var(--warn)">📝 Transmissão de Campo</span>
+        <h3 style="font-family:'Cinzel',serif;font-size:1.1rem;color:var(--parchment);margin-top:10px">Sua dúvida não está aqui?</h3>
+        <p style="font-size:.95rem;color:var(--bone);opacity:.5;line-height:1.8;margin-top:6px">Deixe registrada. Se for relevante para os outros sobreviventes, vira um card.</p>
+      </div>
+      <form class="com-form" id="faqForm" onsubmit="submitFaq(event)">
+        <div class="com-form-row">
+          <div class="com-form-group">
+            <label class="com-label">Seu nome (opcional)</label>
+            <input class="com-input" type="text" id="faqNome" placeholder="Sobrevivente anônimo" maxlength="60">
+          </div>
+          <div class="com-form-group">
+            <label class="com-label">Sua dúvida</label>
+            <input class="com-input" type="text" id="faqTitulo" placeholder="Ex: Como fazer ninho?" required maxlength="80">
+          </div>
+        </div>
+        <div class="com-form-group">
+          <label class="com-label">Detalhes (opcional)</label>
+          <textarea class="com-input com-textarea" id="faqDetalhe" placeholder="Explique melhor se quiser..." maxlength="300"></textarea>
+        </div>
+        <div class="com-form-footer">
+          <p class="com-disclaimer" style="color:var(--acid);opacity:.7">✓ Dúvidas relevantes viram novos cards</p>
+          <button type="submit" class="btn btn-fill com-submit-btn">Transmitir dúvida →</button>
+        </div>
+      </form>
+      <div id="faqSuccess" style="display:none;text-align:center;padding:28px;border:1px solid rgba(90,158,30,.3);background:rgba(90,158,30,.05)">
+        <div style="font-size:2rem;margin-bottom:10px">📡</div>
+        <div style="font-family:'Cinzel',serif;font-size:.85rem;color:var(--acid);letter-spacing:.1em;text-transform:uppercase">Transmissão recebida</div>
+        <div style="font-size:.9rem;color:var(--bone);opacity:.55;margin-top:6px">Sua dúvida foi registrada no diário de campo.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
 <!-- COMUNIDADE -->
 <div class="full-divider"></div>
 <section id="comunidade">
@@ -1027,6 +1295,60 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
         <div style="font-family:'Cinzel',serif;font-size:.8rem;color:var(--warn);letter-spacing:.1em;text-transform:uppercase" id="comErrorMsg">Erro ao enviar. Tente novamente.</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- SERVIDORES -->
+<div class="full-divider"></div>
+<section id="servidores">
+  <div class="section-wrap">
+    <div style="margin-bottom:48px">
+      <span class="section-tag reveal" style="color:var(--warn)">🌐 Comunidade</span>
+      <h2 class="section-heading reveal reveal-delay-1">Melhores <span style="color:var(--acid)">Servidores</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Os servidores mais recomendados pela comunidade. Encontre seu bando.</p>
+    </div>
+
+    <div class="servers-grid reveal reveal-delay-2">
+
+      <div class="server-card">
+        <div class="server-rank">#1</div>
+        <div class="server-header">
+          <div class="server-name">Primord</div>
+          <div class="server-region">🇧🇷 Brasil · América do Sul</div>
+        </div>
+        <div class="server-tags">
+          <span class="server-tag">Público</span>
+          <span class="server-tag">PvP</span>
+          <span class="server-tag">Eventos</span>
+        </div>
+        <div class="server-desc">O servidor número 1 do Brasil e da América do Sul. Com média de 200 jogadores simultâneos por dia, oferece eventos de manada e torneios PvP, além de regras bem elaboradas que tornam a gameplay muito mais imersiva. Grandes YouTubers e streamers escolhem o Primord pela sua qualidade e organização.</div>
+        <div class="server-players"><span class="server-players-dot"></span>~200 jogadores/dia</div>
+        <a href="https://discord.gg/primprd" target="_blank" rel="noopener" class="server-btn">Entrar no Discord →</a>
+      </div>
+
+      <div class="server-card">
+        <div class="server-badge-new">NOVO</div>
+        <div class="server-header">
+          <div class="server-name">EXTINCTION SIGNAL S.A</div>
+          <div class="server-region">🇧🇷 Brasil</div>
+        </div>
+        <div class="server-tags">
+          <span class="server-tag">Semirrealista</span>
+          <span class="server-tag">Imersivo</span>
+          <span class="server-tag">Organizado</span>
+        </div>
+        <div class="server-desc">Servidor de sobrevivência semirrealista focado em experiência imersiva, com regras equilibradas e ambiente saudável. Organizado e pensado para dar liberdade com responsabilidade.</div>
+        <div class="server-players"><span class="server-players-dot"></span>Recém lançado</div>
+        <a href="https://discord.gg/extinction" target="_blank" rel="noopener" class="server-btn">Entrar no Discord →</a>
+      </div>
+
+    </div>
+
+    <div class="reveal" style="text-align:center;margin-top:40px">
+      <p style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bone);opacity:.35;margin-bottom:16px">Quer divulgar seu servidor? Entre em contato pela seção Comunidade</p>
+      <a href="#comunidade" class="btn btn-ghost"><span>Enviar servidor →</span></a>
+    </div>
+
   </div>
 </section>
 
@@ -1244,41 +1566,51 @@ const dinoAttacks = {
   'Gallimimus': 'Sprint de alta duração. Kick traseiro. Sem ataques ofensivos relevantes — sobrevive pela velocidade.',
 };
 
-function openDinoModal(name){
-  var d=dinos.find(function(x){return x.name===name;});
-  if(!d) return;
-  document.getElementById('dmImg').src=d.img||'';
-  document.getElementById('dmImg').alt=d.name;
-  document.getElementById('dmName').textContent=d.name;
-  document.getElementById('dmCls').textContent=d.cls;
-  var td=dinoTiers[d.name];
-  var tier=td?td[0]:(d.detail?d.detail.tier:'B');
-  var tLbl=td?td[1]:(d.detail?d.detail.tierLabel:'Tier B');
-  document.getElementById('dmTier').innerHTML='<span class="dino-tier dino-tier-'+tier+'">'+tLbl+'<\/span>';
-  document.getElementById('dmLore').textContent=d.detail?d.detail.lore:d.desc;
-  var hab=d.detail?d.detail.habitats:[];
-  document.getElementById('dmHabitats').innerHTML=hab.map(function(h){return '<span class="dino-habitat-tag">'+h+'<\/span>';}).join('');
-  var ab=document.getElementById('dmAudioBtn');
-  if(ab){ab.setAttribute('data-sound',d.audio||'');ab.style.display=d.audio?'flex':'none';ab.classList.remove('playing');ab.textContent='▶ Broadcast Call';}
-  var st=dinoStages[d.name];
-  var stL=['🏆 Auge (87.5%)','⭐ Prime Elder','👤 Adulto (75%)','💀 Elder Fraco'];
-  var stC=['var(--acid-light)','#ffd700','var(--bone)','var(--warn)'];
-  var stEl=document.getElementById('dmStages');
-  if(stEl&&st){
-    var hdr='<table style="width:100%;border-collapse:collapse;font-size:.82rem"><tr style="font-family:Cinzel,serif;font-size:.46rem;letter-spacing:.08em;text-transform:uppercase;opacity:.5"><td style="padding:5px 3px">Estágio<\/td><td style="padding:5px 3px;text-align:center">Peso<\/td><td style="padding:5px 3px;text-align:center">Vel<\/td><td style="padding:5px 3px;text-align:center">Força<\/td><\/tr>';
-    var rows=st.map(function(r,i){
-      return '<tr style="border-top:1px solid rgba(74,120,37,.1);color:'+stC[i]+'"><td style="padding:6px 3px;font-family:Cinzel,serif;font-size:.5rem;text-transform:uppercase">'+stL[i]+'<\/td><td style="padding:6px 3px;text-align:center;font-weight:700;font-family:Cinzel,serif">'+r[0]+'<\/td><td style="padding:6px 3px;text-align:center;font-weight:700;font-family:Cinzel,serif">'+r[1]+'<\/td><td style="padding:6px 3px;text-align:center;font-weight:700;font-family:Cinzel,serif">'+r[2]+'<\/td><\/tr>';
-    });
-    stEl.innerHTML=hdr+rows.join('')+'<\/table>';
+function openDinoModal(name) {
+  const d = dinos.find(x => x.name === name);
+  if (!d) return;
+
+  document.getElementById('dmImg').src = d.img || '';
+  document.getElementById('dmImg').alt = d.name;
+  document.getElementById('dmName').textContent = d.name;
+  document.getElementById('dmCls').textContent = d.cls;
+
+  const tier = d.detail ? d.detail.tier : 'B';
+  const tierLabel = d.detail ? d.detail.tierLabel : 'Tier B';
+  document.getElementById('dmTier').innerHTML = '<span class="dino-tier dino-tier-'+tier+'">'+tierLabel+'</span>';
+
+  document.getElementById('dmLore').textContent = d.detail ? d.detail.lore : d.desc;
+
+  const audioBtn = document.getElementById('dmAudioBtn');
+  audioBtn.setAttribute('data-sound', d.audio || '');
+  audioBtn.style.display = d.audio ? 'flex' : 'none';
+  audioBtn.classList.remove('playing');
+  audioBtn.textContent = '▶ Broadcast Call';
+
+  const habitats = d.detail ? d.detail.habitats : [];
+  document.getElementById('dmHabitats').innerHTML = habitats.map(h =>
+    '<span class="dino-habitat-tag">'+h+'</span>').join('');
+
+  document.getElementById('dmAttacks').textContent = dinoAttacks[d.name] || 'Ataques básicos de mordida e carga.';
+
+  document.getElementById('dmElder').textContent = d.detail ? d.detail.elder : '';
+
+  const st = dinoStatsTable[d.name];
+  if(st){
+    const auge = st[0], frail = st[3];
+    document.getElementById('dmStatsCompare').innerHTML =
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px">'+
+      '<div class="dino-stat-box" style="border-color:rgba(90,158,30,.3)"><div class="dino-stat-lbl" style="color:var(--acid-light)">🟢 Auge — Peso</div><div class="dino-stat-val">'+auge[1]+'</div></div>'+
+      '<div class="dino-stat-box" style="border-color:rgba(139,26,10,.3)"><div class="dino-stat-lbl" style="color:var(--warn)">🔴 Elder Fraco — Peso</div><div class="dino-stat-val">'+frail[1]+'</div></div>'+
+      '<div class="dino-stat-box" style="border-color:rgba(90,158,30,.3)"><div class="dino-stat-lbl" style="color:var(--acid-light)">Vel. Auge</div><div class="dino-stat-val">'+auge[2]+' km/h</div></div>'+
+      '<div class="dino-stat-box" style="border-color:rgba(139,26,10,.3)"><div class="dino-stat-lbl" style="color:var(--warn)">Vel. Fraco</div><div class="dino-stat-val">'+frail[2]+' km/h</div></div>'+
+      '<div class="dino-stat-box" style="border-color:rgba(90,158,30,.3)"><div class="dino-stat-lbl" style="color:var(--acid-light)">Dano Auge</div><div class="dino-stat-val">'+auge[3]+' N</div></div>'+
+      '<div class="dino-stat-box" style="border-color:rgba(139,26,10,.3)"><div class="dino-stat-lbl" style="color:var(--warn)">Dano Fraco</div><div class="dino-stat-val">'+frail[3]+' N</div></div>'+
+      '</div>';
   }
-  var gEl=document.getElementById('dmGrupo');
-  if(gEl) gEl.textContent=d.raw.grupo+' dinos';
-  var stEl2=document.getElementById('dmStrategy');
-  if(stEl2) stEl2.textContent=d.detail?d.detail.strategy:'';
-  var eEl=document.getElementById('dmElder');
-  if(eEl) eEl.textContent=d.detail?d.detail.elder:'';
+
   document.getElementById('dinoModalOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.body.style.overflow = 'hidden';
 }
 
 function closeDinoModal() {
@@ -1394,6 +1726,34 @@ async function loadLives() {
 }
 loadLives();
 
+// FAQ ACCORDION
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  // Open clicked if was closed
+  if (!isOpen) item.classList.add('open');
+}
+
+async function submitFaq(e) {
+  e.preventDefault();
+  const pergunta = document.getElementById('faqPergunta').value;
+  try {
+    await fetch('https://formspree.io/f/mojrrvjd', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        tipo: 'FAQ',
+        pergunta,
+        _subject: '[FAQ] Nova dúvida: ' + pergunta
+      })
+    });
+    document.getElementById('faqForm').style.display = 'none';
+    document.getElementById('faqSuccess').style.display = 'block';
+  } catch(err) {}
+}
+
 // COMUNIDADE FORM
 async function submitCom(e){
   e.preventDefault();
@@ -1427,7 +1787,7 @@ async function submitCom(e){
   txt.textContent='Enviando...';
 
   try {
-    const res = await fetch('https://formspree.io/f/mojrrvjd', {
+    const res = await fetch('https://formspree.io/f/SEU_ID_AQUI', {
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body: JSON.stringify({
@@ -1575,123 +1935,123 @@ const dinos=[
   {name:'Diabloceratops',audio:'diabloceratops.mp3',img:'diabloceratops.jpg',type:'herbivoro',icon:'🔱',cls:'Herbívoro · Combativo',badge:'herb',bl:'Herbívoro',
    food:'Marigold, Fireweed, Cashew',
    desc:'Chifres imponentes e temperamento agressivo. Perigoso em grupo e com boa força de mordida para um herbívoro.',
-   raw:{peso:3800,vel:35.0,forca:275,grupo:6},detail:{lore:'Um dos herbívoros mais agressivos da ilha. Não fuja — o Diabloceratops persegue. Enfrente-o com espaço e stamina cheia.',tier:'B',tierLabel:'Tier B — Combativo',habitats:['Northern Jungle','North Plains','Cedrus Forest'],elder:'Prime Elder aumenta a força de mordida e resistência a knockdown. Excelente para defesa de manada.',strategy:'Use o charge para interromper ataques. Em grupo de 6 é quase imbatível contra carnívoros médios.'},
+   raw:{peso:3750,vel:35.0,forca:275,grupo:6},detail:{lore:'Um dos herbívoros mais agressivos da ilha. Não fuja — o Diabloceratops persegue. Enfrente-o com espaço e stamina cheia.',tier:'B',tierLabel:'Tier B — Combativo',habitats:['Northern Jungle','North Plains','Cedrus Forest'],elder:'Prime Elder aumenta a força de mordida e resistência a knockdown. Excelente para defesa de manada.',strategy:'Use o charge para interromper ataques. Em grupo de 6 é quase imbatível contra carnívoros médios.'},
    stats:{Peso:32,Velocidade:69,Força:31,Grupo:60}},
 
   {name:'Dryosaurus',audio:'dryosaurus.mp3',img:'dryosaurus.jpg',type:'herbivoro',icon:'🍃',cls:'Herbívoro · Velocista',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Agave, SunchokeRoots',
    desc:'Um dos mais rápidos herbívoros da ilha. Leve e ágil — sobrevive pela velocidade e em grandes grupos.',
-   raw:{peso:185.0,vel:36.6,forca:16,grupo:10},detail:{lore:'Velocidade é sua única armadura. O Dryo não luta — ele desaparece. Aprenda as rotas de fuga antes de qualquer confronto.',tier:'C',tierLabel:'Tier C — Fuga',habitats:['Northern Jungle','Tallbrush Coasts','North Plains'],elder:'Prime Elder melhora stamina e velocidade de sprint. Com mutação de pulmões aumenta absurdamente a fuga.',strategy:'Fique em grupo grande. Nunca pare de se mover. Em manada de 10 a distração salva vidas.'},
+   raw:{peso:130,vel:45,forca:20,grupo:10},detail:{lore:'Velocidade é sua única armadura. O Dryo não luta — ele desaparece. Aprenda as rotas de fuga antes de qualquer confronto.',tier:'C',tierLabel:'Tier C — Fuga',habitats:['Northern Jungle','Tallbrush Coasts','North Plains'],elder:'Prime Elder melhora stamina e velocidade de sprint. Com mutação de pulmões aumenta absurdamente a fuga.',strategy:'Fique em grupo grande. Nunca pare de se mover. Em manada de 10 a distração salva vidas.'},
    stats:{Peso:1,Velocidade:91,Força:2,Grupo:100}},
 
   {name:'Hypsilophodon',audio:'hypsilophodon.mp3',img:'hypsilophodon.jpg',type:'herbivoro',icon:'🌱',cls:'Herbívoro · Pequeno Porte',badge:'herb',bl:'Herbívoro',
    food:'Mango, ChanterelleMushroom, RadishRoot',
    desc:'Minúsculo e extremamente veloz. Quase indefeso em combate — sobrevive em bandos numerosos e na fuga.',
-   raw:{peso:23.0,vel:37.8,forca:1.8,grupo:10},detail:{lore:'O menor dino jogável. Invisível entre folhas, mortal em bandos. Sozinho é presa fácil — em grupo vira pesadelo.',tier:'C',tierLabel:'Tier C — Bando',habitats:['Northern Jungle','Eastern Jungle','Tallbrush Coasts'],elder:'Prime Elder com Sequential Hermaphroditism permite reprodução solo. Ideal para criar colônias.',strategy:'Grupo de 10 com coordenação vocal. Evite qualquer carnívoro solo. Habitat denso é obrigatório.'},
+   raw:{peso:20,vel:40,forca:2,grupo:10},detail:{lore:'O menor dino jogável. Invisível entre folhas, mortal em bandos. Sozinho é presa fácil — em grupo vira pesadelo.',tier:'C',tierLabel:'Tier C — Bando',habitats:['Northern Jungle','Eastern Jungle','Tallbrush Coasts'],elder:'Prime Elder com Sequential Hermaphroditism permite reprodução solo. Ideal para criar colônias.',strategy:'Grupo de 10 com coordenação vocal. Evite qualquer carnívoro solo. Habitat denso é obrigatório.'},
    stats:{Peso:1,Velocidade:80,Força:1,Grupo:100}},
 
   {name:'Maiasaura',audio:'maiasaura.mp3',img:'maiasaura.jpg',type:'herbivoro',icon:'🦕',cls:'Herbívoro · Grande Porte',badge:'herb',bl:'Herbívoro',
    food:'MountainAsh, WildPotatoRoot, RadishRoot',
    desc:'O herbívoro mais veloz da ilha. Grande, rápido e excelente em grupo — combinação difícil de enfrentar.',
-   raw:{peso:5400,vel:39.6,forca:40,grupo:10},detail:{lore:'O herbívoro mais veloz e social da ilha. Em manada grande vira uma força imparável — difícil de matar e impossível de parar.',tier:'A',tierLabel:'Tier A — Manada',habitats:['North Plains','Eastern Jungle','South Plains'],elder:'Prime Elder com Parthenogenesis permite ninhos solo. Excelente para objetivos Elder em grupo.',strategy:'Mantenha grupo de 8-10. Use a velocidade para separar predadores. Nunca pare em campo aberto.'},
+   raw:{peso:5350,vel:39.6,forca:40,grupo:10},detail:{lore:'O herbívoro mais veloz e social da ilha. Em manada grande vira uma força imparável — difícil de matar e impossível de parar.',tier:'A',tierLabel:'Tier A — Manada',habitats:['North Plains','Eastern Jungle','South Plains'],elder:'Prime Elder com Parthenogenesis permite ninhos solo. Excelente para objetivos Elder em grupo.',strategy:'Mantenha grupo de 8-10. Use a velocidade para separar predadores. Nunca pare em campo aberto.'},
    stats:{Peso:39,Velocidade:95,Força:6,Grupo:100}},
 
   {name:'Pachycephalosaurus',audio:'pachycephalosaurus.mp3',img:'pachycephalosaurus.jpg',type:'herbivoro',icon:'💀',cls:'Herbívoro · Cabeçudo',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Agave, Coconut',
    desc:'Crânio espesso como armadura. Usa a cabeça como ariete. Rápido e surpreendentemente resistente.',
-   raw:{peso:910.0,vel:39.6,forca:25.5,grupo:8},detail:{lore:'Cabeça como ariete. O Pachy é o melhor dino para iniciantes — rápido, resistente e com comida fácil de encontrar.',tier:'B',tierLabel:'Tier B — Iniciante',habitats:['North Plains','Highland','Eastern Jungle'],elder:'Prime Elder aumenta o dano do headbutt e reduz o cooldown. Pode stunnar carnívoros médios.',strategy:'Use o headbutt para interromper ataques. Em grupo de 8 consegue repelir Allosaurus.'},
+   raw:{peso:225,vel:37.4,forca:24,grupo:8},detail:{lore:'Cabeça como ariete. O Pachy é o melhor dino para iniciantes — rápido, resistente e com comida fácil de encontrar.',tier:'B',tierLabel:'Tier B — Iniciante',habitats:['North Plains','Highland','Eastern Jungle'],elder:'Prime Elder aumenta o dano do headbutt e reduz o cooldown. Pode stunnar carnívoros médios.',strategy:'Use o headbutt para interromper ataques. Em grupo de 8 consegue repelir Allosaurus.'},
    stats:{Peso:7,Velocidade:84,Força:3,Grupo:80}},
 
   {name:'Stegosaurus',audio:'stegosaurus.mp3',img:'stegosaurus.jpg',type:'herbivoro',icon:'🌿',cls:'Herbívoro · Tanque',badge:'herb',bl:'Herbívoro',
    food:'Marigold, Sumac, Pumpkin',
    desc:'O thagomizer (cauda espinhosa) torna qualquer ataque arriscado. Lento, mas massivo e difícil de derrubar.',
-   raw:{peso:9300,vel:25.2,forca:45,grupo:5},detail:{lore:'Lento mas devastador. O thagomizer é uma das armas mais poderosas da ilha — errou o timing, perdeu um membro.',tier:'A',tierLabel:'Tier A — Tanque',habitats:['Cedrus Forest','Highland','Western Rail'],elder:'Prime Elder aumenta o dano do thagomizer e resistência a sangramento. Quase intocável.',strategy:'Fique de costas para a ameaça. Nunca entre na água. Em grupo de 5 é quase intocável.'},
+   raw:{peso:13500,vel:39.0,forca:450,grupo:5},detail:{lore:'Lento mas devastador. O thagomizer é uma das armas mais poderosas da ilha — errou o timing, perdeu um membro.',tier:'A',tierLabel:'Tier A — Tanque',habitats:['Cedrus Forest','Highland','Western Rail'],elder:'Prime Elder aumenta o dano do thagomizer e resistência a sangramento. Quase intocável.',strategy:'Fique de costas para a ameaça. Nunca entre na água. Em grupo de 5 é quase intocável.'},
    stats:{Peso:63,Velocidade:59,Força:6,Grupo:50}},
 
   {name:'Tenontosaurus',audio:'tenontosaurus.mp3',img:'tenontosaurus.jpg',type:'herbivoro',icon:'🦎',cls:'Herbívoro · Médio Porte',badge:'herb',bl:'Herbívoro',
    food:'MountainAsh, WildPotatoRoot, RadishRoot',
    desc:'Equilibrado e versátil. Boa velocidade e grupos grandes. Ideal para iniciantes aprenderem como herbívoro.',
-   raw:{peso:1800,vel:36.3,forca:31.5,grupo:8},detail:{lore:'Grande, resistente e versátil. O Tenonto é difícil de matar e fácil de jogar — bom equilíbrio para jogadores intermediários.',tier:'B',tierLabel:'Tier B — Versátil',habitats:['Central Jungle','North Plains','Eastern Jungle'],elder:'Prime Elder com Osteophagic cura fraturas rapidamente em combate prolongado.',strategy:'Use o tamanho para bloquear rotas de fuga de predadores menores. Em grupo domina zonas.'},
+   raw:{peso:1600,vel:41,forca:35,grupo:8},detail:{lore:'Grande, resistente e versátil. O Tenonto é difícil de matar e fácil de jogar — bom equilíbrio para jogadores intermediários.',tier:'B',tierLabel:'Tier B — Versátil',habitats:['Central Jungle','North Plains','Eastern Jungle'],elder:'Prime Elder com Osteophagic cura fraturas rapidamente em combate prolongado.',strategy:'Use o tamanho para bloquear rotas de fuga de predadores menores. Em grupo domina zonas.'},
    stats:{Peso:17,Velocidade:82,Força:4,Grupo:80}},
 
   {name:'Triceratops',audio:'triceratops.mp3',img:'triceratops.jpg',type:'herbivoro',icon:'🦏',cls:'Herbívoro · Apex',badge:'herb',bl:'Herbívoro',
    food:'VariegatedOrange, Fiddlehead, Papaya',
    desc:'O herbívoro mais poderoso da ilha. Força de mordida brutal e chifres capazes de perfurar qualquer predador.',
-   raw:{peso:12500,vel:22.0,forca:810,grupo:4},detail:{lore:'O apex dos herbívoros. Chifres que perfuram qualquer predador, resistência absurda. Até o T-Rex respeita um Trice adulto.',tier:'S',tierLabel:'Tier S — Apex Herbívoro',habitats:['Highland','Central Jungle','South Plains'],elder:'Prime Elder transforma o Trice em praticamente imortal. Resistência máxima e dano de chifre devastador.',strategy:'Em grupo de 4 domina qualquer zona. Nunca vire as costas — o charge é sua arma principal.'},
+   raw:{peso:9500,vel:23,forca:900,grupo:4},detail:{lore:'O apex dos herbívoros. Chifres que perfuram qualquer predador, resistência absurda. Até o T-Rex respeita um Trice adulto.',tier:'S',tierLabel:'Tier S — Apex Herbívoro',habitats:['Highland','Central Jungle','South Plains'],elder:'Prime Elder transforma o Trice em praticamente imortal. Resistência máxima e dano de chifre devastador.',strategy:'Em grupo de 4 domina qualquer zona. Nunca vire as costas — o charge é sua arma principal.'},
    stats:{Peso:100,Velocidade:47,Força:100,Grupo:40}},
 
   // ── CARNÍVOROS ──
   {name:'Allosaurus',audio:'allosaurus.mp3',img:'allosaurus.jpg',type:'carnivoro',icon:'🦖',cls:'Carnívoro · Grande Porte',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Diabloceratops, Triceratops, Dryosaurus, Maiasaura...',
    desc:'Predador grande e rápido. Equilibrado entre peso e velocidade — uma das escolhas mais sólidas para carnívoros.',
-   raw:{peso:3700,vel:35.6,forca:140,grupo:3},detail:{lore:'O predador de grupo mais eficiente da ilha. Em trio coordenado derruba qualquer presa — incluindo T-Rex descuidado.',tier:'A',tierLabel:'Tier A — Pack Hunter',habitats:['Central Jungle','Eastern Jungle','Highland'],elder:'Prime Elder aumenta velocidade e dano. Em trio de Prime Elders é devastador.',strategy:'Nunca ataque Trice ou T-Rex solo. Em trio coordenem os ataques para dividir a atenção.'},
+   raw:{peso:2593,vel:40,forca:175,grupo:3},detail:{lore:'O predador de grupo mais eficiente da ilha. Em trio coordenado derruba qualquer presa — incluindo T-Rex descuidado.',tier:'A',tierLabel:'Tier A — Pack Hunter',habitats:['Central Jungle','Eastern Jungle','Highland'],elder:'Prime Elder aumenta velocidade e dano. Em trio de Prime Elders é devastador.',strategy:'Nunca ataque Trice ou T-Rex solo. Em trio coordenem os ataques para dividir a atenção.'},
    stats:{Peso:27,Velocidade:80,Força:19,Grupo:30}},
 
   {name:'Carnotaurus',audio:'carnotaurus.mp3',img:'carnotaurus.jpg',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Velocista',badge:'carn',bl:'Carnívoro',
    food:'Pachycephalosaurus, Tenontosaurus, Diabloceratops, Dryosaurus, Maiasaura...',
    desc:'O predador mais rápido da ilha. Ágil e mortal em perseguições — poucos conseguem escapar do Carnotaurus.',
-   raw:{peso:1800,vel:45.0,forca:120,grupo:3},detail:{lore:'O mais rápido da ilha. Ninguém escapa de um Carno motivado. Sua fraqueza é a sustentação — hit and run é a lei.',tier:'A',tierLabel:'Tier A — Velocista',habitats:['South Plains','North Plains','Eastern Jungle'],elder:'Prime Elder com pulmões maximizados permite perseguições infinitas. Aterrorizante.',strategy:'Hit and run. Nunca fique parado após atacar. Em trio sem nada para fugir na ilha.'},
+   raw:{peso:1300,vel:49,forca:150,grupo:3},detail:{lore:'O mais rápido da ilha. Ninguém escapa de um Carno motivado. Sua fraqueza é a sustentação — hit and run é a lei.',tier:'A',tierLabel:'Tier A — Velocista',habitats:['South Plains','North Plains','Eastern Jungle'],elder:'Prime Elder com pulmões maximizados permite perseguições infinitas. Aterrorizante.',strategy:'Hit and run. Nunca fique parado após atacar. Em trio sem nada para fugir na ilha.'},
    stats:{Peso:14,Velocidade:100,Força:17,Grupo:30}},
 
   {name:'Ceratosaurus',audio:'ceratosaurus.mp3',img:'ceratosaurus.jpg',type:'carnivoro',icon:'🔴',cls:'Carnívoro · Médio Porte',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Pachycephalosaurus, Omniraptor, Diabloceratops...',
    desc:'Predador versátil de médio porte. Pode caçar em grupos de até 5, o que o torna formidável em cooperação.',
-   raw:{peso:1900,vel:36.0,forca:127,grupo:5},detail:{lore:'O predador de rio. Versátil em terra e letal perto da água — mas sem o kit do Deinosuchus. Equilíbrio entre poder e mobilidade.',tier:'B',tierLabel:'Tier B — Versátil',habitats:['Central Jungle','Delta','Eastern Jungle'],elder:'Prime Elder aumenta dano de mordida e velocidade aquática. Dominante em zonas de rio.',strategy:'Use rios como vantagem. Perto da água ganha mobilidade extra. Evite campo aberto contra grupos.'},
+   raw:{peso:1450,vel:40,forca:150,grupo:5},detail:{lore:'O predador de rio. Versátil em terra e letal perto da água — mas sem o kit do Deinosuchus. Equilíbrio entre poder e mobilidade.',tier:'B',tierLabel:'Tier B — Versátil',habitats:['Central Jungle','Delta','Eastern Jungle'],elder:'Prime Elder aumenta dano de mordida e velocidade aquática. Dominante em zonas de rio.',strategy:'Use rios como vantagem. Perto da água ganha mobilidade extra. Evite campo aberto contra grupos.'},
    stats:{Peso:15,Velocidade:81,Força:17,Grupo:50}},
 
   {name:'Deinosuchus',audio:'deinosuchus.mp3',img:'deinosuchus.jpg',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Semi-Aquático',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Carnotaurus, Omniraptor, Gallimimus, Maiasaura...',
    desc:'Crocodiliano gigante e letal. Lento em terra mas devastador na água. Força de mordida brutal e peso massivo.',
-   raw:{peso:13500,vel:40.2,forca:550,grupo:2},detail:{lore:'O terror das margens. Em terra é lento demais — na água é inescapável. Qualquer dino que beber água perto dele já morreu.',tier:'S',tierLabel:'Tier S — Apex Aquático',habitats:['Swamps','Delta','Coastland Swamp'],elder:'Prime Elder maximiza dano aquático e resistência. Praticamente impossível de matar na água.',strategy:'Fique SEMPRE na água. Nunca persiga presas por mais de 5 segundos em terra.'},
+   raw:{peso:8000,vel:18,forca:500,grupo:2},detail:{lore:'O terror das margens. Em terra é lento demais — na água é inescapável. Qualquer dino que beber água perto dele já morreu.',tier:'S',tierLabel:'Tier S — Apex Aquático',habitats:['Swamps','Delta','Coastland Swamp'],elder:'Prime Elder maximiza dano aquático e resistência. Praticamente impossível de matar na água.',strategy:'Fique SEMPRE na água. Nunca persiga presas por mais de 5 segundos em terra.'},
    stats:{Peso:84,Velocidade:36,Força:56,Grupo:20}},
 
   {name:'Dilophosaurus',audio:'dilophosaurus.mp3',img:'dilophosaurus.jpg',type:'carnivoro',icon:'💨',cls:'Carnívoro · Ágil',badge:'carn',bl:'Carnívoro',
    food:'Boar, Tenontosaurus, Ceratosaurus, Diabloceratops, Hypsilophodon, Dryosaurus...',
    desc:'Rápido e mortal em grupos. Usa velocidade e coordenação para derrubar presas maiores que ele.',
-   raw:{peso:977.0,vel:41.4,forca:68,grupo:4},detail:{lore:'Ágil, venenoso e subestimado. O Dilo em grupo é um pesadelo para herbívoros médios.',tier:'B',tierLabel:'Tier B — Veneno',habitats:['Northern Jungle','Eastern Jungle','Tallbrush Coasts'],elder:'Prime Elder aumenta o efeito do veneno e velocidade. Sangramento + veneno é letal.',strategy:'Use o veneno para sangrar primeiro, depois persiga. Em grupo de 6 derruba presas muito maiores.'},
+   raw:{peso:700,vel:47,forca:85,grupo:4},detail:{lore:'Ágil, venenoso e subestimado. O Dilo em grupo é um pesadelo para herbívoros médios.',tier:'B',tierLabel:'Tier B — Veneno',habitats:['Northern Jungle','Eastern Jungle','Tallbrush Coasts'],elder:'Prime Elder aumenta o efeito do veneno e velocidade. Sangramento + veneno é letal.',strategy:'Use o veneno para sangrar primeiro, depois persiga. Em grupo de 6 derruba presas muito maiores.'},
    stats:{Peso:7,Velocidade:96,Força:9,Grupo:40}},
 
   {name:'Herrerasaurus',audio:'herrerasaurus.mp3',img:'herrerasaurus.jpg',type:'carnivoro',icon:'🌑',cls:'Carnívoro · Pequeno Porte',badge:'carn',bl:'Carnívoro',
    food:'Crab, SchoolingFish, Tenontosaurus, Pachycephalosaurus, Hypsilophodon, Dryosaurus...',
    desc:'Pequeno mas ágil e capaz de formar grupos grandes. Excelente para iniciantes no papel de carnívoro.',
-   raw:{peso:225.0,vel:37.4,forca:24,grupo:10},detail:{lore:'Veloz, ágil e mortal em bando. O Herrera domina o início do jogo e continua relevante como adulto em grupos.',tier:'B',tierLabel:'Tier B — Pack',habitats:['Central Jungle','Highland','Cedrus Forest'],elder:'Prime Elder com velocidade maximizada é um dos predadores mais difíceis de escapar.',strategy:'Em grupo de 10 coordenado com vocalizações é devastador. Foque em presas isoladas.'},
+   raw:{peso:175,vel:45,forca:30,grupo:10},detail:{lore:'Veloz, ágil e mortal em bando. O Herrera domina o início do jogo e continua relevante como adulto em grupos.',tier:'B',tierLabel:'Tier B — Pack',habitats:['Central Jungle','Highland','Cedrus Forest'],elder:'Prime Elder com velocidade maximizada é um dos predadores mais difíceis de escapar.',strategy:'Em grupo de 10 coordenado com vocalizações é devastador. Foque em presas isoladas.'},
    stats:{Peso:2,Velocidade:91,Força:3,Grupo:100}},
 
   {name:'Omniraptor',audio:'omniraptor.mp3',img:'omniraptor.jpg',type:'carnivoro',icon:'🗡️',cls:'Carnívoro · Raptor',badge:'carn',bl:'Carnívoro',
    food:'Boar, Stegosaurus, Pachycephalosaurus, Ceratosaurus, Diabloceratops, Maiasaura...',
    desc:'Raptor veloz e inteligente. Em grupos de até 8 consegue derrubar presas muito maiores que ele.',
-   raw:{peso:660.0,vel:43.2,forca:58.5,grupo:8},detail:{lore:'O predador mais adaptável da ilha. Rápido o suficiente para fugir, forte o suficiente para lutar.',tier:'B',tierLabel:'Tier B — Adaptável',habitats:['Northern Jungle','Eastern Jungle','Central Jungle'],elder:'Prime Elder com Multichambered Lungs permite perseguições longas. Muito eficiente em grupo.',strategy:'Use o terreno a seu favor. Em grupo de 8 consegue derrubar Tenonto e Maiasaura.'},
+   raw:{peso:395,vel:47,forca:65,grupo:8},detail:{lore:'O predador mais adaptável da ilha. Rápido o suficiente para fugir, forte o suficiente para lutar.',tier:'B',tierLabel:'Tier B — Adaptável',habitats:['Northern Jungle','Eastern Jungle','Central Jungle'],elder:'Prime Elder com Multichambered Lungs permite perseguições longas. Muito eficiente em grupo.',strategy:'Use o terreno a seu favor. Em grupo de 8 consegue derrubar Tenonto e Maiasaura.'},
    stats:{Peso:4,Velocidade:95,Força:7,Grupo:80}},
 
   {name:'Pteranodon',audio:'pteranodon.mp3',img:'pteranodon.jpg',type:'carnivoro',icon:'🦅',cls:'Carnívoro · Voador',badge:'carn',bl:'Carnívoro',
    food:'SchoolingFish, Crab, Clam, Chicken, Hypsilophodon, Bullfrog, Seaturtle...',
    desc:'O único voador do jogo. Domina os céus e pesca com maestria. Fraco no solo — mantenha-se no ar.',
-   raw:{peso:60.0,vel:69.1,forca:16,grupo:6},detail:{lore:'O único voador. Acesso a qualquer ponto do mapa, visão privilegiada e fuga garantida. Em combate direto é frágil.',tier:'B',tierLabel:'Tier B — Explorador',habitats:['Coastal Bluffs','Tallbrush Coasts','Toda a ilha'],elder:'Prime Elder aumenta velocidade de voo e capacidade de carga. Exploração sem igual.',strategy:'Nunca pouse perto de predadores. Use a altitude para reconhecer o terreno antes de descer.'},
+   raw:{peso:60,vel:69.1,forca:16,grupo:6},detail:{lore:'O único voador. Acesso a qualquer ponto do mapa, visão privilegiada e fuga garantida. Em combate direto é frágil.',tier:'B',tierLabel:'Tier B — Explorador',habitats:['Coastal Bluffs','Tallbrush Coasts','Toda a ilha'],elder:'Prime Elder aumenta velocidade de voo e capacidade de carga. Exploração sem igual.',strategy:'Nunca pouse perto de predadores. Use a altitude para reconhecer o terreno antes de descer.'},
    stats:{Peso:1,Velocidade:58,Força:2,Grupo:60}},
 
   {name:'Troodon',audio:'troodon.mp3',img:'troodon.jpg',type:'carnivoro',icon:'🌙',cls:'Carnívoro · Noturno',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Crab, Tenontosaurus, Bullfrog, Chicken, Hypsilophodon, Dryosaurus...',
    desc:'Predador noturno e veloz. Grupos de até 10 tornam o Troodon letal contra presas muito maiores.',
-   raw:{peso:79.8,vel:41.4,forca:12,grupo:10},detail:{lore:'De dia é comum. À noite é um serial killer. O bônus noturno transforma o jogo completamente após o anoitecer.',tier:'A',tierLabel:'Tier A — Noturno',habitats:['Eastern Jungle','Northern Jungle','Central Jungle'],elder:'Prime Elder maximiza bônus noturno. Em grupo de 10 à noite é o predador mais letal da ilha.',strategy:'Durma de dia, caçe à noite. Em grupo coordenado consegue derrubar T-Rex descuidado no escuro.'},
+   raw:{peso:60,vel:45,forca:15,grupo:10},detail:{lore:'De dia é comum. À noite é um serial killer. O bônus noturno transforma o jogo completamente após o anoitecer.',tier:'A',tierLabel:'Tier A — Noturno',habitats:['Eastern Jungle','Northern Jungle','Central Jungle'],elder:'Prime Elder maximiza bônus noturno. Em grupo de 10 à noite é o predador mais letal da ilha.',strategy:'Durma de dia, caçe à noite. Em grupo coordenado consegue derrubar T-Rex descuidado no escuro.'},
    stats:{Peso:1,Velocidade:91,Força:2,Grupo:100}},
 
   {name:'Tyrannosaurus',audio:'tyrannosaurus.mp3',img:'tyrannosaurus.jpg',type:'carnivoro',icon:'👑',cls:'Carnívoro · Apex',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Pachycephalosaurus, Triceratops, Diabloceratops, Maiasaura...',
    desc:'O rei absoluto da ilha. Força de mordida devastadora e peso colossal. Presença que intimida todas as criaturas.',
-   raw:{peso:12300,vel:32.0,forca:630,grupo:2},detail:{lore:'O rei absoluto. Nada na ilha ignora um T-Rex adulto. Lento para crescer, difícil de dominar, impossível de ignorar.',tier:'S',tierLabel:'Tier S — Apex Predador',habitats:['South Plains','Central Jungle','Highland'],elder:'Prime Elder com Paleo Calls desbloqueados torna o T-Rex a criatura mais dominante da ilha.',strategy:'Paciência. Cresça sem morrer. Use os Paleo Calls para comunicar território. Em dupla domina qualquer zona.'},
+   raw:{peso:12274,vel:32.0,forca:630,grupo:2},detail:{lore:'O rei absoluto. Nada na ilha ignora um T-Rex adulto. Lento para crescer, difícil de dominar, impossível de ignorar.',tier:'S',tierLabel:'Tier S — Apex Predador',habitats:['South Plains','Central Jungle','Highland'],elder:'Prime Elder com Paleo Calls desbloqueados torna o T-Rex a criatura mais dominante da ilha.',strategy:'Paciência. Cresça sem morrer. Use os Paleo Calls para comunicar território. Em dupla domina qualquer zona.'},
    stats:{Peso:98,Velocidade:59,Força:78,Grupo:20}},
 
   // ── ONÍVOROS ──
   {name:'Beipiaosaurus',audio:'beipiaosaurus.mp3',img:'beipiaosaurus.jpg',type:'onivoro',icon:'🌊',cls:'Onívoro · Semi-Aquático',badge:'omni',bl:'Onívoro',
    food:'Crab, SchoolingFish, RadishFlower, Bullfrog, WildPotatoVine, SunchokeRoots',
    desc:'Onívoro semi-aquático com dieta variada. Ágil e adaptável — consegue sobreviver em diferentes biomas da ilha.',
-   raw:{peso:112.0,vel:32.0,forca:8,grupo:10},detail:{lore:'Onívoro subestimado. Come de tudo, sobrevive em qualquer zona e é difícil de matar para seu tamanho.',tier:'C',tierLabel:'Tier C — Generalista',habitats:['Northern Jungle','Eastern Jungle','Tallbrush Coasts'],elder:'Prime Elder com dieta flexível maximizada. Nunca passa fome em nenhuma zona do mapa.',strategy:'Use a versatilidade da dieta para explorar todo o mapa. Evite confrontos diretos com carnívoros.'},
+   raw:{peso:112,vel:32.0,forca:8,grupo:10},detail:{lore:'Onívoro subestimado. Come de tudo, sobrevive em qualquer zona e é difícil de matar para seu tamanho.',tier:'C',tierLabel:'Tier C — Generalista',habitats:['Northern Jungle','Eastern Jungle','Tallbrush Coasts'],elder:'Prime Elder com dieta flexível maximizada. Nunca passa fome em nenhuma zona do mapa.',strategy:'Use a versatilidade da dieta para explorar todo o mapa. Evite confrontos diretos com carnívoros.'},
    stats:{Peso:1,Velocidade:65,Força:2,Grupo:100}},
 
   {name:'Gallimimus',audio:'gallimimus.mp3',img:'gallimimus.jpg',type:'onivoro',icon:'🏃',cls:'Onívoro · Velocista',badge:'omni',bl:'Onívoro',
    food:'Crab, Mango, Bullfrog, Sumac, Pumpkin, SunchokeRoots',
    desc:'Veloz e curioso. O Gallimimus é um dos onívoros mais rápidos — usa a velocidade para fugir de qualquer ameaça.',
-   raw:{peso:560.0,vel:41.4,forca:20,grupo:10},detail:{lore:'Velocidade pura. O Galli não luta — ele simplesmente não é alcançado. Em grupo é uma das presas mais frustrantes.',tier:'B',tierLabel:'Tier B — Fuga',habitats:['North Plains','South Plains','Eastern Jungle'],elder:'Prime Elder com Multichambered Lungs é literalmente inalcançável por qualquer predador.',strategy:'Nunca pare. Use o terreno aberto a seu favor. Em grupo de 10 confunde qualquer predador.'},
+   raw:{peso:560,vel:41.4,forca:20,grupo:10},detail:{lore:'Velocidade pura. O Galli não luta — ele simplesmente não é alcançado. Em grupo é uma das presas mais frustrantes.',tier:'B',tierLabel:'Tier B — Fuga',habitats:['North Plains','South Plains','Eastern Jungle'],elder:'Prime Elder com Multichambered Lungs é literalmente inalcançável por qualquer predador.',strategy:'Nunca pare. Use o terreno aberto a seu favor. Em grupo de 10 confunde qualquer predador.'},
    stats:{Peso:6,Velocidade:95,Força:3,Grupo:100}},
 ]
 
@@ -2109,7 +2469,7 @@ function closeDinoDetailModal(){
 }
 
 function closeDinoModal(e){
-  if(!e || e.target === document.getElementById('dinoModalOverlay')) closeDinoDetailModal();
+  if(e.target === document.getElementById('dinoModalOverlay')) closeDinoDetailModal();
 }
 
 function playDinoModal(){
@@ -2146,51 +2506,6 @@ function playDino(btn){
   a.onended=function(){btn.classList.remove('playing');btn.textContent='▶ Broadcast Call';_audio=null;_btn=null;};
 }
 
-const dinoStages={
-'Allosaurus':[['3.7 ton',37.7,201],['3.7 ton',35.6,140],['2.6 ton',39.8,175],['2.6 ton',33.6,105]],
-'Carnotaurus':[['1.8 ton',55.5,172],['1.8 ton',45.0,120],['1.3 ton',49.5,150],['1.3 ton',39.6,90]],
-'Ceratosaurus':[['1.9 ton',40.3,172],['1.9 ton',36.0,127],['1.4 ton',40.3,150],['1.4 ton',33.1,97.5]],
-'Tyrannosaurus':[['12.3 ton',33.7,805],['12.3 ton',32.0,630],['8.2 ton',36.3,700],['8.2 ton',30.7,490]],
-'Deinosuchus':[['10.8 ton',40.7,575],['13.5 ton',40.2,550],['8.0 ton',30.0,500],['9.5 ton',33.0,450]],
-'Dilophosaurus':[['977 kg',52.2,97.7],['977 kg',41.4,68],['700 kg',47.5,85],['700 kg',35.4,51]],
-'Omniraptor':[['660 kg',52.3,74.7],['660 kg',43.2,58.5],['395 kg',46.8,65],['395 kg',35.1,45.5]],
-'Herrerasaurus':[['225 kg',46.8,34.5],['225 kg',37.4,24],['175 kg',45.0,30],['175 kg',28.6,18]],
-'Troodon':[['79.8 kg',52.2,17.2],['79.8 kg',41.4,12],['60 kg',45.0,15],['60 kg',33.3,10.5]],
-'Pteranodon':[['60 kg',86.4,23],['60 kg',69.1,16],['45 kg',86.4,20],['45 kg',86.4,12]],
-'Diabloceratops':[['3.8 ton',38.0,330],['3.8 ton',35.0,275],['3.0 ton',34.8,275],['3.0 ton',29.0,200]],
-'Dryosaurus':[['185 kg',50.4,23],['185 kg',36.6,16],['130 kg',45.0,20],['130 kg',32.4,12]],
-'Hypsilophodon':[['23 kg',39.6,2.3],['23 kg',37.8,1.8],['20 kg',39.6,2.0],['20 kg',30.6,1.4]],
-'Maiasaura':[['5.4 ton',48.6,57.5],['5.4 ton',39.6,40],['3.8 ton',46.9,50],['3.8 ton',34.2,30]],
-'Pachycephalosaurus':[['910 kg',46.5,34.5],['910 kg',39.6,25.5],['700 kg',41.7,30],['700 kg',30.6,19.5]],
-'Stegosaurus':[['9.3 ton',30.6,57.5],['9.3 ton',25.2,45],['6.0 ton',29.0,50],['6.0 ton',24.3,37.5]],
-'Tenontosaurus':[['1.8 ton',43.2,40.5],['1.8 ton',36.3,31.5],['1.6 ton',40.7,35],['1.6 ton',31.8,24.5]],
-'Triceratops':[['12.5 ton',25.2,1035],['12.5 ton',22.0,810],['9.5 ton',20.7,630],['9.5 ton',18.0,490]],
-'Beipiaosaurus':[['112 kg',38.0,11],['112 kg',32.0,8],['89 kg',32.0,9],['89 kg',27.0,6]],
-'Gallimimus':[['560 kg',54.0,28.75],['560 kg',41.4,20],['535 kg',46.8,25],['535 kg',34.2,15]],
-};
-const dinoTiers={
-'Triceratops':['S','Tier S — Apex Herbívoro'],
-'Deinosuchus':['S','Tier S — Apex Aquático'],
-'Tyrannosaurus':['S','Tier S — Apex Predador'],
-'Maiasaura':['A','Tier A — Manada'],
-'Stegosaurus':['A','Tier A — Tanque'],
-'Allosaurus':['A','Tier A — Pack Hunter'],
-'Carnotaurus':['A','Tier A — Velocista'],
-'Troodon':['A','Tier A — Noturno'],
-'Diabloceratops':['B','Tier B — Combativo'],
-'Pachycephalosaurus':['B','Tier B — Iniciante'],
-'Tenontosaurus':['B','Tier B — Versátil'],
-'Ceratosaurus':['B','Tier B — Versátil'],
-'Dilophosaurus':['B','Tier B — Veneno'],
-'Herrerasaurus':['B','Tier B — Pack'],
-'Omniraptor':['B','Tier B — Adaptável'],
-'Pteranodon':['B','Tier B — Explorador'],
-'Gallimimus':['B','Tier B — Fuga'],
-'Dryosaurus':['C','Tier C — Velocidade'],
-'Hypsilophodon':['C','Tier C — Bando'],
-'Beipiaosaurus':['C','Tier C — Generalista'],
-};
-
 function filterDinos(t,el){
   document.querySelectorAll('.dtab').forEach(x=>x.classList.remove('active'));
   el.classList.add('active');
@@ -2207,7 +2522,7 @@ function filterDinos(t,el){
       <div class="dino-rawstats">
         <div class="raw-item"><span class="raw-lbl">Peso Prime</span><span class="raw-val">${d.raw.peso>=1000?(d.raw.peso/1000).toFixed(1)+' ton':d.raw.peso+' kg'}</span></div>
         <div class="raw-item"><span class="raw-lbl">Vel. Prime</span><span class="raw-val">${typeof d.raw.vel==='number'?d.raw.vel.toFixed(0):d.raw.vel}</span></div>
-        <div class="raw-item"><span class="raw-lbl">Força Prime</span><span class="raw-val">${d.raw.forca}</span></div>
+        <div class="raw-item"><span class="raw-lbl">F. Ataque</span><span class="raw-val">${d.raw.forca}</span></div>
         <div class="raw-item"><span class="raw-lbl">Grupo</span><span class="raw-val">${d.raw.grupo}</span></div>
       </div>
       <div class="dino-bars">${Object.entries(d.stats).map(([k,v])=>`
@@ -2223,12 +2538,147 @@ function filterDinos(t,el){
 filterDinos('todos',document.querySelector('.dtab'));
 // Also force re-observe after render
 setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>{obs.observe(el);el.classList.add('visible');}),100);
+
+// DÚVIDAS ACCORDION
+function toggleDuvida(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.duvida-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
+
+// FAQ FORM
+async function submitFaq(e) {
+  e.preventDefault();
+  const nome = document.getElementById('faqNome').value || 'Anônimo';
+  const titulo = document.getElementById('faqTitulo').value;
+  const detalhe = document.getElementById('faqDetalhe').value;
+  try {
+    const res = await fetch('https://formspree.io/f/mojrrvjd', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({nome, pergunta: titulo, detalhes: detalhe, _subject: '[FAQ] ' + titulo})
+    });
+    if (res.ok) {
+      document.getElementById('faqForm').style.display = 'none';
+      document.getElementById('faqSuccess').style.display = 'block';
+    }
+  } catch(err) { alert('Erro ao enviar. Tente novamente.'); }
+}
+
+
+
+// ── SISTEMA DE SOM AMBIENTE ──────────────────────────
+(function(){
+  const SRC = 'ambiente.mp3'; // arquivo na raiz do repo
+  let audio = null;
+  let active = false;
+  let fadeTimer = null;
+  let started = false;
+
+  function getBtn(){ return document.getElementById('soundBtn'); }
+
+  function updateBtn(on) {
+    const btn = getBtn();
+    if(!btn) return;
+    if(on) {
+      btn.innerHTML = '🔊 Som';
+      btn.classList.remove('sound-muted');
+      btn.classList.add('sound-active');
+    } else {
+      btn.innerHTML = '🔇 Mudo';
+      btn.classList.remove('sound-active');
+      btn.classList.add('sound-muted');
+    }
+  }
+
+  function initAudio() {
+    if(audio) return;
+    audio = new Audio(SRC);
+    audio.loop = true;
+    audio.volume = 0;
+  }
+
+  function fadeTo(target, duration, onDone) {
+    if(fadeTimer) clearInterval(fadeTimer);
+    const steps = 40;
+    const interval = duration / steps;
+    const targetVol = 0.55;
+    let step = 0;
+    fadeTimer = setInterval(() => {
+      step++;
+      const ratio = step / steps;
+      audio.volume = Math.min(1, Math.max(0,
+        target === 'in' ? targetVol * ratio : targetVol * (1 - ratio)
+      ));
+      if(step >= steps) {
+        clearInterval(fadeTimer);
+        fadeTimer = null;
+        if(onDone) onDone();
+      }
+    }, interval);
+  }
+
+  window.toggleSound = function() {
+    initAudio();
+    active = !active;
+    updateBtn(active);
+    if(active) {
+      audio.volume = 0;
+      audio.play().catch(()=>{});
+      fadeTo('in', 1800);
+    } else {
+      fadeTo('out', 900, () => audio.pause());
+    }
+    try { sessionStorage.setItem('ambientSound', active ? '1' : '0'); } catch(e){}
+  };
+
+  // Autoplay — tenta imediatamente; se o browser bloquear,
+  // ativa no primeiro clique do usuário
+  function tryAutoplay() {
+    initAudio();
+    audio.volume = 0;
+    audio.play().then(() => {
+      // Browser permitiu — fade in
+      active = true;
+      updateBtn(true);
+      fadeTo('in', 2500);
+      try { sessionStorage.setItem('ambientSound', '1'); } catch(e){}
+    }).catch(() => {
+      // Browser bloqueou — botão pulsa pedindo clique
+      // (mantém estado padrão mudo, usuário clica quando quiser)
+    });
+  }
+
+  // Aguardar DOM e tentar autoplay
+  if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryAutoplay);
+  } else {
+    setTimeout(tryAutoplay, 200);
+  }
+
+  // Fallback: se sessionStorage tinha ativo E autoplay falhou,
+  // reativar no primeiro clique
+  document.addEventListener('click', function onFirstClick(e) {
+    if(e.target.id === 'soundBtn') return; // já tem handler próprio
+    try {
+      if(sessionStorage.getItem('ambientSound') === '1' && !active) {
+        document.removeEventListener('click', onFirstClick);
+        initAudio();
+        active = true;
+        updateBtn(true);
+        audio.volume = 0;
+        audio.play().catch(()=>{});
+        fadeTo('in', 1800);
+      }
+    } catch(e){}
+  }, { passive:true });
+})();
+
 </script>
 <!-- DINO DETAIL MODAL -->
 <div class="dino-modal-overlay" id="dinoModalOverlay" onclick="if(event.target===this)closeDinoModal()">
-  <div class="dino-modal" id="dinoModal" style="position:relative">
-    <button class="dino-modal-close" onclick="closeDinoDetailModal()" style="position:absolute;top:14px;right:14px;z-index:20">✕ Fechar</button>
-    <div style="display:grid;grid-template-columns:1fr 1fr;width:100%;grid-column:1/-1">
+  <div class="dino-modal" id="dinoModal">
+    <button class="dino-modal-close" onclick="closeDinoModal()" style="position:relative;z-index:10">✕ Fechar</button>
     <div class="dino-modal-left">
       <img class="dino-modal-img" id="dmImg" src="" alt="">
       <div>
@@ -2244,38 +2694,21 @@ setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>{obs.observe(el)
       </div>
     </div>
     <div class="dino-modal-right">
-      <!-- Row: Tier + Grupo lado a lado -->
-      <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;padding-top:28px">
-        <div id="dmTier"></div>
-        <div style="display:flex;flex-direction:column;gap:3px">
-          <span style="font-family:Cinzel,serif;font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);opacity:.7">Grupo Máximo</span>
-          <span id="dmGrupo" style="font-family:Cinzel,serif;font-size:.88rem;color:var(--parchment);font-weight:600"></span>
-        </div>
-      </div>
-      <!-- Estágios -->
       <div class="dino-modal-section">
-        <div class="dino-modal-section-title">📊 Estágios de Crescimento</div>
-        <div id="dmStages"></div>
+        <div class="dino-modal-section-title">⚔️ Ataques e Mecânicas</div>
+        <p style="font-size:.95rem;color:var(--bone);opacity:.7;line-height:1.9" id="dmAttacks"></p>
       </div>
-      <!-- Habitats -->
       <div class="dino-modal-section">
-        <div class="dino-modal-section-title">Habitats</div>
-        <div class="dino-habitat-tags" id="dmHabitats"></div>
+        <div class="dino-modal-section-title">📈 Auge vs Elder Fraco</div>
+        <div id="dmStatsCompare"></div>
       </div>
-      <!-- Estratégia -->
       <div class="dino-modal-section">
-        <div class="dino-modal-section-title">Estratégia</div>
-        <p class="dino-modal-desc" id="dmStrategy"></p>
-      </div>
-      <!-- Prime Elder -->
-      <div class="dino-modal-section">
-        <div class="dino-modal-section-title">⭐ Prime Elder</div>
+        <div class="dino-modal-section-title">👑 Prime Elder</div>
         <div class="dino-elder-box">
           <div class="dino-elder-text" id="dmElder"></div>
         </div>
       </div>
     </div>
-    </div><!-- /grid -->
   </div>
 </div>
 </body>
