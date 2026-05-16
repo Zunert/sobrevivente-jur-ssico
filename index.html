@@ -2602,7 +2602,7 @@ async function submitFaq(e) {
     if(fadeTimer) clearInterval(fadeTimer);
     const steps = 40;
     const interval = duration / steps;
-    const targetVol = 0.55;
+    const targetVol = 0.07;
     let step = 0;
     fadeTimer = setInterval(() => {
       step++;
@@ -2636,16 +2636,29 @@ async function submitFaq(e) {
   // ativa no primeiro clique do usuário
   function tryAutoplay() {
     initAudio();
+    // Tenta com volume 0 (muted trick — maior chance de passar o autoplay policy)
     audio.volume = 0;
+    audio.muted = true;
     audio.play().then(() => {
-      // Browser permitiu — fade in
+      // Conseguiu tocar — desmuta e faz fade in
+      audio.muted = false;
       active = true;
       updateBtn(true);
       fadeTo('in', 2500);
       try { sessionStorage.setItem('ambientSound', '1'); } catch(e){}
     }).catch(() => {
-      // Browser bloqueou — botão pulsa pedindo clique
-      // (mantém estado padrão mudo, usuário clica quando quiser)
+      // Bloqueado — ativa no primeiro clique do usuário em qualquer lugar
+      document.addEventListener('click', function unlock() {
+        document.removeEventListener('click', unlock);
+        initAudio();
+        active = true;
+        updateBtn(true);
+        audio.muted = false;
+        audio.volume = 0;
+        audio.play().catch(()=>{});
+        fadeTo('in', 1800);
+        try { sessionStorage.setItem('ambientSound', '1'); } catch(e){}
+      }, { once: true, passive: true });
     });
   }
 
