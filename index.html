@@ -2569,124 +2569,109 @@ async function submitFaq(e) {
 
 // ── SISTEMA DE SOM AMBIENTE ──────────────────────────
 (function(){
-  const SRC = 'ambiente.mp3'; // arquivo na raiz do repo
+  const SRC = 'ambiente.mp3';
+  const TARGET_VOL = 0.07;
   let audio = null;
   let active = false;
   let fadeTimer = null;
-  let started = false;
+  let unlocked = false;
 
   function getBtn(){ return document.getElementById('soundBtn'); }
 
-  function updateBtn(on) {
-    const btn = getBtn();
-    if(!btn) return;
-    if(on) {
+  function updateBtn(on){
+    const btn = getBtn(); if(!btn) return;
+    if(on){
       btn.innerHTML = '🔊 Som';
-      btn.classList.remove('sound-muted');
-      btn.classList.add('sound-active');
+      btn.classList.remove('sound-muted'); btn.classList.add('sound-active');
     } else {
       btn.innerHTML = '🔇 Mudo';
-      btn.classList.remove('sound-active');
-      btn.classList.add('sound-muted');
+      btn.classList.remove('sound-active'); btn.classList.add('sound-muted');
     }
   }
 
-  function initAudio() {
+  function initAudio(){
     if(audio) return;
     audio = new Audio(SRC);
-    audio.loop = true;
-    audio.volume = 0;
+    audio.loop = true; audio.volume = 0;
   }
 
-  function fadeTo(target, duration, onDone) {
+  function fadeTo(target, duration, onDone){
     if(fadeTimer) clearInterval(fadeTimer);
-    const steps = 40;
-    const interval = duration / steps;
-    const targetVol = 0.07;
+    const steps = 40, interval = duration/steps;
     let step = 0;
-    fadeTimer = setInterval(() => {
+    fadeTimer = setInterval(()=>{
       step++;
-      const ratio = step / steps;
-      audio.volume = Math.min(1, Math.max(0,
-        target === 'in' ? targetVol * ratio : targetVol * (1 - ratio)
+      const r = step/steps;
+      audio.volume = Math.min(1,Math.max(0,
+        target==='in' ? TARGET_VOL*r : TARGET_VOL*(1-r)
       ));
-      if(step >= steps) {
-        clearInterval(fadeTimer);
-        fadeTimer = null;
-        if(onDone) onDone();
-      }
+      if(step>=steps){ clearInterval(fadeTimer); fadeTimer=null; if(onDone) onDone(); }
     }, interval);
   }
 
-  window.toggleSound = function() {
+  function startSound(){
+    if(unlocked) return;
+    unlocked = true;
+    initAudio();
+    active = true;
+    updateBtn(true);
+    audio.volume = 0;
+    audio.play().then(()=>{
+      fadeTo('in', 3000);
+    }).catch(()=>{
+      unlocked = false; active = false; updateBtn(false);
+    });
+    try { sessionStorage.setItem('ambientSound','1'); } catch(e){}
+  }
+
+  // Ativar no primeiro scroll OU mousemove — browser nunca bloqueia esses eventos
+  function onFirstInteraction(){
+    window.removeEventListener('scroll', onFirstInteraction);
+    window.removeEventListener('mousemove', onFirstInteraction);
+    window.removeEventListener('touchstart', onFirstInteraction);
+    startSound();
+  }
+  window.addEventListener('scroll', onFirstInteraction, {passive:true});
+  window.addEventListener('mousemove', onFirstInteraction, {passive:true, once:true});
+  window.addEventListener('touchstart', onFirstInteraction, {passive:true});
+
+  // Também tenta autoplay direto (funciona em alguns browsers)
+  document.addEventListener('DOMContentLoaded', ()=>{
+    setTimeout(()=>{
+      if(unlocked) return;
+      initAudio();
+      audio.volume = 0;
+      audio.play().then(()=>{
+        unlocked = true; active = true; updateBtn(true);
+        fadeTo('in', 3000);
+        try { sessionStorage.setItem('ambientSound','1'); } catch(e){}
+      }).catch(()=>{}); // silencioso se bloquear — espera interação
+    }, 500);
+  });
+
+  // Botão manual
+  window.toggleSound = function(){
     initAudio();
     active = !active;
     updateBtn(active);
-    if(active) {
+    if(active){
+      unlocked = true;
       audio.volume = 0;
       audio.play().catch(()=>{});
-      fadeTo('in', 1800);
+      fadeTo('in', 1500);
     } else {
-      fadeTo('out', 900, () => audio.pause());
+      fadeTo('out', 800, ()=> audio.pause());
     }
-    try { sessionStorage.setItem('ambientSound', active ? '1' : '0'); } catch(e){}
+    try { sessionStorage.setItem('ambientSound', active?'1':'0'); } catch(e){}
   };
 
-  // Autoplay — tenta imediatamente; se o browser bloquear,
-  // ativa no primeiro clique do usuário
-  function tryAutoplay() {
-    initAudio();
-    // Tenta com volume 0 (muted trick — maior chance de passar o autoplay policy)
-    audio.volume = 0;
-    audio.muted = true;
-    audio.play().then(() => {
-      // Conseguiu tocar — desmuta e faz fade in
-      audio.muted = false;
-      active = true;
-      updateBtn(true);
-      fadeTo('in', 2500);
-      try { sessionStorage.setItem('ambientSound', '1'); } catch(e){}
-    }).catch(() => {
-      // Bloqueado — ativa no primeiro clique do usuário em qualquer lugar
-      document.addEventListener('click', function unlock() {
-        document.removeEventListener('click', unlock);
-        initAudio();
-        active = true;
-        updateBtn(true);
-        audio.muted = false;
-        audio.volume = 0;
-        audio.play().catch(()=>{});
-        fadeTo('in', 1800);
-        try { sessionStorage.setItem('ambientSound', '1'); } catch(e){}
-      }, { once: true, passive: true });
-    });
-  }
-
-  // Aguardar DOM e tentar autoplay
-  if(document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', tryAutoplay);
-  } else {
-    setTimeout(tryAutoplay, 200);
-  }
-
-  // Fallback: se sessionStorage tinha ativo E autoplay falhou,
-  // reativar no primeiro clique
-  document.addEventListener('click', function onFirstClick(e) {
-    if(e.target.id === 'soundBtn') return; // já tem handler próprio
-    try {
-      if(sessionStorage.getItem('ambientSound') === '1' && !active) {
-        document.removeEventListener('click', onFirstClick);
-        initAudio();
-        active = true;
-        updateBtn(true);
-        audio.volume = 0;
-        audio.play().catch(()=>{});
-        fadeTo('in', 1800);
-      }
-    } catch(e){}
-  }, { passive:true });
+  // Restaurar estado da sessão
+  try {
+    if(sessionStorage.getItem('ambientSound')==='0'){
+      // Usuário desativou manualmente — não ativar
+    }
+  } catch(e){}
 })();
-
 </script>
 <!-- DINO DETAIL MODAL -->
 <div class="dino-modal-overlay" id="dinoModalOverlay" onclick="if(event.target===this)closeDinoModal()">
