@@ -299,7 +299,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 .dino-modal-section{display:flex;flex-direction:column;gap:10px}
 .dino-modal-section-title{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);display:flex;align-items:center;gap:8px}
 .dino-modal-section-title::after{content:'';flex:1;height:1px;background:rgba(90,158,30,.2)}
-.dino-modal-close{position:absolute;top:12px;right:12px;background:none;border:1px solid rgba(197,180,154,.15);color:var(--bone);opacity:.5;font-size:.75rem;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;z-index:20;border-radius:2px;font-family:Georgia,serif}
+.dino-modal-close{position:absolute;top:12px;right:12px;background:none;border:1px solid rgba(197,180,154,.15);color:var(--bone);opacity:.5;font-size:.75rem;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;z-index:20;border-radius:2px}
 .dino-modal-close:hover{border-color:var(--warn);color:var(--warn)}
 .dino-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .dino-stat-box{background:rgba(255,255,255,.03);border:1px solid rgba(74,120,37,.1);padding:10px 12px}
@@ -520,14 +520,14 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .nav-logo{font-size:.62rem}
 
   /* ── MOBILE BOTTOM TABS ── */
-  .mobile-tabs{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:800;background:rgba(5,6,3,.98);border-top:1px solid rgba(139,26,10,.3);height:62px}
-  .mob-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;border:none;background:none;padding:6px 2px}
+  .mobile-tabs{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:800;background:rgba(5,6,3,.99);border-top:2px solid rgba(90,158,30,.35);height:66px;box-shadow:0 -4px 24px rgba(0,0,0,.7),0 -1px 0 rgba(90,158,30,.15)}
+  .mob-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all .25s;border:none;background:none;padding:8px 2px;position:relative}
   .mob-tab-icon{font-size:1.2rem;line-height:1}
-  .mob-tab-label{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bone);opacity:.4;transition:all .2s}
-  .mob-tab.active .mob-tab-label{color:var(--acid);opacity:1}
-  .mob-tab.active .mob-tab-icon{filter:drop-shadow(0 0 6px rgba(90,158,30,.8))}
-  .mob-tab-indicator{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--acid);transition:width .3s;border-radius:0 0 2px 2px}
-  .mob-tab.active .mob-tab-indicator{width:80%}
+  .mob-tab-label{font-family:'Cinzel',serif;font-size:.45rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bone);opacity:.45;transition:all .25s}
+  .mob-tab.active .mob-tab-label{color:var(--acid);opacity:1;text-shadow:0 0 8px rgba(90,158,30,.5)}
+  .mob-tab.active .mob-tab-icon{filter:drop-shadow(0 0 8px rgba(90,158,30,1))}
+  .mob-tab-indicator{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;background:var(--acid);transition:width .3s;border-radius:0 0 3px 3px;box-shadow:0 0 8px rgba(90,158,30,.8)}
+  .mob-tab.active .mob-tab-indicator{width:90%}
 
   /* ── MOBILE SECTIONS ── */
   body{padding-bottom:62px}
@@ -537,7 +537,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   /* ── HERO ── */
   #hero{min-height:100svh;padding:70px 16px 80px}
   .hero-title{font-size:clamp(1.9rem,9.5vw,2.8rem);line-height:1.05;hyphens:none;word-break:keep-all}
-  .hero-content{max-width:100%;overflow:hidden;padding:0 4px}
+  .hero-content{max-width:100%;overflow:hidden}
   .hero-sub{max-width:100%;overflow-wrap:break-word;padding:0 4px}
   .hero-warning-tape{font-size:.5rem;letter-spacing:.2em;padding:5px 12px}
   .hero-classified{font-size:.5rem}
@@ -703,14 +703,6 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 .server-btn:hover{background:rgba(90,158,30,.1);border-color:var(--acid)}
 @media(max-width:900px){.servers-grid{grid-template-columns:1fr}}
 
-@keyframes soundPulse {
-  0%  {box-shadow:0 0 0 0 rgba(90,158,30,.7),0 0 8px rgba(90,158,30,.3)}
-  60% {box-shadow:0 0 0 10px rgba(90,158,30,0),0 0 16px rgba(90,158,30,.15)}
-  100%{box-shadow:0 0 0 0 rgba(90,158,30,0),0 0 8px rgba(90,158,30,.3)}
-}
-#soundBtn.sound-active{background:rgba(90,158,30,.22);border-color:rgba(90,158,30,.8);color:var(--acid-light);animation:none;box-shadow:0 0 12px rgba(90,158,30,.3)}
-#soundBtn.sound-muted{background:rgba(139,26,10,.1);border-color:rgba(139,26,10,.4);color:var(--warn);opacity:.8;animation:none}
-
 /* MUTATION CARDS */
 .mut-card{background:rgba(255,255,255,.03);border:1px solid rgba(74,120,37,.12);padding:16px 18px;margin-bottom:12px;border-left:3px solid rgba(90,158,30,.3)}
 .mut-card:last-child{margin-bottom:0}
@@ -723,6 +715,11 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 .mut-effect{font-size:.95rem;color:var(--bone);opacity:.75;line-height:1.8;margin-bottom:8px}
 .mut-effect strong{color:#7ac836;opacity:1}
 .mut-tip{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.04em;color:var(--warn);opacity:.65;border-left:2px solid rgba(200,48,16,.2);padding-left:10px;line-height:1.7}
+
+@keyframes soundPulse{0%{box-shadow:0 0 0 0 rgba(90,158,30,.7)}60%{box-shadow:0 0 0 10px rgba(90,158,30,0)}100%{box-shadow:0 0 0 0 rgba(90,158,30,0)}}
+#soundBtn.sound-active{background:rgba(90,158,30,.22);border-color:rgba(90,158,30,.8);color:var(--acid-light);animation:none;box-shadow:0 0 12px rgba(90,158,30,.3)}
+#soundBtn.sound-muted{background:rgba(139,26,10,.1);border-color:rgba(139,26,10,.4);color:var(--warn);opacity:.8;animation:none}
+
 </style>
 </head>
 <body>
@@ -744,7 +741,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <li><a href="#diretorio">Canais</a></li>
     <li><a href="#newsletter">Contato</a></li>
   </ul>
-  <button id="soundBtn" onclick="toggleSound()" style="background:rgba(90,158,30,.12);border:2px solid rgba(90,158,30,.55);color:var(--acid);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:9px 22px;cursor:pointer;transition:all .3s;margin-right:14px;display:flex;align-items:center;gap:8px;animation:soundPulse 1.8s ease-in-out infinite;font-weight:600">🔇 Som</button>
+  <button id="soundBtn" onclick="toggleSound()" style="background:rgba(90,158,30,.12);border:2px solid rgba(90,158,30,.55);color:var(--acid);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:9px 22px;cursor:pointer;transition:all .3s;margin-right:14px;display:flex;align-items:center;gap:8px;animation:soundPulse 1.8s ease-in-out infinite;font-weight:600">&#128264; Som</button>
   <div class="nav-burger" id="burger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
@@ -1032,7 +1029,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
       <div class="guia-card reveal reveal-delay-3" onclick="openGuide('manadas')"><span class="guia-icon">🤝</span><div class="guia-title">Manadas e Grupos</div><div class="guia-desc">A ilha é menos perigosa em grupo. Aprenda a formar manadas, comunicar e caçar em conjunto.</div><span class="guia-link">Abrir protocolo →</span></div>
       <div class="guia-card reveal" onclick="openGuide('mapa')"><span class="guia-icon">🗺️</span><div class="guia-title">Navegação no Mapa</div><div class="guia-desc">Pontos de referência, rotas seguras e como se localizar sem mini-mapa — essencial para sobreviventes.</div><span class="guia-link">Abrir protocolo →</span></div>
       <div class="guia-card reveal reveal-delay-1" onclick="openGuide('avancado')"><span class="guia-icon">⚡</span><div class="guia-title">Builds Avançadas</div><div class="guia-desc">Para veteranos: como maximizar atributos, mutações, sistema Elder e dominar a hierarquia da ilha.</div><span class="guia-link">Abrir protocolo →</span></div>
-      <div class="guia-card reveal reveal-delay-2" onclick="openGuide('mutacoes')"><span class="guia-icon">🧬</span><div class="guia-title">Guia de Mutações</div><div class="guia-desc">Todas as mutações explicadas — carnívoros, herbívoros e universais. Saiba qual escolher para cada build.</div><span class="guia-link">Abrir protocolo →</span></div>
+      <div class="guia-card reveal reveal-delay-2" onclick="openGuide('mutacoes')"><span class="guia-icon">&#129516;</span><div class="guia-title">Guia de Mutações</div><div class="guia-desc">Todas as mutações explicadas — carnívoros, herbívoros e universais. Saiba qual escolher para cada build.</div><span class="guia-link">Abrir protocolo →</span></div>
     </div>
 
     <!-- MODAIS DOS GUIAS -->
@@ -2350,54 +2347,34 @@ const guides = {
     `
   },
   mutacoes: {
-    icon: '🧬',
+    icon: '&#129516;',
     title: 'Guia Completo de Mutações',
-    html: `
-      <p style="font-size:.95rem;color:var(--bone);opacity:.6;line-height:1.9;margin-bottom:28px">Mutações são melhorias permanentes que você escolhe ao longo do crescimento do seu dino — juvenil, subadulto e adulto. Algumas exigem ações específicas para desbloquear. Após o Entomb elas ficam mais fortes a cada vida.</p>
-
-      <div class="guide-section">
-        <div class="guide-section-title">🔴 Exclusivas de Carnívoros</div>
-        <div class="mut-card"><div class="mut-name">Accelerated Prey Drive</div><div class="mut-tag mut-tag-carn">Carnívoro</div><div class="mut-effect">Causa <strong>+10% de dano</strong> em alvos com pouca vida.</div><div class="mut-tip">Ideal para finalizadores — combina bem com Hemomania. Se o alvo está sangrando E com pouca vida, os dois bônus se acumulam.</div></div>
-        <div class="mut-card"><div class="mut-name">Hematophagy</div><div class="mut-tag mut-tag-carn">Carnívoro</div><div class="mut-effect">Restaura <strong>15% de sede</strong> ao comer cadáveres.</div><div class="mut-tip">Excelente para zonas quentes e secas onde água é escassa. Você literalmente bebe dos inimigos que mata.</div></div>
-        <div class="mut-card"><div class="mut-name">Hemomania</div><div class="mut-tag mut-tag-carn">Carnívoro</div><div class="mut-effect">Causa <strong>+5% de dano extra</strong> em alvos que estão sangrando.</div><div class="mut-tip">Combina diretamente com ataques que causam sangramento (Claw Swipe do Allo, Spit do Dilo). Quanto mais longa a luta, mais eficaz.</div></div>
-        <div class="mut-card"><div class="mut-name">Hypermetabolic Inanition</div><div class="mut-tag mut-tag-carn">Carnívoro</div><div class="mut-effect">Aumenta o dano progressivamente <strong>conforme sua saúde diminui</strong>.</div><div class="mut-tip">Arriscada mas devastadora. Quanto mais perto da morte, mais letal você fica. Para jogadores agressivos que não recuam.</div></div>
-      </div>
-
-      <div class="guide-section">
-        <div class="guide-section-title">🟢 Exclusivas de Herbívoros</div>
-        <div class="mut-card"><div class="mut-name">Barometric Sensitivity</div><div class="mut-tag mut-tag-herb">Herbívoro</div><div class="mut-effect">Recebe um <strong>aviso antes de tempestades e secas</strong>.</div><div class="mut-tip">Tempo para se abrigar antes da chuva ou encontrar água antes da seca. Pequena mas salva vidas em biomas hostis.</div></div>
-        <div class="mut-card"><div class="mut-name">Hypervigilance</div><div class="mut-tag mut-tag-herb">Herbívoro</div><div class="mut-effect">Aumenta o <strong>ângulo da câmera em 50%</strong> ao comer e beber. Amplifica o <strong>volume de passos</strong> de outros dinos ao redor.</div><div class="mut-tip">Uma das melhores para herbívoros. Você escuta um predador se aproximando enquanto está comendo — o momento mais vulnerável. Quase obrigatória para dinos pequenos.</div></div>
-        <div class="mut-card"><div class="mut-name">Photosynthetic Regeneration</div><div class="mut-tag mut-tag-herb">Herbívoro</div><div class="mut-effect">Stamina regenera <strong>10% mais rápido durante o dia</strong>.</div><div class="mut-tip">Ótima para dinos que vivem em campo aberto. Permite fugas mais longas durante o dia sem ficar sem stamina.</div></div>
-        <div class="mut-card"><div class="mut-name">Truculency</div><div class="mut-tag mut-tag-herb">Herbívoro</div><div class="mut-effect"><strong>+5% de chance</strong> de derrubar um predador travado em você (bucking).</div><div class="mut-tip">Quando um carnívoro faz pounce em você o bucking é sua única chance de sobreviver. Esse bônus pode ser a diferença entre viver ou morrer.</div></div>
-        <div class="mut-card"><div class="mut-name">Xerocole Adaptation</div><div class="mut-tag mut-tag-herb">Herbívoro</div><div class="mut-effect">Ganha <strong>15% de sede</strong> ao comer plantas.</div><div class="mut-tip">Praticamente elimina a necessidade de buscar água constantemente. Ideal para herbívoros que vivem em savana ou highland longe de rios.</div></div>
-      </div>
-
-      <div class="guide-section">
-        <div class="guide-section-title">⚪ Universais — Para Todos os Dinos</div>
-        <div class="mut-card"><div class="mut-name">Cellular Regeneration</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Regenera <strong>saúde 15% mais rápido</strong>.</div><div class="mut-tip">Uma das mais versáteis do jogo. Menos tempo parado esperando curar — mais tempo jogando. Funciona bem em qualquer build.</div></div>
-        <div class="mut-card"><div class="mut-name">Congenital Hypoalgesia</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Reduz em <strong>15% o dano recebido de espécies maiores</strong>.</div><div class="mut-tip">Essencial para dinos pequenos e médios. Um Omniraptor ou Herrera com essa mutação aguenta muito mais em confrontos com Allosaurus ou T-Rex.</div></div>
-        <div class="mut-card"><div class="mut-name">Efficient Digestion</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Fome drena <strong>20% mais devagar</strong>.</div><div class="mut-tip">Menos tempo procurando comida, mais tempo explorando ou caçando. Uma das mais confortáveis para jogadores que ficam online por horas.</div></div>
-        <div class="mut-card"><div class="mut-name">Enlarged Meniscus</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Dano de queda <strong>afeta stamina antes da saúde</strong>.</div><div class="mut-tip">Permite quedas maiores sem perder saúde. Essencial para Pteranodon e dinos que vivem em terrenos acidentados como Highland.</div></div>
-        <div class="mut-card"><div class="mut-name">Multichambered Lungs</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-tag mut-tag-unlock">Requer: percorrer 2km</div><div class="mut-effect">Stamina drena <strong>significativamente mais devagar</strong> durante sprints e perseguições.</div><div class="mut-tip">Uma das mais poderosas do jogo. Obrigatória após o 2° Entomb.</div></div>
-        <div class="mut-card"><div class="mut-name">Osteophagic</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-tag mut-tag-unlock">Requer: comer osso com fratura ativa</div><div class="mut-effect">Comer ossos <strong>cura fraturas</strong> muito mais rápido.</div><div class="mut-tip">Revolucionária em combates prolongados. Uma fratura normalmente te inutiliza — com essa mutação você se recupera ativamente durante a luta.</div></div>
-        <div class="mut-card"><div class="mut-name">Reniculated Kidneys</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-tag mut-tag-unlock">Requer: beber 1000 unidades de água</div><div class="mut-effect">Sede drena <strong>significativamente mais devagar</strong>.</div><div class="mut-tip">Liberdade para explorar regiões secas por mais tempo. Combina com Sustained Hydration para máxima autonomia de água.</div></div>
-        <div class="mut-card"><div class="mut-name">Constricted Glands</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Reduz o <strong>rastro de cheiro</strong> deixado ao se mover.</div><div class="mut-tip">Essencial para dinos que querem se mover pelo mapa sem ser rastreados.</div></div>
-        <div class="mut-card"><div class="mut-name">Sustained Hydration</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Sede <strong>dura mais tempo</strong> depois de beber.</div><div class="mut-tip">Funciona diferente do Reniculated Kidneys — juntos são ideais para exploração de longa distância.</div></div>
-        <div class="mut-card"><div class="mut-name">Sequential Hermaphroditism</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Permite <strong>mudar o sexo do animal uma vez</strong>.</div><div class="mut-tip">Útil quando seu grupo precisa de mais fêmeas para ninhadas.</div></div>
-        <div class="mut-card"><div class="mut-name">Parthenogenesis</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Fêmea consegue <strong>botar ovos sem macho</strong>.</div><div class="mut-tip">Ideal para quem joga solo e quer criar filhotes. Essencial para o sistema Elder de dinos pequenos.</div></div>
-      </div>
-
-      <div class="guide-section">
-        <div class="guide-section-title">🔒 Mutações Ocultas</div>
-        <div class="guide-warn-box">Não aparecem na lista padrão. Precisam de ações específicas para desbloquear.</div>
-        <div class="mut-card"><div class="mut-name">Reinforced Tendons</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-tag mut-tag-unlock">Requer: pular 50 vezes</div><div class="mut-effect">Reduz o <strong>custo de stamina ao pular</strong>.</div><div class="mut-tip">Útil para terrenos irregulares e para dinos que usam jumps como parte do combate.</div></div>
-        <div class="mut-card"><div class="mut-name">Pattern Recognition</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Permite <strong>ler escrita humana</strong> no mundo do jogo.</div><div class="mut-tip">Sem utilidade prática no momento. Foi adicionada pensando no futuro — quando humanos entrarem no jogo.</div></div>
-      </div>
-
-      <div class="guide-warn-box" style="border-color:rgba(90,158,30,.3);color:var(--acid);margin-top:8px">
-        💡 Dica Elder: Mutações ficam mais fortes a cada Entomb. Multichambered Lungs e Cellular Regeneration são as que mais valem investir desde a 1ª vida.
-      </div>
-    `
+    html: '<p style="font-size:.95rem;color:var(--bone);opacity:.6;line-height:1.9;margin-bottom:28px">Mutações são melhorias permanentes que você escolhe ao longo do crescimento do seu dino. Após o Entomb elas ficam mais fortes a cada vida.</p>'
+      + '<div class="guide-section"><div class="guide-section-title">&#128308; Exclusivas de Carnívoros</div>'
+      + '<div class="mut-card"><div class="mut-name">Accelerated Prey Drive</div><div class="mut-tag mut-tag-carn">Carnívoro</div><div class="mut-effect">Causa <strong>+10% de dano</strong> em alvos com pouca vida.</div><div class="mut-tip">Combina bem com Hemomania. Se o alvo está sangrando E com pouca vida, os bônus se acumulam.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Hematophagy</div><div class="mut-tag mut-tag-carn">Carnívoro</div><div class="mut-effect">Restaura <strong>15% de sede</strong> ao comer cadáveres.</div><div class="mut-tip">Excelente para zonas secas. Você literalmente bebe dos inimigos que mata.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Hemomania</div><div class="mut-tag mut-tag-carn">Carnívoro</div><div class="mut-effect">Causa <strong>+5% de dano extra</strong> em alvos que estão sangrando.</div><div class="mut-tip">Combina com ataques que causam sangramento. Quanto mais longa a luta, mais eficaz.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Hypermetabolic Inanition</div><div class="mut-tag mut-tag-carn">Carnívoro</div><div class="mut-effect">Dano aumenta conforme <strong>sua saúde diminui</strong>.</div><div class="mut-tip">Arriscada mas devastadora. Para jogadores agressivos que não recuam.</div></div></div>'
+      + '<div class="guide-section"><div class="guide-section-title">&#128994; Exclusivas de Herbívoros</div>'
+      + '<div class="mut-card"><div class="mut-name">Barometric Sensitivity</div><div class="mut-tag mut-tag-herb">Herbívoro</div><div class="mut-effect">Recebe um <strong>aviso antes de tempestades e secas</strong>.</div><div class="mut-tip">Tempo para se abrigar. Pequena mas salva vidas em biomas hostis.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Hypervigilance</div><div class="mut-tag mut-tag-herb">Herbívoro</div><div class="mut-effect">Aumenta o <strong>ângulo da câmera em 50%</strong> ao comer e beber. Amplifica o <strong>volume de passos</strong> ao redor.</div><div class="mut-tip">Quase obrigatória para dinos pequenos. Você escuta um predador se aproximando enquanto come.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Photosynthetic Regeneration</div><div class="mut-tag mut-tag-herb">Herbívoro</div><div class="mut-effect">Stamina regenera <strong>10% mais rápido durante o dia</strong>.</div><div class="mut-tip">Ótima para dinos em campo aberto. Permite fugas mais longas durante o dia.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Truculency</div><div class="mut-tag mut-tag-herb">Herbívoro</div><div class="mut-effect"><strong>+5% de chance</strong> de derrubar um predador travado em você (bucking).</div><div class="mut-tip">Pode ser a diferença entre viver ou morrer quando um carnívoro faz pounce em você.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Xerocole Adaptation</div><div class="mut-tag mut-tag-herb">Herbívoro</div><div class="mut-effect">Ganha <strong>15% de sede</strong> ao comer plantas.</div><div class="mut-tip">Praticamente elimina a necessidade de buscar água constantemente.</div></div></div>'
+      + '<div class="guide-section"><div class="guide-section-title">&#11096; Universais</div>'
+      + '<div class="mut-card"><div class="mut-name">Cellular Regeneration</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Regenera <strong>saúde 15% mais rápido</strong>.</div><div class="mut-tip">Uma das mais versáteis do jogo. Funciona em qualquer build.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Congenital Hypoalgesia</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Reduz em <strong>15% o dano recebido de espécies maiores</strong>.</div><div class="mut-tip">Essencial para dinos pequenos e médios contra predadores grandes.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Efficient Digestion</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Fome drena <strong>20% mais devagar</strong>.</div><div class="mut-tip">Menos tempo procurando comida, mais tempo explorando.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Multichambered Lungs</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-tag mut-tag-unlock">Requer: percorrer 2km</div><div class="mut-effect">Stamina drena <strong>muito mais devagar</strong> durante sprints.</div><div class="mut-tip">Uma das mais poderosas do jogo. Obrigatória após o 2° Entomb.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Osteophagic</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-tag mut-tag-unlock">Requer: comer osso com fratura ativa</div><div class="mut-effect">Comer ossos <strong>cura fraturas</strong> rapidamente.</div><div class="mut-tip">Revolucionária em combates prolongados.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Reniculated Kidneys</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-tag mut-tag-unlock">Requer: beber 1000 unidades de água</div><div class="mut-effect">Sede drena <strong>muito mais devagar</strong>.</div><div class="mut-tip">Liberdade para explorar regiões secas por mais tempo.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Parthenogenesis</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Fêmea bota ovos <strong>sem macho</strong>.</div><div class="mut-tip">Ideal para solo. Essencial para o sistema Elder de dinos pequenos.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Sequential Hermaphroditism</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Permite <strong>mudar o sexo uma vez</strong>.</div><div class="mut-tip">Útil quando seu grupo precisa de mais fêmeas para ninhadas.</div></div></div>'
+      + '<div class="guide-section"><div class="guide-section-title">&#128274; Mutações Ocultas</div>'
+      + '<div class="guide-warn-box">Não aparecem na lista padrão. Precisam de ações específicas para desbloquear.</div>'
+      + '<div class="mut-card"><div class="mut-name">Reinforced Tendons</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-tag mut-tag-unlock">Requer: pular 50 vezes</div><div class="mut-effect">Reduz o <strong>custo de stamina ao pular</strong>.</div><div class="mut-tip">Útil para terrenos irregulares.</div></div>'
+      + '<div class="mut-card"><div class="mut-name">Pattern Recognition</div><div class="mut-tag mut-tag-all">Universal</div><div class="mut-effect">Permite <strong>ler escrita humana</strong> no mundo do jogo.</div><div class="mut-tip">Sem utilidade prática no momento. Pensada para o futuro do jogo.</div></div></div>'
+      + '<div class="guide-warn-box" style="border-color:rgba(90,158,30,.3);color:var(--acid);margin-top:8px">&#128161; Dica Elder: Mutações ficam mais fortes a cada Entomb. Multichambered Lungs e Cellular Regeneration são as que mais valem desde a 1ª vida.</div>'
   }
 };
 
@@ -2549,14 +2526,9 @@ function playDino(btn){
 }
 
 function closeDinoModal(e){
-  if(e && e.target !== document.getElementById('dinoModalOverlay')) return;
+  if(e && e.target!==document.getElementById('dinoModalOverlay')) return;
   document.getElementById('dinoModalOverlay').classList.remove('open');
   document.body.style.overflow='';
-  if(_audio && _btn && _btn.id==='dmAudioBtn'){
-    _audio.pause(); _audio.currentTime=0;
-    _btn.classList.remove('playing'); _btn.textContent='▶ Broadcast Call';
-    _audio=null; _btn=null;
-  }
 }
 function filterDinos(t,el){
   document.querySelectorAll('.dtab').forEach(x=>x.classList.remove('active'));
@@ -2617,73 +2589,67 @@ async function submitFaq(e) {
   } catch(err) { alert('Erro ao enviar. Tente novamente.'); }
 }
 
-// ── SISTEMA DE SOM AMBIENTE ──────────────────────────
+// -- SISTEMA DE SOM AMBIENTE
 (function(){
-  const SRC = 'ambiente.mp3';
-  const TARGET_VOL = 0.07;
-  let audio = null, active = false, fadeTimer = null, unlocked = false;
-
+  var SRC = 'ambiente.mp3';
+  var TARGET_VOL = 0.07;
+  var audio = null, active = false, fadeTimer = null, unlocked = false;
   function getBtn(){ return document.getElementById('soundBtn'); }
   function updateBtn(on){
-    const btn=getBtn(); if(!btn) return;
-    if(on){ btn.innerHTML='\uD83D\uDD0A Som'; btn.classList.remove('sound-muted'); btn.classList.add('sound-active'); }
-    else  { btn.innerHTML='\uD83D\uDD07 Mudo'; btn.classList.remove('sound-active'); btn.classList.add('sound-muted'); }
+    var btn = getBtn(); if(!btn) return;
+    if(on){ btn.innerHTML = '&#128266; Som'; btn.classList.remove('sound-muted'); btn.classList.add('sound-active'); }
+    else  { btn.innerHTML = '&#128263; Mudo'; btn.classList.remove('sound-active'); btn.classList.add('sound-muted'); }
   }
   function initAudio(){
     if(audio) return;
-    audio=new Audio(SRC); audio.loop=true; audio.volume=0;
+    audio = new Audio(SRC); audio.loop = true; audio.volume = 0;
   }
-  function fadeTo(target,duration,onDone){
+  function fadeTo(target, dur, cb){
     if(fadeTimer) clearInterval(fadeTimer);
-    const steps=40, interval=duration/steps; let step=0;
-    fadeTimer=setInterval(()=>{
+    var steps=40, itv=dur/steps, step=0;
+    fadeTimer = setInterval(function(){
       step++;
-      const r=step/steps;
-      audio.volume=Math.min(1,Math.max(0,target==='in'?TARGET_VOL*r:TARGET_VOL*(1-r)));
-      if(step>=steps){ clearInterval(fadeTimer); fadeTimer=null; if(onDone) onDone(); }
-    }, interval);
+      audio.volume = Math.min(1,Math.max(0,target==='in'?TARGET_VOL*(step/steps):TARGET_VOL*(1-step/steps)));
+      if(step>=steps){ clearInterval(fadeTimer); fadeTimer=null; if(cb) cb(); }
+    }, itv);
   }
   function startSound(){
-    if(unlocked) return; unlocked=true;
-    initAudio(); active=true; updateBtn(true);
-    audio.volume=0;
-    audio.play().then(()=>{ fadeTo('in',3000); }).catch(()=>{ unlocked=false; active=false; updateBtn(false); });
-    try{ sessionStorage.setItem('ambientSound','1'); }catch(e){}
+    if(unlocked) return;
+    unlocked=true; initAudio(); active=true; updateBtn(true); audio.volume=0;
+    audio.play().then(function(){ fadeTo('in',3000); }).catch(function(){ unlocked=false; active=false; updateBtn(false); });
+    try{ sessionStorage.setItem('ambientSound','1'); }catch(ex){}
   }
-  function onFirstInteraction(){
-    window.removeEventListener('scroll',onFirstInteraction);
-    window.removeEventListener('mousemove',onFirstInteraction);
-    window.removeEventListener('touchstart',onFirstInteraction);
-    startSound();
-  }
-  window.addEventListener('scroll',onFirstInteraction,{passive:true});
-  window.addEventListener('mousemove',onFirstInteraction,{passive:true,once:true});
-  window.addEventListener('touchstart',onFirstInteraction,{passive:true});
-
-  document.addEventListener('DOMContentLoaded',()=>{
-    setTimeout(()=>{
-      if(unlocked) return;
-      initAudio(); audio.volume=0; audio.muted=true;
-      audio.play().then(()=>{
-        audio.muted=false; unlocked=true; active=true; updateBtn(true);
-        fadeTo('in',3000);
-        try{ sessionStorage.setItem('ambientSound','1'); }catch(e){}
-      }).catch(()=>{});
-    },500);
-  });
-
-  window.toggleSound=function(){
-    initAudio(); active=!active; updateBtn(active);
+  function onScroll(){ window.removeEventListener('scroll',onScroll); startSound(); }
+  function onMove(){ window.removeEventListener('mousemove',onMove); startSound(); }
+  function onTouch(){ window.removeEventListener('touchstart',onTouch); startSound(); }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('mousemove',onMove,{passive:true,once:true});
+  window.addEventListener('touchstart',onTouch,{passive:true});
+  setTimeout(function(){
+    if(unlocked) return;
+    initAudio(); audio.volume=0; audio.muted=true;
+    audio.play().then(function(){ audio.muted=false; unlocked=true; active=true; updateBtn(true); fadeTo('in',3000); try{sessionStorage.setItem('ambientSound','1');}catch(ex){} }).catch(function(){});
+  }, 800);
+  window.toggleSound = function(){
+    initAudio();
     if(active){
-      unlocked=true; audio.volume=0;
-      audio.play().catch(()=>{}); fadeTo('in',1500);
+      // Desligar
+      active = false; updateBtn(false);
+      fadeTo('out', 800, function(){ audio.pause(); audio.currentTime=0; });
     } else {
-      fadeTo('out',800,()=>audio.pause());
+      // Ligar — sempre tenta do zero
+      active = true; unlocked = true; updateBtn(true);
+      audio.currentTime = 0; audio.volume = 0;
+      audio.play().then(function(){
+        fadeTo('in', 1500);
+      }).catch(function(e){
+        console.log('Audio play failed:', e);
+        active = false; updateBtn(false);
+      });
     }
-    try{ sessionStorage.setItem('ambientSound',active?'1':'0'); }catch(e){}
+    try{ sessionStorage.setItem('ambientSound',active?'1':'0'); }catch(ex){}
   };
 })();
-
 </script>
 <!-- DINO DETAIL MODAL -->
 <div class="dino-modal-overlay" id="dinoModalOverlay" onclick="if(event.target===this)closeDinoModal()">
