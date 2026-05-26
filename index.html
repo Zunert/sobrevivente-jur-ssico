@@ -2591,64 +2591,87 @@ async function submitFaq(e) {
 
 // -- SISTEMA DE SOM AMBIENTE
 (function(){
-  var SRC = 'ambiente.mp3';
-  var TARGET_VOL = 0.07;
-  var audio = null, active = false, fadeTimer = null, unlocked = false;
-  function getBtn(){ return document.getElementById('soundBtn'); }
-  function updateBtn(on){
-    var btn = getBtn(); if(!btn) return;
-    if(on){ btn.innerHTML = '&#128266; Som'; btn.classList.remove('sound-muted'); btn.classList.add('sound-active'); }
-    else  { btn.innerHTML = '&#128263; Mudo'; btn.classList.remove('sound-active'); btn.classList.add('sound-muted'); }
-  }
-  function initAudio(){
-    if(audio) return;
-    audio = new Audio(SRC); audio.loop = true; audio.volume = 0;
-  }
-  function fadeTo(target, dur, cb){
-    if(fadeTimer) clearInterval(fadeTimer);
-    var steps=40, itv=dur/steps, step=0;
-    fadeTimer = setInterval(function(){
+  var audio = new Audio('ambiente.mp3');
+  audio.loop = true;
+  audio.volume = 0;
+
+  var playing = false;
+
+  function fade(from, to, dur, cb){
+    audio.volume = from;
+    var steps = 30;
+    var step = 0;
+    var diff = (to - from) / steps;
+    var t = setInterval(function(){
       step++;
-      audio.volume = Math.min(1,Math.max(0,target==='in'?TARGET_VOL*(step/steps):TARGET_VOL*(1-step/steps)));
-      if(step>=steps){ clearInterval(fadeTimer); fadeTimer=null; if(cb) cb(); }
-    }, itv);
+      audio.volume = Math.max(0, Math.min(1, from + diff * step));
+      if(step >= steps){ clearInterval(t); if(cb) cb(); }
+    }, dur / steps);
   }
-  function startSound(){
-    if(unlocked) return;
-    unlocked=true; initAudio(); active=true; updateBtn(true); audio.volume=0;
-    audio.play().then(function(){ fadeTo('in',3000); }).catch(function(){ unlocked=false; active=false; updateBtn(false); });
-    try{ sessionStorage.setItem('ambientSound','1'); }catch(ex){}
-  }
-  function onScroll(){ window.removeEventListener('scroll',onScroll); startSound(); }
-  function onMove(){ window.removeEventListener('mousemove',onMove); startSound(); }
-  function onTouch(){ window.removeEventListener('touchstart',onTouch); startSound(); }
-  window.addEventListener('scroll',onScroll,{passive:true});
-  window.addEventListener('mousemove',onMove,{passive:true,once:true});
-  window.addEventListener('touchstart',onTouch,{passive:true});
-  setTimeout(function(){
-    if(unlocked) return;
-    initAudio(); audio.volume=0; audio.muted=true;
-    audio.play().then(function(){ audio.muted=false; unlocked=true; active=true; updateBtn(true); fadeTo('in',3000); try{sessionStorage.setItem('ambientSound','1');}catch(ex){} }).catch(function(){});
-  }, 800);
-  window.toggleSound = function(){
-    initAudio();
-    if(active){
-      // Desligar
-      active = false; updateBtn(false);
-      fadeTo('out', 800, function(){ audio.pause(); audio.currentTime=0; });
+
+  function updateBtn(){
+    var btn = document.getElementById('soundBtn');
+    if(!btn) return;
+    if(playing){
+      btn.innerHTML = '&#128266; Som';
+      btn.style.color = 'var(--acid-light)';
+      btn.style.borderColor = 'rgba(90,158,30,.8)';
+      btn.style.background = 'rgba(90,158,30,.2)';
+      btn.style.animation = 'none';
     } else {
-      // Ligar — sempre tenta do zero
-      active = true; unlocked = true; updateBtn(true);
-      audio.currentTime = 0; audio.volume = 0;
+      btn.innerHTML = '&#128264; Som';
+      btn.style.color = 'var(--acid)';
+      btn.style.borderColor = 'rgba(90,158,30,.55)';
+      btn.style.background = 'rgba(90,158,30,.12)';
+      btn.style.animation = 'soundPulse 1.8s ease-in-out infinite';
+    }
+  }
+
+  window.toggleSound = function(){
+    if(playing){
+      playing = false;
+      fade(audio.volume, 0, 600, function(){ audio.pause(); });
+      updateBtn();
+    } else {
+      playing = true;
+      updateBtn();
+      audio.volume = 0;
       audio.play().then(function(){
-        fadeTo('in', 1500);
-      }).catch(function(e){
-        console.log('Audio play failed:', e);
-        active = false; updateBtn(false);
+        fade(0, 0.07, 2000);
+      }).catch(function(err){
+        console.warn('Audio blocked:', err);
+        playing = false;
+        updateBtn();
       });
     }
-    try{ sessionStorage.setItem('ambientSound',active?'1':'0'); }catch(ex){}
+    try{ sessionStorage.setItem('ambientSound', playing ? '1' : '0'); }catch(e){}
   };
+
+  // Autoplay na primeira interação do usuário
+  var started = false;
+  function tryStart(){
+    if(started) return;
+    started = true;
+    document.removeEventListener('click', tryStart);
+    document.removeEventListener('scroll', tryStart);
+    document.removeEventListener('keydown', tryStart);
+    document.removeEventListener('touchstart', tryStart);
+    playing = true;
+    updateBtn();
+    audio.volume = 0;
+    audio.play().then(function(){
+      fade(0, 0.07, 3000);
+    }).catch(function(){
+      started = false;
+      playing = false;
+      updateBtn();
+    });
+    try{ sessionStorage.setItem('ambientSound','1'); }catch(e){}
+  }
+  document.addEventListener('click', tryStart, {passive:true});
+  document.addEventListener('scroll', tryStart, {once:true, passive:true});
+  document.addEventListener('keydown', tryStart, {once:true});
+  document.addEventListener('touchstart', tryStart, {once:true, passive:true});
 })();
 </script>
 <!-- DINO DETAIL MODAL -->
