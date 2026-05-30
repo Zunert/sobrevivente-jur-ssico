@@ -501,7 +501,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 }
 
 /* REVEAL */
-.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease;animation:revealFallback 0.1s 1.5s forwards}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-delay-1{transition-delay:.12s}
 .reveal-delay-2{transition-delay:.24s}
@@ -720,6 +720,8 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 #soundBtn.sound-active{background:rgba(90,158,30,.22);border-color:rgba(90,158,30,.8);color:var(--acid-light);animation:none;box-shadow:0 0 12px rgba(90,158,30,.3)}
 #soundBtn.sound-muted{background:rgba(139,26,10,.1);border-color:rgba(139,26,10,.4);color:var(--warn);opacity:.8;animation:none}
 
+
+@keyframes revealFallback{to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -1415,8 +1417,4 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <div class="videos-header">
       <span class="section-tag reveal">📋 Canais</span>
       <h2 class="section-heading reveal reveal-delay-1">Canais da <span style="color:var(--acid)">Comunidade</span></h2>
-      <p class="section-lead reveal reveal-delay-2">Todos os canais aprovados pela comunidade. Ficam aqui para sempre.</p>
-    </div>
-
-    <!-- Filtros por tipo -->
-    <div class="dir-filters reveal reveal-dela
+      <p class="section-lead reveal reveal-delay-2">Todos os canais aprovados pela comunidade. Ficam 
