@@ -68,12 +68,6 @@ nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;backg
 .slide:nth-child(2){background-image:url('bg2.jpg')}
 .slide:nth-child(3){background-image:url('bg3.jpg')}
 .slide:nth-child(4){background-image:url('bg4.jpg')}
-.slide:nth-child(5){background-image:url('bg5.png')}
-.slide:nth-child(6){background-image:url('bg6.png')}
-.slide:nth-child(7){background-image:url('bg7.png')}
-.slide:nth-child(8){background-image:url('bg8.png')}
-.slide:nth-child(9){background-image:url('bg9.png')}
-.slide:nth-child(10){background-image:url('bg10.png')}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,6,3,.6) 0%,rgba(5,6,3,.25) 35%,rgba(5,6,3,.75) 80%,rgba(5,6,3,.98) 100%);z-index:1}
 .hero-overlay2{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(5,6,3,.9) 0%,transparent 60%);z-index:1}
 .hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse 100% 100% at 50% 50%,transparent 40%,rgba(139,26,10,.08) 70%,rgba(5,6,3,.4) 100%);z-index:1;pointer-events:none}
@@ -299,7 +293,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 .dino-modal-section{display:flex;flex-direction:column;gap:10px}
 .dino-modal-section-title{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);display:flex;align-items:center;gap:8px}
 .dino-modal-section-title::after{content:'';flex:1;height:1px;background:rgba(90,158,30,.2)}
-.dino-modal-close{position:absolute;top:12px;right:12px;background:none;border:1px solid rgba(197,180,154,.15);color:var(--bone);opacity:.5;font-size:.75rem;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;z-index:20;border-radius:2px}
+.dino-modal-close{position:absolute;top:16px;right:16px;background:none;border:1px solid rgba(197,180,154,.2);color:var(--bone);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .3s;z-index:2}
 .dino-modal-close:hover{border-color:var(--warn);color:var(--warn)}
 .dino-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .dino-stat-box{background:rgba(255,255,255,.03);border:1px solid rgba(74,120,37,.1);padding:10px 12px}
@@ -501,8 +495,8 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 }
 
 /* REVEAL */
-.reveal{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}
-.reveal.visible{opacity:1;transform:none}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-delay-1{transition-delay:.12s}
 .reveal-delay-2{transition-delay:.24s}
 .reveal-delay-3{transition-delay:.36s}
@@ -514,20 +508,19 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   nav{padding:0 16px;height:52px}
   .nav-links{display:none}
   .nav-burger{display:flex}
-  #soundBtn{display:none!important}
   .nav-links.open{display:flex;flex-direction:column;position:fixed;top:52px;left:0;right:0;background:rgba(5,6,3,.99);padding:24px 20px;gap:20px;border-bottom:1px solid rgba(139,26,10,.3);z-index:899}
   .nav-links.open a{font-size:.85rem}
   .nav-logo{font-size:.62rem}
 
   /* ── MOBILE BOTTOM TABS ── */
-  .mobile-tabs{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:800;background:rgba(5,6,3,.99);border-top:2px solid rgba(90,158,30,.35);height:66px;box-shadow:0 -4px 24px rgba(0,0,0,.7),0 -1px 0 rgba(90,158,30,.15)}
-  .mob-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all .25s;border:none;background:none;padding:8px 2px;position:relative}
+  .mobile-tabs{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:800;background:rgba(5,6,3,.98);border-top:1px solid rgba(139,26,10,.3);height:62px}
+  .mob-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;border:none;background:none;padding:6px 2px}
   .mob-tab-icon{font-size:1.2rem;line-height:1}
-  .mob-tab-label{font-family:'Cinzel',serif;font-size:.45rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bone);opacity:.45;transition:all .25s}
-  .mob-tab.active .mob-tab-label{color:var(--acid);opacity:1;text-shadow:0 0 8px rgba(90,158,30,.5)}
-  .mob-tab.active .mob-tab-icon{filter:drop-shadow(0 0 8px rgba(90,158,30,1))}
-  .mob-tab-indicator{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;background:var(--acid);transition:width .3s;border-radius:0 0 3px 3px;box-shadow:0 0 8px rgba(90,158,30,.8)}
-  .mob-tab.active .mob-tab-indicator{width:90%}
+  .mob-tab-label{font-family:'Cinzel',serif;font-size:.42rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bone);opacity:.4;transition:all .2s}
+  .mob-tab.active .mob-tab-label{color:var(--acid);opacity:1}
+  .mob-tab.active .mob-tab-icon{filter:drop-shadow(0 0 6px rgba(90,158,30,.8))}
+  .mob-tab-indicator{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--acid);transition:width .3s;border-radius:0 0 2px 2px}
+  .mob-tab.active .mob-tab-indicator{width:80%}
 
   /* ── MOBILE SECTIONS ── */
   body{padding-bottom:62px}
@@ -536,9 +529,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 
   /* ── HERO ── */
   #hero{min-height:100svh;padding:70px 16px 80px}
-  .hero-title{font-size:clamp(1.9rem,9.5vw,2.8rem);line-height:1.05;hyphens:none;word-break:keep-all}
-  .hero-content{max-width:100%;overflow:hidden}
-  .hero-sub{max-width:100%;overflow-wrap:break-word;padding:0 4px}
+  .hero-title{font-size:clamp(2.2rem,12vw,3.5rem)}
   .hero-warning-tape{font-size:.5rem;letter-spacing:.2em;padding:5px 12px}
   .hero-classified{font-size:.5rem}
   .hero-sub{font-size:.95rem}
@@ -650,7 +641,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 @media(max-width:480px){
   .dinos-grid{grid-template-columns:1fr}
   .dino-img{height:140px}
-  .hero-title{font-size:clamp(1.75rem,9vw,2.4rem);line-height:1.05}
+  .hero-title{font-size:clamp(2rem,13vw,3rem)}
   .hero-warning-tape{font-size:.45rem;letter-spacing:.15em}
 }
 
@@ -702,31 +693,6 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 .server-btn{display:inline-flex;align-items:center;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);text-decoration:none;border:1px solid rgba(90,158,30,.3);padding:9px 20px;transition:all .3s}
 .server-btn:hover{background:rgba(90,158,30,.1);border-color:var(--acid)}
 @media(max-width:900px){.servers-grid{grid-template-columns:1fr}}
-
-/* MUTATION CARDS */
-.mut-card{background:rgba(255,255,255,.03);border:1px solid rgba(74,120,37,.12);padding:16px 18px;margin-bottom:12px;border-left:3px solid rgba(90,158,30,.3)}
-.mut-card:last-child{margin-bottom:0}
-.mut-name{font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;color:var(--parchment);margin-bottom:8px}
-.mut-tag{display:inline-block;font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;padding:2px 9px;border:1px solid;border-radius:2px;margin-right:6px;margin-bottom:8px}
-.mut-tag-carn{color:#c04a2a;border-color:rgba(192,74,42,.35);background:rgba(192,74,42,.08)}
-.mut-tag-herb{color:#5a9e1e;border-color:rgba(90,158,30,.35);background:rgba(90,158,30,.08)}
-.mut-tag-all{color:#b8a888;border-color:rgba(184,168,136,.25);background:rgba(184,168,136,.05)}
-.mut-tag-unlock{color:#ffd700;border-color:rgba(255,215,0,.3);background:rgba(255,215,0,.05)}
-.mut-effect{font-size:.95rem;color:var(--bone);opacity:.75;line-height:1.8;margin-bottom:8px}
-.mut-effect strong{color:#7ac836;opacity:1}
-.mut-tip{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.04em;color:var(--warn);opacity:.65;border-left:2px solid rgba(200,48,16,.2);padding-left:10px;line-height:1.7}
-
-#soundBtn{display:flex;align-items:center;gap:8px}
-@keyframes soundPulse{0%{box-shadow:0 0 0 0 rgba(90,158,30,.7)}60%{box-shadow:0 0 0 10px rgba(90,158,30,0)}100%{box-shadow:0 0 0 0 rgba(90,158,30,0)}}
-#soundBtn.sound-active{background:rgba(90,158,30,.22);border-color:rgba(90,158,30,.8);color:var(--acid-light);animation:none;box-shadow:0 0 12px rgba(90,158,30,.3)}
-#soundBtn.sound-muted{background:rgba(139,26,10,.1);border-color:rgba(139,26,10,.4);color:var(--warn);opacity:.8;animation:none}
-
-
-@keyframes revealFallback{from{opacity:.3;transform:translateY(16px)}to{opacity:1;transform:none}}
-
-@media(prefers-reduced-motion:no-preference){
-  .reveal-anim{animation:revealFallback .6s ease forwards}
-}
 </style>
 </head>
 <body>
@@ -748,7 +714,6 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <li><a href="#diretorio">Canais</a></li>
     <li><a href="#newsletter">Contato</a></li>
   </ul>
-  <button id="soundBtn" onclick="toggleSound()" style="background:rgba(90,158,30,.12);border:2px solid rgba(90,158,30,.55);color:var(--acid);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:9px 22px;cursor:pointer;transition:all .3s;margin-right:14px;align-items:center;gap:8px;animation:soundPulse 1.8s ease-in-out infinite;font-weight:600">&#128264; Som</button>
   <div class="nav-burger" id="burger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
@@ -758,12 +723,6 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 <section id="hero">
   <div class="slideshow" id="slideshow">
     <div class="slide active"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
     <div class="slide"></div>
     <div class="slide"></div>
     <div class="slide"></div>
@@ -788,12 +747,6 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <button class="slide-dot" onclick="goSlide(1)"></button>
     <button class="slide-dot" onclick="goSlide(2)"></button>
     <button class="slide-dot" onclick="goSlide(3)"></button>
-    <button class="slide-dot" onclick="goSlide(4)"></button>
-    <button class="slide-dot" onclick="goSlide(5)"></button>
-    <button class="slide-dot" onclick="goSlide(6)"></button>
-    <button class="slide-dot" onclick="goSlide(7)"></button>
-    <button class="slide-dot" onclick="goSlide(8)"></button>
-    <button class="slide-dot" onclick="goSlide(9)"></button>
   </div>
   <div class="hero-scroll">
     <span>Explorar</span>
@@ -1036,7 +989,6 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
       <div class="guia-card reveal reveal-delay-3" onclick="openGuide('manadas')"><span class="guia-icon">🤝</span><div class="guia-title">Manadas e Grupos</div><div class="guia-desc">A ilha é menos perigosa em grupo. Aprenda a formar manadas, comunicar e caçar em conjunto.</div><span class="guia-link">Abrir protocolo →</span></div>
       <div class="guia-card reveal" onclick="openGuide('mapa')"><span class="guia-icon">🗺️</span><div class="guia-title">Navegação no Mapa</div><div class="guia-desc">Pontos de referência, rotas seguras e como se localizar sem mini-mapa — essencial para sobreviventes.</div><span class="guia-link">Abrir protocolo →</span></div>
       <div class="guia-card reveal reveal-delay-1" onclick="openGuide('avancado')"><span class="guia-icon">⚡</span><div class="guia-title">Builds Avançadas</div><div class="guia-desc">Para veteranos: como maximizar atributos, mutações, sistema Elder e dominar a hierarquia da ilha.</div><span class="guia-link">Abrir protocolo →</span></div>
-      <div class="guia-card reveal reveal-delay-2" onclick="openGuide('mutacoes')"><span class="guia-icon">&#129516;</span><div class="guia-title">Guia de Mutações</div><div class="guia-desc">Todas as mutações explicadas — carnívoros, herbívoros e universais. Saiba qual escolher para cada build.</div><span class="guia-link">Abrir protocolo →</span></div>
     </div>
 
     <!-- MODAIS DOS GUIAS -->
@@ -1421,4 +1373,102 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   <div class="section-wrap">
     <div class="videos-header">
       <span class="section-tag reveal">📋 Canais</span>
-      <h2 class="section-heading reveal reveal-delay-1">Canais da <span style="color:var(--acid)"
+      <h2 class="section-heading reveal reveal-delay-1">Canais da <span style="color:var(--acid)">Comunidade</span></h2>
+      <p class="section-lead reveal reveal-delay-2">Todos os canais aprovados pela comunidade. Ficam aqui para sempre.</p>
+    </div>
+
+    <!-- Filtros por tipo -->
+    <div class="dir-filters reveal reveal-delay-2">
+      <button class="dir-tab active" onclick="filterDir('todos',this)">Todos</button>
+      <button class="dir-tab" onclick="filterDir('youtube',this)">📺 YouTube</button>
+      <button class="dir-tab" onclick="filterDir('twitch',this)">🎮 Twitch</button>
+      <button class="dir-tab" onclick="filterDir('tiktok',this)">🎵 TikTok</button>
+      <button class="dir-tab" onclick="filterDir('discord',this)">💬 Discord</button>
+    </div>
+
+    <div class="dir-grid reveal reveal-delay-3" id="dirGrid">
+      <!-- Cards adicionados pelo GitHub Action -->
+      <div class="dir-card" data-tipo="youtube">
+        <div class="dir-icon">📺</div>
+        <div class="dir-info">
+          <div class="dir-name">Exemplo de Canal</div>
+          <div class="dir-type">YouTube</div>
+        </div>
+        <a href="https://youtube.com" target="_blank" class="dir-link">Visitar →</a>
+      </div>
+    </div>
+
+    <div id="dirEmpty" style="display:none;text-align:center;padding:40px;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bone);opacity:.3">
+      Nenhum canal encontrado
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="section-wrap">
+    <div class="nl-text">
+      <span class="section-tag">Fique atualizado</span>
+      <h2 class="section-heading">Receba os Próximos<br><span style="color:var(--warn)">Alertas</span></h2>
+      <p class="section-lead" style="margin-top:10px;">Novos registros, alertas de criaturas e transmissões da ilha. Deixe seu contato — caso ainda seja possível enviar.</p>
+    </div>
+    <div class="nl-form">
+      <input class="nl-input" type="email" placeholder="seu@email.com — se ainda tiver sinal...">
+      <button class="nl-btn">Inscrever</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#hero">The Isle Evrima</a>
+      <p>Um registro compilado na ilha. Cada palavra custou algo. Use com sabedoria — e nunca baixe a guarda.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegar</h4>
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#dinos">Dinossauros</a></li>
+        <li><a href="#mapa">Mapa</a></li>
+        <li><a href="#atualizacoes">Atualizações</a></li>
+        <li><a href="#guias">Guias</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Comunidade</h4>
+      <ul>
+        <li><a href="#">Discord</a></li>
+        <li><a href="#">Grupos</a></li>
+        <li><a href="#">Membros</a></li>
+        <li><a href="#">Contato</a></li>
+        <li><a href="#">Privacidade</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Sobrevivente Jurássico · The Isle Evrima Fan Site · Não oficial</span>
+    <span class="footer-copy">Feito com paixão pelo Evrima</span>
+  </div>
+</footer>
+
+<!-- MOBILE BOTTOM TABS -->
+<div class="mobile-tabs" id="mobileTabs">
+  <button class="mob-tab active" onclick="scrollToSection('hero',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">🏠</span>
+    <span class="mob-tab-label">Início</span>
+  </button>
+  <button class="mob-tab" onclick="scrollToSection('dinos',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">🦖</span>
+    <span class="mob-tab-label">Dinos</span>
+  </button>
+  <button class="mob-tab" onclick="scrollToSection('mapa',this)">
+    <div class="mob-tab-indicator"></div>
+    <span class="mob-tab-icon">🗺️</span>
+    <span class="mob-tab-label">Mapa</span>
+  </button>
+  <button class="mob-tab" onclick="scrollToSect
