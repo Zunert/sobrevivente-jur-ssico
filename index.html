@@ -293,7 +293,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 .dino-modal-section{display:flex;flex-direction:column;gap:10px}
 .dino-modal-section-title{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);display:flex;align-items:center;gap:8px}
 .dino-modal-section-title::after{content:'';flex:1;height:1px;background:rgba(90,158,30,.2)}
-.dino-modal-close{position:absolute;top:16px;right:16px;background:none;border:1px solid rgba(197,180,154,.2);color:var(--bone);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .3s;z-index:2}
+.dino-modal-close{position:absolute;top:12px;right:12px;background:rgba(5,6,3,.6);border:1px solid rgba(197,180,154,.25);color:var(--bone);opacity:.7;font-size:.85rem;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;z-index:30;border-radius:3px;font-family:Georgia,serif;line-height:1;padding:0}
 .dino-modal-close:hover{border-color:var(--warn);color:var(--warn)}
 .dino-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .dino-stat-box{background:rgba(255,255,255,.03);border:1px solid rgba(74,120,37,.1);padding:10px 12px}
@@ -693,6 +693,12 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 .server-btn{display:inline-flex;align-items:center;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acid);text-decoration:none;border:1px solid rgba(90,158,30,.3);padding:9px 20px;transition:all .3s}
 .server-btn:hover{background:rgba(90,158,30,.1);border-color:var(--acid)}
 @media(max-width:900px){.servers-grid{grid-template-columns:1fr}}
+
+@keyframes soundPulse{0%{box-shadow:0 0 0 0 rgba(90,158,30,.7)}60%{box-shadow:0 0 0 10px rgba(90,158,30,0)}100%{box-shadow:0 0 0 0 rgba(90,158,30,0)}}
+#soundBtn{display:flex;align-items:center;gap:8px}
+#soundBtn.sound-active{background:rgba(90,158,30,.22);border-color:rgba(90,158,30,.8);color:var(--acid-light);animation:none;box-shadow:0 0 12px rgba(90,158,30,.3)}
+#soundBtn.sound-muted{background:rgba(139,26,10,.1);border-color:rgba(139,26,10,.4);color:var(--warn);opacity:.8;animation:none}
+@media(max-width:900px){#soundBtn{display:none!important}}
 </style>
 </head>
 <body>
@@ -714,6 +720,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <li><a href="#diretorio">Canais</a></li>
     <li><a href="#newsletter">Contato</a></li>
   </ul>
+  <button id="soundBtn" onclick="toggleSound()" style="background:rgba(90,158,30,.12);border:2px solid rgba(90,158,30,.55);color:var(--acid);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:9px 22px;cursor:pointer;transition:all .3s;margin-right:14px;animation:soundPulse 1.8s ease-in-out infinite;font-weight:600">&#128264; Som</button>
   <div class="nav-burger" id="burger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
@@ -1533,6 +1540,19 @@ const dinoAttacks = {
   'Gallimimus': 'Sprint de alta duração. Kick traseiro. Sem ataques ofensivos relevantes — sobrevive pela velocidade.',
 };
 
+function closeDinoModal(e){
+  // Se chamado por clique fora, só fecha se for no overlay
+  if(e && e.target && e.target !== document.getElementById('dinoModalOverlay')) return;
+  document.getElementById('dinoModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  // Parar áudio do dino se estiver tocando
+  try{
+    if(typeof _audio !== 'undefined' && _audio){ _audio.pause(); _audio.currentTime = 0; }
+    var b = document.getElementById('dmAudioBtn');
+    if(b){ b.classList.remove('playing'); b.textContent = '▶ Broadcast Call'; }
+  }catch(err){}
+}
+
 function openDinoModal(name) {
   const d = dinos.find(x => x.name === name);
   if (!d) return;
@@ -1580,21 +1600,8 @@ function openDinoModal(name) {
   document.body.style.overflow = 'hidden';
 }
 
-function closeDinoModal() {
-  document.getElementById('dinoModalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function closeDinoModal() {
-  document.getElementById('dinoModalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-  // Stop audio if playing
-  if (currentBtn && currentBtn.id === 'dmAudioBtn') {
-    if (_audio) { _audio.pause(); _audio.currentTime = 0; }
-    currentBtn.classList.remove('playing');
-    currentBtn.textContent = '▶ Broadcast Call';
-    _audio = null; currentBtn = null;
-  }
-}
+
+
 
 
 
@@ -2439,9 +2446,7 @@ function closeDinoDetailModal(){
   if(btn){ btn.textContent='▶ Ouvir som'; btn.classList.remove('playing'); }
 }
 
-function closeDinoModal(e){
-  if(e.target === document.getElementById('dinoModalOverlay')) closeDinoDetailModal();
-}
+
 
 function playDinoModal(){
   const btn = document.getElementById('dmAudioBtn');
@@ -2539,11 +2544,62 @@ async function submitFaq(e) {
     }
   } catch(err) { alert('Erro ao enviar. Tente novamente.'); }
 }
+
+// -- SISTEMA DE SOM AMBIENTE
+(function(){
+  var audio = new Audio('ambiente.mp3');
+  audio.loop = true;
+  audio.volume = 0;
+  var playing = false;
+  function fade(from, to, dur, cb){
+    audio.volume = from;
+    var steps = 30, step = 0, diff = (to - from) / steps;
+    var t = setInterval(function(){
+      step++;
+      audio.volume = Math.max(0, Math.min(1, from + diff * step));
+      if(step >= steps){ clearInterval(t); if(cb) cb(); }
+    }, dur / steps);
+  }
+  function updateBtn(){
+    var btn = document.getElementById('soundBtn');
+    if(!btn) return;
+    if(playing){ btn.innerHTML = '\u{1F50A} Som'; btn.classList.remove('sound-muted'); btn.classList.add('sound-active'); }
+    else { btn.innerHTML = '\u{1F508} Som'; btn.classList.remove('sound-active'); btn.classList.add('sound-muted'); }
+  }
+  window.toggleSound = function(){
+    if(playing){
+      playing = false;
+      fade(audio.volume, 0, 600, function(){ audio.pause(); });
+      updateBtn();
+    } else {
+      playing = true; updateBtn();
+      audio.volume = 0;
+      audio.play().then(function(){ fade(0, 0.07, 1500); }).catch(function(){ playing = false; updateBtn(); });
+    }
+    try{ sessionStorage.setItem('ambientSound', playing ? '1' : '0'); }catch(e){}
+  };
+  var started = false;
+  function tryStart(){
+    if(started) return;
+    started = true;
+    document.removeEventListener('click', tryStart);
+    document.removeEventListener('scroll', tryStart);
+    document.removeEventListener('keydown', tryStart);
+    document.removeEventListener('touchstart', tryStart);
+    playing = true; updateBtn();
+    audio.volume = 0;
+    audio.play().then(function(){ fade(0, 0.07, 3000); }).catch(function(){ started = false; playing = false; updateBtn(); });
+  }
+  document.addEventListener('click', tryStart, {passive:true});
+  document.addEventListener('scroll', tryStart, {once:true, passive:true});
+  document.addEventListener('keydown', tryStart, {once:true});
+  document.addEventListener('touchstart', tryStart, {once:true, passive:true});
+})();
 </script>
 <!-- DINO DETAIL MODAL -->
 <div class="dino-modal-overlay" id="dinoModalOverlay" onclick="if(event.target===this)closeDinoModal()">
-  <div class="dino-modal" id="dinoModal">
-    <button class="dino-modal-close" onclick="closeDinoModal()" style="position:relative;z-index:10">✕ Fechar</button>
+  <div class="dino-modal" id="dinoModal" style="position:relative">
+    <button class="dino-modal-close" onclick="closeDinoModal()">✕</button>
     <div class="dino-modal-left">
       <img class="dino-modal-img" id="dmImg" src="" alt="">
       <div>
