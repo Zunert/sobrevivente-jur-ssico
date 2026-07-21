@@ -1303,17 +1303,17 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
       <div class="server-card">
         <div class="server-badge-new">NOVO</div>
         <div class="server-header">
-          <div class="server-name">EXTINCTION SIGNAL S.A</div>
-          <div class="server-region">🇧🇷 Brasil</div>
+          <div class="server-name">Primord Super Survival — Low Rules</div>
+          <div class="server-region">🇧🇷 Brasil · América do Sul</div>
         </div>
         <div class="server-tags">
-          <span class="server-tag">Semirrealista</span>
-          <span class="server-tag">Imersivo</span>
-          <span class="server-tag">Organizado</span>
+          <span class="server-tag">Público</span>
+          <span class="server-tag">PvP</span>
+          <span class="server-tag">Low Rules</span>
         </div>
-        <div class="server-desc">Servidor de sobrevivência semirrealista focado em experiência imersiva, com regras equilibradas e ambiente saudável. Organizado e pensado para dar liberdade com responsabilidade.</div>
-        <div class="server-players"><span class="server-players-dot"></span>Recém lançado</div>
-        <a href="https://discord.gg/extinction" target="_blank" rel="noopener" class="server-btn">Entrar no Discord →</a>
+        <div class="server-desc">Novo braço da família Primord, administrado por SUPER SUCO TV. Enquanto o Primord Survival Realismo entrega a experiência completa de sobrevivência com regras detalhadas e host 2x, o Super Survival — Low Rules libera mais liberdade e combates intensos com host 1x, mantendo a mesma qualidade e organização que já são marca registrada do Primord.</div>
+        <div class="server-players"><span class="server-players-dot"></span>Parceria SUPER SUCO TV</div>
+        <a href="https://discord.gg/primprd" target="_blank" rel="noopener" class="server-btn">Entrar no Discord →</a>
       </div>
 
     </div>
@@ -1495,9 +1495,12 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 
 // STATS TABLE POR ESTÁGIO
 const dinoStatsTable = {
+  'Austroraptor':   [['Auge (87.5%)','350 kg','46.0','69'],['Prime Elder','350 kg','42.0','51'],['Adulto (75%)','250 kg','46.0','60'],['Elder Fraco','250 kg','38.0','39']],
+  'Baryonyx':       [['Auge (87.5%)','1.7 ton','39.5','172.5'],['Prime Elder','1.7 ton','39.5','172.5'],['Adulto (75%)','1.45 ton','41.3','150'],['Elder Fraco','1.45 ton','35.0','97']],
   'Diabloceratops': [['Auge (87.5%)','3.8 ton','38.0','330'],['Prime Elder','3.8 ton','35.0','275'],['Adulto (75%)','3.0 ton','34.8','275'],['Elder Fraco','3.0 ton','29.0','200']],
   'Dryosaurus':     [['Auge (87.5%)','185 kg','50.4','23'],['Prime Elder','185 kg','36.6','16'],['Adulto (75%)','130 kg','45.0','20'],['Elder Fraco','130 kg','32.4','12']],
   'Hypsilophodon':  [['Auge (87.5%)','23 kg','39.6','2.3'],['Prime Elder','23 kg','37.8','1.8'],['Adulto (75%)','20 kg','39.6','2.0'],['Elder Fraco','20 kg','30.6','1.4']],
+  'Kentrosaurus':   [['Auge (87.5%)','2.2 ton','39.6','34.5'],['Prime Elder','2.2 ton','37.8','25.5'],['Adulto (75%)','1.95 ton','39.6','30'],['Elder Fraco','1.95 ton','34.2','19.5']],
   'Maiasaura':      [['Auge (87.5%)','5.4 ton','48.6','57.5'],['Prime Elder','5.4 ton','39.6','40'],['Adulto (75%)','3.8 ton','46.9','50'],['Elder Fraco','3.8 ton','34.2','30']],
   'Pachycephalosaurus':[['Auge (87.5%)','910 kg','46.5','34.5'],['Prime Elder','910 kg','39.6','25.5'],['Adulto (75%)','700 kg','41.7','30'],['Elder Fraco','700 kg','30.6','19.5']],
   'Stegosaurus':    [['Auge (87.5%)','9.3 ton','30.6','57.5'],['Prime Elder','9.3 ton','25.2','45'],['Adulto (75%)','6.0 ton','29.0','50'],['Elder Fraco','6.0 ton','24.3','37.5']],
@@ -1518,9 +1521,12 @@ const dinoStatsTable = {
 };
 // DINO DETAIL MODAL
 const dinoAttacks = {
+  'Austroraptor': 'Hold RMB: Pounce/Latch em presas menores. Bite direcional. Boa mobilidade perto d\'água — especialista em pesca.',
+  'Baryonyx': 'Bite direcional forte, com bônus de dano e mobilidade dentro d\'água. Anda pelo fundo de rios e lagos para emboscar presas.',
   'Diabloceratops': 'Hold LMB: Charge (derruba alvos menores). RMB: Ataque lateral com chifres.',
   'Dryosaurus': 'Sprint contínuo sem penalidade. Kick traseiro ao ser atacado por trás.',
   'Hypsilophodon': 'Spit (cuspir): confunde visão do predador. Kick traseiro de emergência.',
+  'Kentrosaurus': 'Hold LMB: Tail Whip lateral — sangramento nos espinhos. Stance defensiva reflete parte do dano recebido ao ser atacado por trás.',
   'Maiasaura': 'Stamp: pisão em área que derruba múltiplos alvos. Modo bípede/quadrúpede.',
   'Pachycephalosaurus': 'Hold RMB + LMB: Ram (headbutt) — stagger em alvos médios, knockdown em menores.',
   'Stegosaurus': 'Hold LMB: Power Swing (cauda) — alto dano e sangramento. Pode abrir frutas.',
@@ -1924,6 +1930,12 @@ const dinos=[
    raw:{peso:20,vel:40,forca:2,grupo:10},detail:{lore:'O menor dino jogável. Invisível entre folhas, mortal em bandos. Sozinho é presa fácil — em grupo vira pesadelo.',tier:'C',tierLabel:'Tier C — Bando',habitats:['Northern Jungle','Eastern Jungle','Tallbrush Coasts'],elder:'Prime Elder com Sequential Hermaphroditism permite reprodução solo. Ideal para criar colônias.',strategy:'Grupo de 10 com coordenação vocal. Evite qualquer carnívoro solo. Habitat denso é obrigatório.'},
    stats:{Peso:1,Velocidade:80,Força:1,Grupo:100}},
 
+  {name:'Kentrosaurus',audio:'kentrosaurus.mp3',img:'kentrosaurus.jpg',type:'herbivoro',icon:'🦔',cls:'Herbívoro · Espinhoso',badge:'herb',bl:'Herbívoro',
+   food:'Sumac, Cashew, Pumpkin',
+   desc:'Primo menor do Stegosaurus. Mais tímido, mas igualmente formidável — os espinhos na cauda punem qualquer ataque descuidado.',
+   raw:{peso:2200,vel:39.6,forca:34.5,grupo:6},detail:{lore:'Mais discreto que o Stegosaurus, mas não menos perigoso. Um giro de cauda ou um encontrão no ombro no timing certo já resolve qualquer confronto.',tier:'B',tierLabel:'Tier B — Defensivo',habitats:['Highland','Western Rail','Cedrus Forest'],elder:'Prime Elder aumenta o dano do Tail Whip e a reflexão de dano da stance defensiva.',strategy:'Vire a cauda para o atacante. Use a stance defensiva contra ataques por trás. Em grupo de 6 afasta a maioria dos carnívoros médios.'},
+   stats:{Peso:22,Velocidade:71,Força:12,Grupo:60}},
+
   {name:'Maiasaura',audio:'maiasaura.mp3',img:'maiasaura.jpg',type:'herbivoro',icon:'🦕',cls:'Herbívoro · Grande Porte',badge:'herb',bl:'Herbívoro',
    food:'MountainAsh, WildPotatoRoot, RadishRoot',
    desc:'O herbívoro mais veloz da ilha. Grande, rápido e excelente em grupo — combinação difícil de enfrentar.',
@@ -1955,6 +1967,18 @@ const dinos=[
    stats:{Peso:100,Velocidade:47,Força:100,Grupo:40}},
 
   // ── CARNÍVOROS ──
+  {name:'Baryonyx',audio:'baryonyx.mp3',img:'baryonyx.jpg',type:'carnivoro',icon:'🐟',cls:'Carnívoro · Semi-Aquático',badge:'carn',bl:'Carnívoro',hidden:true,
+   food:'SchoolingFish, Crab, Herrerasaurus, Dryosaurus, Bullfrog, Seaturtle...',
+   desc:'Predador semi-aquático com movimento único: anda pelo fundo de rios e lagos para emboscar presas na água.',
+   raw:{peso:1700,vel:39.5,forca:172.5,grupo:3},detail:{lore:'Especialista em ambientes aquáticos. O Baryonyx se move pelo leito de rios e lagos como ninguém — surge da água antes que a presa perceba.',tier:'B',tierLabel:'Tier B — Aquático',habitats:['Delta','Central Jungle','Swamps'],elder:'Prime Elder aumenta o dano de mordida e a mobilidade no fundo d\'água. Domina qualquer zona de rio.',strategy:'Use o movimento no leito do rio para se aproximar sem ser visto. Evite confrontos longos fora da água.'},
+   stats:{Peso:18,Velocidade:68,Força:18,Grupo:30}},
+
+  {name:'Austroraptor',audio:'austroraptor.mp3',img:'austroraptor.jpg',type:'carnivoro',icon:'🎣',cls:'Carnívoro · Pescador',badge:'carn',bl:'Carnívoro',
+   food:'SchoolingFish, Crab, Herrerasaurus, Hypsilophodon, Dryosaurus, Bullfrog...',
+   desc:'Raptor alto e ágil, especializado em pesca e emboscadas furtivas perto d\'água. Frágil em combate direto — depende da surpresa.',
+   raw:{peso:350,vel:46,forca:69,grupo:6},detail:{lore:'Um raptor discreto que prefere as margens dos rios. Pesca com precisão e ataca de emboscada — mas foge de confrontos abertos contra predadores maiores.',tier:'B',tierLabel:'Tier B — Emboscada',habitats:['Delta','Swamps','Eastern Jungle'],elder:'Prime Elder aumenta o alcance do pounce e a eficiência de pesca. Ainda frágil contra carnívoros médios em combate aberto.',strategy:'Ataque de emboscada perto da água e recue em seguida. Evite lutas prolongadas — sua força de mordida é baixa comparada a outros médios.'},
+   stats:{Peso:4,Velocidade:90,Força:8,Grupo:60}},
+
   {name:'Allosaurus',audio:'allosaurus.mp3',img:'allosaurus.jpg',type:'carnivoro',icon:'🦖',cls:'Carnívoro · Grande Porte',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Diabloceratops, Triceratops, Dryosaurus, Maiasaura...',
    desc:'Predador grande e rápido. Equilibrado entre peso e velocidade — uma das escolhas mais sólidas para carnívoros.',
@@ -2489,7 +2513,8 @@ function playDino(btn){
 function filterDinos(t,el){
   document.querySelectorAll('.dtab').forEach(x=>x.classList.remove('active'));
   el.classList.add('active');
-  const filtered=t==='todos'?dinos:dinos.filter(d=>d.type===t);
+  const visible=dinos.filter(d=>!d.hidden);
+  const filtered=t==='todos'?visible:visible.filter(d=>d.type===t);
   const grid=document.getElementById('dinosGrid');
   grid.innerHTML=filtered.map((d,i)=>`
     <div class="dino-card reveal${i>0?' reveal-delay-'+Math.min(i,4):''}" onclick="if(!event.target.closest('.dino-audio'))openDinoModal('${d.name}')" style="cursor:pointer">
