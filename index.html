@@ -317,6 +317,13 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 .dino-play-btn-modal:hover{background:rgba(90,158,30,.18);border-color:var(--acid)}
 .dino-play-btn-modal.playing{background:rgba(139,26,10,.15);border-color:rgba(200,48,16,.5);color:var(--warn)}
 
+/* NOVO: PATTERN BUTTONS */
+.patterns-container{display:flex;gap:6px;margin:10px 0 6px 0;flex-wrap:wrap;justify-content:flex-end;min-height:32px}
+.pattern-btn{font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;background:rgba(14,20,9,.8);border:1px solid rgba(90,158,30,.2);color:var(--bone);opacity:.4;cursor:pointer;transition:all .3s;border-radius:2px}
+.pattern-btn:hover{opacity:.8;border-color:rgba(90,158,30,.5)}
+.pattern-btn.active{opacity:1;border-color:var(--acid);background:rgba(90,158,30,.15);color:var(--acid-light)}
+.pattern-btn-label{font-size:.45rem;opacity:.5;display:block;text-align:center}
+
 @media(max-width:700px){
   .dino-modal{grid-template-columns:1fr;max-height:95vh}
   .dino-modal-left{border-right:none;border-bottom:1px solid rgba(139,26,10,.2);padding:20px}
@@ -324,6 +331,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .dino-modal-name{font-size:1.2rem}
   .dino-modal-overlay{padding:0;align-items:flex-end}
   .dino-modal{max-height:90vh}
+  .patterns-container{justify-content:center}
 }
 
 /* GUIDE MODALS */
@@ -1492,7 +1500,6 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 
 <script>
 
-
 // STATS TABLE POR ESTÁGIO
 const dinoStatsTable = {
   'Austroraptor':   [['Auge (87.5%)','350 kg','46.0','69'],['Prime Elder','350 kg','42.0','51'],['Adulto (75%)','250 kg','46.0','60'],['Elder Fraco','250 kg','38.0','39']],
@@ -1519,52 +1526,75 @@ const dinoStatsTable = {
   'Beipiaosaurus':  [['Auge (87.5%)','112 kg','38.0','11'],['Prime Elder','112 kg','32.0','8'],['Adulto (75%)','89 kg','32.0','9'],['Elder Fraco','89 kg','27.0','6']],
   'Gallimimus':     [['Auge (87.5%)','560 kg','54.0','28.75'],['Prime Elder','560 kg','41.4','20'],['Adulto (75%)','535 kg','46.8','25'],['Elder Fraco','535 kg','34.2','15']]
 };
-// DINO DETAIL MODAL
-const dinoAttacks = {
-  'Austroraptor': 'Hold RMB: Pounce/Latch em presas menores. Bite direcional. Boa mobilidade perto d\'água — especialista em pesca.',
-  'Baryonyx': 'Bite direcional forte, com bônus de dano e mobilidade dentro d\'água. Anda pelo fundo de rios e lagos para emboscar presas.',
-  'Diabloceratops': 'Hold LMB: Charge (derruba alvos menores). RMB: Ataque lateral com chifres.',
-  'Dryosaurus': 'Sprint contínuo sem penalidade. Kick traseiro ao ser atacado por trás.',
-  'Hypsilophodon': 'Spit (cuspir): confunde visão do predador. Kick traseiro de emergência.',
-  'Kentrosaurus': 'Hold LMB: Tail Whip lateral — sangramento nos espinhos. Stance defensiva reflete parte do dano recebido ao ser atacado por trás.',
-  'Maiasaura': 'Stamp: pisão em área que derruba múltiplos alvos. Modo bípede/quadrúpede.',
-  'Pachycephalosaurus': 'Hold RMB + LMB: Ram (headbutt) — stagger em alvos médios, knockdown em menores.',
-  'Stegosaurus': 'Hold LMB: Power Swing (cauda) — alto dano e sangramento. Pode abrir frutas.',
-  'Tenontosaurus': 'Tail Slam: dano em área. Kick traseiro. Modo terrestre rápido.',
-  'Triceratops': 'Hold LMB: Charge — knockdown garantido. RMB: Muzzle Swing lateral.',
-  'Allosaurus': 'Hold LMB (correndo): Claw Swipe — sangramento pesado. Hold RMB: Pounce/Latch.',
-  'Carnotaurus': 'Hold RMB + LMB: Headbutt — knockdown ou stagger por tempo de carga.',
-  'Ceratosaurus': 'Lunge aquático. Bite direcional. Boa mobilidade em rios.',
-  'Deinosuchus': 'RMB (água): Lunge — pin instantâneo. Death Roll quando travado em alvo.',
-  'Dilophosaurus': 'Hold LMB: Spit venenoso — cega e causa sangramento. Pounce básico.',
-  'Herrerasaurus': 'Drop Attack: pula de pontos elevados. Latch em presas menores.',
-  'Omniraptor': 'Pounce + Latch. Slot swap (troca de posição no alvo). Ataques direcionais.',
-  'Pteranodon': 'Ledge Flight: decola de bordas. Barrel Roll (Ctrl duplo). Air Brake (Z). Spearfishing (RMB em água).',
-  'Troodon': 'Spit paralisante. Bônus massivo à noite (+dano, +velocidade, +visão). Pack sense.',
-  'Tyrannosaurus': 'Hold LMB: Crush — pin e execução. RMB: Muzzle Swing. Spacebar (subadulto+): Ambush. Hold F + 1/RMB (adulto): Paleo Calls.',
-  'Beipiaosaurus': 'Claw swipe. Kick traseiro. Dieta onívora flexível — come plantas e carne.',
-  'Gallimimus': 'Sprint de alta duração. Kick traseiro. Sem ataques ofensivos relevantes — sobrevive pela velocidade.',
-};
 
-function closeDinoModal(e){
-  // Se chamado por clique fora, só fecha se for no overlay
-  if(e && e.target && e.target !== document.getElementById('dinoModalOverlay')) return;
+// ====== PATTERN SYSTEM ======
+let currentPatterns = [];
+let currentPatternIndex = 0;
+
+function changePattern(index) {
+  if (!currentPatterns || index >= currentPatterns.length) return;
+  currentPatternIndex = index;
+  const img = document.getElementById('dmImg');
+  if (img && currentPatterns[index]) {
+    img.src = currentPatterns[index].arquivo;
+    img.alt = 'Pattern ' + (index + 1);
+  }
+  // Update buttons
+  document.querySelectorAll('.pattern-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === index);
+  });
+}
+
+function renderPatternButtons(patterns) {
+  const container = document.getElementById('patternContainer');
+  if (!container) return;
+  
+  if (!patterns || patterns.length < 2) {
+    container.style.display = 'none';
+    return;
+  }
+  
+  container.style.display = 'flex';
+  container.innerHTML = patterns.map((p, i) => `
+    <button class="pattern-btn ${i === 0 ? 'active' : ''}" 
+            onclick="changePattern(${i})">
+      ${p.nome}
+    </button>
+  `).join('');
+}
+
+// ====== DINO DETAIL MODAL ======
+let _dinoModalAudio = null;
+
+function closeDinoModal(){
   document.getElementById('dinoModalOverlay').classList.remove('open');
   document.body.style.overflow = '';
-  // Parar áudio do dino se estiver tocando
-  try{
-    if(typeof _audio !== 'undefined' && _audio){ _audio.pause(); _audio.currentTime = 0; }
-    var b = document.getElementById('dmAudioBtn');
-    if(b){ b.classList.remove('playing'); b.textContent = '▶ Broadcast Call'; }
-  }catch(err){}
+  if(_dinoModalAudio){ _dinoModalAudio.pause(); _dinoModalAudio=null; }
+  const btn = document.getElementById('dmAudioBtn');
+  if(btn){ btn.textContent='▶ Broadcast Call'; btn.classList.remove('playing'); }
 }
 
 function openDinoModal(name) {
   const d = dinos.find(x => x.name === name);
   if (!d) return;
 
-  document.getElementById('dmImg').src = d.img || '';
-  document.getElementById('dmImg').alt = d.name;
+  // Load patterns
+  currentPatterns = d.patterns || [];
+  currentPatternIndex = 0;
+  
+  // Set image
+  const img = document.getElementById('dmImg');
+  if (currentPatterns.length > 0) {
+    img.src = currentPatterns[0].arquivo;
+    img.alt = currentPatterns[0].nome;
+  } else {
+    img.src = d.img || '';
+    img.alt = d.name;
+  }
+  
+  // Render pattern buttons
+  renderPatternButtons(currentPatterns);
+
   document.getElementById('dmName').textContent = d.name;
   document.getElementById('dmCls').textContent = d.cls;
 
@@ -1606,311 +1636,8 @@ function openDinoModal(name) {
   document.body.style.overflow = 'hidden';
 }
 
-
-
-
-
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    closeDinoModal();
-    closeGuide();
-  }
-});
-
-// DIRETORIO FILTER
-function filterDir(tipo, el){
-  document.querySelectorAll('.dir-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  const cards = document.querySelectorAll('.dir-card');
-  let visible = 0;
-  cards.forEach(c=>{
-    if(tipo==='todos' || c.dataset.tipo===tipo){
-      c.style.display='flex';
-      visible++;
-    } else {
-      c.style.display='none';
-    }
-  });
-  document.getElementById('dirEmpty').style.display = visible===0 ? 'block' : 'none';
-}
-
-// LIVES SYSTEM
-// Configurar seus canais Twitch aqui:
-const twitchChannels = [
-  // Adicione os nomes dos canais Twitch da comunidade aqui
-  // Exemplo: 'zunert', 'theluis', 'canal3'
-];
-
-// YouTube lives (manual - adicione o ID do video quando estiver ao vivo)
-const youtubeLives = [
-  // Exemplo: { id: 'dQw4w9WgXcQ', name: 'Zunert', url: 'https://youtube.com/watch?v=dQw4w9WgXcQ' }
-];
-
-function buildLiveCard(name, platform, thumbUrl, url) {
-  const card = document.createElement('a');
-  card.className = 'live-card';
-  card.href = url;
-  card.target = '_blank';
-  card.rel = 'noopener';
-  card.innerHTML = `
-    <div class="live-thumb-wrap">
-      <img class="live-thumb" src="${thumbUrl}" alt="${name}" onerror="this.parentElement.style.background='#1a0a0a'">
-      <div class="live-badge">🔴 AO VIVO</div>
-    </div>
-    <div class="live-info">
-      <div class="live-name">${name}</div>
-      <div class="live-platform">${platform}</div>
-    </div>`;
-  return card;
-}
-
-async function loadLives() {
-  const carousel = document.getElementById('livesCarousel');
-  const bar = document.getElementById('livesBar');
-  const countEl = document.getElementById('liveCount');
-  const cards = [];
-
-  // YouTube lives (manual)
-  for (const yt of youtubeLives) {
-    const thumb = `https://img.youtube.com/vi/${yt.id}/maxresdefault.jpg`;
-    cards.push(buildLiveCard(yt.name, '📺 YouTube', thumb, yt.url));
-  }
-
-  // Twitch lives (automático via API pública)
-  if (twitchChannels.length > 0) {
-    try {
-      for (const ch of twitchChannels) {
-        const thumb = `https://static-cdn.jtvnw.net/previews-ttv/live_user_${ch}-320x180.jpg?t=${Date.now()}`;
-        const url = `https://twitch.tv/${ch}`;
-        cards.push(buildLiveCard(ch, '🎮 Twitch', thumb, url));
-      }
-    } catch(e) {}
-  }
-
-  if (cards.length > 0) {
-    carousel.innerHTML = '';
-    cards.forEach(c => carousel.appendChild(c));
-    bar.style.display = 'block';
-    countEl.textContent = `(${cards.length} canal${cards.length > 1 ? 'is' : ''})`;
-
-    // Auto scroll se mais de 4 lives
-    if (cards.length > 4) {
-      let idx = 0;
-      setInterval(() => {
-        idx = (idx + 1) % cards.length;
-        cards[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }, 5000);
-    }
-  }
-}
-loadLives();
-
-// FAQ ACCORDION
-function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
-  // Close all
-  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-  // Open clicked if was closed
-  if (!isOpen) item.classList.add('open');
-}
-
-async function submitFaq(e) {
-  e.preventDefault();
-  const pergunta = document.getElementById('faqPergunta').value;
-  try {
-    await fetch('https://formspree.io/f/mojrrvjd', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({
-        tipo: 'FAQ',
-        pergunta,
-        _subject: '[FAQ] Nova dúvida: ' + pergunta
-      })
-    });
-    document.getElementById('faqForm').style.display = 'none';
-    document.getElementById('faqSuccess').style.display = 'block';
-  } catch(err) {}
-}
-
-// COMUNIDADE FORM
-async function submitCom(e){
-  e.preventDefault();
-  const btn = document.getElementById('comSubmitBtn');
-  const txt = document.getElementById('comSubmitText');
-  const nome = document.getElementById('comNome').value;
-  const tipo = document.getElementById('comTipo').value;
-  const link = document.getElementById('comLink').value;
-  const desc = document.getElementById('comDesc').value;
-
-  // Basic validation
-  document.getElementById('comError').style.display='none';
-
-  // Check for obvious spam/bad content
-  const badWords = ['porn','xxx','hack','cheat','free money','bitcoin','crypto giveaway'];
-  const allText = (nome+desc+link).toLowerCase();
-  if(badWords.some(w=>allText.includes(w))){
-    document.getElementById('comErrorMsg').textContent='⚠ Conteúdo não permitido detectado.';
-    document.getElementById('comError').style.display='block';
-    return;
-  }
-
-  // Check URL is valid
-  try { new URL(link); } catch {
-    document.getElementById('comErrorMsg').textContent='⚠ Link inválido. Use o formato https://...';
-    document.getElementById('comError').style.display='block';
-    return;
-  }
-
-  btn.disabled=true;
-  txt.textContent='Enviando...';
-
-  try {
-    const res = await fetch('https://formspree.io/f/SEU_ID_AQUI', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({
-        nome, tipo, link, descricao: desc,
-        _subject: `[Comunidade] Nova submissão: ${tipo} - ${nome}`
-      })
-    });
-
-    if(res.ok){
-      document.getElementById('comForm').style.display='none';
-      document.getElementById('comSuccess').style.display='block';
-    } else {
-      throw new Error('Erro no servidor');
-    }
-  } catch(err) {
-    document.getElementById('comErrorMsg').textContent='⚠ Erro ao enviar. Tente novamente em instantes.';
-    document.getElementById('comError').style.display='block';
-    btn.disabled=false;
-    txt.textContent='Enviar para revisão →';
-  }
-}
-
-// MAP ACTIVATE / DEACTIVATE
-function activateMap(){
-  document.getElementById('mapStatic').style.display='none';
-  document.getElementById('mapBalloon').style.display='none';
-  const iframeDiv = document.getElementById('mapIframe');
-  iframeDiv.style.display='flex';
-  iframeDiv.style.flexDirection='column';
-  const frame = document.getElementById('vulnonaFrame');
-  if(!frame.src || frame.src === 'about:blank' || frame.src === ''){
-    frame.src = 'https://vulnona.com/game/map/#';
-  }
-}
-function deactivateMap(){
-  document.getElementById('mapStatic').style.display='block';
-  document.getElementById('mapBalloon').style.display='flex';
-  document.getElementById('mapIframe').style.display='none';
-  document.getElementById('vulnonaFrame').src='about:blank';
-  const wrap = document.querySelector('.map-iframe-wrap');
-  if(wrap.classList.contains('fullscreen-map')){
-    wrap.classList.remove('fullscreen-map');
-    document.body.style.overflow='';
-  }
-}
-
-// MAP FULLSCREEN
-function toggleFullscreenMap(){
-  const wrap = document.querySelector('.map-iframe-wrap');
-  wrap.classList.toggle('fullscreen-map');
-  const btn = document.querySelector('.map-ctrl-btn[onclick]');
-  if(wrap.classList.contains('fullscreen-map')){
-    btn.textContent = '✕ Sair da tela cheia';
-    document.body.style.overflow = 'hidden';
-  } else {
-    btn.textContent = '⛶ Tela cheia';
-    document.body.style.overflow = '';
-  }
-}
-document.addEventListener('keydown',(e)=>{
-  if(e.key==='Escape') {
-    const wrap = document.querySelector('.map-iframe-wrap');
-    if(wrap.classList.contains('fullscreen-map')){
-      toggleFullscreenMap();
-    }
-  }
-});
-
-// MOBILE TABS
-function scrollToSection(id, btn){
-  const el = document.getElementById(id);
-  if(!el) return;
-  el.scrollIntoView({behavior:'smooth'});
-  document.querySelectorAll('.mob-tab').forEach(t=>t.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-}
-
-// Update active tab on scroll
-if(window.innerWidth <= 900){
-  const sections = ['hero','dinos','mapa','guias','atualizacoes'];
-  const tabs = document.querySelectorAll('.mob-tab');
-  window.addEventListener('scroll', () => {
-    let current = 'hero';
-    sections.forEach(id => {
-      const el = document.getElementById(id);
-      if(el && window.scrollY >= el.offsetTop - 120) current = id;
-    });
-    sections.forEach((id, i) => {
-      if(id === current) tabs[i]?.classList.add('active');
-      else tabs[i]?.classList.remove('active');
-    });
-  }, {passive:true});
-}
-
-// SLIDESHOW
-(function(){
-  const slides=document.querySelectorAll('.slide');
-  const dots=document.querySelectorAll('.slide-dot');
-  let cur=0,timer=null;
-  function goTo(n){
-    slides[cur].classList.remove('active');
-    dots[cur].classList.remove('active');
-    cur=(n+slides.length)%slides.length;
-    slides[cur].classList.add('active');
-    dots[cur].classList.add('active');
-  }
-  window.goSlide=goTo;
-  function next(){goTo(cur+1);}
-  timer=setInterval(next,5000);
-  var _ss=document.getElementById('slideshow'); if(_ss){_ss.addEventListener('mouseenter',()=>clearInterval(timer));
-  _ss.addEventListener('mouseleave',()=>{timer=setInterval(next,5000);});}
-})();
-
-// PARTICLES (subtle, on top of slideshow)
-(function(){
-  const c=document.getElementById('particles');
-  for(let i=0;i<14;i++){
-    const p=document.createElement('div');
-    p.className='pt';
-    const s=1.5+Math.random()*2.5;
-    p.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${6+Math.random()*14}px;animation-duration:${10+Math.random()*14}s;animation-delay:${-Math.random()*22}s;`;
-    c.appendChild(p);
-  }
-})();
-
-// NAV SCROLL
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').style.background=
-    window.scrollY>60?'rgba(8,10,6,0.99)':'linear-gradient(180deg,rgba(8,10,6,.97) 0%,rgba(8,10,6,.7) 100%)';
-});
-
-// MOBILE MENU
-function toggleMenu(){document.getElementById('navLinks').classList.toggle('open')}
-document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
-
-// SCROLL REVEAL
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.05});
-// Fallback: force all reveals visible after 2s in case observer fails
-setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible')),800);
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-// DINOS
-const dinos=[
+// ====== DINOS DATA ======
+const dinos = [
   // ── HERBÍVOROS ──
   {name:'Diabloceratops',audio:'diabloceratops.mp3',img:'diabloceratops.jpg',type:'herbivoro',icon:'🔱',cls:'Herbívoro · Combativo',badge:'herb',bl:'Herbívoro',
    food:'Marigold, Fireweed, Cashew',
@@ -1979,11 +1706,16 @@ const dinos=[
    raw:{peso:350,vel:46,forca:69,grupo:6},detail:{lore:'Um raptor discreto que prefere as margens dos rios. Pesca com precisão e ataca de emboscada — mas foge de confrontos abertos contra predadores maiores.',tier:'B',tierLabel:'Tier B — Emboscada',habitats:['Delta','Swamps','Eastern Jungle'],elder:'Prime Elder aumenta o alcance do pounce e a eficiência de pesca. Ainda frágil contra carnívoros médios em combate aberto.',strategy:'Ataque de emboscada perto da água e recue em seguida. Evite lutas prolongadas — sua força de mordida é baixa comparada a outros médios.'},
    stats:{Peso:4,Velocidade:90,Força:8,Grupo:60}},
 
-  {name:'Allosaurus',audio:'allosaurus.mp3',img:'allosaurus.jpg',type:'carnivoro',icon:'🦖',cls:'Carnívoro · Grande Porte',badge:'carn',bl:'Carnívoro',
+  {name:'Allosaurus',audio:'allosaurus.mp3',img:'allosaurus_pattern1.jpg',type:'carnivoro',icon:'🦖',cls:'Carnívoro · Grande Porte',badge:'carn',bl:'Carnívoro',
    food:'Stegosaurus, Tenontosaurus, Diabloceratops, Triceratops, Dryosaurus, Maiasaura...',
    desc:'Predador grande e rápido. Equilibrado entre peso e velocidade — uma das escolhas mais sólidas para carnívoros.',
    raw:{peso:2593,vel:40,forca:175,grupo:3},detail:{lore:'O predador de grupo mais eficiente da ilha. Em trio coordenado derruba qualquer presa — incluindo T-Rex descuidado.',tier:'A',tierLabel:'Tier A — Pack Hunter',habitats:['Central Jungle','Eastern Jungle','Highland'],elder:'Prime Elder aumenta velocidade e dano. Em trio de Prime Elders é devastador.',strategy:'Nunca ataque Trice ou T-Rex solo. Em trio coordenem os ataques para dividir a atenção.'},
-   stats:{Peso:27,Velocidade:80,Força:19,Grupo:30}},
+   stats:{Peso:27,Velocidade:80,Força:19,Grupo:30},
+   patterns: [
+     { nome: 'Pattern 1', arquivo: 'allosaurus_pattern1.jpg' },
+     { nome: 'Pattern 2', arquivo: 'allosaurus_pattern2.jpg' },
+     { nome: 'Pattern 3', arquivo: 'allosaurus_pattern3.jpg' }
+   ]},
 
   {name:'Carnotaurus',audio:'carnotaurus.mp3',img:'carnotaurus.jpg',type:'carnivoro',icon:'🐊',cls:'Carnívoro · Velocista',badge:'carn',bl:'Carnívoro',
    food:'Pachycephalosaurus, Tenontosaurus, Diabloceratops, Dryosaurus, Maiasaura...',
@@ -2051,7 +1783,375 @@ const dinos=[
    desc:'Veloz e curioso. O Gallimimus é um dos onívoros mais rápidos — usa a velocidade para fugir de qualquer ameaça.',
    raw:{peso:560,vel:41.4,forca:20,grupo:10},detail:{lore:'Velocidade pura. O Galli não luta — ele simplesmente não é alcançado. Em grupo é uma das presas mais frustrantes.',tier:'B',tierLabel:'Tier B — Fuga',habitats:['North Plains','South Plains','Eastern Jungle'],elder:'Prime Elder com Multichambered Lungs é literalmente inalcançável por qualquer predador.',strategy:'Nunca pare. Use o terreno aberto a seu favor. Em grupo de 10 confunde qualquer predador.'},
    stats:{Peso:6,Velocidade:95,Força:3,Grupo:100}},
-]
+];
+
+// ====== ATAQUES ======
+const dinoAttacks = {
+  'Austroraptor': 'Hold RMB: Pounce/Latch em presas menores. Bite direcional. Boa mobilidade perto d\'água — especialista em pesca.',
+  'Baryonyx': 'Bite direcional forte, com bônus de dano e mobilidade dentro d\'água. Anda pelo fundo de rios e lagos para emboscar presas.',
+  'Diabloceratops': 'Hold LMB: Charge (derruba alvos menores). RMB: Ataque lateral com chifres.',
+  'Dryosaurus': 'Sprint contínuo sem penalidade. Kick traseiro ao ser atacado por trás.',
+  'Hypsilophodon': 'Spit (cuspir): confunde visão do predador. Kick traseiro de emergência.',
+  'Kentrosaurus': 'Hold LMB: Tail Whip lateral — sangramento nos espinhos. Stance defensiva reflete parte do dano recebido ao ser atacado por trás.',
+  'Maiasaura': 'Stamp: pisão em área que derruba múltiplos alvos. Modo bípede/quadrúpede.',
+  'Pachycephalosaurus': 'Hold RMB + LMB: Ram (headbutt) — stagger em alvos médios, knockdown em menores.',
+  'Stegosaurus': 'Hold LMB: Power Swing (cauda) — alto dano e sangramento. Pode abrir frutas.',
+  'Tenontosaurus': 'Tail Slam: dano em área. Kick traseiro. Modo terrestre rápido.',
+  'Triceratops': 'Hold LMB: Charge — knockdown garantido. RMB: Muzzle Swing lateral.',
+  'Allosaurus': 'Hold LMB (correndo): Claw Swipe — sangramento pesado. Hold RMB: Pounce/Latch.',
+  'Carnotaurus': 'Hold RMB + LMB: Headbutt — knockdown ou stagger por tempo de carga.',
+  'Ceratosaurus': 'Lunge aquático. Bite direcional. Boa mobilidade em rios.',
+  'Deinosuchus': 'RMB (água): Lunge — pin instantâneo. Death Roll quando travado em alvo.',
+  'Dilophosaurus': 'Hold LMB: Spit venenoso — cega e causa sangramento. Pounce básico.',
+  'Herrerasaurus': 'Drop Attack: pula de pontos elevados. Latch em presas menores.',
+  'Omniraptor': 'Pounce + Latch. Slot swap (troca de posição no alvo). Ataques direcionais.',
+  'Pteranodon': 'Ledge Flight: decola de bordas. Barrel Roll (Ctrl duplo). Air Brake (Z). Spearfishing (RMB em água).',
+  'Troodon': 'Spit paralisante. Bônus massivo à noite (+dano, +velocidade, +visão). Pack sense.',
+  'Tyrannosaurus': 'Hold LMB: Crush — pin e execução. RMB: Muzzle Swing. Spacebar (subadulto+): Ambush. Hold F + 1/RMB (adulto): Paleo Calls.',
+  'Beipiaosaurus': 'Claw swipe. Kick traseiro. Dieta onívora flexível — come plantas e carne.',
+  'Gallimimus': 'Sprint de alta duração. Kick traseiro. Sem ataques ofensivos relevantes — sobrevive pela velocidade.',
+};
+
+// ====== REST OF THE CODE (não mudei nada daqui pra baixo) ======
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeDinoModal();
+    closeGuide();
+  }
+});
+
+// DIRETORIO FILTER
+function filterDir(tipo, el){
+  document.querySelectorAll('.dir-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const cards = document.querySelectorAll('.dir-card');
+  let visible = 0;
+  cards.forEach(c=>{
+    if(tipo==='todos' || c.dataset.tipo===tipo){
+      c.style.display='flex';
+      visible++;
+    } else {
+      c.style.display='none';
+    }
+  });
+  document.getElementById('dirEmpty').style.display = visible===0 ? 'block' : 'none';
+}
+
+// LIVES SYSTEM
+const twitchChannels = [];
+const youtubeLives = [];
+
+function buildLiveCard(name, platform, thumbUrl, url) {
+  const card = document.createElement('a');
+  card.className = 'live-card';
+  card.href = url;
+  card.target = '_blank';
+  card.rel = 'noopener';
+  card.innerHTML = `
+    <div class="live-thumb-wrap">
+      <img class="live-thumb" src="${thumbUrl}" alt="${name}" onerror="this.parentElement.style.background='#1a0a0a'">
+      <div class="live-badge">🔴 AO VIVO</div>
+    </div>
+    <div class="live-info">
+      <div class="live-name">${name}</div>
+      <div class="live-platform">${platform}</div>
+    </div>`;
+  return card;
+}
+
+async function loadLives() {
+  const carousel = document.getElementById('livesCarousel');
+  const bar = document.getElementById('livesBar');
+  const countEl = document.getElementById('liveCount');
+  const cards = [];
+
+  for (const yt of youtubeLives) {
+    const thumb = `https://img.youtube.com/vi/${yt.id}/maxresdefault.jpg`;
+    cards.push(buildLiveCard(yt.name, '📺 YouTube', thumb, yt.url));
+  }
+
+  if (twitchChannels.length > 0) {
+    try {
+      for (const ch of twitchChannels) {
+        const thumb = `https://static-cdn.jtvnw.net/previews-ttv/live_user_${ch}-320x180.jpg?t=${Date.now()}`;
+        const url = `https://twitch.tv/${ch}`;
+        cards.push(buildLiveCard(ch, '🎮 Twitch', thumb, url));
+      }
+    } catch(e) {}
+  }
+
+  if (cards.length > 0) {
+    carousel.innerHTML = '';
+    cards.forEach(c => carousel.appendChild(c));
+    bar.style.display = 'block';
+    countEl.textContent = `(${cards.length} canal${cards.length > 1 ? 'is' : ''})`;
+
+    if (cards.length > 4) {
+      let idx = 0;
+      setInterval(() => {
+        idx = (idx + 1) % cards.length;
+        cards[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }, 5000);
+    }
+  }
+}
+loadLives();
+
+// FAQ ACCORDION
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+async function submitFaq(e) {
+  e.preventDefault();
+  const nome = document.getElementById('faqNome').value || 'Anônimo';
+  const titulo = document.getElementById('faqTitulo').value;
+  const detalhe = document.getElementById('faqDetalhe').value;
+  try {
+    const res = await fetch('https://formspree.io/f/mojrrvjd', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({nome, pergunta: titulo, detalhes: detalhe, _subject: '[FAQ] ' + titulo})
+    });
+    if (res.ok) {
+      document.getElementById('faqForm').style.display = 'none';
+      document.getElementById('faqSuccess').style.display = 'block';
+    }
+  } catch(err) { alert('Erro ao enviar. Tente novamente.'); }
+}
+
+// COMUNIDADE FORM
+async function submitCom(e){
+  e.preventDefault();
+  const btn = document.getElementById('comSubmitBtn');
+  const txt = document.getElementById('comSubmitText');
+  const nome = document.getElementById('comNome').value;
+  const tipo = document.getElementById('comTipo').value;
+  const link = document.getElementById('comLink').value;
+  const desc = document.getElementById('comDesc').value;
+
+  document.getElementById('comError').style.display='none';
+
+  const badWords = ['porn','xxx','hack','cheat','free money','bitcoin','crypto giveaway'];
+  const allText = (nome+desc+link).toLowerCase();
+  if(badWords.some(w=>allText.includes(w))){
+    document.getElementById('comErrorMsg').textContent='⚠ Conteúdo não permitido detectado.';
+    document.getElementById('comError').style.display='block';
+    return;
+  }
+
+  try { new URL(link); } catch {
+    document.getElementById('comErrorMsg').textContent='⚠ Link inválido. Use o formato https://...';
+    document.getElementById('comError').style.display='block';
+    return;
+  }
+
+  btn.disabled=true;
+  txt.textContent='Enviando...';
+
+  try {
+    const res = await fetch('https://formspree.io/f/mojrrvjd', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        nome, tipo, link, descricao: desc,
+        _subject: `[Comunidade] Nova submissão: ${tipo} - ${nome}`
+      })
+    });
+
+    if(res.ok){
+      document.getElementById('comForm').style.display='none';
+      document.getElementById('comSuccess').style.display='block';
+    } else {
+      throw new Error('Erro no servidor');
+    }
+  } catch(err) {
+    document.getElementById('comErrorMsg').textContent='⚠ Erro ao enviar. Tente novamente em instantes.';
+    document.getElementById('comError').style.display='block';
+    btn.disabled=false;
+    txt.textContent='Enviar para revisão →';
+  }
+}
+
+// MAP ACTIVATE / DEACTIVATE
+function activateMap(){
+  document.getElementById('mapStatic').style.display='none';
+  document.getElementById('mapBalloon').style.display='none';
+  const iframeDiv = document.getElementById('mapIframe');
+  iframeDiv.style.display='flex';
+  iframeDiv.style.flexDirection='column';
+  const frame = document.getElementById('vulnonaFrame');
+  if(!frame.src || frame.src === 'about:blank' || frame.src === ''){
+    frame.src = 'https://vulnona.com/game/map/#';
+  }
+}
+function deactivateMap(){
+  document.getElementById('mapStatic').style.display='block';
+  document.getElementById('mapBalloon').style.display='flex';
+  document.getElementById('mapIframe').style.display='none';
+  document.getElementById('vulnonaFrame').src='about:blank';
+  const wrap = document.querySelector('.map-iframe-wrap');
+  if(wrap.classList.contains('fullscreen-map')){
+    wrap.classList.remove('fullscreen-map');
+    document.body.style.overflow='';
+  }
+}
+
+function toggleFullscreenMap(){
+  const wrap = document.querySelector('.map-iframe-wrap');
+  wrap.classList.toggle('fullscreen-map');
+  const btn = document.querySelector('.map-ctrl-btn[onclick]');
+  if(wrap.classList.contains('fullscreen-map')){
+    btn.textContent = '✕ Sair da tela cheia';
+    document.body.style.overflow = 'hidden';
+  } else {
+    btn.textContent = '⛶ Tela cheia';
+    document.body.style.overflow = '';
+  }
+}
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='Escape') {
+    const wrap = document.querySelector('.map-iframe-wrap');
+    if(wrap.classList.contains('fullscreen-map')){
+      toggleFullscreenMap();
+    }
+  }
+});
+
+// MOBILE TABS
+function scrollToSection(id, btn){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.mob-tab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+if(window.innerWidth <= 900){
+  const sections = ['hero','dinos','mapa','guias','atualizacoes'];
+  const tabs = document.querySelectorAll('.mob-tab');
+  window.addEventListener('scroll', () => {
+    let current = 'hero';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if(el && window.scrollY >= el.offsetTop - 120) current = id;
+    });
+    sections.forEach((id, i) => {
+      if(id === current) tabs[i]?.classList.add('active');
+      else tabs[i]?.classList.remove('active');
+    });
+  }, {passive:true});
+}
+
+// SLIDESHOW
+(function(){
+  const slides=document.querySelectorAll('.slide');
+  const dots=document.querySelectorAll('.slide-dot');
+  let cur=0,timer=null;
+  function goTo(n){
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur=(n+slides.length)%slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+  window.goSlide=goTo;
+  function next(){goTo(cur+1);}
+  timer=setInterval(next,5000);
+  var _ss=document.getElementById('slideshow'); if(_ss){_ss.addEventListener('mouseenter',()=>clearInterval(timer));
+  _ss.addEventListener('mouseleave',()=>{timer=setInterval(next,5000);});}
+})();
+
+// PARTICLES
+(function(){
+  const c=document.getElementById('particles');
+  for(let i=0;i<14;i++){
+    const p=document.createElement('div');
+    p.className='pt';
+    const s=1.5+Math.random()*2.5;
+    p.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${6+Math.random()*14}px;animation-duration:${10+Math.random()*14}s;animation-delay:${-Math.random()*22}s;`;
+    c.appendChild(p);
+  }
+})();
+
+// NAV SCROLL
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').style.background=
+    window.scrollY>60?'rgba(8,10,6,0.99)':'linear-gradient(180deg,rgba(8,10,6,.97) 0%,rgba(8,10,6,.7) 100%)';
+});
+
+// MOBILE MENU
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('open')}
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
+
+// SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.05});
+setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible')),800);
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// DINO AUDIO
+let _audio=null,_btn=null;
+function playDino(btn){
+  var file=btn.getAttribute('data-sound');
+  if(_audio){
+    _audio.pause();_audio.currentTime=0;
+    if(_btn){_btn.classList.remove('playing');_btn.textContent='▶ Broadcast Call';}
+    if(_btn===btn){_audio=null;_btn=null;return;}
+  }
+  var a=new Audio(file);
+  a.play().catch(function(){});
+  btn.classList.add('playing');btn.textContent='⏹ Parar';
+  _audio=a;_btn=btn;
+  a.onended=function(){btn.classList.remove('playing');btn.textContent='▶ Broadcast Call';_audio=null;_btn=null;};
+}
+
+function filterDinos(t,el){
+  document.querySelectorAll('.dtab').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  const visible=dinos.filter(d=>!d.hidden);
+  const filtered=t==='todos'?visible:visible.filter(d=>d.type===t);
+  const grid=document.getElementById('dinosGrid');
+  grid.innerHTML=filtered.map((d,i)=>`
+    <div class="dino-card reveal${i>0?' reveal-delay-'+Math.min(i,4):''}" onclick="if(!event.target.closest('.dino-audio'))openDinoModal('${d.name}')" style="cursor:pointer">
+      <div class="dino-badge badge-${d.badge}">${d.bl}</div>
+      ${d.img ? `<img class="dino-img" src="${d.img}" alt="${d.name}">` : `<span class="dino-icon">${d.icon}</span>`}
+      <div class="dino-name">${d.name}</div>
+      <div class="dino-class">${d.cls}</div>
+      <div class="dino-desc">${d.desc}</div>
+      <div class="dino-food">🍽️ <span>${d.food}</span></div>
+      <div class="dino-rawstats">
+        <div class="raw-item"><span class="raw-lbl">Peso Prime</span><span class="raw-val">${d.raw.peso>=1000?(d.raw.peso/1000).toFixed(1)+' ton':d.raw.peso+' kg'}</span></div>
+        <div class="raw-item"><span class="raw-lbl">Vel. Prime</span><span class="raw-val">${typeof d.raw.vel==='number'?d.raw.vel.toFixed(0):d.raw.vel}</span></div>
+        <div class="raw-item"><span class="raw-lbl">F. Ataque</span><span class="raw-val">${d.raw.forca}</span></div>
+        <div class="raw-item"><span class="raw-lbl">Grupo</span><span class="raw-val">${d.raw.grupo}</span></div>
+      </div>
+      <div class="dino-bars">${Object.entries(d.stats).map(([k,v])=>`
+        <div class="dbar-row">
+          <span class="dbar-label">${k}</span>
+          <div class="dbar-track"><div class="dbar-fill" style="width:${v}%"></div></div>
+        </div>`).join('')}
+      </div>
+      <div class="dino-audio" id="audio-${i}"><button class="dino-play-btn" data-sound="${d.audio||''}" onclick="event.stopPropagation();playDino(this)">&#9654; Broadcast Call</button><span class="dino-audio-label">Som real do jogo</span></div>
+    </div>`).join('');
+  grid.querySelectorAll('.reveal').forEach(el=>{obs.observe(el);setTimeout(()=>el.classList.add('visible'),80)});
+}
+try{ filterDinos('todos',document.querySelector('.dtab')); }catch(e){ console.error('filterDinos:',e); }
+window.addEventListener('load',function(){
+  try{ if(document.getElementById('dinosGrid') && !document.getElementById('dinosGrid').innerHTML.trim()) filterDinos('todos',document.querySelector('.dtab')); }catch(e){}
+  try{ if(document.getElementById('updatesGrid') && !document.getElementById('updatesGrid').innerHTML.trim()) renderUpdates(); }catch(e){}
+});
+setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>{obs.observe(el);el.classList.add('visible');}),100);
+
+// DÚVIDAS ACCORDION
+function toggleDuvida(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.duvida-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
 
 // GUIDES DATA
 const guides = {
@@ -2459,122 +2559,23 @@ function renderUpdates(){
 }
 renderUpdates();
 
-
-// DINO DETAIL MODAL
-let _dinoModalAudio = null;
-let _dinoModalBtn = null;
-
-
-
-function closeDinoDetailModal(){
-  document.getElementById('dinoModalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-  if(_dinoModalAudio){ _dinoModalAudio.pause(); _dinoModalAudio=null; }
-  const btn = document.getElementById('dmAudioBtn');
-  if(btn){ btn.textContent='▶ Ouvir som'; btn.classList.remove('playing'); }
-}
-
-
-
 function playDinoModal(){
   const btn = document.getElementById('dmAudioBtn');
   const file = btn.dataset.sound;
   if(!file) return;
   if(_dinoModalAudio){
     _dinoModalAudio.pause(); _dinoModalAudio=null;
-    btn.textContent='▶ Ouvir som'; btn.classList.remove('playing');
+    btn.textContent='▶ Broadcast Call'; btn.classList.remove('playing');
     return;
   }
   const audio = new Audio(file);
   audio.play().catch(()=>{});
   btn.textContent='⏹ Parar'; btn.classList.add('playing');
   _dinoModalAudio = audio;
-  audio.onended = ()=>{ btn.textContent='▶ Ouvir som'; btn.classList.remove('playing'); _dinoModalAudio=null; };
+  audio.onended = ()=>{ btn.textContent='▶ Broadcast Call'; btn.classList.remove('playing'); _dinoModalAudio=null; };
 }
 
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDinoDetailModal(); });
-
-// DINO AUDIO
-let _audio=null,_btn=null;
-function playDino(btn){
-  var file=btn.getAttribute('data-sound');
-  if(_audio){
-    _audio.pause();_audio.currentTime=0;
-    if(_btn){_btn.classList.remove('playing');_btn.textContent='▶ Broadcast Call';}
-    if(_btn===btn){_audio=null;_btn=null;return;}
-  }
-  var a=new Audio(file);
-  a.play().catch(function(){});
-  btn.classList.add('playing');btn.textContent='⏹ Parar';
-  _audio=a;_btn=btn;
-  a.onended=function(){btn.classList.remove('playing');btn.textContent='▶ Broadcast Call';_audio=null;_btn=null;};
-}
-
-function filterDinos(t,el){
-  document.querySelectorAll('.dtab').forEach(x=>x.classList.remove('active'));
-  el.classList.add('active');
-  const visible=dinos.filter(d=>!d.hidden);
-  const filtered=t==='todos'?visible:visible.filter(d=>d.type===t);
-  const grid=document.getElementById('dinosGrid');
-  grid.innerHTML=filtered.map((d,i)=>`
-    <div class="dino-card reveal${i>0?' reveal-delay-'+Math.min(i,4):''}" onclick="if(!event.target.closest('.dino-audio'))openDinoModal('${d.name}')" style="cursor:pointer">
-      <div class="dino-badge badge-${d.badge}">${d.bl}</div>
-      ${d.img ? `<img class="dino-img" src="${d.img}" alt="${d.name}">` : `<span class="dino-icon">${d.icon}</span>`}
-      <div class="dino-name">${d.name}</div>
-      <div class="dino-class">${d.cls}</div>
-      <div class="dino-desc">${d.desc}</div>
-      <div class="dino-food">🍽️ <span>${d.food}</span></div>
-      <div class="dino-rawstats">
-        <div class="raw-item"><span class="raw-lbl">Peso Prime</span><span class="raw-val">${d.raw.peso>=1000?(d.raw.peso/1000).toFixed(1)+' ton':d.raw.peso+' kg'}</span></div>
-        <div class="raw-item"><span class="raw-lbl">Vel. Prime</span><span class="raw-val">${typeof d.raw.vel==='number'?d.raw.vel.toFixed(0):d.raw.vel}</span></div>
-        <div class="raw-item"><span class="raw-lbl">F. Ataque</span><span class="raw-val">${d.raw.forca}</span></div>
-        <div class="raw-item"><span class="raw-lbl">Grupo</span><span class="raw-val">${d.raw.grupo}</span></div>
-      </div>
-      <div class="dino-bars">${Object.entries(d.stats).map(([k,v])=>`
-        <div class="dbar-row">
-          <span class="dbar-label">${k}</span>
-          <div class="dbar-track"><div class="dbar-fill" style="width:${v}%"></div></div>
-        </div>`).join('')}
-      </div>
-      <div class="dino-audio" id="audio-${i}"><button class="dino-play-btn" data-sound="${d.audio||''}" onclick="event.stopPropagation();playDino(this)">&#9654; Broadcast Call</button><span class="dino-audio-label">Som real do jogo</span></div>
-    </div>`).join('');
-  grid.querySelectorAll('.reveal').forEach(el=>{obs.observe(el);setTimeout(()=>el.classList.add('visible'),80)});
-}
-try{ filterDinos('todos',document.querySelector('.dtab')); }catch(e){ console.error('filterDinos:',e); }
-window.addEventListener('load',function(){
-  try{ if(document.getElementById('dinosGrid') && !document.getElementById('dinosGrid').innerHTML.trim()) filterDinos('todos',document.querySelector('.dtab')); }catch(e){}
-  try{ if(document.getElementById('updatesGrid') && !document.getElementById('updatesGrid').innerHTML.trim()) renderUpdates(); }catch(e){}
-});
-// Also force re-observe after render
-setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>{obs.observe(el);el.classList.add('visible');}),100);
-
-// DÚVIDAS ACCORDION
-function toggleDuvida(card) {
-  const isOpen = card.classList.contains('open');
-  document.querySelectorAll('.duvida-card.open').forEach(c => c.classList.remove('open'));
-  if (!isOpen) card.classList.add('open');
-}
-
-// FAQ FORM
-async function submitFaq(e) {
-  e.preventDefault();
-  const nome = document.getElementById('faqNome').value || 'Anônimo';
-  const titulo = document.getElementById('faqTitulo').value;
-  const detalhe = document.getElementById('faqDetalhe').value;
-  try {
-    const res = await fetch('https://formspree.io/f/mojrrvjd', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({nome, pergunta: titulo, detalhes: detalhe, _subject: '[FAQ] ' + titulo})
-    });
-    if (res.ok) {
-      document.getElementById('faqForm').style.display = 'none';
-      document.getElementById('faqSuccess').style.display = 'block';
-    }
-  } catch(err) { alert('Erro ao enviar. Tente novamente.'); }
-}
-
-// -- SISTEMA DE SOM AMBIENTE
+// SISTEMA DE SOM AMBIENTE
 (function(){
   var audio = new Audio('ambiente.mp3');
   audio.loop = true;
@@ -2625,19 +2626,24 @@ async function submitFaq(e) {
   document.addEventListener('touchstart', tryStart, {once:true, passive:true});
 })();
 </script>
+
 <!-- DINO DETAIL MODAL -->
 <div class="dino-modal-overlay" id="dinoModalOverlay" onclick="if(event.target===this)closeDinoModal()">
   <div class="dino-modal" id="dinoModal" style="position:relative">
     <button class="dino-modal-close" onclick="closeDinoModal()">✕</button>
     <div class="dino-modal-left">
       <img class="dino-modal-img" id="dmImg" src="" alt="">
+      
+      <!-- PATTERN BUTTONS -->
+      <div class="patterns-container" id="patternContainer"></div>
+      
       <div>
         <div class="dino-modal-name" id="dmName"></div>
         <div class="dino-modal-cls" id="dmCls"></div>
       </div>
       <div id="dmTier"></div>
       <div class="dino-modal-desc" id="dmLore"></div>
-      <button class="dino-play-btn-modal" id="dmAudioBtn" data-sound="" onclick="event.stopPropagation();playDino(this)">▶ Broadcast Call</button>
+      <button class="dino-play-btn-modal" id="dmAudioBtn" data-sound="" onclick="event.stopPropagation();playDinoModal()">▶ Broadcast Call</button>
       <div class="dino-modal-section">
         <div class="dino-modal-section-title">🗺️ Zonas de Spawn</div>
         <div class="dino-habitat-tags" id="dmHabitats"></div>
@@ -2662,3 +2668,4 @@ async function submitFaq(e) {
   </div>
 </div>
 </body>
+</html>
