@@ -658,6 +658,81 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .terminal-header-right{width:100%;justify-content:space-between}
   .terminal-tab{font-size:.5rem;padding:4px 10px}
 }
+/* ===== ASSISTENTE IA ===== */
+#assistente{background:linear-gradient(180deg,var(--black) 0%,#0a0c08 40%,var(--black) 100%);padding:0;position:relative}
+.assistente-wrapper{max-width:1100px;margin:0 auto;padding:60px 40px}
+.assistente-crt{border:3px solid #2a3a1a;border-radius:6px;background:#0a0c08;box-shadow:0 0 40px rgba(90,158,30,.08),inset 0 0 60px rgba(0,0,0,.8);position:relative;overflow:hidden}
+.assistente-crt::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.08) 2px,rgba(0,0,0,.08) 4px);pointer-events:none;z-index:5}
+.assistente-crt::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.4) 100%);pointer-events:none;z-index:5}
+.assistente-header{background:linear-gradient(180deg,#1a1f12,#0d1008);border-bottom:2px solid #2a3a1a;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.assistente-header-left{display:flex;align-items:center;gap:16px}
+.assistente-led{width:10px;height:10px;border-radius:50%;background:#3a7a1a;box-shadow:0 0 8px rgba(90,158,30,.5);animation:ledPulse 2s ease-in-out infinite;flex-shrink:0}
+.assistente-header-label{font-family:'Courier New',monospace;font-size:.7rem;color:var(--acid);letter-spacing:.15em;text-transform:uppercase}
+.assistente-header-label span{color:var(--warn);opacity:.7}
+.assistente-header-right{display:flex;align-items:center;gap:14px}
+.assistente-status{font-family:'Courier New',monospace;font-size:.6rem;color:var(--bone);opacity:.4;letter-spacing:.1em}
+.assistente-status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#5a9e1e;margin-right:6px;animation:ledPulse 1.5s ease-in-out infinite}
+.assistente-warning{font-family:'Courier New',monospace;font-size:.55rem;color:var(--warn);opacity:.6;border:1px solid rgba(200,48,16,.3);padding:3px 12px;letter-spacing:.08em}
+.assistente-body{padding:20px 24px 24px;display:flex;flex-direction:column;gap:16px;min-height:400px}
+.assistente-chat{display:flex;flex-direction:column;gap:14px;flex:1;max-height:450px;overflow-y:auto;padding-right:6px;scrollbar-width:thin;scrollbar-color:var(--fern) var(--deep)}
+.assistente-chat::-webkit-scrollbar{width:4px}
+.assistente-chat::-webkit-scrollbar-track{background:var(--deep)}
+.assistente-chat::-webkit-scrollbar-thumb{background:var(--fern);border-radius:2px}
+.assistente-msg{display:flex;flex-direction:column;gap:4px;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.assistente-msg-user{align-items:flex-end}
+.assistente-msg-bot{align-items:flex-start}
+.assistente-msg-bubble{max-width:85%;padding:10px 16px;border-radius:4px;font-family:'Courier New',monospace;font-size:.75rem;line-height:1.7;word-wrap:break-word;position:relative}
+.assistente-msg-user .assistente-msg-bubble{background:rgba(90,158,30,.12);border:1px solid rgba(90,158,30,.25);color:var(--parchment)}
+.assistente-msg-bot .assistente-msg-bubble{background:rgba(255,255,255,.03);border:1px solid rgba(90,158,30,.12);color:var(--bone);opacity:.85}
+.assistente-msg-label{font-family:'Courier New',monospace;font-size:.5rem;color:var(--bone);opacity:.3;letter-spacing:.1em;text-transform:uppercase;padding:0 4px}
+.assistente-msg-bot .assistente-msg-label{color:var(--acid);opacity:.6}
+.assistente-msg-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.assistente-msg-btn{font-family:'Courier New',monospace;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;background:rgba(90,158,30,.08);border:1px solid rgba(90,158,30,.25);color:var(--acid);cursor:pointer;transition:all .3s;border-radius:2px;text-decoration:none;display:inline-block}
+.assistente-msg-btn:hover{background:rgba(90,158,30,.18);border-color:var(--acid);color:var(--acid-light)}
+.assistente-msg-btn.danger{border-color:rgba(200,48,16,.3);color:var(--warn)}
+.assistente-msg-btn.danger:hover{background:rgba(200,48,16,.12);border-color:var(--warn)}
+.assistente-input-wrap{display:flex;gap:10px;border-top:1px solid rgba(90,158,30,.08);padding-top:14px}
+.assistente-input{flex:1;background:rgba(5,6,3,.6);border:1px solid rgba(74,120,37,.2);color:var(--bone);font-family:'Courier New',monospace;font-size:.8rem;padding:10px 14px;outline:none;transition:border .3s;border-radius:2px}
+.assistente-input:focus{border-color:rgba(90,158,30,.5)}
+.assistente-input::placeholder{opacity:.3;font-size:.7rem}
+.assistente-send{font-family:'Courier New',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:10px 20px;background:var(--fern);color:var(--parchment);border:1px solid var(--leaf);cursor:pointer;transition:all .3s;border-radius:2px;white-space:nowrap}
+.assistente-send:hover{background:var(--acid);color:var(--black);border-color:var(--acid)}
+.assistente-send:disabled{opacity:.4;cursor:not-allowed}
+.assistente-footer{padding:10px 24px;border-top:1px solid rgba(90,158,30,.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;font-family:'Courier New',monospace;font-size:.5rem;color:var(--bone);opacity:.3;letter-spacing:.08em}
+.assistente-footer .status{color:var(--warn);opacity:.6}
+.assistente-footer .status.on{color:var(--acid);opacity:.8}
+.assistente-typing{display:none;align-items:center;gap:6px;padding:6px 0;font-family:'Courier New',monospace;font-size:.6rem;color:var(--acid);opacity:.5}
+.assistente-typing span{animation:typingDot 1.4s infinite;opacity:0}
+.assistente-typing span:nth-child(2){animation-delay:.2s}
+.assistente-typing span:nth-child(3){animation-delay:.4s}
+@keyframes typingDot{0%,60%,100%{opacity:0}30%{opacity:1}}
+.assistente-empty{text-align:center;padding:40px 20px;font-family:'Courier New',monospace;color:var(--bone);opacity:.2;font-size:.8rem;letter-spacing:.1em;line-height:2}
+.assistente-empty span{display:block;font-size:2.5rem;margin-bottom:12px;opacity:.4}
+.assistente-sugestoes{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px}
+.assistente-sugestao{font-family:'Courier New',monospace;font-size:.5rem;padding:4px 12px;background:rgba(90,158,30,.06);border:1px solid rgba(90,158,30,.12);color:var(--bone);opacity:.4;cursor:pointer;transition:all .3s;border-radius:2px}
+.assistente-sugestao:hover{opacity:.8;border-color:rgba(90,158,30,.3);color:var(--acid)}
+.assistente-knowledge{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;padding:8px 0}
+.assistente-knowledge-item{font-family:'Courier New',monospace;font-size:.5rem;color:var(--bone);opacity:.3;padding:3px 8px;border:1px solid rgba(90,158,30,.06);border-radius:2px}
+.assistente-knowledge-item span{color:var(--acid);opacity:.6}
+@media(max-width:900px){
+  .assistente-wrapper{padding:30px 12px}
+  .assistente-header{padding:8px 14px}
+  .assistente-body{padding:14px 14px 18px;min-height:300px}
+  .assistente-chat{max-height:350px}
+  .assistente-msg-bubble{font-size:.7rem;max-width:90%}
+  .assistente-input{font-size:.7rem;padding:8px 12px}
+  .assistente-send{font-size:.55rem;padding:8px 14px}
+  .assistente-header-label{font-size:.55rem}
+  .assistente-warning{font-size:.45rem;padding:2px 8px}
+  .assistente-footer{font-size:.4rem;padding:6px 14px}
+  .assistente-sugestoes{gap:4px}
+  .assistente-sugestao{font-size:.45rem;padding:3px 8px}
+}
+@media(max-width:480px){
+  .assistente-header{flex-direction:column;align-items:flex-start}
+  .assistente-header-right{width:100%;justify-content:space-between}
+}
 </style>
 </head>
 <body>
@@ -678,6 +753,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <li><a href="#videos">Vídeos</a></li>
     <li><a href="#diretorio">Canais</a></li>
     <li><a href="#terminal">Terminal</a></li>
+<li><a href="#assistente">Assistente</a></li>
     <li><a href="#newsletter">Contato</a></li>
   </ul>
   <button id="soundBtn" onclick="toggleSound()" style="background:rgba(90,158,30,.12);border:2px solid rgba(90,158,30,.55);color:var(--acid);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:9px 22px;cursor:pointer;transition:all .3s;margin-right:14px;animation:soundPulse 1.8s ease-in-out infinite;font-weight:600">&#128264; Som</button>
@@ -1441,6 +1517,58 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     </div>
   </div>
 </div>
+<!-- ASSISTENTE IA -->
+<div class="full-divider"></div>
+<section id="assistente">
+  <div class="assistente-wrapper">
+    <div class="assistente-crt">
+
+      <div class="assistente-header">
+        <div class="assistente-header-left">
+          <div class="assistente-led"></div>
+          <span class="assistente-header-label">⚡ UNIDAD: IA-01 <span>|</span> SETOR CONHECIMENTO</span>
+        </div>
+        <div class="assistente-header-right">
+          <span class="assistente-status"><span class="assistente-status-dot"></span> SINAL: ESTÁVEL</span>
+          <span class="assistente-warning">⚠ ACESSO RESTRITO</span>
+        </div>
+      </div>
+
+      <div class="assistente-body">
+
+        <div class="assistente-chat" id="assistenteChat">
+          <div class="assistente-empty" id="assistenteEmpty">
+            <span>🤖</span>
+            PERGUNTE-ME SOBRE OS FATOS DA ILHA<br>
+            <span style="font-size:.5rem;opacity:.5">"O que é Prime Elder?" • "Como tirar órgãos de uma carcaça?"</span>
+            <div class="assistente-sugestoes">
+              <button class="assistente-sugestao" onclick="perguntaAssistente('O que é Prime Elder?')">Prime Elder</button>
+              <button class="assistente-sugestao" onclick="perguntaAssistente('Como tirar órgãos de uma carcaça?')">Órgãos</button>
+              <button class="assistente-sugestao" onclick="perguntaAssistente('Como funciona o mapa?')">Mapa</button>
+              <button class="assistente-sugestao" onclick="perguntaAssistente('Como recuperar stamina?')">Stamina</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="assistente-typing" id="assistenteTyping">
+          <span>●</span><span>●</span><span>●</span> <span style="opacity:.4;margin-left:4px;">PROCESSANDO...</span>
+        </div>
+
+        <div class="assistente-input-wrap">
+          <input class="assistente-input" id="assistenteInput" type="text" placeholder="Digite sua pergunta sobre o Evrima..." onkeydown="if(event.key==='Enter') enviarPergunta()">
+          <button class="assistente-send" id="assistenteSend" onclick="enviarPergunta()">🔍 Perguntar</button>
+        </div>
+
+      </div>
+
+      <div class="assistente-footer">
+        <span>CONHECIMENTO: <span id="assistenteContagem">0</span> ENTRADAS  |  STATUS: <span class="status on" id="assistenteStatus">IA ATIVA</span></span>
+        <span>PATRIMÔNIO DA INGEN — 87-34-ISLA-SORNA</span>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- NEWSLETTER -->
 <section id="newsletter">
@@ -1519,11 +1647,11 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <span class="mob-tab-icon">📡</span>
     <span class="mob-tab-label">Updates</span>
   </button>
-  <!-- NOVO: BOTÃO TERMINAL -->
-  <button class="mob-tab" onclick="scrollToSection('terminal',this)">
+  <!-- ADICIONA O ASSISTENTE AQUI 👇 -->
+  <button class="mob-tab" onclick="scrollToSection('assistente',this)">
     <div class="mob-tab-indicator"></div>
-    <span class="mob-tab-icon">📹</span>
-    <span class="mob-tab-label">Terminal</span>
+    <span class="mob-tab-icon">🤖</span>
+    <span class="mob-tab-label">Assistente</span>
   </button>
 </div>
 
@@ -2839,6 +2967,502 @@ renderTerminalVideos('tutoriais');
 // Fecha modal com ESC
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeTerminalModal();
+});
+// ===== ASSISTENTE IA — BANCO DE DADOS DEFINITIVO =====
+const assistenteKnowledge = {
+  // ===== FATOS — RESPOSTAS OBJETIVAS =====
+  fatos: [
+    // ---- CARCAÇAS E ÓRGÃOS ----
+    {
+      palavrasChave: ['órgão', 'orgao', 'carcaça', 'carcaca', 'coração', 'pulmão', 'intestino', 'estômago', 'retirar', 'tirar'],
+      resposta: 'Para tirar órgãos de uma carcaça: pegue o corpo (se possível), segure LMB e agite a tela rapidamente, ou pressione E três vezes rapidamente. Você vai conseguir: CORAÇÃO (nutriente S), PULMÕES (nutriente ∴), INTESTINOS (nutriente //) e ESTÔMAGO (% do que a presa comeu).',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['carcaça podre', 'podre', 'decomposição', 'moscas', 'esqueleto'],
+      resposta: 'A maioria dos carnívoros só come carcaças FRESCAS. Carcaças em decomposição (escuras, com moscas) não são comestíveis. Deinosuchus e Ceratosaurus são exceções — podem comer ossos e carcaças podres.',
+      acao: { tipo: 'modal', destino: 'Deinosuchus', label: '🐊 Ver Deinosuchus' }
+    },
+    {
+      palavrasChave: ['nutriente s', 'nutriente ∴', 'nutriente //', 'nutriente %', 'órgão nutriente'],
+      resposta: 'Cada órgão da carcaça dá um nutriente específico. CORAÇÃO = S, PULMÕES = ∴, INTESTINOS = //, ESTÔMAGO = % do que a presa comeu em vida.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['canibalismo', 'comer filhote', 'muscle spasms'],
+      resposta: 'Sim, tecnicamente você pode comer seus próprios filhotes (canibalismo), mas isso causa "Muscle Spasms" e atrapalha o sistema Prime Elder. Não é recomendado.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+
+    // ---- DIETA E COMIDA ----
+    {
+      palavrasChave: ['dieta preferida', 'alimento preferido', 'comida preferida', 'nutriente', 'barra de nutriente'],
+      resposta: 'Cada espécie tem ALIMENTOS PREFERIDOS. Comer esses alimentos concede NUTRIENTES e BÔNUS DE CRESCIMENTO E SOBREVIVÊNCIA. Manter a dieta ativa acelera o crescimento, melhora a regeneração e aumenta o alcance do olfato. Abra o menu do dino (Tab) para ver a lista de alimentos preferidos e secundários.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['comida carnívoro', 'carnívoro come', 'planta carnívoro'],
+      resposta: 'Carnívoros só conseguem comer CARNE E ÓRGÃOS. Plantas não dão nutrientes pra você. Caçar presas apropriadas é essencial para o crescimento.',
+      acao: { tipo: 'scroll', destino: 'dinos', label: '🦕 Ver Carnívoros' }
+    },
+    {
+      palavrasChave: ['dieta negativa', 'nutriente negativo', 'comida errada'],
+      resposta: 'Comer alimentos que não são da sua espécie pode dar NUTRIENTES NEGATIVOS, atrapalhando seu crescimento. Sempre coma a DIETA PREFERIDA da sua espécie.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+
+    // ---- SOBREVIVÊNCIA BÁSICA ----
+    {
+      palavrasChave: ['beber água', 'sede', 'desidratado', 'beber rio', 'beber lago'],
+      resposta: 'Para beber água, aproxime-se da margem com cuidado. Prefira áreas com VEGETAÇÃO para se esconder. Evite beber no DELTA e CENTRAL JUNGLE — é território de Deinosuchus. Se não achar água, siga o som da água (rios fazem barulho) ou vá em direção a SANCTUARIES.',
+      acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
+    },
+    {
+      palavrasChave: ['perder vida', 'perdendo vida', 'vida baixa', 'recuperar vida'],
+      resposta: 'Você pode estar perdendo vida por: FOME (barriga vazia), SEDE (barra de água zerada) ou SANGRAMENTO (ícone vermelho). Para recuperar: coma, beba, descanse (Q) e mantenha a dieta preferida ativa. Mutações como Cellular Regeneration e Photosynthetic Regeneration ajudam.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['sanctuary', 'santuário', 'sanctuario', 'juvenil', 'filhote', 'seguro'],
+      resposta: 'Sanctuários são áreas VOLTADAS PARA JUVENIS. Possuem COGUMELOS ESPECIAIS para dieta e MECANISMOS que expulsam dinossauros grandes quando crescem demais. A localização MUDA conforme o mapa e o servidor. Visitar um Sanctuário conta para o sistema Elder. Para achar, explore ou pergunte a outros jogadores.',
+      acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
+    },
+    {
+      palavrasChave: ['olfato', 'scent', 'cheirar', 'sentir cheiro'],
+      resposta: 'No Evrima, você pode sentir o cheiro de comida e água próximos usando o Scent (olfato). A tecla padrão é Q (ou verifique os controles). Quanto melhor sua dieta, maior o alcance do olfato.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+
+    // ---- COMBATE E DEFESA ----
+    {
+      palavrasChave: ['atacar', 'lutar', 'combate', 'ataque primário', 'ataque secundário', 'habilidade especial'],
+      resposta: 'LMB = ataque primário. RMB = ataque secundário (varia por dino). Segure LMB ou RMB para habilidades especiais (ex: Claw Swipe do Allosaurus, Headbutt do Carnotaurus). Cada dino tem habilidades únicas.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['defender', 'defesa', 'agachar', 'postura defensiva'],
+      resposta: 'Use Ctrl para agachar (fica menor e mais difícil de ser visto). Em alguns dinos, Q ativa postura defensiva (ex: Kentrosaurus). Ficar imóvel na vegetação também ajuda a se esconder.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['pounce', 'latch', 'agarrado', 'travado', 'escapar pounce'],
+      resposta: 'Se você está sendo segurado por um predador (Pounce/Latch), agite o mouse ou use ataques para tentar escapar. Cada dino tem mecânicas diferentes para se soltar.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['fratura', 'fracture', 'osso quebrado', 'mancando', 'quebrado'],
+      resposta: 'Fratura é quando um osso quebra. Seu movimento fica REDUZIDO. Descanse para curar. A mutação Osteophagic ajuda a curar mais rápido comendo ossos.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['sangramento', 'bleed', 'sangrando', 'perder sangue', 'hemorragia'],
+      resposta: 'Se estiver SANGRANDO: PARE DE CORRER e EVITE COMBATE. Movimentação intensa AUMENTA a perda de sangue; descansar REDUZ o risco até a recuperação. Encontre água ou descanse para parar o sangramento.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['visão noturna', 'enxergar noite', 'x tecla', 'noturna'],
+      resposta: 'Pressione X para ativar a VISÃO NOTURNA. Ajuda a enxergar no escuro, mas GASTA STAMINA. Use com moderação.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['descansar', 'sentar', 'q tecla', 'recuperar stamina'],
+      resposta: 'Pressione Q para DESCANSAR/SENTAR. Recupera stamina mais rápido e ajuda a curar sangramento e ossos quebrados.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+
+    // ---- NOITE E VISIBILIDADE ----
+    {
+      palavrasChave: ['troodon', 'perigoso noite', 'bônus noturno', 'troodon noite'],
+      resposta: 'Troodon tem BÔNUS MASSIVOS À NOITE: +dano, +velocidade, +visão. Nunca fique sozinho no escuro. Se ouvir passos, CONGELE — não corra. Troodon te acha pelo movimento.',
+      acao: { tipo: 'modal', destino: 'Troodon', label: '🌙 Ver Troodon' }
+    },
+    {
+      palavrasChave: ['dormir', 'noite', 'escuro', 'lua', 'ciclo lunar'],
+      resposta: 'Pressione Q para descansar. Em alguns dinos, você pode DORMIR (segurar Q) para recuperar mais rápido. O ciclo lunar afeta a visibilidade noturna e o comportamento de alguns dinos.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+
+    // ---- NAVEGAÇÃO E MAPA ----
+    {
+      palavrasChave: ['mapa', 'localizar', 'navegar', 'coordenada', 'referência', 'norte', 'sul', 'domo'],
+      resposta: 'Use o COMPASSO no HUD. O sol nasce a LESTE e se põe a OESTE. Pontos de referência: DOMO (hexágono ao sul), RIO CENTRAL (norte-sul), WEST RAIL (linha férrea a oeste), REDWOODS (árvores gigantes ao sudoeste). Use o VulnonaMAP com suas coordenadas para localização precisa.',
+      acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
+    },
+    {
+      palavrasChave: ['vulnonamap', 'vulnona', 'coordenada', 'grid'],
+      resposta: 'Pegue suas COORDENADAS (aparecem no HUD) e digite no site VulnonaMAP. Configure o grid para 58.000 para melhor precisão no mapa Gateway.',
+      acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
+    },
+
+    // ---- NASCIMENTO E CRESCIMENTO ----
+    {
+      palavrasChave: ['nascer ovo', 'ovo', 'ninho', 'renascer ovo'],
+      resposta: 'Você pode NASCER DE UM OVO em um ninho ativo. Isso CONTA para objetivos do sistema Prime. Para isso, dois adultos compatíveis precisam construir um ninho e produzir ovos.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['crescer', 'crescimento', 'rápido', 'evoluir', 'crescer rápido'],
+      resposta: 'Para crescer mais rápido: mantenha a DIETA PREFERIDA sempre preenchida, evite morrer (cada morte reinicia progresso), permaneça alimentado e hidratado, e siga MIGRAÇÕES quando possível. A dieta preferida concede BÔNUS DE CRESCIMENTO.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['migration zone', 'patrol zone', 'migração', 'patrulha'],
+      resposta: 'Migration Zones e Patrol Zones são áreas marcadas no HUD que, ao serem visitadas, contam para o sistema Elder e revelam comida e água próximas. Cada espécie tem as suas.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+
+    // ---- CONTROLES BÁSICOS ----
+    {
+      palavrasChave: ['comer', 'beber', 'e tecla'],
+      resposta: 'Pressione E perto da comida/água para COMER ou BEBER.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['correr', 'shift', 'stamina corrida'],
+      resposta: 'Segure Shift para CORRER. Gasta stamina. Use com moderação — stamina zerada em combate = morte.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['agachar', 'ctrl', 'movimento lento', 'silencioso'],
+      resposta: 'Pressione Ctrl para AGACHAR. Movimento mais lento e silencioso — ideal para emboscadas e fuga.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['pular', 'space', 'emboscar', 'ambush'],
+      resposta: 'Pressione Space para PULAR. Alguns dinos têm EMBOSCADA (Space + LMB) como o T-Rex.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['vocalização', 'f tecla', 'sons', 'broadcast'],
+      resposta: 'Pressione F para abrir o menu de VOCALIZAÇÕES. Escolha o som desejado para se comunicar com outros jogadores da mesma espécie.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['status', 'tab', 'menu dino', 'progresso'],
+      resposta: 'Pressione Tab para ver o MENU DE STATUS. Mostra dieta, crescimento, mutações, objetivos, etc.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['mapa tecla', 'm tecla', 'abrir mapa'],
+      resposta: 'Pressione M para abrir o MAPA (se disponível no servidor). Nem todos os servidores têm essa função.',
+      acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
+    },
+    {
+      palavrasChave: ['primeira pessoa', 'terceira pessoa', 'c tecla', 'perspectiva'],
+      resposta: 'Pressione C para alternar entre PRIMEIRA e TERCEIRA pessoa.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+
+    // ---- MUTAÇÕES ----
+    {
+      palavrasChave: ['mutação oculta', 'oculta', 'reinforced tendons', 'pattern recognition'],
+      resposta: 'Mutações Ocultas são especiais como REINFORCED TENDONS (resistência a fraturas nas pernas) e PATTERN RECOGNITION (aumenta eficiência em combate). Geralmente são herdadas de vidas anteriores (Elder).',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['parthenogenesis', 'partenogênese', 'fêmea sem macho'],
+      resposta: 'Parthenogenesis é uma mutação universal que permite que FÊMEAS botem ovos SEM MACHO. Desbloqueie com progressão no jogo.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['sequential hermaphroditism', 'trocar sexo', 'mudar sexo'],
+      resposta: 'Sequential Hermaphroditism permite TROCAR DE SEXO UMA VEZ. Mutação universal, desbloqueável com progressão.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['escolher mutação', 'qual mutação', 'melhor mutação', 'mutação recomendada'],
+      resposta: 'Depende do seu estilo! Para SOLO: Cellular Regeneration, Multichambered Lungs. Para GRUPO: Truculency, Hypervigilance. Para COMBATE: Hemomania (carnívoro), Truculency (herbívoro). Cada jogador tem sua preferência!',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+
+    // ---- DINOS ESPECÍFICOS ----
+    {
+      palavrasChave: ['deinosuchus ataque', 'lunge', 'death roll', 'deino ataque'],
+      resposta: 'Deinosuchus: na água, segure RMB para LUNGE — pin instantâneo. Quando travado em um alvo, use DEATH ROLL para causar dano massivo.',
+      acao: { tipo: 'modal', destino: 'Deinosuchus', label: '🐊 Ver Deinosuchus' }
+    },
+    {
+      palavrasChave: ['pteranodon pesca', 'spearfishing', 'ptera pescar'],
+      resposta: 'Pteranodon: sobrevoando a água, use RMB para SPEARFISHING. Funciona melhor em águas rasas com peixes visíveis.',
+      acao: { tipo: 'modal', destino: 'Pteranodon', label: '🦅 Ver Pteranodon' }
+    },
+    {
+      palavrasChave: ['trex paleo call', 'paleo call', 'rex vocalização', 't rex grito'],
+      resposta: 'Paleo Calls são VOCALIZAÇÕES ESPECIAIS do T-Rex. Adulto, segure F + 1 ou RMB. Sinalizam estados específicos do animal (território, caça, etc.).',
+      acao: { tipo: 'modal', destino: 'Tyrannosaurus', label: '👑 Ver T-Rex' }
+    },
+    {
+      palavrasChave: ['allosaurus claw swipe', 'claw swipe', 'allo ataque'],
+      resposta: 'Allosaurus: CORRENDO, segure LMB para CLAW SWIPE. Causa sangramento pesado. Ótimo para ataques de grupo.',
+      acao: { tipo: 'modal', destino: 'Allosaurus', label: '🦖 Ver Allosaurus' }
+    },
+    {
+      palavrasChave: ['carnotaurus headbutt', 'headbutt', 'carno ataque'],
+      resposta: 'Carnotaurus: segure RMB + LMB para HEADBUTT. Derruba ou stagger por tempo de carga. Use para interromper ataques inimigos.',
+      acao: { tipo: 'modal', destino: 'Carnotaurus', label: '🐊 Ver Carnotaurus' }
+    },
+    {
+      palavrasChave: ['troodon spit', 'veneno troodon', 'troodon cuspe'],
+      resposta: 'Troodon: SPIT (cuspir) paralisante. Funciona melhor À NOITE. Use para imobilizar presas antes do ataque.',
+      acao: { tipo: 'modal', destino: 'Troodon', label: '🌙 Ver Troodon' }
+    },
+    {
+      palavrasChave: ['omniraptor pounce', 'pounce', 'raptor ataque'],
+      resposta: 'Omniraptor: pressione LMB perto de um alvo para POUNCE e se agarrar. Use SLOT SWAP para trocar de posição no alvo. Excelente em grupo.',
+      acao: { tipo: 'modal', destino: 'Omniraptor', label: '🗡️ Ver Omniraptor' }
+    },
+    {
+      palavrasChave: ['hypsilophodon defesa', 'spit', 'kick', 'hypsi defesa'],
+      resposta: 'Hypsilophodon: SPIT (cuspir) confunde o predador. KICK traseiro de emergência. Defesa baseada em fuga e confusão.',
+      acao: { tipo: 'modal', destino: 'Hypsilophodon', label: '🌱 Ver Hypsilophodon' }
+    },
+
+    // ---- ERROS COMUNS ----
+    {
+      palavrasChave: ['não consigo comer', 'comer não funciona', 'não come', 'comida não vai'],
+      resposta: 'Você pode estar MUITO LONGE da comida, ou a comida pode estar PODRE. Aproxime-se e pressione E. Se for carcaça podre, só Deinosuchus e Ceratosaurus conseguem comer.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['não consigo beber', 'beber não funciona', 'não bebe'],
+      resposta: 'Você pode estar MUITO PERTO da borda. Afaste-se um pouco. Ou a água pode ser SALGADA (algumas poças são salgadas).',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['perdendo vida descansando', 'vida cai descansando'],
+      resposta: 'Você pode estar com FOME ou SEDE CRÍTICA, ou com SANGRAMENTO ativo. Verifique o HUD. Descansar não cura esses problemas — coma e beba primeiro.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['não consigo atacar', 'ataque não funciona', 'não ataca'],
+      resposta: 'Você pode estar SEM STAMINA, com OSSO QUEBRADO ou em COOLDOWN de ataque. Verifique o HUD e descanse se necessário.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['tela embaçada', 'visão turva', 'envenenado'],
+      resposta: 'Tela embaçada pode ser VENENO (Dilophosaurus ou Troodon) ou FRATURA NA CABEÇA. Descanse para curar ou espere o efeito do veneno passar.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+
+    // ---- TERMOS TÉCNICOS ----
+    {
+      palavrasChave: ['bleed', 'sangramento', 'hemorragia'],
+      resposta: 'Bleed = SANGRAMENTO. Perda de vida contínua. Pare de correr e descanse para estancar.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['fracture', 'fratura', 'osso quebrado'],
+      resposta: 'Fracture = FRATURA. Osso quebrado reduz movimento. Descanse para curar.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['thagomizer', 'stegosaurus cauda'],
+      resposta: 'Thagomizer = cauda espinhosa do Stegosaurus. Um dos ataques mais poderosos do jogo. Causa alto dano e sangramento.',
+      acao: { tipo: 'modal', destino: 'Stegosaurus', label: '🌿 Ver Stegosaurus' }
+    },
+    {
+      palavrasChave: ['muzzle swing', 'trex golpe'],
+      resposta: 'Muzzle Swing = golpe lateral do T-Rex. Derruba oponentes menores. Use RMB para ativar.',
+      acao: { tipo: 'modal', destino: 'Tyrannosaurus', label: '👑 Ver T-Rex' }
+    },
+
+    // ---- PRIME ELDER E ENTOMB (já existentes) ----
+    {
+      palavrasChave: ['prime elder', 'prime', 'elder', 'auge'],
+      resposta: 'Prime Elder é a forma MAIS PODEROSA do sistema Elder. Você precisa cumprir os REQUISITOS DE PRIME (normalmente 5 das 10 condições) ANTES de atingir a fase adulta e depois alcançar o estágio Elder. No Prime Elder, seu dino está no auge: velocidade máxima, dano máximo, resistência máxima e acesso a uma QUARTA MUTAÇÃO.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['entomb', 'renascer', 'renascimento', 'reencarnar'],
+      resposta: 'Entomb é o sistema de RENASCIMENTO do Evrima. Você ENCERRA voluntariamente a vida de um Elder e REAPARECE da mesma espécie, MANTENDO as mutações acumuladas e PODENDO FORTALECÊ-las. É o caminho para o dino perfeito.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['auge vs elder fraco', 'auge', 'elder fraco', 'diferença'],
+      resposta: 'AUGE (Prime Elder) possui BÔNUS MAIORES e acesso a uma QUARTA MUTAÇÃO. O ELDER FRACO (Frail/Normal Elder) tem BÔNUS MENORES e NÃO recebeu os requisitos Prime. É o estágio final antes do Entomb.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+
+    // ---- HORDETEST ----
+    {
+      palavrasChave: ['hordetest', 'horde test', 'teste', 'beta', 'experimental'],
+      resposta: 'HordeTest (HT) é o SERVIDOR DE TESTES onde novas atualizações são liberadas ANTES de chegarem ao Evrima principal. Pode ser acessado pela aba BETAS nas propriedades do jogo na Steam quando estiver disponível. Lá você encontra dinos novos, mecânicas em teste e crescimento 5x mais rápido.',
+      acao: { tipo: 'scroll', destino: 'servidores', label: '🎮 Ver Servidores' }
+    },
+
+    // ---- STAMINA ----
+    {
+      palavrasChave: ['stamina', 'cansar', 'correr', 'descansar', 'recuperar'],
+      resposta: 'Para recuperar stamina: PARE DE CORRER, SENTE-SE ou DEITE-SE (Q) e mantenha seus recursos (fome, sede e dieta) em boas condições. Dieta perfeita aumenta a regeneração de stamina.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+
+    // ---- GUIAS E COMBATE ----
+    {
+      palavrasChave: ['guia', 'sobrevivencia', 'basico', 'iniciante', 'começar'],
+      resposta: 'O Guia de Sobrevivência cobre: escolha do primeiro dino, prioridades ao nascer (água, comida, esconderijo), sistema de crescimento, controles essenciais e dicas para não morrer nos primeiros minutos. Não comece com carnívoro — herbívoros são mais fáceis.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['combate', 'lutar', 'briga', 'ataque', 'defesa'],
+      resposta: 'O sistema de combate envolve stamina, ataques primários (LMB) e secundários (RMB), habilidades especiais (Hold LMB/RMB) e debuffs (sangramento, osso quebrado, ferido). Nunca entre em combate com stamina baixa. Cada dino tem habilidades únicas.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    }
+  ],
+
+  // ===== OPINIÃO — PERGUNTAS DE ESTRATÉGIA =====
+  opiniao: [
+    {
+      palavrasChave: ['melhor dino', 'qual dino', 'recomenda', 'escolher', 'iniciante', 'começar'],
+      resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre os dinos para te ajudar a decidir:',
+      acao: { tipo: 'scroll', destino: 'dinos', label: '🦕 Ver todos os Dinossauros' }
+    },
+    {
+      palavrasChave: ['melhor mutação', 'qual mutação', 'mutação carnívoro', 'mutação herbívoro'],
+      resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre as mutações para te ajudar a decidir:',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias de Mutações' }
+    },
+    {
+      palavrasChave: ['deinosuchus', 'deino', 'crocodilo', 'água', 'rio', 'beber', 'emboscada'],
+      resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre o Deinosuchus para te ajudar a se preparar:',
+      acao: { tipo: 'modal', destino: 'Deinosuchus', label: '🐊 Ver Deinosuchus' }
+    },
+    {
+      palavrasChave: ['mais forte', 'dino forte', 'poderoso', 'melhor apex', 'top dino'],
+      resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre os dinos para te ajudar a decidir:',
+      acao: { tipo: 'scroll', destino: 'dinos', label: '🦕 Ver todos os Dinossauros' }
+    },
+    {
+      palavrasChave: ['noite', 'sobreviver noite', 'noturno', 'escuro'],
+      resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre a noite e os predadores noturnos:',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    {
+      palavrasChave: ['caçar em grupo', 'caça grupo', 'pack hunt', 'caçar junto'],
+      resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre os dinos para te ajudar a decidir:',
+      acao: { tipo: 'scroll', destino: 'dinos', label: '🦕 Ver todos os Dinossauros' }
+    },
+    {
+      palavrasChave: ['evitar', 'fugir', 'escapar', 'sobreviver', 'dica', 'estratégia', 'tático'],
+      resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS que podem te ajudar:',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    }
+  ]
+};
+
+// ===== VARIÁVEIS =====
+let assistenteHistory = [];
+
+// ===== FUNÇÕES DO ASSISTENTE =====
+function enviarPergunta() {
+  const input = document.getElementById('assistenteInput');
+  const pergunta = input.value.trim();
+  if (!pergunta) return;
+
+  adicionarMensagem('user', pergunta);
+  input.value = '';
+  document.getElementById('assistenteSend').disabled = true;
+
+  const typing = document.getElementById('assistenteTyping');
+  typing.style.display = 'flex';
+
+  setTimeout(() => {
+    const resposta = processarPergunta(pergunta);
+    typing.style.display = 'none';
+    document.getElementById('assistenteSend').disabled = false;
+    adicionarMensagem('bot', resposta.texto, resposta.acao);
+  }, 600 + Math.random() * 400);
+}
+
+function processarPergunta(pergunta) {
+  const perguntaLower = pergunta.toLowerCase();
+
+  // 1. Verifica OPINIÃO
+  for (const item of assistenteKnowledge.opiniao) {
+    for (const palavra of item.palavrasChave) {
+      if (perguntaLower.includes(palavra)) {
+        return { texto: item.resposta, acao: item.acao };
+      }
+    }
+  }
+
+  // 2. Verifica FATOS
+  for (const item of assistenteKnowledge.fatos) {
+    for (const palavra of item.palavrasChave) {
+      if (perguntaLower.includes(palavra)) {
+        return { texto: item.resposta, acao: item.acao };
+      }
+    }
+  }
+
+  // 3. Verifica DINOSAURROS
+  const dinos = ['allosaurus', 'austroraptor', 'baryonyx', 'carnotaurus', 'ceratosaurus', 'deinosuchus', 'dilophosaurus', 'herrerasaurus', 'omniraptor', 'pteranodon', 'troodon', 'tyrannosaurus', 'diabloceratops', 'dryosaurus', 'hypsilophodon', 'kentrosaurus', 'maiasaura', 'pachycephalosaurus', 'stegosaurus', 'tenontosaurus', 'triceratops', 'beipiaosaurus', 'gallimimus'];
+  for (const dino of dinos) {
+    if (perguntaLower.includes(dino)) {
+      const nomeDino = dino.charAt(0).toUpperCase() + dino.slice(1);
+      return {
+        texto: `Você perguntou sobre o ${nomeDino}! Aqui estão os FATOS disponíveis sobre ele. Para mais detalhes, abra o modal do dino.`,
+        acao: { tipo: 'modal', destino: nomeDino, label: `🦕 Ver ${nomeDino}` }
+      };
+    }
+  }
+
+  // 4. Resposta PADRÃO
+  return {
+    texto: 'Não encontrei informações específicas sobre isso na minha base de conhecimento. Tente perguntar sobre: Prime Elder, Entomb, mutações, mapa, HordeTest, Sanctuários, dieta, stamina, sangramento, Paleo Calls, ninhos, grupos, guias, combate, carcaças, órgãos, ou algum dino específico. Se for uma pergunta de estratégia, nossos sobreviventes experientes podem ajudar!',
+    acao: null
+  };
+}
+
+function adicionarMensagem(tipo, texto, acao) {
+  const chat = document.getElementById('assistenteChat');
+  const empty = document.getElementById('assistenteEmpty');
+  if (empty) empty.style.display = 'none';
+
+  const div = document.createElement('div');
+  div.className = `assistente-msg assistente-msg-${tipo}`;
+
+  const label = document.createElement('div');
+  label.className = 'assistente-msg-label';
+  label.textContent = tipo === 'user' ? '🦕 SOBREVIVENTE' : '🤖 ASSISTENTE';
+  div.appendChild(label);
+
+  const bubble = document.createElement('div');
+  bubble.className = 'assistente-msg-bubble';
+  bubble.textContent = texto;
+
+  if (acao && acao.label) {
+    const actions = document.createElement('div');
+    actions.className = 'assistente-msg-actions';
+
+    const btn = document.createElement('button');
+    btn.className = 'assistente-msg-btn';
+    btn.textContent = acao.label;
+    btn.onclick = function() {
+      if (acao.tipo === 'scroll') {
+        const el = document.getElementById(acao.destino);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else if (acao.tipo === 'modal') {
+        openDinoModal(acao.destino);
+      }
+    };
+    actions.appendChild(btn);
+    bubble.appendChild(actions);
+  }
+
+  div.appendChild(bubble);
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function perguntaAssistente(texto) {
+  document.getElementById('assistenteInput').value = texto;
+  enviarPergunta();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const total = assistenteKnowledge.fatos.length + assistenteKnowledge.opiniao.length;
+  document.getElementById('assistenteContagem').textContent = total;
 });
 </script>
 
