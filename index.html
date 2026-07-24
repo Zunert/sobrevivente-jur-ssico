@@ -9684,7 +9684,7 @@ const assistenteKnowledge = {
         'hordetest no evrima', 'hordetest no the isle',
         'hordetest no jogo', 'hordetest no steam',
         // Abreviações e erros
-        'hordetest', 'horde test',
+        'hordetest', 'horde test', 'hordtest', 'hordtes', 'hordertest',
         'como acessar hordetest', 'como jogar hordetest',
         'o que é hordetest', 'hordetest evrima',
         // Erros de concordância
@@ -10631,7 +10631,7 @@ const assistenteKnowledge = {
       acao: { tipo: 'scroll', destino: 'comunidade', label: '💬 Perguntar na Comunidade' }
     },
     {
-      palavrasChave: ['dino mais forte pra pvp','melhor dino pvp','qual dino ganha de qual','quem ganha na luta','dino mais forte em combate','qual dino e mais forte','qual dino é mais forte','melhor dino pra brigar','qual o dino mais op'],
+      palavrasChave: ['dino mais forte pra pvp','melhor dino pvp','melhor dino pra pvp','melhor dino para pvp','melhor dino no pvp','qual dino ganha de qual','quem ganha na luta','dino mais forte em combate','qual dino e mais forte','qual dino é mais forte','melhor dino pra brigar','qual o dino mais op'],
       resposta: 'Isso é OPINIÃO, não fato — depende de nível de crescimento, grupo, terreno, mutações e até sorte no combate. Nenhum confronto é garantido só pela espécie. Recomendo perguntar pra sobreviventes mais experientes no Discord e, melhor ainda, testar na prática pra sentir o que funciona.',
       acao: { tipo: 'scroll', destino: 'comunidade', label: '💬 Perguntar na Comunidade' }
     },
@@ -10682,31 +10682,112 @@ function enviarPergunta() {
   }, 600 + Math.random() * 400);
 }
 
-function processarPergunta(pergunta) {
-  const perguntaLower = pergunta.toLowerCase();
+// ===== MOTOR DE BUSCA TOLERANTE A ERROS DE DIGITAÇÃO =====
+// Normaliza texto: minúsculo, sem acento, sem pontuação, sem letra repetida em excesso
+function normalizarTexto(str) {
+  return str
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')  // remove acentos (é->e, ã->a...)
+    .replace(/(.)\1{2,}/g, '$1$1')                      // "muuuito" -> "muito"
+    .replace(/[^\w\s]/g, ' ')                           // remove pontuação
+    .replace(/\s+/g, ' ')
+    .trim();
+}
 
-  // 1. Verifica OPINIÃO
+// Distância de edição (Damerau-Levenshtein) — troca, remoção, inserção OU duas letras trocadas de lugar conta como 1 erro só
+function distanciaEdicao(a, b) {
+  const m = a.length, n = b.length;
+  if (Math.abs(m - n) > 4) return 99; // atalho: muito diferente de tamanho, nem calcula
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = 0; i <= m; i++) dp[i][0] = i;
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      const custo = a[i - 1] === b[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(
+        dp[i - 1][j] + 1,        // remoção
+        dp[i][j - 1] + 1,        // inserção
+        dp[i - 1][j - 1] + custo // substituição (ou igual, custo 0)
+      );
+      // transposição: duas letras adjacentes trocadas de lugar (ex: "mlehor" -> "melhor")
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+        dp[i][j] = Math.min(dp[i][j], dp[i - 2][j - 2] + 1);
+      }
+    }
+  }
+  return dp[m][n];
+}
+
+// Compara uma palavra da pergunta com uma palavra-chave, tolerando erro de digitação
+function palavraParecida(palavraPergunta, palavraChave) {
+  if (palavraPergunta === palavraChave) return true;
+  const len = palavraChave.length;
+  if (len < 4) return false; // palavras curtas demais (ex: "e","no","de") — não arrisca fuzzy
+  const tolerancia = len <= 6 ? 1 : (len <= 10 ? 2 : 3);
+  if (Math.abs(palavraPergunta.length - len) > tolerancia) return false;
+  return distanciaEdicao(palavraPergunta, palavraChave) <= tolerancia;
+}
+
+// Palavras "de ligação" que não carregam significado sozinhas — ignoradas na comparação por ordem livre
+const STOPWORDS_PT = new Set(['e','o','a','os','as','de','do','da','dos','das','no','na','nos','nas','em','um','uma','uns','umas','pra','para','por','com','que','eh','ou','se','ja','tao','mas','ao','aos','à','às']);
+
+// Verifica se uma frase-chave "parece" presente na pergunta, mesmo com typos E EM QUALQUER ORDEM
+function fraseParecida(perguntaNorm, chaveNorm) {
+  if (perguntaNorm.includes(chaveNorm)) return true; // atalho rápido: bateu exato
+
+  const palavrasPergunta = perguntaNorm.split(' ');
+  const todasPalavrasChave = chaveNorm.split(' ');
+  const palavrasChave = todasPalavrasChave.filter(w => w.length > 0 && !STOPWORDS_PT.has(w));
+
+  if (palavrasChave.length === 0) return false; // frase era só stopword, ignora
+  if (palavrasChave.length === 1) {
+    return palavrasPergunta.some(p => palavraParecida(p, palavrasChave[0]));
+  }
+
+  // Frase com várias palavras significativas: não importa a ordem —
+  // todas precisam aparecer em algum lugar da pergunta (cada uma tolerando erro de digitação)
+  return palavrasChave.every(pc => palavrasPergunta.some(pp => palavraParecida(pp, pc)));
+}
+
+function processarPergunta(pergunta) {
+  const perguntaLower = normalizarTexto(pergunta);
+
+  // 1ª passada: OPINIÃO e FATOS, correspondência exata (rápida)
   for (const item of assistenteKnowledge.opiniao) {
     for (const palavra of item.palavrasChave) {
-      if (perguntaLower.includes(palavra)) {
+      if (perguntaLower.includes(normalizarTexto(palavra))) {
         return { texto: item.resposta, acao: item.acao };
       }
     }
   }
-
-  // 2. Verifica FATOS
   for (const item of assistenteKnowledge.fatos) {
     for (const palavra of item.palavrasChave) {
-      if (perguntaLower.includes(palavra)) {
+      if (perguntaLower.includes(normalizarTexto(palavra))) {
         return { texto: item.resposta, acao: item.acao };
       }
     }
   }
 
-  // 3. Verifica DINOSAURROS
+  // 2ª passada: nada bateu exato — tenta tolerando erro de digitação
+  for (const item of assistenteKnowledge.opiniao) {
+    for (const palavra of item.palavrasChave) {
+      if (fraseParecida(perguntaLower, normalizarTexto(palavra))) {
+        return { texto: item.resposta, acao: item.acao };
+      }
+    }
+  }
+  for (const item of assistenteKnowledge.fatos) {
+    for (const palavra of item.palavrasChave) {
+      if (fraseParecida(perguntaLower, normalizarTexto(palavra))) {
+        return { texto: item.resposta, acao: item.acao };
+      }
+    }
+  }
+
+  // 3. Verifica DINOSAURROS (tolerante a erro de digitação também)
   const dinos = ['allosaurus', 'austroraptor', 'baryonyx', 'carnotaurus', 'ceratosaurus', 'deinosuchus', 'dilophosaurus', 'herrerasaurus', 'omniraptor', 'pteranodon', 'troodon', 'tyrannosaurus', 'diabloceratops', 'dryosaurus', 'hypsilophodon', 'kentrosaurus', 'maiasaura', 'pachycephalosaurus', 'stegosaurus', 'tenontosaurus', 'triceratops', 'beipiaosaurus', 'gallimimus'];
   for (const dino of dinos) {
-    if (perguntaLower.includes(dino)) {
+    if (fraseParecida(perguntaLower, dino)) {
       const nomeDino = dino.charAt(0).toUpperCase() + dino.slice(1);
       return {
         texto: `Você perguntou sobre o ${nomeDino}! Aqui estão os FATOS disponíveis sobre ele. Para mais detalhes, abra o modal do dino.`,
