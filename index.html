@@ -583,6 +583,81 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 #soundBtn.sound-active{background:rgba(90,158,30,.22);border-color:rgba(90,158,30,.8);color:var(--acid-light);animation:none;box-shadow:0 0 12px rgba(90,158,30,.3)}
 #soundBtn.sound-muted{background:rgba(139,26,10,.1);border-color:rgba(139,26,10,.4);color:var(--warn);opacity:.8;animation:none}
 @media(max-width:900px){#soundBtn{display:none!important}}
+  /* ===== TERMINAL DE VÍDEOS ===== */
+#terminal{background:linear-gradient(180deg,var(--black) 0%,#0a0c08 40%,var(--black) 100%);padding:0;position:relative}
+.terminal-wrapper{max-width:1100px;margin:0 auto;padding:60px 40px}
+.terminal-crt{border:3px solid #2a3a1a;border-radius:6px;background:#0a0c08;box-shadow:0 0 40px rgba(90,158,30,.08),inset 0 0 60px rgba(0,0,0,.8);position:relative;overflow:hidden}
+.terminal-crt::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.08) 2px,rgba(0,0,0,.08) 4px);pointer-events:none;z-index:5}
+.terminal-crt::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.4) 100%);pointer-events:none;z-index:5}
+.terminal-header{background:linear-gradient(180deg,#1a1f12,#0d1008);border-bottom:2px solid #2a3a1a;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.terminal-header-left{display:flex;align-items:center;gap:16px}
+.terminal-led{width:10px;height:10px;border-radius:50%;background:#3a7a1a;box-shadow:0 0 8px rgba(90,158,30,.5);animation:ledPulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes ledPulse{0%,100%{opacity:.5}50%{opacity:1}}
+.terminal-header-label{font-family:'Courier New',monospace;font-size:.7rem;color:var(--acid);letter-spacing:.15em;text-transform:uppercase}
+.terminal-header-label span{color:var(--warn);opacity:.7}
+.terminal-header-right{display:flex;align-items:center;gap:14px}
+.terminal-status{font-family:'Courier New',monospace;font-size:.6rem;color:var(--bone);opacity:.4;letter-spacing:.1em}
+.terminal-status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#5a9e1e;margin-right:6px;animation:ledPulse 1.5s ease-in-out infinite}
+.terminal-warning{font-family:'Courier New',monospace;font-size:.55rem;color:var(--warn);opacity:.6;border:1px solid rgba(200,48,16,.3);padding:3px 12px;letter-spacing:.08em}
+.terminal-body{padding:20px 24px 24px}
+.terminal-tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid rgba(90,158,30,.15);padding-bottom:12px;flex-wrap:wrap}
+.terminal-tab{font-family:'Courier New',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 20px;cursor:pointer;background:transparent;color:var(--bone);opacity:.4;border:1px solid transparent;transition:all .3s;border-radius:2px}
+.terminal-tab:hover{opacity:.7;border-color:rgba(90,158,30,.2)}
+.terminal-tab.active{opacity:1;color:var(--acid);border-color:rgba(90,158,30,.3);background:rgba(90,158,30,.06)}
+.terminal-tab-icon{margin-right:6px}
+.terminal-count{font-family:'Courier New',monospace;font-size:.5rem;color:var(--bone);opacity:.3;margin-left:6px}
+.terminal-videos{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;min-height:200px}
+.terminal-video-card{background:rgba(255,255,255,.02);border:1px solid rgba(90,158,30,.08);padding:16px;cursor:pointer;transition:all .35s;position:relative;border-radius:3px}
+.terminal-video-card:hover{border-color:rgba(90,158,30,.35);background:rgba(90,158,30,.04);transform:translateY(-3px)}
+.terminal-video-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--acid),transparent);opacity:0;transition:opacity .35s}
+.terminal-video-card:hover::before{opacity:.6}
+.terminal-video-thumb{width:100%;height:140px;object-fit:cover;border-radius:2px;background:#0d1008;margin-bottom:12px;border:1px solid rgba(90,158,30,.08)}
+.terminal-video-title{font-family:'Courier New',monospace;font-size:.78rem;color:var(--parchment);line-height:1.4;margin-bottom:6px}
+.terminal-video-title .highlight{color:var(--acid)}
+.terminal-video-meta{display:flex;align-items:center;gap:12px;font-family:'Courier New',monospace;font-size:.55rem;color:var(--bone);opacity:.4}
+.terminal-video-meta span{display:flex;align-items:center;gap:4px}
+.terminal-video-badge{font-family:'Courier New',monospace;font-size:.45rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border:1px solid rgba(90,158,30,.2);color:var(--acid);opacity:.6;border-radius:2px}
+.terminal-empty{display:none;text-align:center;padding:60px 20px;font-family:'Courier New',monospace;color:var(--bone);opacity:.25;font-size:.8rem;letter-spacing:.1em}
+.terminal-empty span{display:block;font-size:2rem;margin-bottom:12px;opacity:.3}
+.terminal-footer{padding:10px 24px;border-top:1px solid rgba(90,158,30,.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;font-family:'Courier New',monospace;font-size:.5rem;color:var(--bone);opacity:.3;letter-spacing:.08em}
+.terminal-footer .status{color:var(--warn);opacity:.6}
+.terminal-footer .status.on{color:var(--acid);opacity:.8}
+
+.terminal-modal-overlay{position:fixed;inset:0;background:rgba(3,4,2,.95);z-index:9700;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .35s;backdrop-filter:blur(10px)}
+.terminal-modal-overlay.open{opacity:1;pointer-events:all}
+.terminal-modal{background:linear-gradient(145deg,#0e1409,#080a05);border:2px solid rgba(139,26,10,.4);max-width:820px;width:100%;max-height:90vh;overflow-y:auto;position:relative;border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,.8)}
+.terminal-modal-close{position:absolute;top:10px;right:14px;background:none;border:none;color:var(--bone);opacity:.4;font-size:1.2rem;cursor:pointer;font-family:'Courier New',monospace;transition:opacity .3s;z-index:10}
+.terminal-modal-close:hover{opacity:1;color:var(--warn)}
+.terminal-modal-header{padding:16px 24px;border-bottom:1px solid rgba(139,26,10,.2);display:flex;align-items:center;gap:12px}
+.terminal-modal-header-icon{font-size:1.2rem;opacity:.6}
+.terminal-modal-header-title{font-family:'Courier New',monospace;font-size:.9rem;color:var(--parchment)}
+.terminal-modal-header-badge{font-family:'Courier New',monospace;font-size:.5rem;color:var(--acid);opacity:.5;margin-left:auto;border:1px solid rgba(90,158,30,.15);padding:2px 10px;border-radius:2px}
+.terminal-modal-body{padding:20px 24px 24px}
+.terminal-modal-iframe{width:100%;aspect-ratio:16/9;border:none;background:#000;border-radius:3px}
+.terminal-modal-desc{font-family:'Courier New',monospace;font-size:.75rem;color:var(--bone);opacity:.5;margin-top:14px;line-height:1.8}
+.terminal-modal-meta{display:flex;gap:16px;margin-top:10px;font-family:'Courier New',monospace;font-size:.6rem;color:var(--bone);opacity:.35;flex-wrap:wrap}
+
+@media(max-width:900px){
+  .terminal-wrapper{padding:30px 12px}
+  .terminal-header{padding:8px 14px}
+  .terminal-body{padding:14px 14px 18px}
+  .terminal-tabs{gap:3px;padding-bottom:8px}
+  .terminal-tab{font-size:.55rem;padding:6px 12px}
+  .terminal-videos{grid-template-columns:1fr;gap:10px}
+  .terminal-video-thumb{height:100px}
+  .terminal-header-label{font-size:.55rem}
+  .terminal-warning{font-size:.45rem;padding:2px 8px}
+  .terminal-footer{font-size:.4rem;padding:6px 14px}
+  .terminal-modal{padding:0;max-height:95vh}
+  .terminal-modal-header{padding:12px 16px}
+  .terminal-modal-header-title{font-size:.75rem}
+  .terminal-modal-body{padding:12px 14px 16px}
+}
+@media(max-width:480px){
+  .terminal-header{flex-direction:column;align-items:flex-start}
+  .terminal-header-right{width:100%;justify-content:space-between}
+  .terminal-tab{font-size:.5rem;padding:4px 10px}
+}
 </style>
 </head>
 <body>
@@ -1294,6 +1369,77 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     </div>
   </div>
 </section>
+  <!-- TERMINAL DE VÍDEOS -->
+<div class="full-divider"></div>
+<section id="terminal">
+  <div class="terminal-wrapper">
+    <div class="terminal-crt">
+
+      <div class="terminal-header">
+        <div class="terminal-header-left">
+          <div class="terminal-led"></div>
+          <span class="terminal-header-label">⚡ UNIDAD: CAM-04 <span>|</span> SETOR LABORATORIO</span>
+        </div>
+        <div class="terminal-header-right">
+          <span class="terminal-status"><span class="terminal-status-dot"></span> SINAL: INSTÁVEL</span>
+          <span class="terminal-warning">⚠ ACESSO POR CONTA E RISCO</span>
+        </div>
+      </div>
+
+      <div class="terminal-body">
+
+        <div class="terminal-tabs" id="terminalTabs">
+          <button class="terminal-tab active" data-categoria="tutoriais" onclick="filterTerminal('tutoriais',this)">
+            <span class="terminal-tab-icon">📹</span> Tutoriais <span class="terminal-count" id="count-tutoriais">0</span>
+          </button>
+          <button class="terminal-tab" data-categoria="gameplay" onclick="filterTerminal('gameplay',this)">
+            <span class="terminal-tab-icon">🎮</span> Gameplay <span class="terminal-count" id="count-gameplay">0</span>
+          </button>
+          <button class="terminal-tab" data-categoria="lore" onclick="filterTerminal('lore',this)">
+            <span class="terminal-tab-icon">📖</span> Lore/Curiosidades <span class="terminal-count" id="count-lore">0</span>
+          </button>
+          <button class="terminal-tab" data-categoria="bastidores" onclick="filterTerminal('bastidores',this)">
+            <span class="terminal-tab-icon">🎬</span> Bastidores <span class="terminal-count" id="count-bastidores">0</span>
+          </button>
+        </div>
+
+        <div class="terminal-videos" id="terminalVideos"></div>
+
+        <div class="terminal-empty" id="terminalEmpty">
+          <span>📼</span>
+          NENHUMA GRAVAÇÃO ENCONTRADA NESTE DIRETÓRIO
+        </div>
+
+      </div>
+
+      <div class="terminal-footer">
+        <span>REGISTRO: <span id="terminalRegistro">0</span>  |  STATUS: <span class="status on" id="terminalStatus">SINAL INSTÁVEL</span></span>
+        <span>INGEN SUPLEMENTOS — PATRIMÔNIO DA INGEN 87-34-ISLA-SORNA</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+  <!-- TERMINAL MODAL -->
+<div class="terminal-modal-overlay" id="terminalModalOverlay" onclick="if(event.target===this)closeTerminalModal()">
+  <div class="terminal-modal" id="terminalModal">
+    <button class="terminal-modal-close" onclick="closeTerminalModal()">✕</button>
+    <div class="terminal-modal-header">
+      <span class="terminal-modal-header-icon" id="tmIcon">📹</span>
+      <span class="terminal-modal-header-title" id="tmTitle">Título do Vídeo</span>
+      <span class="terminal-modal-header-badge" id="tmBadge">TUTORIAL</span>
+    </div>
+    <div class="terminal-modal-body">
+      <iframe class="terminal-modal-iframe" id="tmIframe" src="" allowfullscreen></iframe>
+      <div class="terminal-modal-desc" id="tmDesc">Descrição do vídeo...</div>
+      <div class="terminal-modal-meta">
+        <span id="tmAuthor">👤 Zunert</span>
+        <span id="tmDuration">⏱️ 00:00</span>
+        <span id="tmDate">📅 2026</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- NEWSLETTER -->
 <section id="newsletter">
@@ -2594,6 +2740,99 @@ function playDinoModal(){
   document.addEventListener('keydown', tryStart, {once:true});
   document.addEventListener('touchstart', tryStart, {once:true, passive:true});
 })();
+// ===== TERMINAL DE VÍDEOS =====
+const terminalVideos = [
+  {id:'tut1',titulo:'Sobrevivente Jurássico - EP.01: Primeiros Passos',descricao:'Como sobreviver aos primeiros minutos na ilha.',categoria:'tutoriais',autor:'Zunert',duracao:'12:34',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
+  {id:'tut2',titulo:'Sobrevivente Jurássico - EP.02: Sistema de Combate',descricao:'Entenda o sistema de combate do Evrima.',categoria:'tutoriais',autor:'The Luis',duracao:'08:21',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
+  {id:'tut3',titulo:'Sobrevivente Jurássico - EP.03: Mutações e Builds',descricao:'Guia completo sobre mutações.',categoria:'tutoriais',autor:'Zunert',duracao:'15:42',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
+  {id:'gp1',titulo:'Sobrevivente Jurássico - Gameplay #01: Allosaurus Pack Hunt',descricao:'Caçando em trio de Allosaurus.',categoria:'gameplay',autor:'Zunert',duracao:'22:15',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'GAMEPLAY'},
+  {id:'gp2',titulo:'Sobrevivente Jurássico - Gameplay #02: Sobrevivendo de Herbívoro',descricao:'Gameplay completo com Triceratops.',categoria:'gameplay',autor:'The Luis',duracao:'31:08',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'GAMEPLAY'},
+  {id:'lo1',titulo:'Sobrevivente Jurássico - Lore #01: A História do Evrima',descricao:'A história por trás do Evrima.',categoria:'lore',autor:'Zunert',duracao:'14:22',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'LORE'},
+  {id:'lo2',titulo:'Sobrevivente Jurássico - Lore #02: Os Dinos do Evrima',descricao:'Curiosidades sobre cada dino.',categoria:'lore',autor:'The Luis',duracao:'18:45',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'LORE'},
+  {id:'bs1',titulo:'Sobrevivente Jurássico - Bastidores #01: Como Fizemos o Site',descricao:'Os bastidores da criação do site.',categoria:'bastidores',autor:'Zunert & The Luis',duracao:'09:33',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'BASTIDORES'},
+  {id:'bs2',titulo:'Sobrevivente Jurássico - Bastidores #02: Filmagens na Ilha',descricao:'Como gravamos os vídeos.',categoria:'bastidores',autor:'The Luis',duracao:'11:57',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'BASTIDORES'},
+];
+
+function renderTerminalVideos(categoria) {
+  const container = document.getElementById('terminalVideos');
+  const empty = document.getElementById('terminalEmpty');
+  const filtered = terminalVideos.filter(v => v.categoria === categoria);
+  
+  document.querySelectorAll('.terminal-tab').forEach(tab => {
+    const cat = tab.dataset.categoria;
+    const count = terminalVideos.filter(v => v.categoria === cat).length;
+    const countEl = document.getElementById(`count-${cat}`);
+    if (countEl) countEl.textContent = count;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    empty.style.display = 'block';
+    document.getElementById('terminalRegistro').textContent = '0';
+    return;
+  }
+  empty.style.display = 'none';
+
+  container.innerHTML = filtered.map((v, i) => `
+    <div class="terminal-video-card" onclick="openTerminalModal('${v.id}')">
+      <img class="terminal-video-thumb" src="https://img.youtube.com/vi/${v.youtube}/mqdefault.jpg" alt="${v.titulo}" onerror="this.src='bg1.jpg'">
+      <div class="terminal-video-title">▶ <span class="highlight">${v.titulo}</span></div>
+      <div class="terminal-video-meta">
+        <span>👤 ${v.autor}</span>
+        <span>⏱️ ${v.duracao}</span>
+        <span class="terminal-video-badge">${v.badge}</span>
+      </div>
+    </div>
+  `).join('');
+  
+  document.getElementById('terminalRegistro').textContent = filtered.length;
+}
+
+function filterTerminal(categoria, el) {
+  document.querySelectorAll('.terminal-tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderTerminalVideos(categoria);
+  
+  const status = document.getElementById('terminalStatus');
+  status.textContent = 'PROCESSANDO...';
+  status.className = 'status';
+  setTimeout(() => {
+    status.textContent = 'SINAL INSTÁVEL';
+    status.className = 'status on';
+  }, 400);
+}
+
+function openTerminalModal(id) {
+  const video = terminalVideos.find(v => v.id === id);
+  if (!video) return;
+  
+  const icons = {tutoriais:'📹',gameplay:'🎮',lore:'📖',bastidores:'🎬'};
+  document.getElementById('tmIcon').textContent = icons[video.categoria] || '📹';
+  document.getElementById('tmTitle').textContent = video.titulo;
+  document.getElementById('tmBadge').textContent = video.badge;
+  document.getElementById('tmIframe').src = `https://www.youtube.com/embed/${video.youtube}?autoplay=1&rel=0`;
+  document.getElementById('tmDesc').textContent = video.descricao;
+  document.getElementById('tmAuthor').textContent = `👤 ${video.autor}`;
+  document.getElementById('tmDuration').textContent = `⏱️ ${video.duracao}`;
+  document.getElementById('tmDate').textContent = `📅 ${video.data}`;
+  
+  document.getElementById('terminalModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeTerminalModal() {
+  document.getElementById('terminalModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('tmIframe').src = '';
+}
+
+// Inicializa o terminal
+renderTerminalVideos('tutoriais');
+
+// Fecha modal com ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeTerminalModal();
+});
 </script>
 
 <!-- DINO DETAIL MODAL -->
