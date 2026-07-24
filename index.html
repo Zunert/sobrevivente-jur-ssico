@@ -10622,8 +10622,42 @@ const assistenteKnowledge = {
       ],
       resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! O que funciona pra um pode não funcionar pra outro. Mas os FATOS são: **Pachycephalosaurus** (rápido, resistente, ~45min pro adulto), **Tenontosaurus** (equilibrado e versátil) e **Dryosaurus** (muito rápido, ótimo pra fugir).',
       acao: { tipo: 'scroll', destino: 'dinos', label: '🦕 Ver todos os Dinossauros' }
+    }
+  ],
+  opiniao: [
+    {
+      palavrasChave: ['qual e o melhor dino','qual é o melhor dino','melhor dino do jogo','melhor dino pra jogar','qual dino escolher','qual dino jogar','que dino eu jogo','qual dino eu devo jogar','melhor dino geral','dino mais completo'],
+      resposta: 'Essa é uma pergunta de OPINIÃO, não um fato — não dá pra afirmar com certeza qual é "o melhor", porque isso varia muito de sobrevivente pra sobrevivente (estilo de jogo, paciência, se prefere caçar ou fugir, etc). O que dá pra fazer é conversar com quem já tem mais experiência no Discord e, principalmente, testar cada um você mesmo até achar o que combina com o seu jeito de jogar.',
+      acao: { tipo: 'scroll', destino: 'comunidade', label: '💬 Perguntar na Comunidade' }
     },
-    
+    {
+      palavrasChave: ['dino mais forte pra pvp','melhor dino pvp','qual dino ganha de qual','quem ganha na luta','dino mais forte em combate','qual dino e mais forte','qual dino é mais forte','melhor dino pra brigar','qual o dino mais op'],
+      resposta: 'Isso é OPINIÃO, não fato — depende de nível de crescimento, grupo, terreno, mutações e até sorte no combate. Nenhum confronto é garantido só pela espécie. Recomendo perguntar pra sobreviventes mais experientes no Discord e, melhor ainda, testar na prática pra sentir o que funciona.',
+      acao: { tipo: 'scroll', destino: 'comunidade', label: '💬 Perguntar na Comunidade' }
+    },
+    {
+      palavrasChave: ['melhor build','melhor mutacao','melhor mutação','quais mutações escolher','qual mutação e melhor','qual mutação é melhor','melhor combinação de mutações','build ideal'],
+      resposta: 'Build "ideal" é OPINIÃO — depende do dino, do seu estilo de jogo e da situação do servidor no momento. Não dá pra cravar uma combinação como definitiva. Vale a pena perguntar pra quem já testa isso há mais tempo e ir experimentando você mesmo até achar a sua.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guia de Mutações' }
+    },
+    {
+      palavrasChave: ['vale a pena jogar de','vale a pena escolher','devo jogar de','compensa jogar de','é bom jogar de','e bom jogar de'],
+      resposta: 'Se "vale a pena" é OPINIÃO — depende do que você curte no jogo (ação, paciência, socialização em grupo etc). Não dá pra afirmar isso por você. O melhor caminho é perguntar pra sobreviventes mais experientes e, principalmente, tentar descobrir sozinho jogando algumas horas com o dino.',
+      acao: { tipo: 'scroll', destino: 'comunidade', label: '💬 Perguntar na Comunidade' }
+    },
+    {
+      palavrasChave: ['qual servidor e melhor','qual servidor é melhor','melhor servidor pra jogar','qual servidor escolher','primord ou','devo jogar em qual servidor'],
+      resposta: 'Qual servidor é "melhor" também é OPINIÃO — cada um tem uma proposta diferente (mais realismo x mais liberdade, por exemplo). Recomendo dar uma olhada nas descrições de cada um e perguntar pra comunidade qual combina mais com o seu jeito de jogar.',
+      acao: { tipo: 'scroll', destino: 'servidores', label: '🖥️ Ver Servidores' }
+    },
+    {
+      palavrasChave: ['melhor estrategia','melhor estratégia','como jogar melhor','qual a melhor forma de jogar','melhor jeito de jogar','melhor tatica','melhor tática'],
+      resposta: 'Estratégia "melhor" é OPINIÃO, não fato — cada sobrevivente desenvolve o próprio jeito de jogar com o tempo. Não dá pra te dar uma resposta definitiva aqui. Pergunte pra quem já tem mais experiência no Discord e, o mais importante, jogue bastante pra ir descobrindo sozinho o que funciona melhor pra você.',
+      acao: { tipo: 'scroll', destino: 'comunidade', label: '💬 Perguntar na Comunidade' }
+    }
+  ]
+};
+
 // ===== VARIÁVEIS =====
 let assistenteHistory = [];
 
