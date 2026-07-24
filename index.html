@@ -2968,282 +2968,289 @@ renderTerminalVideos('tutoriais');
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeTerminalModal();
 });
-// ===== ASSISTENTE IA — BANCO DE DADOS DEFINITIVO =====
+// ===== ASSISTENTE IA — BANCO DE DADOS COMPLETO =====
 const assistenteKnowledge = {
   // ===== FATOS — RESPOSTAS OBJETIVAS =====
   fatos: [
+    // ---- CRESCIMENTO ----
+    {
+      palavrasChave: ['crescer rápido', 'crescer mais rápido', 'evoluir rápido', 'upar rápido', 'ficar grande rápido', 'chegar no adulto rápido', 'dicas de crescimento', 'acelerar crescimento', 'subir de nível', 'evoluir meu bicho', 'crescimento rápido', 'como crescer', 'como evoluir'],
+      resposta: 'Para crescer mais rápido: mantenha a DIETA PREFERIDA da sua espécie sempre preenchida, evite morrer (cada morte reinicia seu progresso), permaneça alimentado e hidratado, e siga as MIGRAÇÕES quando possível. A dieta preferida concede BÔNUS DE CRESCIMENTO E SOBREVIVÊNCIA.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+    },
+    
     // ---- CARCAÇAS E ÓRGÃOS ----
     {
-      palavrasChave: ['órgão', 'orgao', 'carcaça', 'carcaca', 'coração', 'pulmão', 'intestino', 'estômago', 'retirar', 'tirar'],
+      palavrasChave: ['tirar órgão', 'pegar órgão', 'abrir carcaça', 'tirar coração', 'extrair órgãos', 'pegar carne', 'pegar órgãos do bicho morto', 'esfolar', 'aproveitar carcaça', 'pegar nutrientes da carcaça', 'tirar partes do corpo'],
       resposta: 'Para tirar órgãos de uma carcaça: pegue o corpo (se possível), segure LMB e agite a tela rapidamente, ou pressione E três vezes rapidamente. Você vai conseguir: CORAÇÃO (nutriente S), PULMÕES (nutriente ∴), INTESTINOS (nutriente //) e ESTÔMAGO (% do que a presa comeu).',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['carcaça podre', 'podre', 'decomposição', 'moscas', 'esqueleto'],
+      palavrasChave: ['carcaça podre', 'comer podre', 'carcaça estragada', 'carcaça com mosca', 'carne podre', 'comer carne podre', 'carcaça apodreceu', 'moscas na carcaça', 'comer osso', 'deino come osso', 'cerato come osso'],
       resposta: 'A maioria dos carnívoros só come carcaças FRESCAS. Carcaças em decomposição (escuras, com moscas) não são comestíveis. Deinosuchus e Ceratosaurus são exceções — podem comer ossos e carcaças podres.',
       acao: { tipo: 'modal', destino: 'Deinosuchus', label: '🐊 Ver Deinosuchus' }
     },
     {
-      palavrasChave: ['nutriente s', 'nutriente ∴', 'nutriente //', 'nutriente %', 'órgão nutriente'],
+      palavrasChave: ['nutriente s', 'nutriente ∴', 'nutriente //', 'nutriente %', 'órgão nutriente', 'coração nutriente', 'pulmão nutriente', 'intestino nutriente', 'estômago nutriente', 'nutrientes órgãos'],
       resposta: 'Cada órgão da carcaça dá um nutriente específico. CORAÇÃO = S, PULMÕES = ∴, INTESTINOS = //, ESTÔMAGO = % do que a presa comeu em vida.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['canibalismo', 'comer filhote', 'muscle spasms'],
+      palavrasChave: ['canibalismo', 'comer filhote', 'muscle spasms', 'comer meu filhote', 'comer meu próprio filho', 'matar filhote', 'comer filhote da mesma espécie', 'muscle spasms o que é', 'comer filhote dá problema'],
       resposta: 'Sim, tecnicamente você pode comer seus próprios filhotes (canibalismo), mas isso causa "Muscle Spasms" e atrapalha o sistema Prime Elder. Não é recomendado.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
-
+    
     // ---- DIETA E COMIDA ----
     {
-      palavrasChave: ['dieta preferida', 'alimento preferido', 'comida preferida', 'nutriente', 'barra de nutriente'],
+      palavrasChave: ['dieta preferida', 'alimento preferido', 'comida preferida', 'nutriente', 'barra de nutriente', 'o que meu dino come', 'qual a dieta do meu dino', 'o que posso comer', 'qual a comida certa', 'o que meu bicho come', 'alimento preferido', 'dieta preferida do dino'],
       resposta: 'Cada espécie tem ALIMENTOS PREFERIDOS. Comer esses alimentos concede NUTRIENTES e BÔNUS DE CRESCIMENTO E SOBREVIVÊNCIA. Manter a dieta ativa acelera o crescimento, melhora a regeneração e aumenta o alcance do olfato. Abra o menu do dino (Tab) para ver a lista de alimentos preferidos e secundários.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['comida carnívoro', 'carnívoro come', 'planta carnívoro'],
-      resposta: 'Carnívoros só conseguem comer CARNE E ÓRGÃOS. Plantas não dão nutrientes pra você. Caçar presas apropriadas é essencial para o crescimento.',
-      acao: { tipo: 'scroll', destino: 'dinos', label: '🦕 Ver Carnívoros' }
+      palavrasChave: ['carnívoro come planta', 'carnívoro come fruta', 'carneiro come planta', 'dino carnívoro pode comer planta', 'carnívoro pode comer vegetação', 'bicho carnívoro come o quê', 'só carne', 'planta dá nutriente pra carnívoro', 'carnívoro come grama'],
+      resposta: 'Não. Carnívoros só conseguem comer CARNE E ÓRGÃOS. Plantas não dão nutrientes pra você.',
+      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['dieta negativa', 'nutriente negativo', 'comida errada'],
+      palavrasChave: ['dieta negativa', 'comida errada', 'nutriente negativo', 'comer coisa ruim', 'perder nutriente', 'comer comida errada', 'perder nutriente por comer errado', 'dieta negativa atrapalha', 'comida que não é da minha espécie', 'dieta negativa o que é'],
       resposta: 'Comer alimentos que não são da sua espécie pode dar NUTRIENTES NEGATIVOS, atrapalhando seu crescimento. Sempre coma a DIETA PREFERIDA da sua espécie.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
-
+    
     // ---- SOBREVIVÊNCIA BÁSICA ----
     {
-      palavrasChave: ['beber água', 'sede', 'desidratado', 'beber rio', 'beber lago'],
+      palavrasChave: ['beber água', 'beber sem morrer', 'beber no rio', 'onde beber água', 'evitar deino na água', 'beber água em segurança', 'beber com segurança', 'se hidratar', 'beber na margem', 'beber que é seguro'],
       resposta: 'Para beber água, aproxime-se da margem com cuidado. Prefira áreas com VEGETAÇÃO para se esconder. Evite beber no DELTA e CENTRAL JUNGLE — é território de Deinosuchus. Se não achar água, siga o som da água (rios fazem barulho) ou vá em direção a SANCTUARIES.',
       acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
     },
     {
-      palavrasChave: ['perder vida', 'perdendo vida', 'vida baixa', 'recuperar vida'],
+      palavrasChave: ['perdendo vida', 'vida caindo', 'perdendo HP', 'morrendo do nada', 'vida baixa', 'vida diminuindo sozinha', 'tô morrendo sem ser atacado', 'o que faz perder vida', 'perdendo vida sem motivo', 'hp caindo'],
       resposta: 'Você pode estar perdendo vida por: FOME (barriga vazia), SEDE (barra de água zerada) ou SANGRAMENTO (ícone vermelho). Para recuperar: coma, beba, descanse (Q) e mantenha a dieta preferida ativa. Mutações como Cellular Regeneration e Photosynthetic Regeneration ajudam.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['sanctuary', 'santuário', 'sanctuario', 'juvenil', 'filhote', 'seguro'],
+      palavrasChave: ['sanctuary', 'santuário', 'sanctuario', 'juvenil', 'filhote', 'seguro', 'área segura', 'cogumelos especiais', 'santuário de juvenil', 'como achar santuário'],
       resposta: 'Sanctuários são áreas VOLTADAS PARA JUVENIS. Possuem COGUMELOS ESPECIAIS para dieta e MECANISMOS que expulsam dinossauros grandes quando crescem demais. A localização MUDA conforme o mapa e o servidor. Visitar um Sanctuário conta para o sistema Elder. Para achar, explore ou pergunte a outros jogadores.',
       acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
     },
     {
-      palavrasChave: ['olfato', 'scent', 'cheirar', 'sentir cheiro'],
+      palavrasChave: ['olfato', 'scent', 'cheirar', 'sentir cheiro', 'como usar olfato', 'como cheirar', 'sentir cheiro de comida', 'olfato como funciona', 'como ativar o cheiro', 'farejar', 'sentir cheiro de presa'],
       resposta: 'No Evrima, você pode sentir o cheiro de comida e água próximos usando o Scent (olfato). A tecla padrão é Q (ou verifique os controles). Quanto melhor sua dieta, maior o alcance do olfato.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
-
+    
     // ---- COMBATE E DEFESA ----
     {
-      palavrasChave: ['atacar', 'lutar', 'combate', 'ataque primário', 'ataque secundário', 'habilidade especial'],
+      palavrasChave: ['atacar', 'bater', 'dar golpe', 'tecla de ataque', 'lutar', 'atacar no jogo', 'botão de ataque', 'ataque primário', 'usar mordida', 'dar bote', 'agredir'],
       resposta: 'LMB = ataque primário. RMB = ataque secundário (varia por dino). Segure LMB ou RMB para habilidades especiais (ex: Claw Swipe do Allosaurus, Headbutt do Carnotaurus). Cada dino tem habilidades únicas.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['defender', 'defesa', 'agachar', 'postura defensiva'],
+      palavrasChave: ['defender', 'se defender', 'bloquear', 'fugir', 'se proteger', 'agachar', 'postura defensiva', 'não ser atacado', 'se esconder', 'evitar ser comido', 'sobreviver ataque'],
       resposta: 'Use Ctrl para agachar (fica menor e mais difícil de ser visto). Em alguns dinos, Q ativa postura defensiva (ex: Kentrosaurus). Ficar imóvel na vegetação também ajuda a se esconder.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['pounce', 'latch', 'agarrado', 'travado', 'escapar pounce'],
+      palavrasChave: ['pounce', 'latch', 'agarrado', 'travado', 'escapar pounce', 'soltar do raptor', 'escapar do pounce', 'sair do agarro', 'sendo segurado', 'como se soltar', 'soltar do agarro'],
       resposta: 'Se você está sendo segurado por um predador (Pounce/Latch), agite o mouse ou use ataques para tentar escapar. Cada dino tem mecânicas diferentes para se soltar.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['fratura', 'fracture', 'osso quebrado', 'mancando', 'quebrado'],
+      palavrasChave: ['fratura', 'fracture', 'osso quebrado', 'quebrou o osso', 'mancando', 'osso quebrado como curar', 'quebrei meu osso', 'tô mancando', 'fratura no jogo', 'como curar osso quebrado'],
       resposta: 'Fratura é quando um osso quebra. Seu movimento fica REDUZIDO. Descanse para curar. A mutação Osteophagic ajuda a curar mais rápido comendo ossos.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['sangramento', 'bleed', 'sangrando', 'perder sangue', 'hemorragia'],
+      palavrasChave: ['sangramento', 'bleed', 'sangrando', 'perder sangue', 'hemorragia', 'sangrando como parar', 'bleed como parar', 'perdendo sangue', 'como estancar o sangue', 'sangramento não para', 'tô sangrando', 'como curar sangramento'],
       resposta: 'Se estiver SANGRANDO: PARE DE CORRER e EVITE COMBATE. Movimentação intensa AUMENTA a perda de sangue; descansar REDUZ o risco até a recuperação. Encontre água ou descanse para parar o sangramento.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['visão noturna', 'enxergar noite', 'x tecla', 'noturna'],
+      palavrasChave: ['visão noturna', 'enxergar noite', 'x tecla', 'noturna', 'visão noturna como ativar', 'enxergar no escuro', 'como ver noite', 'como ativar a visão noturna', 'visão noturna gasta stamina', 'como ver no escuro'],
       resposta: 'Pressione X para ativar a VISÃO NOTURNA. Ajuda a enxergar no escuro, mas GASTA STAMINA. Use com moderação.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['descansar', 'sentar', 'q tecla', 'recuperar stamina'],
+      palavrasChave: ['descansar', 'sentar', 'q tecla', 'recuperar stamina', 'como sentar', 'como descansar no jogo', 'tecla de descansar', 'q tecla pra que serve', 'como recuperar stamina', 'como sentar no chão', 'stamina baixa', 'como deitar'],
       resposta: 'Pressione Q para DESCANSAR/SENTAR. Recupera stamina mais rápido e ajuda a curar sangramento e ossos quebrados.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
-
+    
     // ---- NOITE E VISIBILIDADE ----
     {
-      palavrasChave: ['troodon', 'perigoso noite', 'bônus noturno', 'troodon noite'],
+      palavrasChave: ['troodon', 'perigoso noite', 'bônus noturno', 'troodon noite', 'troodon perigoso no escuro', 'por que troodon é forte a noite', 'troodon noturno', 'troodon bônus noite', 'troodon ataca de noite', 'como enfrentar troodon a noite'],
       resposta: 'Troodon tem BÔNUS MASSIVOS À NOITE: +dano, +velocidade, +visão. Nunca fique sozinho no escuro. Se ouvir passos, CONGELE — não corra. Troodon te acha pelo movimento.',
       acao: { tipo: 'modal', destino: 'Troodon', label: '🌙 Ver Troodon' }
     },
     {
-      palavrasChave: ['dormir', 'noite', 'escuro', 'lua', 'ciclo lunar'],
+      palavrasChave: ['dormir', 'noite', 'escuro', 'lua', 'ciclo lunar', 'como dormir', 'dá pra dormir', 'dormir no jogo', 'como deitar e dormir', 'descansar profundo', 'dormir recupera mais', 'tem como dormir'],
       resposta: 'Pressione Q para descansar. Em alguns dinos, você pode DORMIR (segurar Q) para recuperar mais rápido. O ciclo lunar afeta a visibilidade noturna e o comportamento de alguns dinos.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
-
+    
     // ---- NAVEGAÇÃO E MAPA ----
     {
-      palavrasChave: ['mapa', 'localizar', 'navegar', 'coordenada', 'referência', 'norte', 'sul', 'domo'],
+      palavrasChave: ['mapa', 'localizar', 'navegar', 'coordenada', 'referência', 'norte', 'sul', 'domo', 'como saber onde tô', 'como me localizar', 'onde tô', 'como achar o caminho', 'me perdi', 'como navegar no mapa', 'como usar o compasso', 'como achar o domo'],
       resposta: 'Use o COMPASSO no HUD. O sol nasce a LESTE e se põe a OESTE. Pontos de referência: DOMO (hexágono ao sul), RIO CENTRAL (norte-sul), WEST RAIL (linha férrea a oeste), REDWOODS (árvores gigantes ao sudoeste). Use o VulnonaMAP com suas coordenadas para localização precisa.',
       acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
     },
     {
-      palavrasChave: ['vulnonamap', 'vulnona', 'coordenada', 'grid'],
+      palavrasChave: ['vulnona', 'vulnonamap', 'coordenada', 'grid', 'mapa interativo', 'como usar vulnona', 'vulnona map', 'como por as coordenadas', 'vulnona grid', 'coordenadas no vulnona'],
       resposta: 'Pegue suas COORDENADAS (aparecem no HUD) e digite no site VulnonaMAP. Configure o grid para 58.000 para melhor precisão no mapa Gateway.',
       acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
     },
-
+    
     // ---- NASCIMENTO E CRESCIMENTO ----
     {
-      palavrasChave: ['nascer ovo', 'ovo', 'ninho', 'renascer ovo'],
+      palavrasChave: ['nascer ovo', 'ovo', 'ninho', 'renascer ovo', 'como nascer de ovo', 'ovo no ninho', 'nascer de ovo como faz', 'como chocar', 'renascer de ovo', 'ninho como nascer', 'como nascer no ninho'],
       resposta: 'Você pode NASCER DE UM OVO em um ninho ativo. Isso CONTA para objetivos do sistema Prime. Para isso, dois adultos compatíveis precisam construir um ninho e produzir ovos.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['crescer', 'crescimento', 'rápido', 'evoluir', 'crescer rápido'],
+      palavrasChave: ['crescer', 'crescimento', 'rápido', 'evoluir', 'crescer rápido', 'chegar no adulto rápido', 'acelerar crescimento', 'subir de nível', 'como evoluir meu bicho'],
       resposta: 'Para crescer mais rápido: mantenha a DIETA PREFERIDA sempre preenchida, evite morrer (cada morte reinicia progresso), permaneça alimentado e hidratado, e siga MIGRAÇÕES quando possível. A dieta preferida concede BÔNUS DE CRESCIMENTO.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['migration zone', 'patrol zone', 'migração', 'patrulha'],
+      palavrasChave: ['migration zone', 'patrol zone', 'migração', 'patrulha', 'zona de migração', 'migration zone pra que serve', 'como funciona migração', 'patrulha como funciona', 'migration zone elder', 'patrol zone elder'],
       resposta: 'Migration Zones e Patrol Zones são áreas marcadas no HUD que, ao serem visitadas, contam para o sistema Elder e revelam comida e água próximas. Cada espécie tem as suas.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
-
+    
     // ---- CONTROLES BÁSICOS ----
     {
-      palavrasChave: ['comer', 'beber', 'e tecla'],
+      palavrasChave: ['comer', 'beber', 'e tecla', 'se alimentar', 'beber água', 'comer no jogo', 'como pegar comida', 'comer como faz', 'botão de comer'],
       resposta: 'Pressione E perto da comida/água para COMER ou BEBER.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['correr', 'shift', 'stamina corrida'],
+      palavrasChave: ['correr', 'shift', 'sprint', 'como correr no jogo', 'tecla de correr', 'sprint como faz', 'shift pra que serve', 'como dar sprint', 'como acelerar', 'botão de correr'],
       resposta: 'Segure Shift para CORRER. Gasta stamina. Use com moderação — stamina zerada em combate = morte.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['agachar', 'ctrl', 'movimento lento', 'silencioso'],
+      palavrasChave: ['agachar', 'ctrl', 'andar devagar', 'andar silencioso', 'stealth', 'como se esconder', 'andar sem fazer barulho', 'agachar como faz', 'como ficar menor', 'como se mover silenciosamente', 'como se camuflar'],
       resposta: 'Pressione Ctrl para AGACHAR. Movimento mais lento e silencioso — ideal para emboscadas e fuga.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['pular', 'space', 'emboscar', 'ambush'],
+      palavrasChave: ['pular', 'space', 'pulo', 'saltar', 'emboscar', 'ambush', 'como pular no jogo', 'tecla de pulo', 'espaço pra que serve', 'como dar pulo', 'botão de pular', 'como saltar'],
       resposta: 'Pressione Space para PULAR. Alguns dinos têm EMBOSCADA (Space + LMB) como o T-Rex.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['vocalização', 'f tecla', 'sons', 'broadcast'],
+      palavrasChave: ['vocalização', 'f tecla', 'sons', 'broadcast', 'emitir sons', 'falar no jogo', 'comunicação com outros dinos', 'como usar vocalizações', 'como chamar outros dinos', 'broadcast call', 'como se comunicar'],
       resposta: 'Pressione F para abrir o menu de VOCALIZAÇÕES. Escolha o som desejado para se comunicar com outros jogadores da mesma espécie.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['status', 'tab', 'menu dino', 'progresso'],
+      palavrasChave: ['status', 'tab', 'menu dino', 'progresso', 'status do dino', 'menu do dino', 'progresso do dino', 'como ver meu progresso', 'como ver a dieta', 'como ver as mutações', 'status como abrir', 'como ver o crescimento'],
       resposta: 'Pressione Tab para ver o MENU DE STATUS. Mostra dieta, crescimento, mutações, objetivos, etc.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['mapa tecla', 'm tecla', 'abrir mapa'],
+      palavrasChave: ['mapa tecla', 'm tecla', 'abrir mapa', 'mapa como abrir', 'tecla do mapa', 'como ver o mapa', 'botão do mapa', 'como abrir o mapa do jogo'],
       resposta: 'Pressione M para abrir o MAPA (se disponível no servidor). Nem todos os servidores têm essa função.',
       acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
     },
     {
-      palavrasChave: ['primeira pessoa', 'terceira pessoa', 'c tecla', 'perspectiva'],
+      palavrasChave: ['primeira pessoa', 'terceira pessoa', 'c tecla', 'perspectiva', 'mudar de perspectiva', 'como ativar primeira pessoa', 'como ativar terceira pessoa', 'como mudar a visão', 'câmera como mudar'],
       resposta: 'Pressione C para alternar entre PRIMEIRA e TERCEIRA pessoa.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
-
+    
     // ---- MUTAÇÕES ----
     {
-      palavrasChave: ['mutação oculta', 'oculta', 'reinforced tendons', 'pattern recognition'],
+      palavrasChave: ['mutação oculta', 'oculta', 'reinforced tendons', 'pattern recognition', 'mutação secreta', 'mutação especial', 'mutação rara', 'mutação escondida', 'como conseguir mutação oculta', 'como pegar mutação oculta'],
       resposta: 'Mutações Ocultas são especiais como REINFORCED TENDONS (resistência a fraturas nas pernas) e PATTERN RECOGNITION (aumenta eficiência em combate). Geralmente são herdadas de vidas anteriores (Elder).',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['parthenogenesis', 'partenogênese', 'fêmea sem macho'],
+      palavrasChave: ['parthenogenesis', 'partenogênese', 'fêmea sem macho', 'fêmea bota ovo sem macho', 'botar ovo sem acasalar', 'como botar ovo sem macho', 'parthenogenesis como funciona', 'fêmea sozinha pode botar ovo', 'parthenogenesis como conseguir', 'como ter filhote sem macho'],
       resposta: 'Parthenogenesis é uma mutação universal que permite que FÊMEAS botem ovos SEM MACHO. Desbloqueie com progressão no jogo.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['sequential hermaphroditism', 'trocar sexo', 'mudar sexo'],
+      palavrasChave: ['sequential hermaphroditism', 'trocar sexo', 'mudar sexo', 'trocar de sexo como faz', 'mudar de sexo no jogo', 'como trocar de sexo', 'trocar de macho pra fêmea', 'hermafrodita no jogo', 'como mudar o sexo do dino'],
       resposta: 'Sequential Hermaphroditism permite TROCAR DE SEXO UMA VEZ. Mutação universal, desbloqueável com progressão.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['escolher mutação', 'qual mutação', 'melhor mutação', 'mutação recomendada'],
+      palavrasChave: ['escolher mutação', 'qual mutação', 'melhor mutação', 'mutação recomendada', 'qual mutação pegar', 'melhor mutação para carnívoro', 'melhor mutação para herbívoro', 'mutação para solo', 'mutação para grupo', 'mutação para combate'],
       resposta: 'Depende do seu estilo! Para SOLO: Cellular Regeneration, Multichambered Lungs. Para GRUPO: Truculency, Hypervigilance. Para COMBATE: Hemomania (carnívoro), Truculency (herbívoro). Cada jogador tem sua preferência!',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
-
+    
     // ---- DINOS ESPECÍFICOS ----
     {
-      palavrasChave: ['deinosuchus ataque', 'lunge', 'death roll', 'deino ataque'],
+      palavrasChave: ['deinosuchus ataque', 'lunge', 'death roll', 'deino ataque', 'deino como ataca', 'deino na água', 'como usar o deino', 'deinosuchus habilidades'],
       resposta: 'Deinosuchus: na água, segure RMB para LUNGE — pin instantâneo. Quando travado em um alvo, use DEATH ROLL para causar dano massivo.',
       acao: { tipo: 'modal', destino: 'Deinosuchus', label: '🐊 Ver Deinosuchus' }
     },
     {
-      palavrasChave: ['pteranodon pesca', 'spearfishing', 'ptera pescar'],
+      palavrasChave: ['pteranodon pesca', 'spearfishing', 'ptera pescar', 'ptera peixe', 'pteranodon pegar peixe', 'como pescar com ptera', 'como usar spearfishing', 'pteranodon habilidade pesca'],
       resposta: 'Pteranodon: sobrevoando a água, use RMB para SPEARFISHING. Funciona melhor em águas rasas com peixes visíveis.',
       acao: { tipo: 'modal', destino: 'Pteranodon', label: '🦅 Ver Pteranodon' }
     },
     {
-      palavrasChave: ['trex paleo call', 'paleo call', 'rex vocalização', 't rex grito'],
+      palavrasChave: ['trex paleo call', 'paleo call', 'rex vocalização', 't rex grito', 'paleo calls', 'rex grito como usar', 'tyrannosaurus vocalização', 'como usar paleo calls', 'rex grito de guerra', 'trex como se comunicar'],
       resposta: 'Paleo Calls são VOCALIZAÇÕES ESPECIAIS do T-Rex. Adulto, segure F + 1 ou RMB. Sinalizam estados específicos do animal (território, caça, etc.).',
       acao: { tipo: 'modal', destino: 'Tyrannosaurus', label: '👑 Ver T-Rex' }
     },
     {
-      palavrasChave: ['allosaurus claw swipe', 'claw swipe', 'allo ataque'],
+      palavrasChave: ['allosaurus claw swipe', 'claw swipe', 'allo ataque', 'allosaurus garra', 'como usar claw swipe', 'allo habilidade', 'allosaurus ataque especial', 'como dar claw swipe'],
       resposta: 'Allosaurus: CORRENDO, segure LMB para CLAW SWIPE. Causa sangramento pesado. Ótimo para ataques de grupo.',
       acao: { tipo: 'modal', destino: 'Allosaurus', label: '🦖 Ver Allosaurus' }
     },
     {
-      palavrasChave: ['carnotaurus headbutt', 'headbutt', 'carno ataque'],
+      palavrasChave: ['carnotaurus headbutt', 'headbutt', 'carno ataque', 'carnotaurus cabeçada', 'como usar headbutt', 'carno habilidade', 'carnotaurus ataque especial', 'carno ataque de cabeça'],
       resposta: 'Carnotaurus: segure RMB + LMB para HEADBUTT. Derruba ou stagger por tempo de carga. Use para interromper ataques inimigos.',
       acao: { tipo: 'modal', destino: 'Carnotaurus', label: '🐊 Ver Carnotaurus' }
     },
     {
-      palavrasChave: ['troodon spit', 'veneno troodon', 'troodon cuspe'],
+      palavrasChave: ['troodon spit', 'veneno troodon', 'troodon cuspe', 'troodon veneno', 'spit troodon', 'troodon habilidade', 'troodon ataque especial', 'troodon paralisar', 'como usar o veneno do troodon'],
       resposta: 'Troodon: SPIT (cuspir) paralisante. Funciona melhor À NOITE. Use para imobilizar presas antes do ataque.',
       acao: { tipo: 'modal', destino: 'Troodon', label: '🌙 Ver Troodon' }
     },
     {
-      palavrasChave: ['omniraptor pounce', 'pounce', 'raptor ataque'],
+      palavrasChave: ['omniraptor pounce', 'pounce', 'raptor salto', 'omniraptor ataque', 'como usar pounce', 'raptor pular em cima', 'omniraptor habilidade', 'como atacar com raptor'],
       resposta: 'Omniraptor: pressione LMB perto de um alvo para POUNCE e se agarrar. Use SLOT SWAP para trocar de posição no alvo. Excelente em grupo.',
       acao: { tipo: 'modal', destino: 'Omniraptor', label: '🗡️ Ver Omniraptor' }
     },
     {
-      palavrasChave: ['hypsilophodon defesa', 'spit', 'kick', 'hypsi defesa'],
+      palavrasChave: ['hypsilophodon defesa', 'spit', 'kick', 'hypsi defesa', 'hypsilophodon como se defende', 'hypsi ataque', 'hypsi defesa', 'como se defender com hypsi'],
       resposta: 'Hypsilophodon: SPIT (cuspir) confunde o predador. KICK traseiro de emergência. Defesa baseada em fuga e confusão.',
       acao: { tipo: 'modal', destino: 'Hypsilophodon', label: '🌱 Ver Hypsilophodon' }
     },
-
+    
     // ---- ERROS COMUNS ----
     {
-      palavrasChave: ['não consigo comer', 'comer não funciona', 'não come', 'comida não vai'],
+      palavrasChave: ['não consigo comer', 'comer não funciona', 'não come', 'comida não vai', 'não tô conseguindo comer', 'aperto e não come', 'comida bugada', 'não consigo me alimentar'],
       resposta: 'Você pode estar MUITO LONGE da comida, ou a comida pode estar PODRE. Aproxime-se e pressione E. Se for carcaça podre, só Deinosuchus e Ceratosaurus conseguem comer.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['não consigo beber', 'beber não funciona', 'não bebe'],
+      palavrasChave: ['não consigo beber', 'beber não funciona', 'não bebe', 'não tô conseguindo beber', 'aperto e não bebe', 'água não funciona', 'não consigo me hidratar', 'não consigo tomar água'],
       resposta: 'Você pode estar MUITO PERTO da borda. Afaste-se um pouco. Ou a água pode ser SALGADA (algumas poças são salgadas).',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['perdendo vida descansando', 'vida cai descansando'],
+      palavrasChave: ['perdendo vida descansando', 'vida cai descansando', 'descansando e perdendo vida', 'vida diminui descansando', 'descanso não recupera', 'descansando morrendo', 'perdendo hp descansando'],
       resposta: 'Você pode estar com FOME ou SEDE CRÍTICA, ou com SANGRAMENTO ativo. Verifique o HUD. Descansar não cura esses problemas — coma e beba primeiro.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['não consigo atacar', 'ataque não funciona', 'não ataca'],
+      palavrasChave: ['não consigo atacar', 'ataque não funciona', 'não ataca', 'aperto e não ataca', 'ataque bugado', 'não tô conseguindo atacar', 'botão de ataque não funciona', 'ataque não vai'],
       resposta: 'Você pode estar SEM STAMINA, com OSSO QUEBRADO ou em COOLDOWN de ataque. Verifique o HUD e descanse se necessário.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['tela embaçada', 'visão turva', 'envenenado'],
+      palavrasChave: ['tela embaçada', 'visão turva', 'envenenado', 'tela borrada', 'não enxergo direito', 'visão estranha', 'tela estranha', 'tô vendo tudo embaçado'],
       resposta: 'Tela embaçada pode ser VENENO (Dilophosaurus ou Troodon) ou FRATURA NA CABEÇA. Descanse para curar ou espere o efeito do veneno passar.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
-
+    
     // ---- TERMOS TÉCNICOS ----
     {
       palavrasChave: ['bleed', 'sangramento', 'hemorragia'],
@@ -3256,100 +3263,129 @@ const assistenteKnowledge = {
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['thagomizer', 'stegosaurus cauda'],
+      palavrasChave: ['thagomizer', 'stegosaurus cauda', 'stego cauda', 'espinho stego'],
       resposta: 'Thagomizer = cauda espinhosa do Stegosaurus. Um dos ataques mais poderosos do jogo. Causa alto dano e sangramento.',
       acao: { tipo: 'modal', destino: 'Stegosaurus', label: '🌿 Ver Stegosaurus' }
     },
     {
-      palavrasChave: ['muzzle swing', 'trex golpe'],
+      palavrasChave: ['muzzle swing', 'trex golpe', 'muzzle swing trex', 'golpe lateral trex'],
       resposta: 'Muzzle Swing = golpe lateral do T-Rex. Derruba oponentes menores. Use RMB para ativar.',
       acao: { tipo: 'modal', destino: 'Tyrannosaurus', label: '👑 Ver T-Rex' }
     },
-
-    // ---- PRIME ELDER E ENTOMB (já existentes) ----
+    
+    // ---- PRIME ELDER E ENTOMB ----
     {
-      palavrasChave: ['prime elder', 'prime', 'elder', 'auge'],
+      palavrasChave: ['prime elder', 'prime', 'elder', 'auge', 'como chegar no prime', 'auge do dino', 'prime elder como alcançar', 'como ficar no auge', 'auge do dino como chegar'],
       resposta: 'Prime Elder é a forma MAIS PODEROSA do sistema Elder. Você precisa cumprir os REQUISITOS DE PRIME (normalmente 5 das 10 condições) ANTES de atingir a fase adulta e depois alcançar o estágio Elder. No Prime Elder, seu dino está no auge: velocidade máxima, dano máximo, resistência máxima e acesso a uma QUARTA MUTAÇÃO.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['entomb', 'renascer', 'renascimento', 'reencarnar'],
+      palavrasChave: ['entomb', 'renascer', 'renascimento', 'reencarnar', 'entomb como funciona', 'como renascer', 'renascer com mutações', 'como morrer e renascer', 'reencarnar no evrima'],
       resposta: 'Entomb é o sistema de RENASCIMENTO do Evrima. Você ENCERRA voluntariamente a vida de um Elder e REAPARECE da mesma espécie, MANTENDO as mutações acumuladas e PODENDO FORTALECÊ-las. É o caminho para o dino perfeito.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['auge vs elder fraco', 'auge', 'elder fraco', 'diferença'],
+      palavrasChave: ['auge vs elder fraco', 'auge', 'elder fraco', 'diferença', 'comparar', 'auge vantagens', 'elder fraco desvantagens', 'prime elder vs frail elder'],
       resposta: 'AUGE (Prime Elder) possui BÔNUS MAIORES e acesso a uma QUARTA MUTAÇÃO. O ELDER FRACO (Frail/Normal Elder) tem BÔNUS MENORES e NÃO recebeu os requisitos Prime. É o estágio final antes do Entomb.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
-
+    
     // ---- HORDETEST ----
     {
-      palavrasChave: ['hordetest', 'horde test', 'teste', 'beta', 'experimental'],
+      palavrasChave: ['hordetest', 'horde test', 'teste', 'beta', 'experimental', 'como acessar hordetest', 'servidor de testes', 'hordetest evrima', 'como jogar hordetest', 'teste experimental'],
       resposta: 'HordeTest (HT) é o SERVIDOR DE TESTES onde novas atualizações são liberadas ANTES de chegarem ao Evrima principal. Pode ser acessado pela aba BETAS nas propriedades do jogo na Steam quando estiver disponível. Lá você encontra dinos novos, mecânicas em teste e crescimento 5x mais rápido.',
       acao: { tipo: 'scroll', destino: 'servidores', label: '🎮 Ver Servidores' }
     },
-
+    
     // ---- STAMINA ----
     {
-      palavrasChave: ['stamina', 'cansar', 'correr', 'descansar', 'recuperar'],
+      palavrasChave: ['stamina', 'cansar', 'correr', 'descansar', 'recuperar', 'stamina baixa', 'como recuperar stamina rápido', 'stamina acaba rápido', 'como ter mais stamina', 'stamina zerada', 'como recuperar fôlego'],
       resposta: 'Para recuperar stamina: PARE DE CORRER, SENTE-SE ou DEITE-SE (Q) e mantenha seus recursos (fome, sede e dieta) em boas condições. Dieta perfeita aumenta a regeneração de stamina.',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
-
-    // ---- GUIAS E COMBATE ----
+    
+    // ---- DINO MAIS FORTE ----
     {
-      palavrasChave: ['guia', 'sobrevivencia', 'basico', 'iniciante', 'começar'],
-      resposta: 'O Guia de Sobrevivência cobre: escolha do primeiro dino, prioridades ao nascer (água, comida, esconderijo), sistema de crescimento, controles essenciais e dicas para não morrer nos primeiros minutos. Não comece com carnívoro — herbívoros são mais fáceis.',
-      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+      palavrasChave: ['dino mais forte', 'bicho mais forte', 'manda na ilha', 'apex', 'mais brabo', 'rei', 'predador mais forte', 'melhor combate', 'topo da cadeia', 'imbatível', 'mais poderoso'],
+      resposta: 'Em TERRA: **Tyrannosaurus** (8.2 ton, 700N de dano, Crush). Na ÁGUA: **Deinosuchus** (8.0 ton, 500N, Lunge + Death Roll). Ambos são os APEX da ilha!',
+      acao: { tipo: 'modal', destino: 'Tyrannosaurus', label: '👑 Ver T-Rex' }
     },
+    
+    // ---- MAIOR FORÇA DE MORDIDA ----
     {
-      palavrasChave: ['combate', 'lutar', 'briga', 'ataque', 'defesa'],
-      resposta: 'O sistema de combate envolve stamina, ataques primários (LMB) e secundários (RMB), habilidades especiais (Hold LMB/RMB) e debuffs (sangramento, osso quebrado, ferido). Nunca entre em combate com stamina baixa. Cada dino tem habilidades únicas.',
-      acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
+      palavrasChave: ['força de mordida', 'morde mais forte', 'ataque mais forte', 'dano mais alto', 'mordida mais potente', 'destrói mais', 'hit mais forte', 'ataque devastador', 'maior mordida do jogo', 'dano mais alto do jogo'],
+      resposta: '**Tyrannosaurus** tem a maior força de mordida: 700N no Adulto e até **805N** no Auge. Segundo lugar: **Deinosuchus** com 500N.',
+      acao: { tipo: 'modal', destino: 'Tyrannosaurus', label: '👑 Ver T-Rex' }
+    },
+    
+    // ---- DINO MAIS RÁPIDO ----
+    {
+      palavrasChave: ['dino mais rápido', 'corre mais', 'mais veloz', 'mais ligeiro', 'mais ágil', 'impossível de alcançar', 'mais rápido da ilha', 'corre mais que os outros', 'difícil de pegar'],
+      resposta: 'Em TERRA: **Carnotaurus** (49 km/h) e **Gallimimus** (46.8 km/h). No AR: **Pteranodon** (69.1 km/h).',
+      acao: { tipo: 'modal', destino: 'Carnotaurus', label: '🐊 Ver Carnotaurus' }
+    },
+    
+    // ---- DINO MAIS LENTO ----
+    {
+      palavrasChave: ['dino mais lento', 'mais devagar', 'mais lerdo', 'mais manhoso', 'anda mais devagar', 'mais lento do jogo', 'difícil de fugir', 'mais pesado', 'mais devagar na terra', 'mais parado'],
+      resposta: '**Deinosuchus** em terra (18 km/h) e **Triceratops** (20.7 km/h) são os mais lentos. Mas cuidado: o Deino é uma MÁQUINA na água!',
+      acao: { tipo: 'modal', destino: 'Deinosuchus', label: '🐊 Ver Deinosuchus' }
+    },
+    
+    // ---- DINO MAIS RESISTENTE ----
+    {
+      palavrasChave: ['dino mais resistente', 'aguenta mais porrada', 'mais tanque', 'mais durão', 'difícil de matar', 'mais vida', 'imortal', 'mais resistente do jogo', 'aguenta mais dano', 'mais difícil de derrubar'],
+      resposta: '**Triceratops** (9.5 ton, 630N) e **Stegosaurus** (6.0 ton, com Thagomizer) são os mais resistentes. O Trice tem a maior vida do jogo.',
+      acao: { tipo: 'modal', destino: 'Triceratops', label: '🦏 Ver Triceratops' }
+    },
+    
+    // ---- MELHOR DINO PARA INICIANTES (OPINIÃO) ----
+    {
+      palavrasChave: ['melhor dino iniciante', 'melhor dino pra iniciante', 'qual dino escolher primeiro', 'dino mais fácil de jogar', 'dino bom pra começar', 'mais fácil de jogar', 'dino amigável pra noob', 'dino recomenda pra quem tá começando', 'dino melhor pra aprender', 'dino mais fácil de sobreviver', 'dino bom pra primeira vez'],
+      resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! O que funciona pra um pode não funcionar pra outro. Mas os FATOS são: **Pachycephalosaurus** (rápido, resistente, ~45min pro adulto), **Tenontosaurus** (equilibrado e versátil) e **Dryosaurus** (muito rápido, ótimo pra fugir).',
+      acao: { tipo: 'scroll', destino: 'dinos', label: '🦕 Ver todos os Dinossauros' }
     }
   ],
 
   // ===== OPINIÃO — PERGUNTAS DE ESTRATÉGIA =====
   opiniao: [
     {
-      palavrasChave: ['melhor dino', 'qual dino', 'recomenda', 'escolher', 'iniciante', 'começar'],
+      palavrasChave: ['melhor dino', 'qual dino', 'recomenda', 'escolher', 'iniciante', 'começar', 'qual o melhor dino', 'qual dino escolher', 'dino mais forte opinião', 'melhor pra começar'],
       resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre os dinos para te ajudar a decidir:',
       acao: { tipo: 'scroll', destino: 'dinos', label: '🦕 Ver todos os Dinossauros' }
     },
     {
-      palavrasChave: ['melhor mutação', 'qual mutação', 'mutação carnívoro', 'mutação herbívoro'],
+      palavrasChave: ['melhor mutação', 'qual mutação', 'mutação carnívoro', 'mutação herbívoro', 'melhor mutação para', 'qual mutação escolher'],
       resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre as mutações para te ajudar a decidir:',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias de Mutações' }
     },
     {
-      palavrasChave: ['deinosuchus', 'deino', 'crocodilo', 'água', 'rio', 'beber', 'emboscada'],
+      palavrasChave: ['deinosuchus', 'deino', 'crocodilo', 'água', 'rio', 'beber', 'emboscada', 'como evitar deino', 'como escapar de deino'],
       resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre o Deinosuchus para te ajudar a se preparar:',
       acao: { tipo: 'modal', destino: 'Deinosuchus', label: '🐊 Ver Deinosuchus' }
     },
     {
-      palavrasChave: ['mais forte', 'dino forte', 'poderoso', 'melhor apex', 'top dino'],
+      palavrasChave: ['mais forte', 'dino forte', 'poderoso', 'melhor apex', 'top dino', 'qual o dino mais forte do jogo'],
       resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre os dinos para te ajudar a decidir:',
       acao: { tipo: 'scroll', destino: 'dinos', label: '🦕 Ver todos os Dinossauros' }
     },
     {
-      palavrasChave: ['noite', 'sobreviver noite', 'noturno', 'escuro'],
+      palavrasChave: ['noite', 'sobreviver noite', 'noturno', 'escuro', 'como sobreviver a noite', 'sobreviver no escuro'],
       resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre a noite e os predadores noturnos:',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     },
     {
-      palavrasChave: ['caçar em grupo', 'caça grupo', 'pack hunt', 'caçar junto'],
+      palavrasChave: ['caçar em grupo', 'caça grupo', 'pack hunt', 'caçar junto', 'melhor dino para caçar em grupo'],
       resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS sobre os dinos para te ajudar a decidir:',
       acao: { tipo: 'scroll', destino: 'dinos', label: '🦕 Ver todos os Dinossauros' }
     },
     {
-      palavrasChave: ['evitar', 'fugir', 'escapar', 'sobreviver', 'dica', 'estratégia', 'tático'],
+      palavrasChave: ['evitar', 'fugir', 'escapar', 'sobreviver', 'dica', 'estratégia', 'tático', 'como sobreviver', 'dicas de sobrevivência'],
       resposta: 'Essa é uma PERGUNTA DE ESTRATÉGIA! Prefiro deixar essa resposta para os sobreviventes mais experientes da ilha. Enquanto isso, aqui estão os FATOS que podem te ajudar:',
       acao: { tipo: 'scroll', destino: 'guias', label: '📖 Ver Guias' }
     }
   ]
 };
-
 // ===== VARIÁVEIS =====
 let assistenteHistory = [];
 
