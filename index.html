@@ -1960,54 +1960,38 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
         </div>
       </div>
 
-      <!-- ===== PENALIDADES (COISAS RUINS) ===== -->
-      <div class="prime-section">
-        <div class="prime-section-header">
-          <span class="prime-section-title" style="color:var(--warn)">⚠️ Penalidades</span>
-          <span class="prime-section-count" id="penaltyCount">0/5</span>
-        </div>
-        <div class="prime-objectives-grid" id="penaltyGrid">
-          <div class="prime-objective penalty" data-penalty="0" onclick="togglePenalty(this)">
-            <span class="prime-check">☐</span>
-            <div>
-              <div class="prime-title" style="color:var(--warn)">🤢 Vomitou</div>
-              <div class="prime-desc">Comeu comida podre ou exagerou</div>
-            </div>
-          </div>
-
-          <div class="prime-objective penalty" data-penalty="1" onclick="togglePenalty(this)">
-            <span class="prime-check">☐</span>
-            <div>
-              <div class="prime-title" style="color:var(--warn)">🧬 Ficou Infértil</div>
-              <div class="prime-desc">Não manteve dieta ativa</div>
-            </div>
-          </div>
-
-          <div class="prime-objective penalty" data-penalty="2" onclick="togglePenalty(this)">
-            <span class="prime-check">☐</span>
-            <div>
-              <div class="prime-title" style="color:var(--warn)">💪 Muscle Spasms</div>
-              <div class="prime-desc">Praticou canibalismo</div>
-            </div>
-          </div>
-
-          <div class="prime-objective penalty" data-penalty="3" onclick="togglePenalty(this)">
-            <span class="prime-check">☐</span>
-            <div>
-              <div class="prime-title" style="color:var(--warn)">🩸 Sangrou Demais</div>
-              <div class="prime-desc">Não se curou a tempo</div>
-            </div>
-          </div>
-
-          <div class="prime-objective penalty" data-penalty="4" onclick="togglePenalty(this)">
-            <span class="prime-check">☐</span>
-            <div>
-              <div class="prime-title" style="color:var(--warn)">⚰️ Morreu Jovem</div>
-              <div class="prime-desc">Morreu antes do adulto</div>
-            </div>
-          </div>
-        </div>
+     <!-- ===== PENALIDADES (3 REAIS) ===== -->
+<div class="prime-section">
+  <div class="prime-section-header">
+    <span class="prime-section-title" style="color:var(--warn)">⚠️ Penalidades</span>
+    <span class="prime-section-count" id="penaltyCount">0/3</span>
+  </div>
+  <div class="prime-objectives-grid" id="penaltyGrid">
+    <div class="prime-objective penalty" data-penalty="0" onclick="togglePenalty(this)">
+      <span class="prime-check">☐</span>
+      <div>
+        <div class="prime-title" style="color:var(--warn)">🤢 Vomitou</div>
+        <div class="prime-desc">Comeu comida podre ou exagerou</div>
       </div>
+    </div>
+
+    <div class="prime-objective penalty" data-penalty="1" onclick="togglePenalty(this)">
+      <span class="prime-check">☐</span>
+      <div>
+        <div class="prime-title" style="color:var(--warn)">🧬 Ficou Infértil</div>
+        <div class="prime-desc">Não manteve dieta ativa</div>
+      </div>
+    </div>
+
+    <div class="prime-objective penalty" data-penalty="2" onclick="togglePenalty(this)">
+      <span class="prime-check">☐</span>
+      <div>
+        <div class="prime-title" style="color:var(--warn)">💪 Muscle Spasms</div>
+        <div class="prime-desc">Praticou canibalismo</div>
+      </div>
+    </div>
+  </div>
+</div>
 
       <!-- BOTÕES -->
       <div class="prime-actions">
@@ -11361,12 +11345,12 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('assistenteContagem').textContent = total;
 });
 // ============================================
-// PRIME ELDER TRACKER (com Penalidades)
+// PRIME ELDER TRACKER (PENALIDADES REAIS)
 // ============================================
 
 let primeState = {
   positive: [false, false, false, false, false, false, false, false],
-  penalties: [false, false, false, false, false]
+  penalties: [false, false, false]  // 3: Vomitou, Infértil, Muscle Spasms
 };
 
 function loadPrime() {
@@ -11416,32 +11400,44 @@ function togglePenalty(el) {
   primeState.penalties[idx] = !primeState.penalties[idx];
   savePrime();
   updatePrimeUI();
+  
+  // SE MARCOU UMA PENALIDADE, MOSTRA O POPUP
+  const hasPenalty = primeState.penalties.some(v => v === true);
+  if (hasPenalty) {
+    setTimeout(showDiagnostic, 400);
+  }
 }
 
 function updatePrimeUI() {
   const done = primeState.positive.filter(v => v).length;
-  const penalties = primeState.penalties.filter(v => v).length;
-  const hasPenalty = penalties > 0;
+  const hasPenalty = primeState.penalties.some(v => v === true);
   const percent = Math.min(100, Math.round((done / 8) * 100));
   const isPrime = done >= 5 && !hasPenalty;
 
   // Atualiza barra
-  document.getElementById('primeProgressFill').style.width = percent + '%';
-  document.getElementById('primeProgressGlow').style.left = percent + '%';
+  const fill = document.getElementById('primeProgressFill');
+  const glow = document.getElementById('primeProgressGlow');
+  if (fill) fill.style.width = percent + '%';
+  if (glow) glow.style.left = percent + '%';
   document.getElementById('primePercent').textContent = percent + '%';
 
   // Atualiza passos
   for (let i = 0; i < 8; i++) {
-    document.getElementById('step' + (i+1)).classList.toggle('done', i < done);
+    const step = document.getElementById('step' + (i+1));
+    if (step) step.classList.toggle('done', i < done);
   }
 
   // Atualiza status
   const status = document.getElementById('primeStatus');
   if (isPrime) {
-    status.innerHTML = '👑 <strong>PRIME ELDER ALCANÇADO!</strong> (' + done + '/8 objetivos, ' + penalties + ' penalidades)';
+    status.innerHTML = '👑 <strong>PRIME ELDER ALCANÇADO!</strong> (' + done + '/8 objetivos, sem penalidades)';
     status.className = 'prime-status prime';
   } else if (hasPenalty) {
-    status.innerHTML = '💀 <strong>PRIME PERDIDO!</strong> ' + penalties + ' penalidade' + (penalties > 1 ? 's' : '') + ' impediram o Prime. (' + done + '/8 objetivos)';
+    const penaltyNames = [];
+    if (primeState.penalties[0]) penaltyNames.push('Vomitou');
+    if (primeState.penalties[1]) penaltyNames.push('Infértil');
+    if (primeState.penalties[2]) penaltyNames.push('Muscle Spasms');
+    status.innerHTML = '💀 <strong>PRIME PERDIDO!</strong> Penalidade: ' + penaltyNames.join(', ') + ' (' + done + '/8 objetivos)';
     status.className = 'prime-status';
     status.style.borderColor = 'rgba(200,48,16,.4)';
     status.style.color = 'var(--warn)';
@@ -11456,19 +11452,22 @@ function updatePrimeUI() {
   document.querySelectorAll('#positiveGrid .prime-objective').forEach((el, i) => {
     const isDone = primeState.positive[i];
     el.classList.toggle('done', isDone);
-    el.querySelector('.prime-check').textContent = isDone ? '✅' : '☐';
+    const check = el.querySelector('.prime-check');
+    if (check) check.textContent = isDone ? '✅' : '☐';
   });
 
-  // Atualiza penalidades
+  // Atualiza penalidades (3)
   document.querySelectorAll('#penaltyGrid .prime-objective').forEach((el, i) => {
     const isDone = primeState.penalties[i];
     el.classList.toggle('done', isDone);
-    el.querySelector('.prime-check').textContent = isDone ? '⚠️' : '☐';
+    const check = el.querySelector('.prime-check');
+    if (check) check.textContent = isDone ? '⚠️' : '☐';
   });
 
   // Atualiza contagens
   document.getElementById('positiveCount').textContent = done + '/8';
-  document.getElementById('penaltyCount').textContent = penalties + '/5';
+  const penCount = primeState.penalties.filter(v => v).length;
+  document.getElementById('penaltyCount').textContent = penCount + '/3';
 
   // Atualiza resultado final
   const resultIcon = document.getElementById('primeResultIcon');
@@ -11485,14 +11484,164 @@ function updatePrimeUI() {
     if (primeState.penalties[0]) penaltyNames.push('Vomitou');
     if (primeState.penalties[1]) penaltyNames.push('Infértil');
     if (primeState.penalties[2]) penaltyNames.push('Muscle Spasms');
-    if (primeState.penalties[3]) penaltyNames.push('Sangrou Demais');
-    if (primeState.penalties[4]) penaltyNames.push('Morreu Jovem');
     resultText.innerHTML = '<span class="highlight-frail">PRIME PERDIDO!</span> Você teve: <strong>' + penaltyNames.join(', ') + '</strong>. Evite essas penalidades na próxima vida!';
     resultBox.className = 'prime-final-status frail';
   } else {
     resultIcon.textContent = '📋';
     resultText.textContent = 'Marque seus objetivos para ver o resultado! (' + done + '/8)';
     resultBox.className = 'prime-final-status';
+  }
+}
+
+// ============================================
+// POPUP DE DIAGNÓSTICO
+// ============================================
+
+function showDiagnostic() {
+  const overlay = document.getElementById('primeDiagnosticOverlay');
+  if (!overlay) return;
+  
+  const done = primeState.positive.filter(v => v).length;
+  const hasVomit = primeState.penalties[0];
+  const hasInfertil = primeState.penalties[1];
+  const hasMuscle = primeState.penalties[2];
+  const isPrime = done >= 5 && !hasVomit && !hasInfertil && !hasMuscle;
+
+  if (isPrime) return;
+
+  const errors = [];
+  const solutions = [];
+  const successes = [];
+
+  if (hasVomit) {
+    errors.push('🤢 <strong>Vomitou</strong> — Você comeu comida podre ou exagerou na comida');
+    solutions.push('🍖 <strong>Coma apenas comida fresca.</strong> Carcaças podres (com moscas) fazem você vomitar. Se vomitar repetidamente, perde o Prime.');
+  }
+  if (hasInfertil) {
+    errors.push('🧬 <strong>Ficou Infértil</strong> — Você deixou sua dieta zerar');
+    solutions.push('🍽️ <strong>Mantenha pelo menos 1 dieta ativa sempre.</strong> Coma seus alimentos preferidos regularmente. Se sua dieta cair a 0%, você fica Infértil e perde o Prime.');
+  }
+  if (hasMuscle) {
+    errors.push('💪 <strong>Muscle Spasms</strong> — Você praticou canibalismo anormal');
+    solutions.push('🍖 <strong>Não coma outros da sua espécie.</strong> O canibalismo causa Muscle Spasms e impede o Prime Elder. Se estiver com fome, caçe outras espécies ou procure carcaças frescas.');
+  }
+  if (done < 5) {
+    errors.push('📋 <strong>Objetivos insuficientes</strong> — Você completou ' + done + ' de 8 objetivos');
+    solutions.push('🎯 <strong>Foque nos objetivos mais fáceis:</strong> Sanctuário, Dieta Perfeita, Migration Zones e Patrol Zones são os mais rápidos de completar!');
+  }
+
+  // O que ele fez certo
+  const objLabels = ['🏛️ Visitar Sanctuário', '🍽️ Dieta Perfeita', '🗺️ 2 Migration Zones', '🚶 4 Patrol Zones', '🥚 Criar Ninho', '🐣 Criar Filhote até 50%', '🐣 Nascer de Ovo', '⏱️ Sobreviveu 2h+'];
+  primeState.positive.forEach((v, i) => {
+    if (v) successes.push('✅ ' + objLabels[i]);
+  });
+  if (successes.length === 0) successes.push('💪 Continue tentando! Foque nos objetivos básicos primeiro.');
+
+  // Ícone e título
+  const icon = document.getElementById('diagnosticIcon');
+  const tag = document.getElementById('diagnosticTag');
+  const title = document.getElementById('diagnosticTitle');
+  const header = document.getElementById('diagnosticHeader');
+
+  if (hasVomit || hasInfertil || hasMuscle) {
+    icon.textContent = '💀';
+    tag.textContent = '⚠️ PRIME ELDER PERDIDO';
+    title.textContent = 'Penalidade detectada!';
+    if (header) header.style.borderBottomColor = 'rgba(139,26,10,.4)';
+  } else {
+    icon.textContent = '📋';
+    tag.textContent = '📊 PROGRESSO INSUFICIENTE';
+    title.textContent = 'Faltam objetivos!';
+    if (header) header.style.borderBottomColor = 'rgba(200,151,42,.3)';
+  }
+
+  // Mensagem principal
+  let msg = '';
+  const penalties = [];
+  if (hasVomit) penalties.push('Vomitou');
+  if (hasInfertil) penalties.push('Infértil');
+  if (hasMuscle) penalties.push('Muscle Spasms');
+  
+  if (penalties.length > 1) {
+    msg = 'Você teve <strong>' + penalties.join(' e ') + '</strong>. Essas penalidades impedem o Prime Elder.';
+  } else if (penalties.length === 1) {
+    msg = 'Você teve <strong>' + penalties[0] + '</strong>, o que impede completamente o Prime Elder.';
+  } else if (done < 5) {
+    msg = 'Você completou <strong>' + done + ' de 8 objetivos</strong>. Precisa de pelo menos 5 para o Prime Elder.';
+  }
+  document.getElementById('diagnosticMessage').innerHTML = '<p>' + msg + '</p>';
+
+  // Listas
+  document.getElementById('errorList').innerHTML = errors.map(e => 
+    `<div class="diagnostic-error-item"><span class="icon">❌</span><span class="text">${e}</span></div>`
+  ).join('');
+
+  document.getElementById('solutionList').innerHTML = solutions.map(s => 
+    `<div class="diagnostic-solution-item"><span class="icon">💡</span><span class="text">${s}</span></div>`
+  ).join('');
+
+  document.getElementById('successList').innerHTML = successes.map(s => 
+    `<div class="diagnostic-success-item"><span class="icon">✅</span><span class="text">${s}</span></div>`
+  ).join('');
+
+  // Resumo
+  const percent = Math.round((done / 8) * 100);
+  document.getElementById('summaryDone').textContent = done + '/8';
+  document.getElementById('summaryPercent').textContent = percent + '%';
+
+  const statusEl = document.getElementById('summaryStatus');
+  if (hasVomit || hasInfertil || hasMuscle) {
+    statusEl.textContent = '💀 Frail Elder';
+    statusEl.className = 'summary-value frail';
+  } else if (done >= 3) {
+    statusEl.textContent = '⚡ Elder Normal';
+    statusEl.className = 'summary-value normal';
+  } else {
+    statusEl.textContent = '💀 Frail Elder';
+    statusEl.className = 'summary-value frail';
+  }
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDiagnostic() {
+  document.getElementById('primeDiagnosticOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function shareDiagnostic() {
+  const done = primeState.positive.filter(v => v).length;
+  const hasVomit = primeState.penalties[0];
+  const hasInfertil = primeState.penalties[1];
+  const hasMuscle = primeState.penalties[2];
+  const isPrime = done >= 5 && !hasVomit && !hasInfertil && !hasMuscle;
+
+  let status = '💀 Frail Elder';
+  if (isPrime) status = '👑 Prime Elder';
+  else if (done >= 3) status = '⚡ Elder Normal';
+
+  const penalties = [];
+  if (hasVomit) penalties.push('Vomitou');
+  if (hasInfertil) penalties.push('Infértil');
+  if (hasMuscle) penalties.push('Muscle Spasms');
+
+  const msg = `🦕 Meu resultado no Rastreador de Elder!
+
+📊 Status: ${status}
+✅ Objetivos: ${done}/8
+⚠️ Penalidades: ${penalties.length > 0 ? penalties.join(', ') : 'Nenhuma'}
+
+${isPrime ? '🎉 CONSEGUI O PRIME ELDER!' : '💪 Próxima vida vai ser melhor!'}
+
+🎮 Teste você também no Sobrevivente Jurássico!`;
+
+  if (navigator.share) {
+    navigator.share({ title: 'Meu Progresso no Elder', text: msg });
+  } else {
+    navigator.clipboard.writeText(msg).then(() => {
+      alert('📋 Resultado copiado! Cole onde quiser.');
+    });
   }
 }
 
@@ -11504,6 +11653,8 @@ window.togglePrime = togglePrime;
 window.togglePenalty = togglePenalty;
 window.resetPrime = resetPrime;
 window.savePrime = savePrime;
+window.closeDiagnostic = closeDiagnostic;
+window.shareDiagnostic = shareDiagnostic;
 </script>
 
 <!-- DINO DETAIL MODAL -->
