@@ -2007,6 +2007,80 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 
     </div>
   </div>
+  <!-- ============================================ -->
+<!-- ===== POPUP DE DIAGNÓSTICO PRIME ELDER ===== -->
+<!-- ============================================ -->
+<div class="prime-diagnostic-overlay" id="primeDiagnosticOverlay">
+  <div class="prime-diagnostic-modal">
+    
+    <!-- CABEÇALHO -->
+    <div class="prime-diagnostic-header" id="diagnosticHeader">
+      <span class="diagnostic-icon" id="diagnosticIcon">💀</span>
+      <div class="diagnostic-title-wrap">
+        <span class="diagnostic-tag" id="diagnosticTag">⚠️ PRIME ELDER PERDIDO</span>
+        <h2 class="diagnostic-title" id="diagnosticTitle">O que deu errado?</h2>
+      </div>
+      <button class="diagnostic-close" onclick="closeDiagnostic()">✕</button>
+    </div>
+
+    <!-- CORPO -->
+    <div class="prime-diagnostic-body">
+      
+      <!-- DIAGNÓSTICO -->
+      <div class="diagnostic-section">
+        <div class="diagnostic-section-title">🔍 Diagnóstico</div>
+        <div class="diagnostic-message" id="diagnosticMessage">
+          <p>Você teve penalidades que impedem o Prime Elder.</p>
+        </div>
+      </div>
+
+      <!-- ERROS -->
+      <div class="diagnostic-section">
+        <div class="diagnostic-section-title">❌ O que impediu o Prime</div>
+        <div class="diagnostic-error-list" id="errorList"></div>
+      </div>
+
+      <!-- ACERTOS -->
+      <div class="diagnostic-section">
+        <div class="diagnostic-section-title">✅ O que você fez certo</div>
+        <div class="diagnostic-success-list" id="successList"></div>
+      </div>
+
+      <!-- SOLUÇÕES -->
+      <div class="diagnostic-section">
+        <div class="diagnostic-section-title">💡 Como resolver na próxima vida</div>
+        <div class="diagnostic-solution-list" id="solutionList"></div>
+      </div>
+
+      <!-- RESUMO -->
+      <div class="diagnostic-section">
+        <div class="diagnostic-section-title">📊 Resumo da Partida</div>
+        <div class="diagnostic-summary">
+          <div class="summary-item">
+            <span class="summary-label">Objetivos completos</span>
+            <span class="summary-value" id="summaryDone">0/8</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Progresso</span>
+            <span class="summary-value" id="summaryPercent">0%</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Status</span>
+            <span class="summary-value" id="summaryStatus">💀 Frail Elder</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÕES -->
+      <div class="diagnostic-actions">
+        <button class="diagnostic-btn reset" onclick="resetPrime()">🔄 Começar nova partida</button>
+        <button class="diagnostic-btn close" onclick="closeDiagnostic()">Fechar</button>
+        <button class="diagnostic-btn share" onclick="shareDiagnostic()">📤 Compartilhar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 </section>
 <!-- ASSISTENTE IA -->
 <div class="full-divider"></div>
