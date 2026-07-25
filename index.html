@@ -975,7 +975,98 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .prime-actions { flex-direction: column; }
   .prime-reset, .prime-save { width: 100%; text-align: center; }
   .prime-progress-percent { font-size: 1.1rem; }
+  /* ===== SEÇÃO DE PENALIDADES ===== */
+.prime-section {
+  margin-bottom: 24px;
 }
+
+.prime-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(74,120,37,.08);
+}
+
+.prime-section-title {
+  font-family: 'Cinzel', serif;
+  font-size: .65rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.prime-section-count {
+  font-family: 'Cinzel', serif;
+  font-size: .5rem;
+  color: var(--bone);
+  opacity: .4;
+}
+
+.prime-objective.penalty.done {
+  border-color: rgba(200,48,16,.3);
+  background: rgba(200,48,16,.06);
+}
+
+.prime-objective.penalty.done .prime-check {
+  color: var(--warn);
+}
+
+/* ===== STATUS FINAL ===== */
+.prime-final-status {
+  margin-top: 20px;
+  padding: 20px 24px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(74,120,37,.1);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: all .5s;
+}
+
+.prime-final-status.prime {
+  border-color: rgba(90,158,30,.4);
+  background: rgba(90,158,30,.06);
+  box-shadow: 0 0 30px rgba(90,158,30,.05);
+}
+
+.prime-final-status.frail {
+  border-color: rgba(200,48,16,.3);
+  background: rgba(200,48,16,.04);
+}
+
+.prime-result-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.prime-result-text {
+  font-family: 'Cinzel', serif;
+  font-size: .85rem;
+  color: var(--parchment);
+  line-height: 1.5;
+}
+
+.prime-result-text .highlight-prime {
+  color: var(--acid-light);
+}
+
+.prime-result-text .highlight-frail {
+  color: var(--warn);
+}
+
+@media(max-width:700px) {
+  .prime-final-status {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+  }
+  .prime-result-icon {
+    font-size: 2rem;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -989,6 +1080,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <li><a href="#mapa">Mapa</a></li>
     <li><a href="#atualizacoes">Atualizações</a></li>
     <li><a href="#guias">Guias</a></li>
+    <li><a href="#prime-tracker">👑 Prime</a></li>
     <li><a href="#equipe">Equipe</a></li>
     <li><a href="#faq">Dúvidas</a></li>
     <li><a href="#servidores">Servidores</a></li>
@@ -1767,7 +1859,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <div style="margin-bottom:40px;">
       <span class="section-tag reveal" style="color:var(--warn)">👑 Progressão</span>
       <h2 class="section-heading reveal reveal-delay-1">Rastreador de <span style="color:var(--acid)">Prime Elder</span></h2>
-      <p class="section-lead reveal reveal-delay-2">Marque os objetivos que você já completou. <strong style="color:var(--acid)">5 dos 8 objetivos</strong> garantem o Prime Elder!</p>
+      <p class="section-lead reveal reveal-delay-2">Marque o que você fez na sua partida. <strong style="color:var(--acid)">5 objetivos positivos</strong> e <strong style="color:var(--warn)">NENHUMA penalidade</strong> = Prime Elder!</p>
     </div>
 
     <div class="prime-tracker-wrap reveal reveal-delay-2">
@@ -1792,80 +1884,141 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
           <span class="prime-step" id="step7">7</span>
           <span class="prime-step" id="step8">8</span>
         </div>
-        <div class="prime-status" id="primeStatus">🎯 Complete 5 objetivos para alcançar o Prime Elder!</div>
+        <div class="prime-status" id="primeStatus">🎯 Complete 5 objetivos sem penalidades para o Prime!</div>
       </div>
 
-      <!-- 8 OBJETIVOS -->
-      <div class="prime-objectives-grid">
-        <div class="prime-objective" data-index="0" onclick="togglePrime(this)">
-          <span class="prime-check">☐</span>
-          <div>
-            <div class="prime-title">🏛️ Visitar Sanctuário</div>
-            <div class="prime-desc">Encontre e visite um Santuário</div>
+      <!-- ===== AÇÕES POSITIVAS ===== -->
+      <div class="prime-section">
+        <div class="prime-section-header">
+          <span class="prime-section-title" style="color:var(--acid)">✅ Ações Positivas</span>
+          <span class="prime-section-count" id="positiveCount">0/8</span>
+        </div>
+        <div class="prime-objectives-grid" id="positiveGrid">
+          <div class="prime-objective positive" data-index="0" onclick="togglePrime(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title">🏛️ Visitar Sanctuário</div>
+              <div class="prime-desc">Encontre e visite um Santuário</div>
+            </div>
+          </div>
+
+          <div class="prime-objective positive" data-index="1" onclick="togglePrime(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title">🍽️ Dieta Perfeita</div>
+              <div class="prime-desc">Atingir 100% de dieta preferida</div>
+            </div>
+          </div>
+
+          <div class="prime-objective positive" data-index="2" onclick="togglePrime(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title">🗺️ 2 Migration Zones</div>
+              <div class="prime-desc">Visitar 2 zonas de migração</div>
+            </div>
+          </div>
+
+          <div class="prime-objective positive" data-index="3" onclick="togglePrime(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title">🚶 4 Patrol Zones</div>
+              <div class="prime-desc">Visitar 4 zonas de patrulha</div>
+            </div>
+          </div>
+
+          <div class="prime-objective positive" data-index="4" onclick="togglePrime(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title">🥚 Criar Ninho</div>
+              <div class="prime-desc">Construir um ninho</div>
+            </div>
+          </div>
+
+          <div class="prime-objective positive" data-index="5" onclick="togglePrime(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title">🐣 Criar Filhote até 50%</div>
+              <div class="prime-desc">Criar um filhote com sucesso</div>
+            </div>
+          </div>
+
+          <div class="prime-objective positive" data-index="6" onclick="togglePrime(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title">🐣 Nascer de Ovo</div>
+              <div class="prime-desc">Renascer de um ovo</div>
+            </div>
+          </div>
+
+          <div class="prime-objective positive" data-index="7" onclick="togglePrime(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title">⏱️ Sobreviveu 2h+</div>
+              <div class="prime-desc">Viveu mais de 2 horas</div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="prime-objective" data-index="1" onclick="togglePrime(this)">
-          <span class="prime-check">☐</span>
-          <div>
-            <div class="prime-title">🍽️ Dieta Perfeita</div>
-            <div class="prime-desc">Atingir 100% de dieta preferida</div>
-          </div>
+      <!-- ===== PENALIDADES (COISAS RUINS) ===== -->
+      <div class="prime-section">
+        <div class="prime-section-header">
+          <span class="prime-section-title" style="color:var(--warn)">⚠️ Penalidades</span>
+          <span class="prime-section-count" id="penaltyCount">0/5</span>
         </div>
-
-        <div class="prime-objective" data-index="2" onclick="togglePrime(this)">
-          <span class="prime-check">☐</span>
-          <div>
-            <div class="prime-title">🧬 Nunca ficar Infértil</div>
-            <div class="prime-desc">Manter pelo menos 1 dieta ativa</div>
+        <div class="prime-objectives-grid" id="penaltyGrid">
+          <div class="prime-objective penalty" data-penalty="0" onclick="togglePenalty(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title" style="color:var(--warn)">🤢 Vomitou</div>
+              <div class="prime-desc">Comeu comida podre ou exagerou</div>
+            </div>
           </div>
-        </div>
 
-        <div class="prime-objective" data-index="3" onclick="togglePrime(this)">
-          <span class="prime-check">☐</span>
-          <div>
-            <div class="prime-title">💪 Nunca ter Muscle Spasms</div>
-            <div class="prime-desc">Não praticar canibalismo anormal</div>
+          <div class="prime-objective penalty" data-penalty="1" onclick="togglePenalty(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title" style="color:var(--warn)">🧬 Ficou Infértil</div>
+              <div class="prime-desc">Não manteve dieta ativa</div>
+            </div>
           </div>
-        </div>
 
-        <div class="prime-objective" data-index="4" onclick="togglePrime(this)">
-          <span class="prime-check">☐</span>
-          <div>
-            <div class="prime-title">🗺️ Visitar 2 Migration Zones</div>
-            <div class="prime-desc">Encontrar e visitar 2 zonas de migração</div>
+          <div class="prime-objective penalty" data-penalty="2" onclick="togglePenalty(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title" style="color:var(--warn)">💪 Muscle Spasms</div>
+              <div class="prime-desc">Praticou canibalismo</div>
+            </div>
           </div>
-        </div>
 
-        <div class="prime-objective" data-index="5" onclick="togglePrime(this)">
-          <span class="prime-check">☐</span>
-          <div>
-            <div class="prime-title">🚶 Visitar 4 Patrol Zones</div>
-            <div class="prime-desc">Encontrar e visitar 4 zonas de patrulha</div>
+          <div class="prime-objective penalty" data-penalty="3" onclick="togglePenalty(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title" style="color:var(--warn)">🩸 Sangrou Demais</div>
+              <div class="prime-desc">Não se curou a tempo</div>
+            </div>
           </div>
-        </div>
 
-        <div class="prime-objective" data-index="6" onclick="togglePrime(this)">
-          <span class="prime-check">☐</span>
-          <div>
-            <div class="prime-title">🥚 Criar ninho e filhote</div>
-            <div class="prime-desc">Criar um filhote até 50%</div>
-          </div>
-        </div>
-
-        <div class="prime-objective" data-index="7" onclick="togglePrime(this)">
-          <span class="prime-check">☐</span>
-          <div>
-            <div class="prime-title">🐣 Nascer de ovo</div>
-            <div class="prime-desc">Nascer de um ovo em ninho ativo</div>
+          <div class="prime-objective penalty" data-penalty="4" onclick="togglePenalty(this)">
+            <span class="prime-check">☐</span>
+            <div>
+              <div class="prime-title" style="color:var(--warn)">⚰️ Morreu Jovem</div>
+              <div class="prime-desc">Morreu antes do adulto</div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- BOTÕES -->
       <div class="prime-actions">
-        <button class="prime-reset" onclick="resetPrime()">🔄 Resetar</button>
-        <button class="prime-save" onclick="savePrime()">💾 Salvar</button>
+        <button class="prime-reset" onclick="resetPrime()">🔄 Resetar Tudo</button>
+        <button class="prime-save" onclick="savePrime()">💾 Salvar Progresso</button>
+      </div>
+
+      <!-- STATUS FINAL -->
+      <div class="prime-final-status" id="primeFinalStatus">
+        <div class="prime-result-icon" id="primeResultIcon">👑</div>
+        <div class="prime-result-text" id="primeResultText">Marque seus objetivos para ver o resultado!</div>
       </div>
 
     </div>
@@ -11208,72 +11361,147 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('assistenteContagem').textContent = total;
 });
 // ============================================
-// PRIME ELDER TRACKER
+// PRIME ELDER TRACKER (com Penalidades)
 // ============================================
 
-let primeState = [false, false, false, false, false, false, false, false];
+let primeState = {
+  positive: [false, false, false, false, false, false, false, false],
+  penalties: [false, false, false, false, false]
+};
 
 function loadPrime() {
   try {
-    const saved = localStorage.getItem('primeTracker');
-    if (saved) primeState = JSON.parse(saved);
+    const saved = localStorage.getItem('primeTrackerV2');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      primeState.positive = parsed.positive || primeState.positive;
+      primeState.penalties = parsed.penalties || primeState.penalties;
+    }
   } catch(e) {}
   updatePrimeUI();
 }
 
 function savePrime() {
-  localStorage.setItem('primeTracker', JSON.stringify(primeState));
+  localStorage.setItem('primeTrackerV2', JSON.stringify(primeState));
   const btn = document.querySelector('.prime-save');
+  const original = btn.textContent;
   btn.textContent = '✅ Salvo!';
-  setTimeout(() => btn.textContent = '💾 Salvar', 1200);
+  btn.style.borderColor = 'rgba(90,158,30,.6)';
+  btn.style.color = 'var(--acid)';
+  setTimeout(() => {
+    btn.textContent = original;
+    btn.style.borderColor = '';
+    btn.style.color = '';
+  }, 1500);
 }
 
 function resetPrime() {
-  if (confirm('Resetar todo o progresso do Prime Elder?')) {
-    primeState = primeState.map(() => false);
-    localStorage.removeItem('primeTracker');
+  if (confirm('⚠️ Resetar TODO o progresso do Prime Elder?')) {
+    primeState.positive = primeState.positive.map(() => false);
+    primeState.penalties = primeState.penalties.map(() => false);
+    localStorage.removeItem('primeTrackerV2');
     updatePrimeUI();
   }
 }
 
 function togglePrime(el) {
   const idx = parseInt(el.dataset.index);
-  primeState[idx] = !primeState[idx];
+  primeState.positive[idx] = !primeState.positive[idx];
+  savePrime();
+  updatePrimeUI();
+}
+
+function togglePenalty(el) {
+  const idx = parseInt(el.dataset.penalty);
+  primeState.penalties[idx] = !primeState.penalties[idx];
   savePrime();
   updatePrimeUI();
 }
 
 function updatePrimeUI() {
-  const done = primeState.filter(v => v).length;
-  const percent = Math.round((done / 8) * 100);
-  const isPrime = done >= 5;
+  const done = primeState.positive.filter(v => v).length;
+  const penalties = primeState.penalties.filter(v => v).length;
+  const hasPenalty = penalties > 0;
+  const percent = Math.min(100, Math.round((done / 8) * 100));
+  const isPrime = done >= 5 && !hasPenalty;
 
+  // Atualiza barra
   document.getElementById('primeProgressFill').style.width = percent + '%';
   document.getElementById('primeProgressGlow').style.left = percent + '%';
   document.getElementById('primePercent').textContent = percent + '%';
 
+  // Atualiza passos
   for (let i = 0; i < 8; i++) {
     document.getElementById('step' + (i+1)).classList.toggle('done', i < done);
   }
 
+  // Atualiza status
   const status = document.getElementById('primeStatus');
   if (isPrime) {
-    status.innerHTML = '👑 <strong>PRIME ELDER ALCANÇADO!</strong> (' + done + '/8 objetivos)';
+    status.innerHTML = '👑 <strong>PRIME ELDER ALCANÇADO!</strong> (' + done + '/8 objetivos, ' + penalties + ' penalidades)';
     status.className = 'prime-status prime';
+  } else if (hasPenalty) {
+    status.innerHTML = '💀 <strong>PRIME PERDIDO!</strong> ' + penalties + ' penalidade' + (penalties > 1 ? 's' : '') + ' impediram o Prime. (' + done + '/8 objetivos)';
+    status.className = 'prime-status';
+    status.style.borderColor = 'rgba(200,48,16,.4)';
+    status.style.color = 'var(--warn)';
   } else {
     status.innerHTML = '🎯 Complete <strong>' + (5 - done) + '</strong> objetivos para o Prime (' + done + '/8)';
     status.className = 'prime-status';
+    status.style.borderColor = '';
+    status.style.color = '';
   }
 
-  document.querySelectorAll('.prime-objective').forEach((el, i) => {
-    const isDone = primeState[i];
+  // Atualiza objetivos positivos
+  document.querySelectorAll('#positiveGrid .prime-objective').forEach((el, i) => {
+    const isDone = primeState.positive[i];
     el.classList.toggle('done', isDone);
     el.querySelector('.prime-check').textContent = isDone ? '✅' : '☐';
   });
+
+  // Atualiza penalidades
+  document.querySelectorAll('#penaltyGrid .prime-objective').forEach((el, i) => {
+    const isDone = primeState.penalties[i];
+    el.classList.toggle('done', isDone);
+    el.querySelector('.prime-check').textContent = isDone ? '⚠️' : '☐';
+  });
+
+  // Atualiza contagens
+  document.getElementById('positiveCount').textContent = done + '/8';
+  document.getElementById('penaltyCount').textContent = penalties + '/5';
+
+  // Atualiza resultado final
+  const resultIcon = document.getElementById('primeResultIcon');
+  const resultText = document.getElementById('primeResultText');
+  const resultBox = document.getElementById('primeFinalStatus');
+
+  if (isPrime) {
+    resultIcon.textContent = '👑';
+    resultText.innerHTML = '<span class="highlight-prime">PRIME ELDER ALCANÇADO!</span> Você completou ' + done + ' objetivos e não teve penalidades. Parabéns! 🎉';
+    resultBox.className = 'prime-final-status prime';
+  } else if (hasPenalty) {
+    resultIcon.textContent = '💀';
+    const penaltyNames = [];
+    if (primeState.penalties[0]) penaltyNames.push('Vomitou');
+    if (primeState.penalties[1]) penaltyNames.push('Infértil');
+    if (primeState.penalties[2]) penaltyNames.push('Muscle Spasms');
+    if (primeState.penalties[3]) penaltyNames.push('Sangrou Demais');
+    if (primeState.penalties[4]) penaltyNames.push('Morreu Jovem');
+    resultText.innerHTML = '<span class="highlight-frail">PRIME PERDIDO!</span> Você teve: <strong>' + penaltyNames.join(', ') + '</strong>. Evite essas penalidades na próxima vida!';
+    resultBox.className = 'prime-final-status frail';
+  } else {
+    resultIcon.textContent = '📋';
+    resultText.textContent = 'Marque seus objetivos para ver o resultado! (' + done + '/8)';
+    resultBox.className = 'prime-final-status';
+  }
 }
 
+// Inicializa
 document.addEventListener('DOMContentLoaded', loadPrime);
+
+// Expor funções
 window.togglePrime = togglePrime;
+window.togglePenalty = togglePenalty;
 window.resetPrime = resetPrime;
 window.savePrime = savePrime;
 </script>
