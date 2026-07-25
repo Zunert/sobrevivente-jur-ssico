@@ -1067,6 +1067,107 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   }
 }
 
+/* ===== POPUP DE DIAGNÓSTICO PRIME ELDER ===== */
+.prime-diagnostic-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw; height: 100vh;
+  z-index: 99999;
+  background: rgba(3,4,2,.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 0;
+}
+.prime-diagnostic-overlay.open { display: flex; }
+.prime-diagnostic-modal {
+  background: linear-gradient(145deg, #0e1409, #080a05);
+  border: 2px solid rgba(139,26,10,.4);
+  max-width: 640px; width: 100%; max-height: 90vh;
+  overflow-y: auto; border-radius: 6px;
+  box-shadow: 0 0 60px rgba(0,0,0,.8);
+  margin: auto; position: relative;
+  animation: slideUp .4s ease;
+}
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+.prime-diagnostic-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 24px; border-bottom: 2px solid rgba(139,26,10,.25);
+  position: sticky; top: 0;
+  background: linear-gradient(145deg, #0e1409, #080a05); z-index: 2;
+}
+.diagnostic-icon { font-size: 2.2rem; flex-shrink: 0; }
+.diagnostic-title-wrap { flex: 1; }
+.diagnostic-tag {
+  font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--warn); opacity: .8;
+  display: block; margin-bottom: 4px;
+}
+.diagnostic-title { font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; color: var(--parchment); line-height: 1.2; }
+.diagnostic-close {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(197,180,154,.15);
+  color: var(--bone); opacity: .5; font-size: 1rem; width: 32px; height: 32px;
+  cursor: pointer; transition: all .3s; border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+}
+.diagnostic-close:hover { opacity: 1; border-color: var(--warn); color: var(--warn); }
+.prime-diagnostic-body { padding: 24px; }
+.diagnostic-section { margin-bottom: 24px; }
+.diagnostic-section-title {
+  font-family: 'Cinzel', serif; font-size: .62rem; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--acid); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.diagnostic-section-title::after { content: ''; flex: 1; height: 1px; background: rgba(90,158,30,.15); }
+.diagnostic-message { background: rgba(139,26,10,.08); border-left: 3px solid var(--warn); padding: 12px 16px; border-radius: 2px; }
+.diagnostic-message p { font-size: .95rem; color: var(--bone); opacity: .8; line-height: 1.7; }
+.diagnostic-message strong { color: var(--warn); }
+.diagnostic-error-list, .diagnostic-success-list, .diagnostic-solution-list { display: flex; flex-direction: column; gap: 6px; }
+.diagnostic-error-item, .diagnostic-success-item, .diagnostic-solution-item {
+  display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px;
+  background: rgba(255,255,255,.02); border-radius: 3px; font-size: .88rem;
+  color: var(--bone); opacity: .7; line-height: 1.5;
+}
+.diagnostic-error-item .icon { color: var(--warn); }
+.diagnostic-success-item .icon { color: var(--acid); }
+.diagnostic-solution-item .icon { color: var(--acid-light); }
+.diagnostic-error-item .text strong { color: var(--warn); }
+.diagnostic-success-item .text strong { color: var(--acid); }
+.diagnostic-solution-item .text strong { color: var(--acid-light); }
+.diagnostic-summary { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.summary-item { background: rgba(255,255,255,.02); border: 1px solid rgba(74,120,37,.08); padding: 12px 14px; border-radius: 3px; text-align: center; }
+.summary-label {
+  font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--bone); opacity: .4; display: block; margin-bottom: 4px;
+}
+.summary-value { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--parchment); }
+.summary-value.prime { color: var(--acid-light); }
+.summary-value.normal { color: #c8972a; }
+.summary-value.frail { color: var(--warn); }
+.diagnostic-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.diagnostic-btn {
+  font-family: 'Cinzel', serif; font-size: .55rem; letter-spacing: .12em;
+  text-transform: uppercase; padding: 10px 20px; border: 1px solid rgba(74,120,37,.15);
+  background: transparent; color: var(--bone); opacity: .5; cursor: pointer;
+  transition: all .3s; border-radius: 2px; flex: 1; min-width: 120px; text-align: center;
+}
+.diagnostic-btn:hover { opacity: 1; }
+.diagnostic-btn.reset:hover { border-color: rgba(139,26,10,.4); color: var(--warn); }
+.diagnostic-btn.close:hover { border-color: rgba(197,180,154,.3); color: var(--parchment); }
+.diagnostic-btn.share:hover { border-color: rgba(90,158,30,.4); color: var(--acid-light); }
+@media(max-width:700px) {
+  .prime-diagnostic-modal { max-height: 95vh; }
+  .prime-diagnostic-header { padding: 14px 16px; }
+  .diagnostic-title { font-size: 1rem; }
+  .prime-diagnostic-body { padding: 16px; }
+  .diagnostic-summary { grid-template-columns: 1fr; }
+  .diagnostic-actions { flex-direction: column; }
+  .diagnostic-btn { min-width: unset; }
+}
 </style>
 </head>
 <body>
@@ -2006,8 +2107,10 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
       </div>
 
     </div>
+
   </div>
-  <!-- ============================================ -->
+</section>
+<!-- ============================================ -->
 <!-- ===== POPUP DE DIAGNÓSTICO PRIME ELDER ===== -->
 <!-- ============================================ -->
 <div class="prime-diagnostic-overlay" id="primeDiagnosticOverlay">
@@ -2081,7 +2184,6 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     </div>
   </div>
 </div>
-</section>
 <!-- ASSISTENTE IA -->
 <div class="full-divider"></div>
 <section id="assistente">
