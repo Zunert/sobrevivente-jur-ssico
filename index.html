@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <meta charset="UTF-8">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-21Q91YYK7Y"></script>
 <script>
@@ -172,96 +170,6 @@ nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;backg
 .map-balloon-btn span{position:relative;z-index:1}
 .map-iframe-header{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(5,6,3,.95);border-bottom:1px solid rgba(139,26,10,.35)}
 .map-iframe-label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--acid);opacity:.8}
-
-/* ── NOSSO MAPA INTERATIVO (Leaflet) ── */
-.our-map-block {
-  background: linear-gradient(145deg, var(--forest), var(--deep));
-  border: 1px solid rgba(90,158,30,.2);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.our-map-coordbar {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: 14px 20px;
-  background: rgba(0,0,0,.25);
-  border-bottom: 1px solid rgba(90,158,30,.1);
-}
-.our-map-coordbar input {
-  background: rgba(0,0,0,.4);
-  border: 1px solid rgba(90,158,30,.3);
-  color: var(--parchment);
-  font-family: 'Crimson Pro', serif;
-  font-size: .95rem;
-  padding: 8px 12px;
-  flex: 1;
-  min-width: 200px;
-  outline: none;
-  border-radius: 4px;
-}
-.our-map-coordbar input:focus {
-  border-color: var(--acid);
-}
-.our-map-coordbar button {
-  background: rgba(90,158,30,.15);
-  border: 1px solid rgba(90,158,30,.5);
-  color: var(--acid-light);
-  font-family: 'Cinzel', serif;
-  font-size: .62rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  padding: 9px 18px;
-  cursor: pointer;
-  transition: all .2s;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-.our-map-coordbar button:hover {
-  background: rgba(90,158,30,.3);
-}
-.our-map-coordstatus {
-  font-family: 'Cinzel', serif;
-  font-size: .6rem;
-  letter-spacing: .05em;
-  color: var(--warn);
-  opacity: .85;
-  margin-left: auto;
-  white-space: nowrap;
-}
-#ourMap {
-  width: 100%;
-  height: 600px;
-  background: #020803;
-}
-.leaflet-container {
-  background: #020803 !important;
-  font-family: 'Crimson Pro', serif;
-}
-.leaflet-popup-content-wrapper {
-  background: var(--forest);
-  color: var(--parchment);
-  border: 1px solid rgba(90,158,30,.4);
-  border-radius: 4px;
-}
-.leaflet-popup-tip {
-  background: var(--forest);
-}
-.leaflet-control-zoom a {
-  background: rgba(5,6,3,.85) !important;
-  color: var(--acid) !important;
-  border: 1px solid rgba(90,158,30,.4) !important;
-}
-.leaflet-control-zoom a:hover {
-  background: rgba(90,158,30,.2) !important;
-}
-@media (max-width:640px) {
-  #ourMap { height: 420px; }
-  .our-map-coordbar input { min-width: 140px; }
-  .our-map-coordbar { flex-direction: column; align-items: stretch; }
-  .our-map-coordstatus { margin-left: 0; text-align: center; }
-}
 .map-ctrl-btn{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);opacity:.55;text-decoration:none;background:rgba(255,255,255,.04);border:1px solid rgba(197,180,154,.15);padding:5px 14px;cursor:pointer;transition:all .3s}
 .map-ctrl-btn:hover{opacity:1;color:var(--acid);border-color:rgba(90,158,30,.4)}
 .map-iframe-wrap{width:100%;border:1px solid rgba(139,26,10,.3);overflow:hidden;display:flex;flex-direction:column;background:var(--deep);position:relative}
@@ -1410,19 +1318,111 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     </div>
 
     <!-- Mapa interativo em largura total -->
-    <div class="our-map-block reveal" id="mapWrap">
-      <div class="our-map-coordbar">
-        <input type="text" id="coordInput" placeholder="Ex: 110640.89, -42260.173" style="width:340px">
-        <button onclick="localizarCoordenada()">📍 Localizar</button>
-        <button onclick="resetMapView()">🎯 Centralizar</button>
-        <span id="coordStatus" class="our-map-coordstatus"></span>
+    <div class="map-iframe-wrap reveal" id="mapWrap">
+
+      <!-- ESTADO 1: Imagem estática limpa -->
+      <div id="mapStatic" style="position:relative;">
+        <img src="mapa.jpg" alt="Mapa The Isle Evrima" style="width:100%;display:block;">
+        <div style="position:absolute;bottom:16px;left:16px;font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--warn);opacity:.7;">⚠ Nenhum lugar é seguro</div>
       </div>
-      <div id="ourMap"></div>
-      <div style="padding:12px 20px;background:rgba(0,0,0,.3);border-top:1px solid rgba(90,158,30,.1);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.8rem;color:var(--bone);opacity:.6;">
-        <span>🖱️ Arraste para mover | 🔄 Rolagem para zoom</span>
-        <span>📌 Coordenadas no formato: <strong style="color:var(--acid);">lat, lng</strong> (ex: 110640.89, -42260.173)</span>
+
+      <!-- Balão flutuante do mapa interativo -->
+      <div id="mapBalloon" class="map-balloon">
+        <div class="map-balloon-icon">🗺️</div>
+        <div class="map-balloon-text">
+          <span class="map-balloon-title">Mapa Interativo</span>
+          <span class="map-balloon-sub">VulnonaMAP</span>
+        </div>
+        <button class="map-balloon-btn" onclick="activateMap()"><span>🗺️ Ativar →</span></button>
       </div>
-    </div><!-- end mapWrap -->
+
+      <!-- ESTADO 2: Iframe ativo (oculto inicialmente) -->
+      <div id="mapIframe" style="display:none;flex-direction:column;">
+        <div class="map-iframe-header">
+          <span class="map-iframe-label">🗺️ MAPA INTERATIVO — VulnonaMAP</span>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <button onclick="toggleFullscreenMap()" class="map-ctrl-btn">⛶ Tela cheia</button>
+            <a href="https://vulnona.com/game/map/#" target="_blank" class="map-ctrl-btn">↗ Site original</a>
+            <button onclick="deactivateMap()" class="map-ctrl-btn" style="color:var(--warn);border-color:rgba(139,26,10,.3);">✕ Desativar</button>
+          </div>
+        </div>
+
+        <!-- Instrução destacada de troca de mapa -->
+        <div id="mapHint" style="background:linear-gradient(135deg,rgba(139,26,10,.2),rgba(90,40,5,.15));border-bottom:2px solid rgba(200,48,16,.5);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="background:rgba(200,48,16,.2);border:1px solid rgba(200,48,16,.5);padding:8px 10px;flex-shrink:0;font-size:1.4rem;line-height:1;">⚠️</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <span style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--warn);font-weight:700;">Atenção — Mapa Incorreto</span>
+              <span style="font-family:'Crimson Pro',serif;font-size:1rem;color:var(--parchment);line-height:1.5;">O mapa pode abrir em outro jogo. No <strong style="color:var(--acid)">canto superior esquerdo</strong> do mapa, clique no seletor e escolha <strong style="color:var(--acid);">"Gateway v0.21"</strong> para jogar no mapa correto do Evrima.</span>
+            </div>
+          </div>
+          <button onclick="document.getElementById('mapHint').style.display='none'" style="background:rgba(139,26,10,.3);border:1px solid rgba(200,48,16,.5);color:var(--parchment);font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:8px 16px;cursor:pointer;flex-shrink:0;transition:all .3s;white-space:nowrap;">✓ Entendi</button>
+        </div>
+
+        <iframe
+          id="vulnonaFrame"
+          style="width:100%;height:780px;border:none;display:block;"
+          allow="fullscreen"
+          title="VulnonaMAP — The Isle Evrima"
+        ></iframe>
+      </div>
+
+      <!-- SVG backup hidden -->
+      <svg style="display:none" viewBox="0 0 500 375" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="og" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#0d2030"/><stop offset="100%" stop-color="#060e16"/></radialGradient>
+          <radialGradient id="fg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#1a2c0f"/><stop offset="100%" stop-color="#0d1a08"/></radialGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <rect width="500" height="375" fill="url(#og)"/>
+        <path d="M80,320 Q40,280 55,220 Q45,160 70,120 Q90,70 140,50 Q190,25 250,30 Q310,28 360,55 Q410,80 430,130 Q450,180 445,240 Q440,290 410,320 Q370,350 300,360 Q230,368 170,355 Q110,342 80,320Z" fill="url(#fg)" stroke="rgba(74,120,37,0.3)" stroke-width="1.5"/>
+        <path d="M150,80 Q170,65 200,75 Q220,85 210,105 Q195,120 170,115 Q145,108 150,80Z" fill="#1e3010" opacity="0.8"/>
+        <path d="M280,60 Q310,48 340,65 Q355,80 345,100 Q328,115 305,108 Q282,98 280,60Z" fill="#1e3010" opacity="0.7"/>
+        <g fill="#2c4018" stroke="rgba(74,120,37,0.4)" stroke-width="0.8">
+          <polygon points="165,68 175,48 185,68"/><polygon points="178,70 190,46 202,70"/>
+          <polygon points="300,55 312,32 324,55"/><polygon points="315,57 328,30 342,57"/>
+        </g>
+        <polygon points="175,48 178,55 172,55" fill="rgba(230,212,180,0.5)"/>
+        <polygon points="190,46 193,54 187,54" fill="rgba(230,212,180,0.5)"/>
+        <polygon points="312,32 315,42 309,42" fill="rgba(230,212,180,0.5)"/>
+        <g fill="#2d4a18" opacity="0.6">
+          <circle cx="120" cy="160" r="12"/><circle cx="140" cy="175" r="9"/><circle cx="160" cy="160" r="11"/>
+          <circle cx="130" cy="145" r="8"/><circle cx="175" cy="145" r="10"/><circle cx="110" cy="175" r="7"/>
+          <circle cx="220" cy="200" r="13"/><circle cx="240" cy="185" r="10"/><circle cx="260" cy="200" r="12"/>
+        </g>
+        <ellipse cx="340" cy="200" rx="70" ry="55" fill="#1a2808" opacity="0.5"/>
+        <path d="M370,270 Q385,250 400,265 Q415,280 405,295 Q390,308 370,300 Q355,288 370,270Z" fill="#2a1008" opacity="0.9"/>
+        <polygon points="385,255 393,235 401,255" fill="#3a1808" stroke="#c04a2a" stroke-width="0.8"/>
+        <path d="M250,100 Q260,130 250,160 Q240,190 260,220 Q275,240 260,270" stroke="#1a4060" stroke-width="2.5" fill="none" opacity="0.6" stroke-linecap="round"/>
+        <path d="M420,160 Q440,180 435,220 Q430,250 415,270" stroke="#1a5070" stroke-width="3" fill="none" opacity="0.35" stroke-linecap="round"/>
+        <g filter="url(#glow)">
+          <circle cx="430" cy="195" r="5" fill="#6db528" opacity="0.9"/><circle cx="430" cy="195" r="9" fill="none" stroke="#6db528" stroke-width="1" opacity="0.4"/>
+          <circle cx="190" cy="175" r="5" fill="#6db528" opacity="0.9"/><circle cx="190" cy="175" r="9" fill="none" stroke="#6db528" stroke-width="1" opacity="0.4"/>
+          <circle cx="255" cy="70" r="5" fill="#8fd44a" opacity="0.9"/><circle cx="255" cy="70" r="9" fill="none" stroke="#8fd44a" stroke-width="1" opacity="0.4"/>
+          <circle cx="345" cy="195" r="5" fill="#c8972a" opacity="0.9"/><circle cx="345" cy="195" r="9" fill="none" stroke="#c8972a" stroke-width="1" opacity="0.4"/>
+          <circle cx="390" cy="272" r="5" fill="#c04a2a" opacity="0.9"/><circle cx="390" cy="272" r="9" fill="none" stroke="#c04a2a" stroke-width="1" opacity="0.4"/>
+        </g>
+        <g font-family="serif" fill="rgba(197,180,154,0.65)" font-size="9">
+          <text x="415" y="185" text-anchor="middle">Costa</text><text x="415" y="196" text-anchor="middle">Leste</text>
+          <text x="178" y="162" text-anchor="middle">Floresta</text>
+          <text x="255" y="56" text-anchor="middle">Montanhas</text>
+          <text x="345" y="180" text-anchor="middle">Planície</text>
+          <text x="388" y="257" text-anchor="middle">Vulcão</text>
+        </g>
+        <g stroke="rgba(30,80,120,0.25)" stroke-width="1" fill="none">
+          <path d="M30,150 Q40,145 50,150 Q60,155 70,150"/><path d="M30,165 Q40,160 50,165 Q60,170 70,165"/>
+        </g>
+        <g transform="translate(36,36)">
+          <circle r="16" fill="rgba(8,10,6,0.7)" stroke="rgba(74,120,37,0.4)" stroke-width="1"/>
+          <text y="-6" text-anchor="middle" fill="rgba(197,180,154,0.7)" font-size="8" font-family="serif">N</text>
+          <text y="14" text-anchor="middle" fill="rgba(197,180,154,0.35)" font-size="7" font-family="serif">S</text>
+          <text x="9" y="4" text-anchor="middle" fill="rgba(197,180,154,0.35)" font-size="7" font-family="serif">E</text>
+          <text x="-9" y="4" text-anchor="middle" fill="rgba(197,180,154,0.35)" font-size="7" font-family="serif">O</text>
+          <line y1="-10" y2="10" stroke="rgba(109,181,40,0.6)" stroke-width="1"/>
+          <line x1="-10" x2="10" stroke="rgba(197,180,154,0.3)" stroke-width="0.8"/>
+        </g>
+      </svg>
+    </div><!-- end map-iframe-wrap -->
 
   </div>
 </section>
@@ -1566,7 +1566,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
           <div class="duvida-tag">Navegação</div>
           <p>O Evrima não tem minimapa — você aprende o território com o tempo. Para se orientar:</p>
           <ul class="duvida-list">
-            <li>Use o <strong>Nosso Mapa</strong> na aba Mapa deste site — cole sua coordenada e veja sua posição</li>
+            <li>Use o <strong>VulnonaMAP</strong> na aba Mapa deste site — o mais completo da comunidade</li>
             <li>O sol nasce a leste e se põe a oeste</li>
             <li>Cada bioma tem visual único: redwoods ao norte, pântanos ao sul, savana a leste</li>
             <li>O som da água indica rios próximos</li>
@@ -2907,138 +2907,49 @@ async function submitCom(e){
   }
 }
 
-// ===== MAPA LEAFLET COM COORDENADAS =====
-let ourMapInstance = null;
-let ourMapMarker = null;
-let ourMapCircle = null;
-
-// DIMENSÕES DA IMAGEM (mapa.jpg)
-const MAP_W = 663;
-const MAP_H = 651;
-
-// CALIBRAÇÃO: 2 pontos conhecidos no mapa
-// Ponto A: Domo (Central Dome) — coordenada real e pixel na imagem
-// Ponto B: Ponta Norte — coordenada real e pixel na imagem
-const CALIB = {
-  // Ponto A: Domo
-  latA: 110640.89,  rowA: 429,
-  lngA: -42260.173, colA: 264,
-  // Ponto B: Ponta Norte
-  latB: -551682.638, rowB: 33,
-  lngB: 423873.937,  colB: 486
-};
-
-function initOurMap() {
-  if (ourMapInstance || !document.getElementById('ourMap')) return;
-
-  const bounds = [[0, 0], [MAP_H, MAP_W]];
-
-  ourMapInstance = L.map('ourMap', {
-    crs: L.CRS.Simple,
-    minZoom: -2,
-    maxZoom: 4,
-    zoomSnap: 0.5,
-    attributionControl: false,
-    maxBoundsViscosity: 0.9
-  });
-
-  // Adiciona a imagem do mapa
-  L.imageOverlay('mapa.jpg', bounds).addTo(ourMapInstance);
-
-  // Ajusta a view para mostrar o mapa inteiro
-  ourMapInstance.fitBounds(bounds);
-  ourMapInstance.setMaxBounds([[-200, -200], [MAP_H + 200, MAP_W + 200]]);
-
-  // Adiciona zoom controls
-  L.control.zoom({ position: 'topright' }).addTo(ourMapInstance);
-}
-
-// Converte coordenada real (lat/lng do jogo) para pixel na imagem
-function gameToPixel(lat, lng) {
-  const row = CALIB.rowA + (lat - CALIB.latA) * (CALIB.rowB - CALIB.rowA) / (CALIB.latB - CALIB.latA);
-  const col = CALIB.colA + (lng - CALIB.lngA) * (CALIB.colB - CALIB.colA) / (CALIB.lngB - CALIB.lngA);
-  return [row, col]; // [lat, lng] do Leaflet == [linha, coluna] da imagem
-}
-
-// Parse de coordenada: suporta "110640.89, -42260.173" ou "110640.89, -42260.173, 72.307"
-function parseCoordString(str) {
-  const matches = str.match(/-?\d[\d,]*\.?\d*/g);
-  if (!matches || matches.length < 2) return null;
-  const nums = matches.map(m => parseFloat(m.replace(/,/g, '')));
-  return { lat: nums[0], lng: nums[1] };
-}
-
-// LOCALIZA COORDENADA
-function localizarCoordenada() {
-  const input = document.getElementById('coordInput');
-  const status = document.getElementById('coordStatus');
-  const raw = input.value.trim();
-
-  if (!raw) {
-    status.textContent = '⚠️ Digite uma coordenada!';
-    return;
+function activateMap(){
+  document.getElementById('mapStatic').style.display='none';
+  document.getElementById('mapBalloon').style.display='none';
+  const iframeDiv = document.getElementById('mapIframe');
+  iframeDiv.style.display='flex';
+  iframeDiv.style.flexDirection='column';
+  const frame = document.getElementById('vulnonaFrame');
+  if(!frame.src || frame.src === 'about:blank' || frame.src === ''){
+    frame.src = 'https://vulnona.com/game/map/#';
   }
-
-  const coords = parseCoordString(raw);
-  if (!coords || isNaN(coords.lat) || isNaN(coords.lng)) {
-    status.textContent = '⚠️ Formato inválido. Use: lat, lng (ex: 110640.89, -42260.173)';
-    return;
+}
+function deactivateMap(){
+  document.getElementById('mapStatic').style.display='block';
+  document.getElementById('mapBalloon').style.display='flex';
+  document.getElementById('mapIframe').style.display='none';
+  document.getElementById('vulnonaFrame').src='about:blank';
+  const wrap = document.querySelector('.map-iframe-wrap');
+  if(wrap.classList.contains('fullscreen-map')){
+    wrap.classList.remove('fullscreen-map');
+    document.body.style.overflow='';
   }
-
-  if (!ourMapInstance) initOurMap();
-
-  const [row, col] = gameToPixel(coords.lat, coords.lng);
-
-  // Remove marcador antigo
-  if (ourMapMarker) ourMapInstance.removeLayer(ourMapMarker);
-  if (ourMapCircle) ourMapInstance.removeLayer(ourMapCircle);
-
-  // Cria marcador
-  ourMapMarker = L.marker([row, col]).addTo(ourMapInstance)
-    .bindPopup(`📍 <strong>${coords.lat.toFixed(2)}, ${coords.lng.toFixed(2)}</strong><br><span style="font-size:.8rem;opacity:.7;">Posição aproximada no mapa</span>`)
-    .openPopup();
-
-  // Círculo de precisão (100m ~ 5px na imagem)
-  ourMapCircle = L.circle([row, col], { radius: 8, color: '#5a9e1e', weight: 2, opacity: 0.6, fillOpacity: 0.15 })
-    .addTo(ourMapInstance);
-
-  // Centraliza no marcador com zoom
-  ourMapInstance.setView([row, col], 1.5);
-
-  status.textContent = '✅ Posição localizada!';
-  status.style.color = 'var(--acid)';
-
-  setTimeout(() => {
-    status.style.color = '';
-  }, 3000);
 }
 
-// RESETAR VIEW
-function resetMapView() {
-  if (!ourMapInstance) return;
-  const bounds = [[0, 0], [MAP_H, MAP_W]];
-  ourMapInstance.fitBounds(bounds);
-  if (ourMapMarker) {
-    ourMapInstance.removeLayer(ourMapMarker);
-    ourMapMarker = null;
+function toggleFullscreenMap(){
+  const wrap = document.querySelector('.map-iframe-wrap');
+  wrap.classList.toggle('fullscreen-map');
+  const btn = document.querySelector('.map-ctrl-btn[onclick]');
+  if(wrap.classList.contains('fullscreen-map')){
+    btn.textContent = '✕ Sair da tela cheia';
+    document.body.style.overflow = 'hidden';
+  } else {
+    btn.textContent = '⛶ Tela cheia';
+    document.body.style.overflow = '';
   }
-  if (ourMapCircle) {
-    ourMapInstance.removeLayer(ourMapCircle);
-    ourMapCircle = null;
-  }
-  document.getElementById('coordStatus').textContent = '📍 Mapa centralizado';
-  document.getElementById('coordStatus').style.color = '';
 }
-
-// Inicializa o mapa quando a página carregar
-document.addEventListener('DOMContentLoaded', function() {
-  // Aguarda um pouco para garantir que o container existe
-  setTimeout(initOurMap, 300);
+document.addEventListener('keydown',(e)=>{
+  if(e.key==='Escape') {
+    const wrap = document.querySelector('.map-iframe-wrap');
+    if(wrap.classList.contains('fullscreen-map')){
+      toggleFullscreenMap();
+    }
+  }
 });
-
-// Expor funções globalmente
-window.localizarCoordenada = localizarCoordenada;
-window.resetMapView = resetMapView;
 
 function scrollToSection(id, btn){
   const el = document.getElementById(id);
@@ -3366,14 +3277,14 @@ const guides = {
       <div class="guide-section">
         <div class="guide-section-title">O mapa Gateway</div>
         <p>O mapa atual do Evrima é o <strong style="color:var(--acid)">Gateway</strong> — enorme, com biomas variados e estruturas humanas espalhadas. Não há mini-mapa. Você aprende a se localizar por referências visuais.</p>
-        <div class="guide-tip">💡 Use o <strong>Nosso Mapa</strong> (disponível na seção Mapa deste site) para colar suas coordenadas e ver sua posição exata.</div>
+        <div class="guide-tip">💡 Use o <strong>VulnonaMAP</strong> (disponível na seção Mapa deste site) para digitar suas coordenadas e ver sua posição exata.</div>
       </div>
       <div class="guide-section">
         <div class="guide-section-title">Como ver suas coordenadas</div>
-        <p>No jogo, suas coordenadas aparecem no HUD. Cole-as no Nosso Mapa para se localizar.</p>
+        <p>No jogo, suas coordenadas aparecem no HUD. Use-as no VulnonaMAP para se localizar.</p>
         <ul class="guide-list">
           <li>O grid do mapa usa base de ~580m por célula</li>
-          <li>Cole a coordenada no formato "lat, lng" (os dois primeiros números do HUD) no campo do Nosso Mapa</li>
+          <li>Configure o espaço de grid para 58.000 no VulnonaMAP para melhor precisão</li>
           <li>Pontos de água e estradas são ótimas referências visuais</li>
         </ul>
       </div>
@@ -3484,6 +3395,10 @@ document.addEventListener('keydown', (e) => {
 });
 
 const updates=[
+  {date:'31 Jul 2026',type:'devblog',tag:'DevBlog #71',
+   title:'DevBlog #71 — Migração Individual, Entomb Save e Spinosaurus',
+   excerpt:'Migração agora é individual por jogador (com opção de seguir o líder do grupo), e chega o "Entomb Save" — guarda seu bicho entombado num slot separado pra jogar de outro sem perder o progresso. Camarasaurus e Avaceratops tiveram os calls finalizados, Baryonyx ganhou sons de subadulto, e os primeiros sons do Spinosaurus começaram a ser desenhados.',
+   link:'https://store.steampowered.com/news/app/376210/view/717912016810935931'},
   {date:'30 Jun 2026',type:'devblog',tag:'DevBlog #70',
    title:'DevBlog #70 — Ninhos, Câmera e Comentário do Diretor',
    excerpt:'Ariel (programador) implementou eclosão automática de ovos após um tempo, evitando ninhos abandonados e inutilizados, além de retomar o trabalho no sistema de câmera dos dinossauros. Don assume um comentário especial de diretor no lugar da equipe, adiantando rumos futuros do desenvolvimento que animaram a comunidade.',
@@ -6407,7 +6322,7 @@ const assistenteKnowledge = {
         'nota-se que como me localizar no mapa', 'constata-se que como me localizar no mapa',
         'verifica-se que como me localizar no mapa'
       ],
-      resposta: 'Use o COMPASSO no HUD. O sol nasce a LESTE e se põe a OESTE. Pontos de referência: DOMO (hexágono ao sul), RIO CENTRAL (norte-sul), WEST RAIL (linha férrea a oeste), REDWOODS (árvores gigantes ao sudoeste). Use o Nosso Mapa (seção Mapa deste site) com suas coordenadas para localização precisa.',
+      resposta: 'Use o COMPASSO no HUD. O sol nasce a LESTE e se põe a OESTE. Pontos de referência: DOMO (hexágono ao sul), RIO CENTRAL (norte-sul), WEST RAIL (linha férrea a oeste), REDWOODS (árvores gigantes ao sudoeste). Use o VulnonaMAP com suas coordenadas para localização precisa.',
       acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
     },
 
@@ -6528,7 +6443,7 @@ const assistenteKnowledge = {
         'nota-se que como usar o vulnona', 'constata-se que como usar o vulnona',
         'verifica-se que como usar o vulnona'
       ],
-      resposta: 'Pegue suas COORDENADAS (aparecem no HUD) e cole no Nosso Mapa, na seção Mapa deste site. Cole no formato "lat, lng" (os dois primeiros números) e clique em Localizar — o marcador aparece direto na posição aproximada.',
+      resposta: 'Pegue suas COORDENADAS (aparecem no HUD) e digite no site VulnonaMAP. Configure o grid para 58.000 para melhor precisão no mapa Gateway.',
       acao: { tipo: 'scroll', destino: 'mapa', label: '🗺️ Ver Mapa' }
     },
 
