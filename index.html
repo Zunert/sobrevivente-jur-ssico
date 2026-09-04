@@ -3854,11 +3854,12 @@ window.resetPrime = resetPrime;
 window.savePrime = savePrime;
 window.closeDiagnostic = closeDiagnostic;
 window.shareDiagnostic = shareDiagnostic;
-   // =============================================
-// 🔥 FIREBASE CONFIGURAÇÃO (SUAS CREDENCIAIS)
+<!-- ===== TODOS OS OUTROS SCRIPTS AQUI ===== -->
+<script>
+// =============================================
+// 🔥 FIREBASE CONFIGURAÇÃO
 // =============================================
 
-// 🔥 COLE SEU firebaseConfig AQUI (copiado do Firebase)
 const firebaseConfig = {
   apiKey: "AIzaSyDE_B3RZhYINv74SowJjCE5VQzYpAeBhw4",
   authDomain: "sobrevivente-jurassico.firebaseapp.com",
@@ -3877,12 +3878,11 @@ const db = firebase.database();
 // SISTEMA DE AUTO-CADASTRO COM FIREBASE
 // =============================================
 
-const ADMIN_SENHA = '509822'; // ⚠️ Mude para a senha que você quiser!
+const ADMIN_SENHA = '509822';
 const CONTEUDOS_REF = 'conteudos';
 
 // ===== FUNÇÕES =====
 
-// Busca os conteúdos do Firebase em tempo real
 function carregarConteudos() {
   const conteudosRef = db.ref(CONTEUDOS_REF);
   conteudosRef.on('value', (snapshot) => {
@@ -3899,7 +3899,6 @@ function carregarConteudos() {
   });
 }
 
-// Renderiza os cards na grid
 function renderizarConteudos(conteudos) {
   const grid = document.getElementById('comGrid');
   
@@ -3956,7 +3955,6 @@ function renderizarConteudos(conteudos) {
   }).join('');
 }
 
-// ===== ENVIAR CONTEÚDO =====
 function submitCom(e) {
   e.preventDefault();
   
@@ -3973,7 +3971,6 @@ function submitCom(e) {
     return;
   }
   
-  // Filtro de palavras proibidas
   const badWords = ['porn','xxx','hack','cheat','free money','bitcoin','crypto','phishing','scam'];
   const allText = (nome + desc + link).toLowerCase();
   if (badWords.some(w => allText.includes(w))) {
@@ -4029,7 +4026,6 @@ function submitCom(e) {
     });
 }
 
-// ===== DELETAR CONTEÚDO (APENAS ADMIN) =====
 function deletarConteudo(id) {
   if (!window.modoAdmin) {
     alert('🔒 Apenas o administrador pode deletar conteúdos.');
@@ -4046,7 +4042,6 @@ function deletarConteudo(id) {
   }
 }
 
-// ===== MODO ADMIN =====
 function ativarModoAdmin() {
   const senha = document.getElementById('adminPassword').value;
   if (senha === ADMIN_SENHA) {
