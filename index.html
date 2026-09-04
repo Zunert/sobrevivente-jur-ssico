@@ -3854,49 +3854,7 @@ window.resetPrime = resetPrime;
 window.savePrime = savePrime;
 window.closeDiagnostic = closeDiagnostic;
 window.shareDiagnostic = shareDiagnostic;
-</script>
-
-<!-- DINO DETAIL MODAL -->
-<div class="dino-modal-overlay" id="dinoModalOverlay" onclick="if(event.target===this)closeDinoModal()">
-  <div class="dino-modal" id="dinoModal" style="position:relative">
-    <button class="dino-modal-close" onclick="closeDinoModal()">✕</button>
-    <div class="dino-modal-left">
-      <img class="dino-modal-img" id="dmImg" src="" alt="">
-      
-      <!-- PATTERN BUTTONS -->
-      <div class="patterns-container" id="patternContainer"></div>
-      
-      <div>
-        <div class="dino-modal-name" id="dmName"></div>
-        <div class="dino-modal-cls" id="dmCls"></div>
-      </div>
-      <div id="dmTier"></div>
-      <div class="dino-modal-desc" id="dmLore"></div>
-      <button class="dino-play-btn-modal" id="dmAudioBtn" data-sound="" onclick="event.stopPropagation();playDinoModal()">▶ Broadcast Call</button>
-      <div class="dino-modal-section">
-        <div class="dino-modal-section-title">🗺️ Zonas de Spawn</div>
-        <div class="dino-habitat-tags" id="dmHabitats"></div>
-      </div>
-    </div>
-    <div class="dino-modal-right">
-      <div class="dino-modal-section">
-        <div class="dino-modal-section-title">⚔️ Ataques e Mecânicas</div>
-        <p style="font-size:.95rem;color:var(--bone);opacity:.7;line-height:1.9" id="dmAttacks"></p>
-      </div>
-      <div class="dino-modal-section">
-        <div class="dino-modal-section-title">📈 Auge vs Elder Fraco</div>
-        <div id="dmStatsCompare"></div>
-      </div>
-      <div class="dino-modal-section">
-        <div class="dino-modal-section-title">👑 Prime Elder</div>
-        <div class="dino-elder-box">
-          <div class="dino-elder-text" id="dmElder"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
- // =============================================
+   // =============================================
 // 🔥 FIREBASE CONFIGURAÇÃO (SUAS CREDENCIAIS)
 // =============================================
 
@@ -4117,5 +4075,48 @@ document.addEventListener('DOMContentLoaded', function() {
   window.ativarModoAdmin = ativarModoAdmin;
   window.desativarModoAdmin = desativarModoAdmin;
 });
+</script>
+
+<!-- DINO DETAIL MODAL -->
+<div class="dino-modal-overlay" id="dinoModalOverlay" onclick="if(event.target===this)closeDinoModal()">
+  <div class="dino-modal" id="dinoModal" style="position:relative">
+    <button class="dino-modal-close" onclick="closeDinoModal()">✕</button>
+    <div class="dino-modal-left">
+      <img class="dino-modal-img" id="dmImg" src="" alt="">
+      
+      <!-- PATTERN BUTTONS -->
+      <div class="patterns-container" id="patternContainer"></div>
+      
+      <div>
+        <div class="dino-modal-name" id="dmName"></div>
+        <div class="dino-modal-cls" id="dmCls"></div>
+      </div>
+      <div id="dmTier"></div>
+      <div class="dino-modal-desc" id="dmLore"></div>
+      <button class="dino-play-btn-modal" id="dmAudioBtn" data-sound="" onclick="event.stopPropagation();playDinoModal()">▶ Broadcast Call</button>
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">🗺️ Zonas de Spawn</div>
+        <div class="dino-habitat-tags" id="dmHabitats"></div>
+      </div>
+    </div>
+    <div class="dino-modal-right">
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">⚔️ Ataques e Mecânicas</div>
+        <p style="font-size:.95rem;color:var(--bone);opacity:.7;line-height:1.9" id="dmAttacks"></p>
+      </div>
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">📈 Auge vs Elder Fraco</div>
+        <div id="dmStatsCompare"></div>
+      </div>
+      <div class="dino-modal-section">
+        <div class="dino-modal-section-title">👑 Prime Elder</div>
+        <div class="dino-elder-box">
+          <div class="dino-elder-text" id="dmElder"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
