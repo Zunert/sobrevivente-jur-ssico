@@ -2748,59 +2748,6 @@ async function submitFaq(e) {
     }
   } catch(err) { alert('Erro ao enviar. Tente novamente.'); }
 }
-
-async function submitCom(e){
-  e.preventDefault();
-  const btn = document.getElementById('comSubmitBtn');
-  const txt = document.getElementById('comSubmitText');
-  const nome = document.getElementById('comNome').value;
-  const tipo = document.getElementById('comTipo').value;
-  const link = document.getElementById('comLink').value;
-  const desc = document.getElementById('comDesc').value;
-
-  document.getElementById('comError').style.display='none';
-
-  const badWords = ['porn','xxx','hack','cheat','free money','bitcoin','crypto giveaway'];
-  const allText = (nome+desc+link).toLowerCase();
-  if(badWords.some(w=>allText.includes(w))){
-    document.getElementById('comErrorMsg').textContent='⚠ Conteúdo não permitido detectado.';
-    document.getElementById('comError').style.display='block';
-    return;
-  }
-
-  try { new URL(link); } catch {
-    document.getElementById('comErrorMsg').textContent='⚠ Link inválido. Use o formato https://...';
-    document.getElementById('comError').style.display='block';
-    return;
-  }
-
-  btn.disabled=true;
-  txt.textContent='Enviando...';
-
-  try {
-    const res = await fetch('https://formspree.io/f/mojrrvjd', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({
-        nome, tipo, link, descricao: desc,
-        _subject: `[Comunidade] Nova submissão: ${tipo} - ${nome}`
-      })
-    });
-
-    if(res.ok){
-      document.getElementById('comForm').style.display='none';
-      document.getElementById('comSuccess').style.display='block';
-    } else {
-      throw new Error('Erro no servidor');
-    }
-  } catch(err) {
-    document.getElementById('comErrorMsg').textContent='⚠ Erro ao enviar. Tente novamente em instantes.';
-    document.getElementById('comError').style.display='block';
-    btn.disabled=false;
-    txt.textContent='Enviar para revisão →';
-  }
-}
-
 function activateMap(){
   document.getElementById('mapStatic').style.display='none';
   document.getElementById('mapBalloon').style.display='none';
@@ -3954,7 +3901,7 @@ function renderizarConteudos(conteudos) {
     `;
   }).join('');
 }
-
+// ===== ENVIAR CONTEÚDO (FIREBASE) =====
 function submitCom(e) {
   e.preventDefault();
   
