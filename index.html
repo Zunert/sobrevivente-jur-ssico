@@ -3439,32 +3439,16 @@ function playDinoModal(){
 })();
 // ===== TERMINAL DE VÍDEOS =====
 const terminalVideos = [
-  {id:'tut1',titulo:'Sobrevivente Jurássico - EP.01: Primeiros Passos',descricao:'Como sobreviver aos primeiros minutos na ilha.',categoria:'tutoriais',autor:'Zunert',duracao:'12:34',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
-  {id:'tut2',titulo:'Sobrevivente Jurássico - EP.02: Sistema de Combate',descricao:'Entenda o sistema de combate do Evrima.',categoria:'tutoriais',autor:'The Luis',duracao:'08:21',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
-  {id:'tut3',titulo:'Sobrevivente Jurássico - EP.03: Mutações e Builds',descricao:'Guia completo sobre mutações.',categoria:'tutoriais',autor:'Zunert',duracao:'15:42',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
-  {id:'gp1',titulo:'Sobrevivente Jurássico - Gameplay #01: Allosaurus Pack Hunt',descricao:'Caçando em trio de Allosaurus.',categoria:'gameplay',autor:'Zunert',duracao:'22:15',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'GAMEPLAY'},
-  {id:'gp2',titulo:'Sobrevivente Jurássico - Gameplay #02: Sobrevivendo de Herbívoro',descricao:'Gameplay completo com Triceratops.',categoria:'gameplay',autor:'The Luis',duracao:'31:08',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'GAMEPLAY'},
-  {id:'lo1',titulo:'Sobrevivente Jurássico - Lore #01: A História do Evrima',descricao:'A história por trás do Evrima.',categoria:'lore',autor:'Zunert',duracao:'14:22',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'LORE'},
-  {id:'lo2',titulo:'Sobrevivente Jurássico - Lore #02: Os Dinos do Evrima',descricao:'Curiosidades sobre cada dino.',categoria:'lore',autor:'The Luis',duracao:'18:45',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'LORE'},
-  {id:'bs1',titulo:'Câmeras da Ilha #01:
-Field Guide Behavior and Observation',descricao:'FIELD OBSERVATION LOG — OBS-01
-
-Field record made during an expedition to observe the island's fauna.
-
-This episode presents the Kentrosaurus, Tyrannosaurus, and Maiasaura, cataloging and documenting their behavior, movement, and characteristics in their natural environment.
-
-A project developed as part of a comprehensive guide for The Isle Evrima community.
-
-DIÁRIO DE OBSERVAÇÃO DE CAMPO — OBS-01
-
-Registro de campo realizado durante uma expedição de observação da fauna da ilha.
-
-Este episódio apresenta o Kentrosaurus, Tyrannosaurus e Maiasaura catalogados e documentando seu comportamento, movimentação e características em seu ambiente natural.
-
-Projeto desenvolvido como parte de um guia completo para a comunidade de The Isle Evrima.',categoria:'bastidores',autor:'The Luis',duracao:'09:33',data:'Jul 2026',youtube:'VIN_t7Wepq4',badge:'CÂMERAS DA ILHA'},
-  {id:'bs2',titulo:'Câmeras da Ilha #02: Caçada Noturna Flagrada',descricao:'Um predador solitário rondando o rio ao entardecer, capturado à distância.',categoria:'bastidores',autor:'The Luis',duracao:'11:57',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'CÂMERAS DA ILHA'},
+  {id:'tut1',titulo:'Sobreviviente Jurásico - EP.01: Primeiros Passos',descricao:'Como sobreviver aos primeiros minutos na ilha.',categoria:'tutorials',autor:'Zunert',duracao:'12:34',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
+  {id:'tut2',titulo:'Sobreviviente Jurásico - EP.02: Sistema de Combate',descricao:'Entenda o sistema de combate do Evrima.',categoria:'tutorials',autor:'The Luis',duracao:'08:21',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
+  {id:'tut3',titulo:'Sobreviviente Jurásico - EP.03: Mutações e Builds',descricao:'Guia completo sobre mutações.',categoria:'tutorials',autor:'Zunert',duracao:'15:42',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
+  {id:'gp1',titulo:'Sobreviviente Jurásico - Gameplay #01: Allosaurus Pack Hunt',descricao:'Caçando em trio de Allosaurus.',categoria:'gameplay',autor:'Zunert',duracao:'22:15',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'GAMEPLAY'},
+  {id:'gp2',titulo:'Sobreviviente Jurásico - Gameplay #02: Sobrevivendo de Herbívoro',descricao:'Gameplay completo com Triceratops.',categoria:'gameplay',autor:'The Luis',duracao:'31:08',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'GAMEPLAY'},
+  {id:'lo1',titulo:'Sobreviviente Jurásico - Lore #01: A História do Evrima',descricao:'A história por trás do Evrima.',categoria:'lore',autor:'Zunert',duracao:'14:22',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'LORE'},
+  {id:'lo2',titulo:'Sobreviviente Jurásico - Lore #02: Os Dinos do Evrima',descricao:'Curiosidades sobre cada dino.',categoria:'lore',autor:'The Luis',duracao:'18:45',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'LORE'},
+  {id:'bs1',titulo:'Câmeras da Ilha #01: Field Guide - Behavior and Observation',descricao:'FIELD OBSERVATION LOG - OBS-01 - Registro de campo documentando Kentrosaurus, Tyrannosaurus e Maiasaura em seu ambiente natural.',categoria:'bastidores',autor:'Zunert & The Luis',duracao:'09:33',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'BASTIDORES'},
+  {id:'bs2',titulo:'Sobreviviente Jurásico - Bastidores #02: Filmagens na Ilha',descricao:'Como gravamos os vídeos.',categoria:'bastidores',autor:'The Luis',duracao:'11:57',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'BASTIDORES'}
 ];
-
 function renderTerminalVideos(categoria) {
   const container = document.getElementById('terminalVideos');
   const empty = document.getElementById('terminalEmpty');
