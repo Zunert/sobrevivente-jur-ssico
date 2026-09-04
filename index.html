@@ -53,6 +53,14 @@ nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;backg
 .nav-alert{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--warn);opacity:.8;animation:warnpulse 3s ease-in-out infinite}
 @keyframes warnpulse{0%,100%{opacity:.5}50%{opacity:1}}
 .nav-links a:hover::after{transform:scaleX(1)}
+.nav-dropdown{position:relative}
+.nav-dropdown-toggle::after{content:' ▾';font-size:.55rem;opacity:.6}
+.nav-dropdown-menu{position:absolute;top:100%;left:50%;transform:translate(-50%,-6px);min-width:190px;background:rgba(8,10,6,.98);border:1px solid rgba(90,158,30,.25);box-shadow:0 20px 40px rgba(0,0,0,.6);list-style:none;padding:8px 0;margin:0;opacity:0;pointer-events:none;transition:all .25s;z-index:950}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translate(-50%,4px)}
+.nav-dropdown-menu li{padding:0}
+.nav-dropdown-menu a{display:block;padding:9px 20px;font-size:.6rem;letter-spacing:.12em;white-space:nowrap;opacity:.7}
+.nav-dropdown-menu a::after{display:none}
+.nav-dropdown-menu a:hover{opacity:1;background:rgba(90,158,30,.08)}
 .nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
 .nav-burger span{display:block;width:24px;height:1px;background:var(--bone);transition:.3s}
 #hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 24px 80px;overflow:hidden}
@@ -450,6 +458,8 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .nav-burger{display:flex}
   .nav-links.open{display:flex;flex-direction:column;position:fixed;top:52px;left:0;right:0;background:rgba(5,6,3,.99);padding:24px 20px;gap:20px;border-bottom:1px solid rgba(139,26,10,.3);z-index:899}
   .nav-links.open a{font-size:.85rem}
+  .nav-dropdown-menu{position:static;transform:none;opacity:1;pointer-events:all;background:transparent;border:none;box-shadow:none;padding:6px 0 6px 16px;display:flex;flex-direction:column;gap:14px}
+  .nav-dropdown-toggle{opacity:.4;pointer-events:none}
   .nav-logo{font-size:.62rem}
   .mobile-tabs{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:800;background:rgba(5,6,3,.98);border-top:1px solid rgba(139,26,10,.3);height:62px}
   .mob-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:all .2s;border:none;background:none;padding:6px 2px}
@@ -1102,19 +1112,34 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
 <nav id="navbar">
   <a class="nav-logo" href="#hero">The Isle Evrima</a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#dinos">Dinos</a></li>
-    <li><a href="#mapa">Mapa</a></li>
-    <li><a href="#atualizacoes">Atualizações</a></li>
-    <li><a href="#guias">Guias</a></li>
-    <li><a href="#prime-tracker">👑 Prime</a></li>
-    <li><a href="#equipe">Equipe</a></li>
-    <li><a href="#faq">Dúvidas</a></li>
-    <li><a href="#servidores">Servidores</a></li>
-    <li><a href="#comunidade">Comunidade</a></li>
-    <li><a href="#videos">Vídeos</a></li>
-    <li><a href="#diretorio">Canais</a></li>
-    <li><a href="#terminal">Terminal</a></li>
+    <li class="nav-dropdown">
+      <a href="#sobre" class="nav-dropdown-toggle">A Ilha</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#dinos">Dinos</a></li>
+        <li><a href="#mapa">Mapa</a></li>
+        <li><a href="#atualizacoes">Atualizações</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="#guias" class="nav-dropdown-toggle">Guias</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="#guias">Guias</a></li>
+        <li><a href="#faq">Dúvidas</a></li>
+        <li><a href="#prime-tracker">👑 Prime</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="#comunidade" class="nav-dropdown-toggle">Comunidade</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="#equipe">Equipe</a></li>
+        <li><a href="#servidores">Servidores</a></li>
+        <li><a href="#comunidade">Comunidade</a></li>
+        <li><a href="#videos">Vídeos</a></li>
+        <li><a href="#diretorio">Canais</a></li>
+        <li><a href="#terminal">Terminal</a></li>
+      </ul>
+    </li>
     <li><a href="#newsletter">Contato</a></li>
   </ul>
   <button id="soundBtn" onclick="toggleSound()" style="background:rgba(90,158,30,.12);border:2px solid rgba(90,158,30,.55);color:var(--acid);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;padding:9px 22px;cursor:pointer;transition:all .3s;margin-right:14px;animation:soundPulse 1.8s ease-in-out infinite;font-weight:600">&#128264; Som</button>
@@ -3421,7 +3446,7 @@ const terminalVideos = [
   {id:'gp2',titulo:'Sobrevivente Jurássico - Gameplay #02: Sobrevivendo de Herbívoro',descricao:'Gameplay completo com Triceratops.',categoria:'gameplay',autor:'The Luis',duracao:'31:08',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'GAMEPLAY'},
   {id:'lo1',titulo:'Sobrevivente Jurássico - Lore #01: A História do Evrima',descricao:'A história por trás do Evrima.',categoria:'lore',autor:'Zunert',duracao:'14:22',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'LORE'},
   {id:'lo2',titulo:'Sobrevivente Jurássico - Lore #02: Os Dinos do Evrima',descricao:'Curiosidades sobre cada dino.',categoria:'lore',autor:'The Luis',duracao:'18:45',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'LORE'},
-  {id:'bs1',titulo:'Câmeras da Ilha #01: visões ocultas da ilha',descricao:'algumas capturas que fizemos hoje ultilizando as câmeras antigas das instalações',categoria:'bastidores',autor:'The Luis',duracao:'09:33',data:'Jul 2026',youtube:'VIN_t7Wepq4',badge:'CÂMERAS DA ILHA'},
+  {id:'bs1',titulo:'Câmeras da Ilha #01: Uma Manhã no Território dos Triceratops',descricao:'Flagrante de uma manada pastando ao amanhecer, sem saber que estava sendo filmada.',categoria:'bastidores',autor:'Zunert & The Luis',duracao:'09:33',data:'Jul 2026',youtube:'VIN_t7Wepq4',badge:'CÂMERAS DA ILHA'},
   {id:'bs2',titulo:'Câmeras da Ilha #02: Caçada Noturna Flagrada',descricao:'Um predador solitário rondando o rio ao entardecer, capturado à distância.',categoria:'bastidores',autor:'The Luis',duracao:'11:57',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'CÂMERAS DA ILHA'},
 ];
 
