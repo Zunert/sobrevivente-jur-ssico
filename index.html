@@ -1105,6 +1105,10 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .diagnostic-btn { min-width: unset; }
 }
 </style>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  
 </head>
 <body>
 
@@ -1605,7 +1609,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   </div>
 </section>
 
-<!-- COMUNIDADE -->
+<!-- ===== COMUNIDADE ===== -->
 <div class="full-divider"></div>
 <section id="comunidade">
   <div class="section-wrap">
@@ -1615,40 +1619,19 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
       <p class="section-lead reveal reveal-delay-2">Canais, vídeos e servidores criados por sobreviventes como você. Quer divulgar seu conteúdo? Envie abaixo.</p>
     </div>
 
-    <!-- Cards de conteúdo aprovado -->
+    <!-- CARDS DE CONTEÚDO DA COMUNIDADE -->
     <div class="com-grid reveal reveal-delay-2" id="comGrid">
-      <!-- Exemplos iniciais -->
-      <div class="com-card">
-        <div class="com-badge com-badge-youtube">YouTube</div>
-        <div class="com-thumb" style="background:linear-gradient(135deg,#1a0a0a,#2a0a0a)">
-          <span style="font-size:2.5rem">▶</span>
-        </div>
-        <div class="com-info">
-          <div class="com-title">Seu canal aqui</div>
-          <div class="com-desc">Envie seu canal pelo formulário abaixo e apareça nesta seção após aprovação.</div>
-          <div class="com-author">📺 YouTube</div>
-        </div>
-      </div>
-      <div class="com-card">
-        <div class="com-badge com-badge-discord">Discord</div>
-        <div class="com-thumb" style="background:linear-gradient(135deg,#0a0a2a,#12124a)">
-          <span style="font-size:2.5rem">💬</span>
-        </div>
-        <div class="com-info">
-          <div class="com-title">Seu servidor aqui</div>
-          <div class="com-desc">Tem um servidor de The Isle? Divulgue aqui para a comunidade encontrar você.</div>
-          <div class="com-author">🎮 Discord</div>
-        </div>
-      </div>
+      <!-- Gerado automaticamente pelo JavaScript -->
     </div>
 
-    <!-- Formulário de envio -->
+    <!-- FORMULÁRIO DE ENVIO -->
     <div class="com-form-wrap reveal">
       <div class="com-form-header">
-        <span class="section-tag" style="margin-bottom:8px">Enviar Conteúdo</span>
-        <h3 style="font-family:'Cinzel',serif;font-size:1rem;color:var(--parchment);margin-bottom:6px">Divulgue seu canal ou servidor</h3>
-        <p style="font-size:.9rem;color:var(--bone);opacity:.55;line-height:1.7">Todo conteúdo é revisado antes de aparecer. Spam e conteúdo inapropriado são rejeitados automaticamente.</p>
+        <span class="section-tag" style="color:var(--warn)">📡 Transmissão da Comunidade</span>
+        <h3 style="font-family:'Cinzel',serif;font-size:1rem;color:var(--parchment);margin-bottom:6px">Divulgue seu conteúdo agora mesmo!</h3>
+        <p style="font-size:.9rem;color:var(--bone);opacity:.55;line-height:1.7">Seu vídeo, canal, live ou servidor Discord aparece automaticamente no site. <strong style="color:var(--acid)">Só o administrador pode remover</strong> — conteúdo inapropriado será deletado.</p>
       </div>
+      
       <form class="com-form" id="comForm" onsubmit="submitCom(event)">
         <div class="com-form-row">
           <div class="com-form-group">
@@ -1659,14 +1642,15 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
             <label class="com-label">Tipo de conteúdo</label>
             <select class="com-input" id="comTipo" required>
               <option value="">Selecione...</option>
-              <option value="YouTube">📺 Canal YouTube</option>
-              <option value="LiveYouTube">🔴 Live YouTube</option>
-              <option value="Twitch">🎮 Canal Twitch</option>
-              <option value="LiveTwitch">🔴 Live Twitch</option>
-              <option value="TikTok">🎵 Canal TikTok</option>
-              <option value="Discord">💬 Servidor Discord</option>
-              <option value="Video">▶ Vídeo específico</option>
-              <option value="Outro">🔗 Outro</option></select>
+              <option value="youtube">📺 Canal YouTube</option>
+              <option value="youtube-live">🔴 Live YouTube</option>
+              <option value="twitch">🎮 Canal Twitch</option>
+              <option value="twitch-live">🔴 Live Twitch</option>
+              <option value="tiktok">🎵 Canal TikTok</option>
+              <option value="discord">💬 Servidor Discord</option>
+              <option value="video">▶ Vídeo específico</option>
+              <option value="outro">🔗 Outro</option>
+            </select>
           </div>
         </div>
         <div class="com-form-group">
@@ -1674,23 +1658,43 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
           <input class="com-input" type="url" id="comLink" placeholder="https://..." required>
         </div>
         <div class="com-form-group">
-          <label class="com-label">Descrição curta</label>
-          <textarea class="com-input com-textarea" id="comDesc" placeholder="Descreva seu conteúdo em até 120 caracteres..." maxlength="120" required></textarea>
+          <label class="com-label">Descrição curta (até 120 caracteres)</label>
+          <textarea class="com-input com-textarea" id="comDesc" placeholder="Descreva seu conteúdo..." maxlength="120" required></textarea>
         </div>
         <div class="com-form-footer">
-          <p class="com-disclaimer">⚠ Ao enviar, você concorda que o conteúdo será revisado antes de ser publicado.</p>
-          <button type="submit" class="btn btn-fill com-submit-btn" id="comSubmitBtn"><span id="comSubmitText">Enviar para revisão →</span></button>
+          <p class="com-disclaimer" style="color:var(--acid);opacity:.7">✅ Seu conteúdo aparece imediatamente! Apenas o admin pode excluir.</p>
+          <button type="submit" class="btn btn-fill com-submit-btn" id="comSubmitBtn">
+            <span id="comSubmitText">📡 Enviar para comunidade →</span>
+          </button>
         </div>
       </form>
-      <div id="comSuccess" style="display:none;text-align:center;padding:32px;border:1px solid rgba(90,158,30,.3);background:rgba(90,158,30,.05)">
+      
+      <div id="comSuccess" style="display:none;text-align:center;padding:32px;border:1px solid rgba(90,158,30,.3);background:rgba(90,158,30,.05);border-radius:4px;">
         <div style="font-size:2rem;margin-bottom:12px">✅</div>
-        <div style="font-family:'Cinzel',serif;font-size:.9rem;color:var(--acid);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Enviado com sucesso!</div>
-        <div style="font-size:.95rem;color:var(--bone);opacity:.6">Seu conteúdo será revisado em breve. Obrigado por contribuir com a comunidade!</div>
+        <div style="font-family:'Cinzel',serif;font-size:.9rem;color:var(--acid);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Conteúdo publicado com sucesso!</div>
+        <div style="font-size:.95rem;color:var(--bone);opacity:.6">Seu conteúdo já está visível para todos na seção "Comunidade". <strong style="color:var(--warn)">Apenas o administrador pode removê-lo.</strong></div>
       </div>
-      <div id="comError" style="display:none;text-align:center;padding:24px;border:1px solid rgba(139,26,10,.3);background:rgba(139,26,10,.05)">
+      
+      <div id="comError" style="display:none;text-align:center;padding:24px;border:1px solid rgba(139,26,10,.3);background:rgba(139,26,10,.05);border-radius:4px;">
         <div style="font-family:'Cinzel',serif;font-size:.8rem;color:var(--warn);letter-spacing:.1em;text-transform:uppercase" id="comErrorMsg">Erro ao enviar. Tente novamente.</div>
       </div>
     </div>
+
+    <!-- ÁREA DE ADMIN (VISÍVEL APENAS COM SENHA) -->
+    <div id="adminArea" style="display:none;margin-top:30px;padding:20px;background:rgba(139,26,10,.08);border:1px solid rgba(139,26,10,.3);border-radius:4px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <span style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--warn);">🔒 Modo Administrador</span>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <input type="password" id="adminPassword" placeholder="Senha do admin" style="background:rgba(5,6,3,.6);border:1px solid rgba(139,26,10,.3);color:var(--parchment);padding:6px 12px;font-family:'Crimson Pro',serif;font-size:.85rem;width:160px;">
+          <button onclick="ativarModoAdmin()" style="background:rgba(139,26,10,.2);border:1px solid rgba(139,26,10,.4);color:var(--warn);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:3px;">🔑 Ativar</button>
+          <button onclick="desativarModoAdmin()" style="background:rgba(255,255,255,.04);border:1px solid rgba(197,180,154,.15);color:var(--bone);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:3px;opacity:.5;">✕ Sair</button>
+        </div>
+      </div>
+      <div id="adminStatus" style="margin-top:10px;font-family:'Courier New',monospace;font-size:.6rem;color:var(--bone);opacity:.5;">
+        🔒 Modo inativo — digite a senha para gerenciar conteúdos
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -3892,5 +3896,226 @@ window.shareDiagnostic = shareDiagnostic;
     </div>
   </div>
 </div>
+ // =============================================
+// 🔥 FIREBASE CONFIGURAÇÃO (SUAS CREDENCIAIS)
+// =============================================
+
+// 🔥 COLE SEU firebaseConfig AQUI (copiado do Firebase)
+const firebaseConfig = {
+  apiKey: "AIzaSyDE_B3RZhYINv74SowJjCE5VQzYpAeBhw4",
+  authDomain: "sobrevivente-jurassico.firebaseapp.com",
+  projectId: "sobrevivente-jurassico",
+  storageBucket: "sobrevivente-jurassico.firebasestorage.app",
+  messagingSenderId: "585512673251",
+  appId: "1:585512673251:web:bc2a523fdf30540b0308ad6",
+  measurementId: "G-0541DBFKCW"
+};
+
+// Inicializa o Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// =============================================
+// SISTEMA DE AUTO-CADASTRO COM FIREBASE
+// =============================================
+
+const ADMIN_SENHA = '509822'; // ⚠️ Mude para a senha que você quiser!
+const CONTEUDOS_REF = 'conteudos';
+
+// ===== FUNÇÕES =====
+
+// Busca os conteúdos do Firebase em tempo real
+function carregarConteudos() {
+  const conteudosRef = db.ref(CONTEUDOS_REF);
+  conteudosRef.on('value', (snapshot) => {
+    const dados = snapshot.val();
+    if (dados) {
+      const conteudos = Object.keys(dados).map(key => ({
+        id: key,
+        ...dados[key]
+      }));
+      renderizarConteudos(conteudos);
+    } else {
+      renderizarConteudos([]);
+    }
+  });
+}
+
+// Renderiza os cards na grid
+function renderizarConteudos(conteudos) {
+  const grid = document.getElementById('comGrid');
+  
+  if (!conteudos || conteudos.length === 0) {
+    grid.innerHTML = `
+      <div class="com-card" style="grid-column:1/-1;text-align:center;padding:40px;opacity:.4;">
+        <div style="font-size:2rem;margin-bottom:12px;">📡</div>
+        <div style="font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bone);">Nenhum conteúdo ainda</div>
+        <div style="font-size:.85rem;color:var(--bone);opacity:.5;margin-top:6px;">Seja o primeiro a divulgar seu conteúdo!</div>
+      </div>
+    `;
+    return;
+  }
+
+  const badgeMap = {
+    'youtube': 'youtube',
+    'youtube-live': 'live',
+    'twitch': 'twitch',
+    'twitch-live': 'live',
+    'tiktok': 'tiktok',
+    'discord': 'discord',
+    'video': 'video',
+    'outro': 'video'
+  };
+  
+  const icons = {
+    'youtube': '📺',
+    'youtube-live': '🔴',
+    'twitch': '🎮',
+    'twitch-live': '🔴',
+    'tiktok': '🎵',
+    'discord': '💬',
+    'video': '▶',
+    'outro': '🔗'
+  };
+  
+  grid.innerHTML = conteudos.map((item) => {
+    const isAdmin = window.modoAdmin || false;
+    return `
+      <div class="com-card" data-id="${item.id}">
+        <div class="com-badge com-badge-${badgeMap[item.tipo] || 'video'}">${item.tipoLabel || item.tipo}</div>
+        <div class="com-thumb" style="background:linear-gradient(135deg,#1a0a0a,#2a0a0a)">
+          <span style="font-size:2.5rem">${icons[item.tipo] || '📌'}</span>
+        </div>
+        <div class="com-info">
+          <div class="com-title">${item.nome}</div>
+          <div class="com-desc">${item.descricao || 'Sem descrição'}</div>
+          <div class="com-author">${item.tipoLabel || item.tipo}</div>
+          <a href="${item.link}" target="_blank" rel="noopener" class="com-link">Visitar →</a>
+          ${isAdmin ? `<button onclick="deletarConteudo('${item.id}')" style="margin-top:8px;background:rgba(139,26,10,.15);border:1px solid rgba(139,26,10,.3);color:var(--warn);font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;cursor:pointer;border-radius:2px;">🗑️ Deletar (Admin)</button>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ===== ENVIAR CONTEÚDO =====
+function submitCom(e) {
+  e.preventDefault();
+  
+  const btn = document.getElementById('comSubmitBtn');
+  const txt = document.getElementById('comSubmitText');
+  const nome = document.getElementById('comNome').value.trim();
+  const tipo = document.getElementById('comTipo').value;
+  const link = document.getElementById('comLink').value.trim();
+  const desc = document.getElementById('comDesc').value.trim();
+  
+  if (!nome || !tipo || !link) {
+    document.getElementById('comErrorMsg').textContent = '⚠️ Preencha todos os campos obrigatórios.';
+    document.getElementById('comError').style.display = 'block';
+    return;
+  }
+  
+  // Filtro de palavras proibidas
+  const badWords = ['porn','xxx','hack','cheat','free money','bitcoin','crypto','phishing','scam'];
+  const allText = (nome + desc + link).toLowerCase();
+  if (badWords.some(w => allText.includes(w))) {
+    document.getElementById('comErrorMsg').textContent = '⚠️ Conteúdo não permitido detectado.';
+    document.getElementById('comError').style.display = 'block';
+    return;
+  }
+  
+  try { new URL(link); } catch {
+    document.getElementById('comErrorMsg').textContent = '⚠️ Link inválido. Use o formato https://...';
+    document.getElementById('comError').style.display = 'block';
+    return;
+  }
+  
+  const tipoLabels = {
+    'youtube': '📺 YouTube',
+    'youtube-live': '🔴 Live YouTube',
+    'twitch': '🎮 Twitch',
+    'twitch-live': '🔴 Live Twitch',
+    'tiktok': '🎵 TikTok',
+    'discord': '💬 Discord',
+    'video': '▶ Vídeo',
+    'outro': '🔗 Outro'
+  };
+  
+  const novoConteudo = {
+    nome: nome,
+    tipo: tipo,
+    tipoLabel: tipoLabels[tipo] || tipo,
+    link: link,
+    descricao: desc || 'Sem descrição',
+    data: new Date().toLocaleDateString('pt-BR'),
+    timestamp: Date.now()
+  };
+  
+  btn.disabled = true;
+  txt.textContent = '📡 Enviando...';
+  
+  const conteudosRef = db.ref(CONTEUDOS_REF);
+  conteudosRef.push(novoConteudo)
+    .then(() => {
+      document.getElementById('comForm').style.display = 'none';
+      document.getElementById('comSuccess').style.display = 'block';
+      document.getElementById('comError').style.display = 'none';
+      btn.disabled = false;
+      txt.textContent = '📡 Enviar para comunidade →';
+    })
+    .catch((error) => {
+      document.getElementById('comErrorMsg').textContent = '❌ Erro ao enviar: ' + error.message;
+      document.getElementById('comError').style.display = 'block';
+      btn.disabled = false;
+      txt.textContent = '📡 Enviar para comunidade →';
+    });
+}
+
+// ===== DELETAR CONTEÚDO (APENAS ADMIN) =====
+function deletarConteudo(id) {
+  if (!window.modoAdmin) {
+    alert('🔒 Apenas o administrador pode deletar conteúdos.');
+    return;
+  }
+  
+  if (confirm('⚠️ Tem certeza que quer deletar este conteúdo?\n\nIsso não pode ser desfeito.')) {
+    const conteudosRef = db.ref(CONTEUDOS_REF + '/' + id);
+    conteudosRef.remove()
+      .then(() => {})
+      .catch((error) => {
+        alert('❌ Erro ao deletar: ' + error.message);
+      });
+  }
+}
+
+// ===== MODO ADMIN =====
+function ativarModoAdmin() {
+  const senha = document.getElementById('adminPassword').value;
+  if (senha === ADMIN_SENHA) {
+    window.modoAdmin = true;
+    document.getElementById('adminArea').style.display = 'block';
+    document.getElementById('adminStatus').innerHTML = '✅ <strong style="color:var(--acid)">Modo Admin ATIVO</strong> — você pode deletar conteúdos clicando no botão 🗑️ em cada card.';
+    document.getElementById('adminStatus').style.color = 'var(--acid)';
+    carregarConteudos();
+  } else {
+    document.getElementById('adminStatus').innerHTML = '❌ <strong style="color:var(--warn)">Senha incorreta!</strong> Tente novamente.';
+    document.getElementById('adminStatus').style.color = 'var(--warn)';
+  }
+}
+
+function desativarModoAdmin() {
+  window.modoAdmin = false;
+  document.getElementById('adminArea').style.display = 'none';
+  carregarConteudos();
+}
+
+// ===== INICIALIZAÇÃO =====
+document.addEventListener('DOMContentLoaded', function() {
+  carregarConteudos();
+  window.submitCom = submitCom;
+  window.deletarConteudo = deletarConteudo;
+  window.ativarModoAdmin = ativarModoAdmin;
+  window.desativarModoAdmin = desativarModoAdmin;
+});
 </body>
 </html>
