@@ -3801,10 +3801,10 @@ window.resetPrime = resetPrime;
 window.savePrime = savePrime;
 window.closeDiagnostic = closeDiagnostic;
 window.shareDiagnostic = shareDiagnostic;
-<!-- ===== TODOS OS OUTROS SCRIPTS AQUI ===== -->
 <script>
+
 // =============================================
-// 🔥 FIREBASE CONFIGURAÇÃO
+// 🔥 FIREBASE CONFIGURAÇÃO (SUAS CREDENCIAIS)
 // =============================================
 
 const firebaseConfig = {
@@ -3827,8 +3827,6 @@ const db = firebase.database();
 
 const ADMIN_SENHA = '509822';
 const CONTEUDOS_REF = 'conteudos';
-
-// ===== FUNÇÕES =====
 
 function carregarConteudos() {
   const conteudosRef = db.ref(CONTEUDOS_REF);
@@ -3901,7 +3899,7 @@ function renderizarConteudos(conteudos) {
     `;
   }).join('');
 }
-// ===== ENVIAR CONTEÚDO (FIREBASE) =====
+
 function submitCom(e) {
   e.preventDefault();
   
