@@ -1623,90 +1623,69 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     <div class="com-grid reveal reveal-delay-2" id="comGrid">
       <!-- Gerado automaticamente pelo JavaScript -->
     </div>
-
-    <!-- FORMULÁRIO DE ENVIO -->
-    <div class="com-form-wrap reveal">
-      <div class="com-form-header">
-        <span class="section-tag" style="color:var(--warn)">📡 Transmissão da Comunidade</span>
-        <h3 style="font-family:'Cinzel',serif;font-size:1rem;color:var(--parchment);margin-bottom:6px">Divulgue seu conteúdo agora mesmo!</h3>
-        <p style="font-size:.9rem;color:var(--bone);opacity:.55;line-height:1.7">Seu vídeo, canal, live ou servidor Discord aparece automaticamente no site. <strong style="color:var(--acid)">Só o administrador pode remover</strong> — conteúdo inapropriado será deletado.</p>
+<!-- ===== FORMULÁRIO DE ENVIO ===== -->
+<div class="com-form-wrap reveal">
+  <div class="com-form-header">
+    ...
+  </div>
+  
+  <!-- FORMULÁRIO CORRETO (COM DESTAQUE) -->
+  <form class="com-form" id="comForm" onsubmit="submitCom(event)">
+    
+    <!-- LINHA 1: NOME + TIPO -->
+    <div class="com-form-row">
+      <div class="com-form-group">
+        <label class="com-label">Seu nome / canal</label>
+        <input class="com-input" type="text" id="comNome" placeholder="Ex: Zunert Gaming" required maxlength="60">
       </div>
-      
-      <form class="com-form" id="comForm" onsubmit="submitCom(event)">
-        <div class="com-form-row">
-          <div class="com-form-group">
-            <label class="com-label">Seu nome / canal</label>
-            <input class="com-input" type="text" id="comNome" placeholder="Ex: Zunert Gaming" required maxlength="60">
-          </div>
-          <div class="com-form-group">
-            <label class="com-label">Tipo de conteúdo</label>
-            <select class="com-input" id="comTipo" required>
-              <option value="">Selecione...</option>
-              <option value="youtube">📺 Canal YouTube</option>
-              <option value="youtube-live">🔴 Live YouTube</option>
-              <option value="twitch">🎮 Canal Twitch</option>
-              <option value="twitch-live">🔴 Live Twitch</option>
-              <option value="tiktok">🎵 Canal TikTok</option>
-              <option value="discord">💬 Servidor Discord</option>
-              <option value="video">▶ Vídeo específico</option>
-              <option value="outro">🔗 Outro</option>
-            </select>
-          </div>
-        </div>
-        <div class="com-form-group">
-          <label class="com-label">Link</label>
-          <input class="com-input" type="url" id="comLink" placeholder="https://..." required>
-        </div>
-        <div class="com-form-group">
-          <label class="com-label">Descrição curta (até 120 caracteres)</label>
-          <textarea class="com-input com-textarea" <form class="com-form" id="comForm" onsubmit="submitCom(event)">
-  <div class="com-form-row">
-    <div class="com-form-group">
-      <label class="com-label">Seu nome / canal</label>
-      <input class="com-input" type="text" id="comNome" placeholder="Ex: Zunert Gaming" required maxlength="60">
+      <div class="com-form-group">
+        <label class="com-label">Tipo de conteúdo</label>
+        <select class="com-input" id="comTipo" required>
+          <option value="">Selecione...</option>
+          <option value="youtube">📺 Canal YouTube</option>
+          <option value="youtube-live">🔴 Live YouTube</option>
+          <option value="twitch">🎮 Canal Twitch</option>
+          <option value="twitch-live">🔴 Live Twitch</option>
+          <option value="tiktok">🎵 Canal TikTok</option>
+          <option value="discord">💬 Servidor Discord</option>
+          <option value="video">▶ Vídeo específico</option>
+          <option value="outro">🔗 Outro</option>
+        </select>
+      </div>
     </div>
+    
+    <!-- LINHA 2: LINK -->
     <div class="com-form-group">
-      <label class="com-label">Tipo de conteúdo</label>
-      <select class="com-input" id="comTipo" required>
-        <option value="">Selecione...</option>
-        <option value="youtube">📺 Canal YouTube</option>
-        <option value="youtube-live">🔴 Live YouTube</option>
-        <option value="twitch">🎮 Canal Twitch</option>
-        <option value="twitch-live">🔴 Live Twitch</option>
-        <option value="tiktok">🎵 Canal TikTok</option>
-        <option value="discord">💬 Servidor Discord</option>
-        <option value="video">▶ Vídeo específico</option>
-        <option value="outro">🔗 Outro</option>
-      </select>
+      <label class="com-label">Link</label>
+      <input class="com-input" type="url" id="comLink" placeholder="https://..." required>
     </div>
-  </div>
-  <div class="com-form-group">
-    <label class="com-label">Link</label>
-    <input class="com-input" type="url" id="comLink" placeholder="https://..." required>
-  </div>
-  <div class="com-form-group">
-    <label class="com-label">Descrição curta (até 120 caracteres)</label>
-   <textarea class="com-input com-textarea" id="comDesc" placeholder="Descreva seu conteúdo..." maxlength="120" required></textarea>
-  </div>
+    
+    <!-- LINHA 3: DESCRIÇÃO (APENAS A TEXTAREA, SEM HTML DENTRO!) -->
+    <div class="com-form-group">
+      <label class="com-label">Descrição curta (até 120 caracteres)</label>
+      <textarea class="com-input com-textarea" id="comDesc" placeholder="Descreva seu conteúdo..." maxlength="120" required></textarea>
+    </div>
 
-  <!-- ⭐ NOVO CAMPO DE DESTAQUE -->
-<div class="com-form-group">
-  <label class="com-label">⭐ Destaque por 24h</label>
-  <div style="display:flex;align-items:center;gap:12px;padding:8px 0;">
-    <input type="checkbox" id="comDestaque" style="width:18px;height:18px;accent-color:var(--acid);cursor:pointer;">
-    <label for="comDestaque" style="font-size:.85rem;color:var(--bone);opacity:.7;cursor:pointer;">
-      Marcar como <strong style="color:var(--acid);">DESTAQUE</strong> — aparece no topo da Comunidade por 24h
-    </label>
-  </div>
-</div>
+    <!-- LINHA 4: DESTAQUE -->
+    <div class="com-form-group">
+      <label class="com-label">⭐ Destaque por 24h</label>
+      <div style="display:flex;align-items:center;gap:12px;padding:8px 0;">
+        <input type="checkbox" id="comDestaque" style="width:18px;height:18px;accent-color:var(--acid);cursor:pointer;">
+        <label for="comDestaque" style="font-size:.85rem;color:var(--bone);opacity:.7;cursor:pointer;">
+          Marcar como <strong style="color:var(--acid);">DESTAQUE</strong> — aparece no topo da Comunidade por 24h
+        </label>
+      </div>
+    </div>
 
-<div class="com-form-footer">
-  <p class="com-disclaimer" style="color:var(--acid);opacity:.7">✅ Seu conteúdo aparece imediatamente! Apenas o admin pode excluir.</p>
-  <button type="submit" class="btn btn-fill com-submit-btn" id="comSubmitBtn">
-    <span id="comSubmitText">📡 Enviar para comunidade →</span>
-  </button>
+    <!-- LINHA 5: BOTÃO ENVIAR -->
+    <div class="com-form-footer">
+      <p class="com-disclaimer" style="color:var(--acid);opacity:.7">✅ Seu conteúdo aparece imediatamente! Apenas o admin pode excluir.</p>
+      <button type="submit" class="btn btn-fill com-submit-btn" id="comSubmitBtn">
+        <span id="comSubmitText">📡 Enviar para comunidade →</span>
+      </button>
+    </div>
+  </form>
 </div>
-</form>
       
       <div id="comSuccess" style="display:none;text-align:center;padding:32px;border:1px solid rgba(90,158,30,.3);background:rgba(90,158,30,.05);border-radius:4px;">
         <div style="font-size:2rem;margin-bottom:12px">✅</div>
