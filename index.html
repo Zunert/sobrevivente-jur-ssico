@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <meta charset="UTF-8">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-21Q91YYK7Y"></script>
 <script>
@@ -1106,10 +1105,6 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .diagnostic-btn { min-width: unset; }
 }
 </style>
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-  
 </head>
 <body>
 
@@ -1610,7 +1605,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   </div>
 </section>
 
-<!-- ===== COMUNIDADE ===== -->
+<!-- COMUNIDADE -->
 <div class="full-divider"></div>
 <section id="comunidade">
   <div class="section-wrap">
@@ -1620,100 +1615,98 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
       <p class="section-lead reveal reveal-delay-2">Canais, vídeos e servidores criados por sobreviventes como você. Quer divulgar seu conteúdo? Envie abaixo.</p>
     </div>
 
-    <!-- CARDS DE CONTEÚDO DA COMUNIDADE -->
+    <!-- Cards de conteúdo aprovado -->
     <div class="com-grid reveal reveal-delay-2" id="comGrid">
-      <!-- Gerado automaticamente pelo JavaScript -->
-    </div>
-<!-- ===== FORMULÁRIO DE ENVIO ===== -->
-<div class="com-form-wrap reveal">
-  <div class="com-form-header">
-    ...
-  </div>
-  
-  <!-- FORMULÁRIO CORRETO (COM DESTAQUE) -->
-  <form class="com-form" id="comForm" onsubmit="submitCom(event)">
-    
-    <!-- LINHA 1: NOME + TIPO -->
-    <div class="com-form-row">
-      <div class="com-form-group">
-        <label class="com-label">Seu nome / canal</label>
-        <input class="com-input" type="text" id="comNome" placeholder="Ex: Zunert Gaming" required maxlength="60">
-      </div>
-      <div class="com-form-group">
-        <label class="com-label">Tipo de conteúdo</label>
-        <select class="com-input" id="comTipo" required>
-          <option value="">Selecione...</option>
-          <option value="youtube">📺 Canal YouTube</option>
-          <option value="youtube-live">🔴 Live YouTube</option>
-          <option value="twitch">🎮 Canal Twitch</option>
-          <option value="twitch-live">🔴 Live Twitch</option>
-          <option value="tiktok">🎵 Canal TikTok</option>
-          <option value="discord">💬 Servidor Discord</option>
-          <option value="video">▶ Vídeo específico</option>
-          <option value="outro">🔗 Outro</option>
-        </select>
-      </div>
-    </div>
-    
-    <!-- LINHA 2: LINK -->
-    <div class="com-form-group">
-      <label class="com-label">Link</label>
-      <input class="com-input" type="url" id="comLink" placeholder="https://..." required>
-    </div>
-    
-    <!-- LINHA 3: DESCRIÇÃO (APENAS A TEXTAREA, SEM HTML DENTRO!) -->
-    <div class="com-form-group">
-      <label class="com-label">Descrição curta (até 120 caracteres)</label>
-      <textarea class="com-input com-textarea" id="comDesc" placeholder="Descreva seu conteúdo..." maxlength="120" required></textarea>
-    </div>
-
-    <!-- LINHA 4: DESTAQUE -->
-    <div class="com-form-group">
-      <label class="com-label">⭐ Destaque por 24h</label>
-      <div style="display:flex;align-items:center;gap:12px;padding:8px 0;">
-        <input type="checkbox" id="comDestaque" style="width:18px;height:18px;accent-color:var(--acid);cursor:pointer;">
-        <label for="comDestaque" style="font-size:.85rem;color:var(--bone);opacity:.7;cursor:pointer;">
-          Marcar como <strong style="color:var(--acid);">DESTAQUE</strong> — aparece no topo da Comunidade por 24h
-        </label>
-      </div>
-    </div>
-
-    <!-- LINHA 5: BOTÃO ENVIAR -->
-    <div class="com-form-footer">
-      <p class="com-disclaimer" style="color:var(--acid);opacity:.7">✅ Seu conteúdo aparece imediatamente! Apenas o admin pode excluir.</p>
-      <button type="submit" class="btn btn-fill com-submit-btn" id="comSubmitBtn">
-        <span id="comSubmitText">📡 Enviar para comunidade →</span>
-      </button>
-    </div>
-  </form>
-</div>
-      
-      <div id="comSuccess" style="display:none;text-align:center;padding:32px;border:1px solid rgba(90,158,30,.3);background:rgba(90,158,30,.05);border-radius:4px;">
-        <div style="font-size:2rem;margin-bottom:12px">✅</div>
-        <div style="font-family:'Cinzel',serif;font-size:.9rem;color:var(--acid);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Conteúdo publicado com sucesso!</div>
-        <div style="font-size:.95rem;color:var(--bone);opacity:.6">Seu conteúdo já está visível para todos na seção "Comunidade". <strong style="color:var(--warn)">Apenas o administrador pode removê-lo.</strong></div>
-      </div>
-      
-      <div id="comError" style="display:none;text-align:center;padding:24px;border:1px solid rgba(139,26,10,.3);background:rgba(139,26,10,.05);border-radius:4px;">
-        <div style="font-family:'Cinzel',serif;font-size:.8rem;color:var(--warn);letter-spacing:.1em;text-transform:uppercase" id="comErrorMsg">Erro ao enviar. Tente novamente.</div>
-      </div>
-    </div>
-
-    <!-- ÁREA DE ADMIN (VISÍVEL APENAS COM SENHA) -->
-    <div id="adminArea" style="display:block;margin-top:30px;padding:20px;background:rgba(139,26,10,.08);border:1px solid rgba(139,26,10,.3);border-radius:4px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-        <span style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--warn);">🔒 Modo Administrador</span>
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-          <input type="password" id="adminPassword" placeholder="Senha do admin" style="background:rgba(5,6,3,.6);border:1px solid rgba(139,26,10,.3);color:var(--parchment);padding:6px 12px;font-family:'Crimson Pro',serif;font-size:.85rem;width:160px;">
-          <button onclick="ativarModoAdmin()" style="background:rgba(139,26,10,.2);border:1px solid rgba(139,26,10,.4);color:var(--warn);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:3px;">🔑 Ativar</button>
-          <button onclick="desativarModoAdmin()" style="background:rgba(255,255,255,.04);border:1px solid rgba(197,180,154,.15);color:var(--bone);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:3px;opacity:.5;">✕ Sair</button>
+      <!-- Exemplos iniciais -->
+      <div class="com-card">
+        <div class="com-badge com-badge-youtube">YouTube</div>
+        <div class="com-thumb" style="background:linear-gradient(135deg,#1a0a0a,#2a0a0a)">
+          <span style="font-size:2.5rem">▶</span>
+        </div>
+        <div class="com-info">
+          <div class="com-title">Seu canal aqui</div>
+          <div class="com-desc">Envie seu canal pelo formulário abaixo e apareça nesta seção após aprovação.</div>
+          <div class="com-author">📺 YouTube</div>
         </div>
       </div>
-      <div id="adminStatus" style="margin-top:10px;font-family:'Courier New',monospace;font-size:.6rem;color:var(--bone);opacity:.5;">
-        🔒 Modo inativo — digite a senha para gerenciar conteúdos
+      <div class="com-card">
+        <div class="com-badge com-badge-discord">Discord</div>
+        <div class="com-thumb" style="background:linear-gradient(135deg,#0a0a2a,#12124a)">
+          <span style="font-size:2.5rem">💬</span>
+        </div>
+        <div class="com-info">
+          <div class="com-title">Seu servidor aqui</div>
+          <div class="com-desc">Tem um servidor de The Isle? Divulgue aqui para a comunidade encontrar você.</div>
+          <div class="com-author">🎮 Discord</div>
+        </div>
       </div>
     </div>
 
+    <!-- Formulário de envio -->
+    <div class="com-form-wrap reveal">
+      <div class="com-form-header">
+        <span class="section-tag" style="margin-bottom:8px">Enviar Conteúdo</span>
+        <h3 style="font-family:'Cinzel',serif;font-size:1rem;color:var(--parchment);margin-bottom:6px">Divulgue seu canal ou servidor</h3>
+        <p style="font-size:.9rem;color:var(--bone);opacity:.55;line-height:1.7">Todo conteúdo é revisado antes de aparecer. Spam e conteúdo inapropriado são rejeitados automaticamente.</p>
+      </div>
+      <form class="com-form" id="comForm" onsubmit="submitCom(event)">
+        <div class="com-form-row">
+          <div class="com-form-group">
+            <label class="com-label">Seu nome / canal</label>
+            <input class="com-input" type="text" id="comNome" placeholder="Ex: Zunert Gaming" required maxlength="60">
+          </div>
+          <div class="com-form-group">
+            <label class="com-label">Tipo de conteúdo</label>
+            <select class="com-input" id="comTipo" required>
+              <option value="">Selecione...</option>
+              <option value="YouTube">📺 Canal YouTube</option>
+              <option value="LiveYouTube">🔴 Live YouTube</option>
+              <option value="Twitch">🎮 Canal Twitch</option>
+              <option value="LiveTwitch">🔴 Live Twitch</option>
+              <option value="TikTok">🎵 Canal TikTok</option>
+              <option value="Discord">💬 Servidor Discord</option>
+              <option value="Video">▶ Vídeo específico</option>
+              <option value="Outro">🔗 Outro</option></select>
+          </div>
+        </div>
+        <div class="com-form-group">
+          <label class="com-label">Link</label>
+          <input class="com-input" type="url" id="comLink" placeholder="https://..." required>
+        </div>
+        <div class="com-form-group">
+          <label class="com-label">Descrição curta</label>
+          <textarea class="com-input com-textarea" id="comDesc" placeholder="Descreva seu conteúdo em até 120 caracteres..." maxlength="120" required></textarea>
+        </div>
+        <div class="com-form-footer">
+          <p class="com-disclaimer">⚠ Ao enviar, você concorda que o conteúdo será revisado antes de ser publicado.</p>
+          <button type="submit" class="btn btn-fill com-submit-btn" id="comSubmitBtn"><span id="comSubmitText">Enviar para revisão →</span></button>
+        </div>
+      </form>
+      <div id="comSuccess" style="display:none;text-align:center;padding:32px;border:1px solid rgba(90,158,30,.3);background:rgba(90,158,30,.05)">
+        <div style="font-size:2rem;margin-bottom:12px">✅</div>
+        <div style="font-family:'Cinzel',serif;font-size:.9rem;color:var(--acid);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Enviado com sucesso!</div>
+        <div style="font-size:.95rem;color:var(--bone);opacity:.6">Seu conteúdo será revisado em breve. Obrigado por contribuir com a comunidade!</div>
+      </div>
+      <div id="comError" style="display:none;text-align:center;padding:24px;border:1px solid rgba(139,26,10,.3);background:rgba(139,26,10,.05)">
+        <div style="font-family:'Cinzel',serif;font-size:.8rem;color:var(--warn);letter-spacing:.1em;text-transform:uppercase" id="comErrorMsg">Erro ao enviar. Tente novamente.</div>
+      </div>
+
+      <!-- ÁREA DE ADMIN (VISÍVEL APENAS COM SENHA) -->
+      <div id="adminArea" style="margin-top:30px;padding:20px;background:rgba(139,26,10,.08);border:1px solid rgba(139,26,10,.3);border-radius:4px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <span style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--warn);">🔒 Modo Administrador</span>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <input type="password" id="adminPassword" placeholder="Senha do admin" style="background:rgba(5,6,3,.6);border:1px solid rgba(139,26,10,.3);color:var(--parchment);padding:6px 12px;font-family:'Crimson Pro',serif;font-size:.85rem;width:160px;">
+            <button onclick="ativarModoAdmin()" style="background:rgba(139,26,10,.2);border:1px solid rgba(139,26,10,.4);color:var(--warn);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:3px;">🔑 Ativar</button>
+            <button onclick="desativarModoAdmin()" style="background:rgba(255,255,255,.04);border:1px solid rgba(197,180,154,.15);color:var(--bone);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:3px;opacity:.5;">✕ Sair</button>
+          </div>
+        </div>
+        <div id="adminStatus" style="margin-top:10px;font-family:'Courier New',monospace;font-size:.6rem;color:var(--bone);opacity:.5;">
+          🔒 Modo inativo — digite a senha para gerenciar conteúdos
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -2666,24 +2659,6 @@ document.addEventListener('keydown', e => {
     closeDinoModal();
     closeGuide();
   }
-  document.addEventListener('DOMContentLoaded', function() {
-  carregarConteudos();
-  
-  // Verifica se já está logado
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      window.modoAdmin = true;
-      document.getElementById('adminArea').style.display = 'block';
-      document.getElementById('adminStatus').innerHTML = '✅ <strong style="color:var(--acid)">Modo Admin ATIVO</strong> — ' + user.email;
-      document.getElementById('adminStatus').style.color = 'var(--acid)';
-      carregarConteudos();
-    }
-  });
-  
-  window.submitCom = submitCom;
-  window.deletarConteudo = deletarConteudo;
-  window.ativarModoAdmin = ativarModoAdmin;
-  window.desativarModoAdmin = desativarModoAdmin;
 });
 
 function filterDir(tipo, el){
@@ -2785,6 +2760,92 @@ async function submitFaq(e) {
     }
   } catch(err) { alert('Erro ao enviar. Tente novamente.'); }
 }
+
+async function submitCom(e){
+  e.preventDefault();
+  const btn = document.getElementById('comSubmitBtn');
+  const txt = document.getElementById('comSubmitText');
+  const nome = document.getElementById('comNome').value;
+  const tipo = document.getElementById('comTipo').value;
+  const link = document.getElementById('comLink').value;
+  const desc = document.getElementById('comDesc').value;
+
+  document.getElementById('comError').style.display='none';
+
+  const badWords = ['porn','xxx','hack','cheat','free money','bitcoin','crypto giveaway'];
+  const allText = (nome+desc+link).toLowerCase();
+  if(badWords.some(w=>allText.includes(w))){
+    document.getElementById('comErrorMsg').textContent='⚠ Conteúdo não permitido detectado.';
+    document.getElementById('comError').style.display='block';
+    return;
+  }
+
+  try { new URL(link); } catch {
+    document.getElementById('comErrorMsg').textContent='⚠ Link inválido. Use o formato https://...';
+    document.getElementById('comError').style.display='block';
+    return;
+  }
+
+  btn.disabled=true;
+  txt.textContent='Enviando...';
+
+  try {
+    const res = await fetch('https://formspree.io/f/mojrrvjd', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        nome, tipo, link, descricao: desc,
+        _subject: `[Comunidade] Nova submissão: ${tipo} - ${nome}`
+      })
+    });
+
+    if(res.ok){
+      document.getElementById('comForm').style.display='none';
+      document.getElementById('comSuccess').style.display='block';
+    } else {
+      throw new Error('Erro no servidor');
+    }
+  } catch(err) {
+    document.getElementById('comErrorMsg').textContent='⚠ Erro ao enviar. Tente novamente em instantes.';
+    document.getElementById('comError').style.display='block';
+    btn.disabled=false;
+    txt.textContent='Enviar para revisão →';
+  }
+}
+
+// ===== MODO ADMIN (Comunidade) =====
+// AVISO: isso NÃO é segurança de verdade — a senha fica visível pra quem olhar
+// o código-fonte da página. Serve só pra esconder o botão de deletar do público
+// casual, não impede alguém com conhecimento técnico básico.
+const ADMIN_SENHA = '509822';
+let modoAdminAtivo = false;
+
+function ativarModoAdmin(){
+  const senhaDigitada = document.getElementById('adminPassword').value;
+  const status = document.getElementById('adminStatus');
+  if(senhaDigitada === ADMIN_SENHA){
+    modoAdminAtivo = true;
+    status.textContent = '🔓 Modo admin ATIVO — botões de deletar visíveis';
+    status.style.color = 'var(--acid)';
+    status.style.opacity = '1';
+    document.body.classList.add('admin-mode');
+  } else {
+    status.textContent = '❌ Senha incorreta';
+    status.style.color = 'var(--warn)';
+    status.style.opacity = '1';
+  }
+}
+
+function desativarModoAdmin(){
+  modoAdminAtivo = false;
+  document.getElementById('adminPassword').value = '';
+  document.body.classList.remove('admin-mode');
+  const status = document.getElementById('adminStatus');
+  status.textContent = '🔒 Modo inativo — digite a senha para gerenciar conteúdos';
+  status.style.color = '';
+  status.style.opacity = '.5';
+}
+
 function activateMap(){
   document.getElementById('mapStatic').style.display='none';
   document.getElementById('mapBalloon').style.display='none';
@@ -3427,26 +3488,17 @@ function playDinoModal(){
 })();
 // ===== TERMINAL DE VÍDEOS =====
 const terminalVideos = [
-  {id:'tut1', titulo:'Sobrevivente Jurássico - EP.01: Primeiros Passos', descricao:'Como sobreviver aos primeiros minutos na ilha.', categoria:'tutorials', autor:'Zunert', duracao:'12:34', data:'Jul 2026', youtube:'dQw4w9WgXcQ', badge:'TUTORIAL'},
-  {id:'tut2', titulo:'Sobrevivente Jurássico - EP.02: Sistema de Combate', descricao:'Entenda o sistema de combate do Evrima.', categoria:'tutorials', autor:'The Luis', duracao:'08:21', data:'Jul 2026', youtube:'dQw4w9WgXcQ', badge:'TUTORIAL'},
-  {id:'tut3', titulo:'Sobrevivente Jurássico - EP.03: Mutações e Builds', descricao:'Guia completo sobre mutações.', categoria:'tutorials', autor:'Zunert', duracao:'15:42', data:'Jul 2026', youtube:'dQw4w9WgXcQ', badge:'TUTORIAL'},
-  {id:'gp1', titulo:'Sobrevivente Jurássico - Gameplay #01: Allosaurus Pack Hunt', descricao:'Caçando em trio de Allosaurus.', categoria:'gameplay', autor:'Zunert', duracao:'22:15', data:'Jul 2026', youtube:'dQw4w9WgXcQ', badge:'GAMEPLAY'},
-  {id:'gp2', titulo:'Sobrevivente Jurássico - Gameplay #02: Sobrevivendo de Herbívoro', descricao:'Gameplay completo com Triceratops.', categoria:'gameplay', autor:'The Luis', duracao:'31:08', data:'Jul 2026', youtube:'dQw4w9WgXcQ', badge:'GAMEPLAY'},
-  {id:'lo1', titulo:'Sobrevivente Jurássico - Lore #01: A História do Evrima', descricao:'A história por trás do Evrima.', categoria:'lore', autor:'Zunert', duracao:'14:22', data:'Jul 2026', youtube:'dQw4w9WgXcQ', badge:'LORE'},
-  {id:'lo2', titulo:'Sobrevivente Jurássico - Lore #02: Os Dinos do Evrima', descricao:'Curiosidades sobre cada dino.', categoria:'lore', autor:'The Luis', duracao:'18:45', data:'Jul 2026', youtube:'dQw4w9WgXcQ', badge:'LORE'},
-  {
-    id:'bs1',
-    titulo:'Câmeras da Ilha #01: Field Guide - Behavior and Observation',
-    descricao:'FIELD OBSERVATION LOG — OBS-01 - Registro de campo documentando Kentrosaurus, Tyrannosaurus e Maiasaura em seu ambiente natural. Projeto desenvolvido como parte de um guia completo para a comunidade de The Isle Evrima.',
-    categoria:'bastidores',
-    autor:'Sobrevivente Jurássico',
-    duracao:'26:57',
-    data:'Ago 2026',
-    youtube:'VIN_t7Wepq4',
-    badge:'BASTIDORES'
-  },
-  {id:'bs2', titulo:'Sobrevivente Jurássico - Bastidores #02: Filmagens na Ilha', descricao:'Como gravamos os vídeos.', categoria:'bastidores', autor:'The Luis', duracao:'11:57', data:'Jul 2026', youtube:'dQw4w9WgXcQ', badge:'BASTIDORES'}
+  {id:'tut1',titulo:'Sobrevivente Jurássico - EP.01: Primeiros Passos',descricao:'Como sobreviver aos primeiros minutos na ilha.',categoria:'tutoriais',autor:'Zunert',duracao:'12:34',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
+  {id:'tut2',titulo:'Sobrevivente Jurássico - EP.02: Sistema de Combate',descricao:'Entenda o sistema de combate do Evrima.',categoria:'tutoriais',autor:'The Luis',duracao:'08:21',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
+  {id:'tut3',titulo:'Sobrevivente Jurássico - EP.03: Mutações e Builds',descricao:'Guia completo sobre mutações.',categoria:'tutoriais',autor:'Zunert',duracao:'15:42',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'TUTORIAL'},
+  {id:'gp1',titulo:'Sobrevivente Jurássico - Gameplay #01: Allosaurus Pack Hunt',descricao:'Caçando em trio de Allosaurus.',categoria:'gameplay',autor:'Zunert',duracao:'22:15',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'GAMEPLAY'},
+  {id:'gp2',titulo:'Sobrevivente Jurássico - Gameplay #02: Sobrevivendo de Herbívoro',descricao:'Gameplay completo com Triceratops.',categoria:'gameplay',autor:'The Luis',duracao:'31:08',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'GAMEPLAY'},
+  {id:'lo1',titulo:'Sobrevivente Jurássico - Lore #01: A História do Evrima',descricao:'A história por trás do Evrima.',categoria:'lore',autor:'Zunert',duracao:'14:22',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'LORE'},
+  {id:'lo2',titulo:'Sobrevivente Jurássico - Lore #02: Os Dinos do Evrima',descricao:'Curiosidades sobre cada dino.',categoria:'lore',autor:'The Luis',duracao:'18:45',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'LORE'},
+  {id:'bs1',titulo:'Diário de Observação de Campo — OBS-01',descricao:'Registro de campo realizado durante uma expedição de observação da fauna da ilha. Este episódio apresenta o Kentrosaurus, Tyrannosaurus e Maiasaura, catalogados e documentando seu comportamento, movimentação e características em seu ambiente natural. Projeto desenvolvido como parte de um guia completo para a comunidade de The Isle Evrima.',categoria:'bastidores',autor:'Zunert & The Luis',duracao:'09:33',data:'Jul 2026',youtube:'VIN_t7Wepq4',badge:'CÂMERAS DA ILHA'},
+  {id:'bs2',titulo:'Câmeras da Ilha #02: Caçada Noturna Flagrada',descricao:'Um predador solitário rondando o rio ao entardecer, capturado à distância.',categoria:'bastidores',autor:'The Luis',duracao:'11:57',data:'Jul 2026',youtube:'dQw4w9WgXcQ',badge:'CÂMERAS DA ILHA'},
 ];
+
 function renderTerminalVideos(categoria) {
   const container = document.getElementById('terminalVideos');
   const empty = document.getElementById('terminalEmpty');
@@ -3838,260 +3890,6 @@ window.resetPrime = resetPrime;
 window.savePrime = savePrime;
 window.closeDiagnostic = closeDiagnostic;
 window.shareDiagnostic = shareDiagnostic;
-// =============================================
-// 🔥 FIREBASE CONFIGURAÇÃO (SUAS CREDENCIAIS)
-// =============================================
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDE_B3RZhYINv74SowJjCE5VQzYpAeBhw4",
-  authDomain: "sobrevivente-jurassico.firebaseapp.com",
-  projectId: "sobrevivente-jurassico",
-  storageBucket: "sobrevivente-jurassico.firebasestorage.app",
-  messagingSenderId: "585512673251",
-  appId: "1:585512673251:web:bc2a523fdf30540b0308ad6",
-  measurementId: "G-0541DBFKCW"
-};
-
-// Inicializa o Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-// =============================================
-// SISTEMA DE AUTO-CADASTRO COM FIREBASE
-// =============================================
-
-const ADMIN_SENHA = '5098226892Isaque';
-const CONTEUDOS_REF = 'conteudos';
-
-function carregarConteudos() {
-  const conteudosRef = db.ref(CONTEUDOS_REF);
-  conteudosRef.on('value', (snapshot) => {
-    const dados = snapshot.val();
-    if (dados) {
-      const conteudos = Object.keys(dados).map(key => ({
-        id: key,
-        ...dados[key]
-      }));
-      renderizarConteudos(conteudos);
-    } else {
-      renderizarConteudos([]);
-    }
-  });
-}
-
-function renderizarConteudos(conteudos) {
-  const grid = document.getElementById('comGrid');
-  const agora = Date.now();
-  
-  // Separa destaques ativos (não expirados) dos normais
-  const destaquesAtivos = conteudos.filter(item => 
-    item.destaque === true && item.expiresAt && item.expiresAt > agora
-  );
-  
-  const normais = conteudos.filter(item => 
-    !(item.destaque === true && item.expiresAt && item.expiresAt > agora)
-  );
-  
-  // Ordena por data (mais recente primeiro)
-  destaquesAtivos.sort((a, b) => b.timestamp - a.timestamp);
-  normais.sort((a, b) => b.timestamp - a.timestamp);
-  
-  // Junta: destaques primeiro
-  const ordenados = [...destaquesAtivos, ...normais];
-  
-  if (ordenados.length === 0) {
-    grid.innerHTML = `
-      <div class="com-card" style="grid-column:1/-1;text-align:center;padding:40px;opacity:.4;">
-        <div style="font-size:2rem;margin-bottom:12px;">📡</div>
-        <div style="font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bone);">Nenhum conteúdo ainda</div>
-        <div style="font-size:.85rem;color:var(--bone);opacity:.5;margin-top:6px;">Seja o primeiro a divulgar seu conteúdo!</div>
-      </div>
-    `;
-    return;
-  }
-
-  const badgeMap = {
-    'youtube': 'youtube',
-    'youtube-live': 'live',
-    'twitch': 'twitch',
-    'twitch-live': 'live',
-    'tiktok': 'tiktok',
-    'discord': 'discord',
-    'video': 'video',
-    'outro': 'video'
-  };
-  
-  const icons = {
-    'youtube': '📺',
-    'youtube-live': '🔴',
-    'twitch': '🎮',
-    'twitch-live': '🔴',
-    'tiktok': '🎵',
-    'discord': '💬',
-    'video': '▶',
-    'outro': '🔗'
-  };
-  
-  grid.innerHTML = ordenados.map((item) => {
-    const isAdmin = window.modoAdmin || false;
-    const isDestaque = item.destaque === true && item.expiresAt && item.expiresAt > agora;
-    const horasRestantes = isDestaque ? Math.ceil((item.expiresAt - agora) / (1000 * 60 * 60)) : 0;
-    
-    return `
-      <div class="com-card ${isDestaque ? 'destaque-card' : ''}" data-id="${item.id}" style="${isDestaque ? 'border-color:rgba(255,215,0,.5);box-shadow:0 0 30px rgba(255,215,0,.1);' : ''}">
-        ${isDestaque ? `<div style="position:absolute;top:10px;right:10px;background:linear-gradient(135deg,#ffd700,#f0a500);color:#000;font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 10px;border-radius:2px;z-index:5;font-weight:700;">⭐ DESTAQUE ${horasRestantes}h</div>` : ''}
-        <div class="com-badge com-badge-${badgeMap[item.tipo] || 'video'}">${item.tipoLabel || item.tipo}</div>
-        <div class="com-thumb" style="background:linear-gradient(135deg,#1a0a0a,#2a0a0a)">
-          <span style="font-size:2.5rem">${icons[item.tipo] || '📌'}</span>
-        </div>
-        <div class="com-info">
-          <div class="com-title">${item.nome}</div>
-          <div class="com-desc">${item.descricao || 'Sem descrição'}</div>
-          <div class="com-author">${item.tipoLabel || item.tipo}</div>
-          <a href="${item.link}" target="_blank" rel="noopener" class="com-link">Visitar →</a>
-          ${isAdmin ? `<button onclick="deletarConteudo('${item.id}')" style="margin-top:8px;background:rgba(139,26,10,.15);border:1px solid rgba(139,26,10,.3);color:var(--warn);font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;cursor:pointer;border-radius:2px;">🗑️ Deletar (Admin)</button>` : ''}
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-function submitCom(e) {
-  e.preventDefault();
-  
-  const btn = document.getElementById('comSubmitBtn');
-  const txt = document.getElementById('comSubmitText');
-  const nome = document.getElementById('comNome').value.trim();
-  const tipo = document.getElementById('comTipo').value;
-  const link = document.getElementById('comLink').value.trim();
-  const desc = document.getElementById('comDesc').value.trim();
-  const destaque = document.getElementById('comDestaque').checked; // ← NOVO!
-  
-  if (!nome || !tipo || !link) {
-    document.getElementById('comErrorMsg').textContent = '⚠️ Preencha todos os campos obrigatórios.';
-    document.getElementById('comError').style.display = 'block';
-    return;
-  }
-  
-  const badWords = ['porn','xxx','hack','cheat','free money','bitcoin','crypto','phishing','scam'];
-  const allText = (nome + desc + link).toLowerCase();
-  if (badWords.some(w => allText.includes(w))) {
-    document.getElementById('comErrorMsg').textContent = '⚠️ Conteúdo não permitido detectado.';
-    document.getElementById('comError').style.display = 'block';
-    return;
-  }
-  
-  try { new URL(link); } catch {
-    document.getElementById('comErrorMsg').textContent = '⚠️ Link inválido. Use o formato https://...';
-    document.getElementById('comError').style.display = 'block';
-    return;
-  }
-  
-  const tipoLabels = {
-    'youtube': '📺 YouTube',
-    'youtube-live': '🔴 Live YouTube',
-    'twitch': '🎮 Twitch',
-    'twitch-live': '🔴 Live Twitch',
-    'tiktok': '🎵 TikTok',
-    'discord': '💬 Discord',
-    'video': '▶ Vídeo',
-    'outro': '🔗 Outro'
-  };
-  
-  // Calcula quando o destaque expira (24h a partir de agora)
-  const expiresAt = destaque ? Date.now() + (24 * 60 * 60 * 1000) : null;
-  
-  const novoConteudo = {
-    nome: nome,
-    tipo: tipo,
-    tipoLabel: tipoLabels[tipo] || tipo,
-    link: link,
-    descricao: desc || 'Sem descrição',
-    data: new Date().toLocaleDateString('pt-BR'),
-    timestamp: Date.now(),
-    destaque: destaque,      // ← NOVO!
-    expiresAt: expiresAt     // ← NOVO!
-  };
-  
-  btn.disabled = true;
-  txt.textContent = '📡 Enviando...';
-  
-  const conteudosRef = db.ref(CONTEUDOS_REF);
-  conteudosRef.push(novoConteudo)
-    .then(() => {
-      document.getElementById('comForm').style.display = 'none';
-      document.getElementById('comSuccess').style.display = 'block';
-      document.getElementById('comError').style.display = 'none';
-      btn.disabled = false;
-      txt.textContent = '📡 Enviar para comunidade →';
-    })
-    .catch((error) => {
-      document.getElementById('comErrorMsg').textContent = '❌ Erro ao enviar: ' + error.message;
-      document.getElementById('comError').style.display = 'block';
-      btn.disabled = false;
-      txt.textContent = '📡 Enviar para comunidade →';
-    });
-}
-function deletarConteudo(id) {
-  if (!window.modoAdmin) {
-    alert('🔒 Apenas o administrador pode deletar conteúdos.');
-    return;
-  }
-  
-  if (confirm('⚠️ Tem certeza que quer deletar este conteúdo?\n\nIsso não pode ser desfeito.')) {
-    const conteudosRef = db.ref(CONTEUDOS_REF + '/' + id);
-    conteudosRef.remove()
-      .then(() => {})
-      .catch((error) => {
-        alert('❌ Erro ao deletar: ' + error.message);
-      });
-  }
-}
-
-function ativarModoAdmin() {
-  const user = firebase.auth().currentUser;
-  if (user) {
-    window.modoAdmin = true;
-    document.getElementById('adminArea').style.display = 'block';
-    document.getElementById('adminStatus').innerHTML = '✅ <strong style="color:var(--acid)">Modo Admin ATIVO</strong> — você está autenticado como ' + user.email;
-    document.getElementById('adminStatus').style.color = 'var(--acid)';
-    carregarConteudos();
-  } else {
-    // Tenta fazer login
-    const email = prompt('Digite seu email do Firebase:');
-    const senha = prompt('Digite sua senha:');
-    if (email && senha) {
-      firebase.auth().signInWithEmailAndPassword(email, senha)
-        .then(() => {
-          window.modoAdmin = true;
-          document.getElementById('adminArea').style.display = 'block';
-          document.getElementById('adminStatus').innerHTML = '✅ <strong style="color:var(--acid)">Modo Admin ATIVO</strong>';
-          document.getElementById('adminStatus').style.color = 'var(--acid)';
-          carregarConteudos();
-        })
-        .catch((error) => {
-          document.getElementById('adminStatus').innerHTML = '❌ <strong style="color:var(--warn)">Erro: ' + error.message + '</strong>';
-          document.getElementById('adminStatus').style.color = 'var(--warn)';
-        });
-    }
-  }
-}
-function deletarConteudo(id) {
-  if (!window.modoAdmin) {
-    alert('🔒 Apenas o administrador autenticado pode deletar conteúdos.');
-    return;
-  }
-  
-  if (confirm('⚠️ Tem certeza que quer deletar este conteúdo?\n\nIsso não pode ser desfeito.')) {
-    const conteudosRef = db.ref(CONTEUDOS_REF + '/' + id);
-    conteudosRef.remove()
-      .then(() => {
-        alert('✅ Conteúdo deletado com sucesso!');
-      })
-      .catch((error) => {
-        alert('❌ Erro ao deletar: ' + error.message);
-      });
-  }
-}
 </script>
 
 <!-- DINO DETAIL MODAL -->
@@ -4134,6 +3932,5 @@ function deletarConteudo(id) {
     </div>
   </div>
 </div>
-
 </body>
 </html>
