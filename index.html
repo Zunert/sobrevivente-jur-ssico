@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <meta charset="UTF-8">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-21Q91YYK7Y"></script>
 <script>
@@ -2665,6 +2666,24 @@ document.addEventListener('keydown', e => {
     closeDinoModal();
     closeGuide();
   }
+  document.addEventListener('DOMContentLoaded', function() {
+  carregarConteudos();
+  
+  // Verifica se já está logado
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      window.modoAdmin = true;
+      document.getElementById('adminArea').style.display = 'block';
+      document.getElementById('adminStatus').innerHTML = '✅ <strong style="color:var(--acid)">Modo Admin ATIVO</strong> — ' + user.email;
+      document.getElementById('adminStatus').style.color = 'var(--acid)';
+      carregarConteudos();
+    }
+  });
+  
+  window.submitCom = submitCom;
+  window.deletarConteudo = deletarConteudo;
+  window.ativarModoAdmin = ativarModoAdmin;
+  window.desativarModoAdmin = desativarModoAdmin;
 });
 
 function filterDir(tipo, el){
@@ -4029,33 +4048,50 @@ function deletarConteudo(id) {
 }
 
 function ativarModoAdmin() {
-  const senha = document.getElementById('adminPassword').value;
-  if (senha === ADMIN_SENHA) {
+  const user = firebase.auth().currentUser;
+  if (user) {
     window.modoAdmin = true;
     document.getElementById('adminArea').style.display = 'block';
-    document.getElementById('adminStatus').innerHTML = '✅ <strong style="color:var(--acid)">Modo Admin ATIVO</strong> — você pode deletar conteúdos clicando no botão 🗑️ em cada card.';
+    document.getElementById('adminStatus').innerHTML = '✅ <strong style="color:var(--acid)">Modo Admin ATIVO</strong> — você está autenticado como ' + user.email;
     document.getElementById('adminStatus').style.color = 'var(--acid)';
     carregarConteudos();
   } else {
-    document.getElementById('adminStatus').innerHTML = '❌ <strong style="color:var(--warn)">Senha incorreta!</strong> Tente novamente.';
-    document.getElementById('adminStatus').style.color = 'var(--warn)';
+    // Tenta fazer login
+    const email = prompt('Digite seu email do Firebase:');
+    const senha = prompt('Digite sua senha:');
+    if (email && senha) {
+      firebase.auth().signInWithEmailAndPassword(email, senha)
+        .then(() => {
+          window.modoAdmin = true;
+          document.getElementById('adminArea').style.display = 'block';
+          document.getElementById('adminStatus').innerHTML = '✅ <strong style="color:var(--acid)">Modo Admin ATIVO</strong>';
+          document.getElementById('adminStatus').style.color = 'var(--acid)';
+          carregarConteudos();
+        })
+        .catch((error) => {
+          document.getElementById('adminStatus').innerHTML = '❌ <strong style="color:var(--warn)">Erro: ' + error.message + '</strong>';
+          document.getElementById('adminStatus').style.color = 'var(--warn)';
+        });
+    }
   }
 }
-
-function desativarModoAdmin() {
-  window.modoAdmin = false;
-  document.getElementById('adminArea').style.display = 'none';
-  carregarConteudos();
+function deletarConteudo(id) {
+  if (!window.modoAdmin) {
+    alert('🔒 Apenas o administrador autenticado pode deletar conteúdos.');
+    return;
+  }
+  
+  if (confirm('⚠️ Tem certeza que quer deletar este conteúdo?\n\nIsso não pode ser desfeito.')) {
+    const conteudosRef = db.ref(CONTEUDOS_REF + '/' + id);
+    conteudosRef.remove()
+      .then(() => {
+        alert('✅ Conteúdo deletado com sucesso!');
+      })
+      .catch((error) => {
+        alert('❌ Erro ao deletar: ' + error.message);
+      });
+  }
 }
-
-// ===== INICIALIZAÇÃO =====
-document.addEventListener('DOMContentLoaded', function() {
-  carregarConteudos();
-  window.submitCom = submitCom;
-  window.deletarConteudo = deletarConteudo;
-  window.ativarModoAdmin = ativarModoAdmin;
-  window.desativarModoAdmin = desativarModoAdmin;
-});
 </script>
 
 <!-- DINO DETAIL MODAL -->
