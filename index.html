@@ -1105,6 +1105,10 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
   .diagnostic-btn { min-width: unset; }
 }
 </style>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 </head>
 <body>
 
@@ -1615,31 +1619,9 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
       <p class="section-lead reveal reveal-delay-2">Canais, vídeos e servidores criados por sobreviventes como você. Quer divulgar seu conteúdo? Envie abaixo.</p>
     </div>
 
-    <!-- Cards de conteúdo aprovado -->
+    <!-- Cards de conteúdo (renderizados em tempo real a partir do Firebase) -->
     <div class="com-grid reveal reveal-delay-2" id="comGrid">
-      <!-- Exemplos iniciais -->
-      <div class="com-card">
-        <div class="com-badge com-badge-youtube">YouTube</div>
-        <div class="com-thumb" style="background:linear-gradient(135deg,#1a0a0a,#2a0a0a)">
-          <span style="font-size:2.5rem">▶</span>
-        </div>
-        <div class="com-info">
-          <div class="com-title">Seu canal aqui</div>
-          <div class="com-desc">Envie seu canal pelo formulário abaixo e apareça nesta seção após aprovação.</div>
-          <div class="com-author">📺 YouTube</div>
-        </div>
-      </div>
-      <div class="com-card">
-        <div class="com-badge com-badge-discord">Discord</div>
-        <div class="com-thumb" style="background:linear-gradient(135deg,#0a0a2a,#12124a)">
-          <span style="font-size:2.5rem">💬</span>
-        </div>
-        <div class="com-info">
-          <div class="com-title">Seu servidor aqui</div>
-          <div class="com-desc">Tem um servidor de The Isle? Divulgue aqui para a comunidade encontrar você.</div>
-          <div class="com-author">🎮 Discord</div>
-        </div>
-      </div>
+      <div style="grid-column:1/-1;text-align:center;padding:30px;opacity:.5;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase" id="comEmptyMsg">Carregando conteúdos...</div>
     </div>
 
     <!-- Formulário de envio -->
@@ -1677,6 +1659,10 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
           <label class="com-label">Descrição curta</label>
           <textarea class="com-input com-textarea" id="comDesc" placeholder="Descreva seu conteúdo em até 120 caracteres..." maxlength="120" required></textarea>
         </div>
+        <div class="com-form-group" style="display:flex;align-items:center;gap:8px">
+          <input type="checkbox" id="comDestaque" style="width:16px;height:16px;accent-color:var(--acid)">
+          <label class="com-label" for="comDestaque" style="margin:0;cursor:pointer">⭐ Marcar como Destaque por 24h (fica no topo da lista)</label>
+        </div>
         <div class="com-form-footer">
           <p class="com-disclaimer">⚠ Ao enviar, você concorda que o conteúdo será revisado antes de ser publicado.</p>
           <button type="submit" class="btn btn-fill com-submit-btn" id="comSubmitBtn"><span id="comSubmitText">Enviar para revisão →</span></button>
@@ -1691,18 +1677,19 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
         <div style="font-family:'Cinzel',serif;font-size:.8rem;color:var(--warn);letter-spacing:.1em;text-transform:uppercase" id="comErrorMsg">Erro ao enviar. Tente novamente.</div>
       </div>
 
-      <!-- ÁREA DE ADMIN (VISÍVEL APENAS COM SENHA) -->
+      <!-- ÁREA DE ADMIN (login real via Firebase Authentication) -->
       <div id="adminArea" style="margin-top:30px;padding:20px;background:rgba(139,26,10,.08);border:1px solid rgba(139,26,10,.3);border-radius:4px;">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
           <span style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--warn);">🔒 Modo Administrador</span>
           <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-            <input type="password" id="adminPassword" placeholder="Senha do admin" style="background:rgba(5,6,3,.6);border:1px solid rgba(139,26,10,.3);color:var(--parchment);padding:6px 12px;font-family:'Crimson Pro',serif;font-size:.85rem;width:160px;">
-            <button onclick="ativarModoAdmin()" style="background:rgba(139,26,10,.2);border:1px solid rgba(139,26,10,.4);color:var(--warn);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:3px;">🔑 Ativar</button>
+            <input type="email" id="adminEmail" placeholder="E-mail do admin" style="background:rgba(5,6,3,.6);border:1px solid rgba(139,26,10,.3);color:var(--parchment);padding:6px 12px;font-family:'Crimson Pro',serif;font-size:.85rem;width:170px;">
+            <input type="password" id="adminPassword" placeholder="Senha" style="background:rgba(5,6,3,.6);border:1px solid rgba(139,26,10,.3);color:var(--parchment);padding:6px 12px;font-family:'Crimson Pro',serif;font-size:.85rem;width:130px;">
+            <button onclick="ativarModoAdmin()" style="background:rgba(139,26,10,.2);border:1px solid rgba(139,26,10,.4);color:var(--warn);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:3px;">🔑 Entrar</button>
             <button onclick="desativarModoAdmin()" style="background:rgba(255,255,255,.04);border:1px solid rgba(197,180,154,.15);color:var(--bone);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:3px;opacity:.5;">✕ Sair</button>
           </div>
         </div>
         <div id="adminStatus" style="margin-top:10px;font-family:'Courier New',monospace;font-size:.6rem;color:var(--bone);opacity:.5;">
-          🔒 Modo inativo — digite a senha para gerenciar conteúdos
+          🔒 Modo inativo — faça login para gerenciar conteúdos
         </div>
       </div>
 
@@ -2761,6 +2748,25 @@ async function submitFaq(e) {
   } catch(err) { alert('Erro ao enviar. Tente novamente.'); }
 }
 
+// ===== FIREBASE — CONFIG E INICIALIZAÇÃO =====
+const firebaseConfig = {
+  apiKey: "AIzaSyDE_B3RZhYINv74SowJjCE5VQzYpAeBhw4",
+  authDomain: "sobrevivente-jurassico.firebaseapp.com",
+  databaseURL: "https://sobrevivente-jurassico-default-rtdb.firebaseio.com",
+  projectId: "sobrevivente-jurassico",
+  storageBucket: "sobrevivente-jurassico.firebasestorage.app",
+  messagingSenderId: "585512673251",
+  appId: "1:585512673251:web:bc2a523fdf30540b0308ad6",
+  measurementId: "G-0541DBFKCW"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const auth = firebase.auth();
+const CONTEUDOS_REF = 'conteudos';
+const ADMIN_UID = 'ZryX4psIENX0T3HW6SvRQiHUBgn1';
+let usuarioAdminLogado = null;
+
+// ===== ENVIO DE CONTEÚDO (grava direto no Firebase, aparece na hora pra todo mundo) =====
 async function submitCom(e){
   e.preventDefault();
   const btn = document.getElementById('comSubmitBtn');
@@ -2769,6 +2775,7 @@ async function submitCom(e){
   const tipo = document.getElementById('comTipo').value;
   const link = document.getElementById('comLink').value;
   const desc = document.getElementById('comDesc').value;
+  const destaque = document.getElementById('comDestaque').checked;
 
   document.getElementById('comError').style.display='none';
 
@@ -2789,22 +2796,19 @@ async function submitCom(e){
   btn.disabled=true;
   txt.textContent='Enviando...';
 
-  try {
-    const res = await fetch('https://formspree.io/f/mojrrvjd', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({
-        nome, tipo, link, descricao: desc,
-        _subject: `[Comunidade] Nova submissão: ${tipo} - ${nome}`
-      })
-    });
+  const agora = Date.now();
+  const novoConteudo = {
+    nome, tipo, link, descricao: desc,
+    data: new Date().toLocaleDateString('pt-BR'),
+    timestamp: agora,
+    destaque: destaque,
+    expiresAt: destaque ? (agora + 24*60*60*1000) : null
+  };
 
-    if(res.ok){
-      document.getElementById('comForm').style.display='none';
-      document.getElementById('comSuccess').style.display='block';
-    } else {
-      throw new Error('Erro no servidor');
-    }
+  try {
+    await db.ref(CONTEUDOS_REF).push(novoConteudo);
+    document.getElementById('comForm').style.display='none';
+    document.getElementById('comSuccess').style.display='block';
   } catch(err) {
     document.getElementById('comErrorMsg').textContent='⚠ Erro ao enviar. Tente novamente em instantes.';
     document.getElementById('comError').style.display='block';
@@ -2813,37 +2817,105 @@ async function submitCom(e){
   }
 }
 
-// ===== MODO ADMIN (Comunidade) =====
-// AVISO: isso NÃO é segurança de verdade — a senha fica visível pra quem olhar
-// o código-fonte da página. Serve só pra esconder o botão de deletar do público
-// casual, não impede alguém com conhecimento técnico básico.
-const ADMIN_SENHA = '509822';
-let modoAdminAtivo = false;
+// ===== RENDERIZAÇÃO EM TEMPO REAL DOS CARDS =====
+const badgeClasses = {YouTube:'com-badge-youtube','LiveYouTube':'com-badge-youtube',Twitch:'com-badge-twitch','LiveTwitch':'com-badge-twitch',TikTok:'com-badge-tiktok',Discord:'com-badge-discord',Video:'com-badge-youtube',Outro:'com-badge-discord'};
+const badgeIcons = {YouTube:'📺',LiveYouTube:'🔴',Twitch:'🎮',LiveTwitch:'🔴',TikTok:'🎵',Discord:'💬',Video:'▶',Outro:'🔗'};
 
+function iniciarListenerConteudos(){
+  db.ref(CONTEUDOS_REF).on('value', (snapshot) => {
+    const dados = snapshot.val();
+    const grid = document.getElementById('comGrid');
+    if(!dados){
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;opacity:.5;font-family:\'Cinzel\',serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase">Nenhum conteúdo enviado ainda — seja o primeiro!</div>';
+      return;
+    }
+    const agora = Date.now();
+    let lista = Object.keys(dados).map(id => ({id, ...dados[id]}));
+    lista = lista.filter(item => item.nome && item.link); // ignora lixo malformado
+    const destaques = lista.filter(item => item.destaque && item.expiresAt > agora).sort((a,b)=>b.timestamp-a.timestamp);
+    const normais = lista.filter(item => !(item.destaque && item.expiresAt > agora)).sort((a,b)=>b.timestamp-a.timestamp);
+    const ordenado = [...destaques, ...normais];
+
+    grid.innerHTML = ordenado.map(item => {
+      const isDestaque = item.destaque && item.expiresAt > agora;
+      const badgeClass = badgeClasses[item.tipo] || 'com-badge-discord';
+      const icon = badgeIcons[item.tipo] || '🔗';
+      const deleteBtn = usuarioAdminLogado ? `<button onclick="deletarConteudo('${item.id}')" style="position:absolute;top:8px;left:8px;z-index:5;background:rgba(139,26,10,.85);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.65rem;padding:4px 8px;cursor:pointer;border-radius:3px">🗑️ Deletar</button>` : '';
+      return `
+      <div class="com-card" style="position:relative">
+        ${deleteBtn}
+        ${isDestaque ? '<div style="position:absolute;top:8px;right:8px;z-index:5;background:linear-gradient(135deg,#c8972a,#8b6a1a);color:#fff;font-size:.6rem;padding:4px 10px;border-radius:3px;font-family:\'Cinzel\',serif;letter-spacing:.05em">⭐ DESTAQUE</div>' : ''}
+        <div class="com-badge ${badgeClass}">${item.tipo}</div>
+        <div class="com-thumb" style="background:linear-gradient(135deg,#1a0a0a,#2a0a0a)">
+          <span style="font-size:2.5rem">${icon}</span>
+        </div>
+        <div class="com-info">
+          <div class="com-title">${escapeHtml(item.nome)}</div>
+          <div class="com-desc">${escapeHtml(item.descricao||'')}</div>
+          <div class="com-author"><a href="${escapeHtml(item.link)}" target="_blank" rel="noopener" style="color:inherit">Visitar →</a></div>
+        </div>
+      </div>`;
+    }).join('');
+  });
+}
+function escapeHtml(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+document.addEventListener('DOMContentLoaded', iniciarListenerConteudos);
+
+// Limpa automaticamente destaques expirados (roda a cada minuto, só recalcula a exibição)
+setInterval(() => { if(document.getElementById('comGrid')) iniciarListenerConteudos(); }, 60000);
+
+// ===== MODO ADMIN — login real via Firebase Authentication =====
+// A proteção de verdade está nas Regras do Firebase (só o UID abaixo pode escrever/apagar
+// itens já existentes). O login aqui é o que libera o botão de deletar aparecer na tela.
 function ativarModoAdmin(){
-  const senhaDigitada = document.getElementById('adminPassword').value;
+  const email = document.getElementById('adminEmail').value;
+  const senha = document.getElementById('adminPassword').value;
   const status = document.getElementById('adminStatus');
-  if(senhaDigitada === ADMIN_SENHA){
-    modoAdminAtivo = true;
+  status.textContent = '⏳ Entrando...';
+  status.style.opacity = '1';
+  auth.signInWithEmailAndPassword(email, senha)
+    .catch(err => {
+      status.textContent = '❌ Login inválido: ' + err.message;
+      status.style.color = 'var(--warn)';
+    });
+}
+
+function desativarModoAdmin(){
+  auth.signOut();
+}
+
+auth.onAuthStateChanged((user) => {
+  const status = document.getElementById('adminStatus');
+  if(!status) return; // pagina ainda carregando
+  if(user && user.uid === ADMIN_UID){
+    usuarioAdminLogado = user;
     status.textContent = '🔓 Modo admin ATIVO — botões de deletar visíveis';
     status.style.color = 'var(--acid)';
     status.style.opacity = '1';
     document.body.classList.add('admin-mode');
   } else {
-    status.textContent = '❌ Senha incorreta';
-    status.style.color = 'var(--warn)';
-    status.style.opacity = '1';
+    if(user && user.uid !== ADMIN_UID){
+      auth.signOut(); // logou com conta que nao e admin, desloga
+    }
+    usuarioAdminLogado = null;
+    document.getElementById('adminPassword').value = '';
+    document.body.classList.remove('admin-mode');
+    status.textContent = '🔒 Modo inativo — faça login para gerenciar conteúdos';
+    status.style.color = '';
+    status.style.opacity = '.5';
   }
-}
+  iniciarListenerConteudos(); // re-renderiza pra mostrar/esconder botoes de deletar
+});
 
-function desativarModoAdmin(){
-  modoAdminAtivo = false;
-  document.getElementById('adminPassword').value = '';
-  document.body.classList.remove('admin-mode');
-  const status = document.getElementById('adminStatus');
-  status.textContent = '🔒 Modo inativo — digite a senha para gerenciar conteúdos';
-  status.style.color = '';
-  status.style.opacity = '.5';
+function deletarConteudo(id){
+  if(!usuarioAdminLogado){ return; }
+  if(!confirm('Tem certeza que quer deletar esse conteúdo?')) return;
+  db.ref(CONTEUDOS_REF + '/' + id).remove()
+    .catch(err => alert('Erro ao deletar: ' + err.message));
 }
 
 function activateMap(){
