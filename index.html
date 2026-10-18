@@ -1754,15 +1754,7 @@ footer{background:var(--black);padding:60px 40px 40px;border-top:1px solid rgba(
     </div>
 
     <div class="dir-grid reveal reveal-delay-3" id="dirGrid">
-      <!-- Cards adicionados pelo GitHub Action -->
-      <div class="dir-card" data-tipo="youtube">
-        <div class="dir-icon">📺</div>
-        <div class="dir-info">
-          <div class="dir-name">Exemplo de Canal</div>
-          <div class="dir-type">YouTube</div>
-        </div>
-        <a href="https://youtube.com" target="_blank" class="dir-link">Visitar →</a>
-      </div>
+      <!-- Cards renderizados em tempo real a partir do Firebase (renderizarDiretorio) -->
     </div>
 
     <div id="dirEmpty" style="display:none;text-align:center;padding:40px;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--bone);opacity:.3">
@@ -2601,20 +2593,29 @@ document.addEventListener('keydown', e => {
   }
 });
 
-function filterDir(tipo, el){
-  document.querySelectorAll('.dir-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  const cards = document.querySelectorAll('.dir-card');
+// Filtro ativo do Diretório (reaplicado a cada renderização em tempo real)
+let dirFiltroAtivo = 'todos';
+
+function aplicarFiltroDiretorio(){
+  const cards = document.querySelectorAll('#dirGrid .dir-card');
   let visible = 0;
   cards.forEach(c=>{
-    if(tipo==='todos' || c.dataset.tipo===tipo){
+    if(dirFiltroAtivo==='todos' || c.dataset.tipo===dirFiltroAtivo){
       c.style.display='flex';
       visible++;
     } else {
       c.style.display='none';
     }
   });
-  document.getElementById('dirEmpty').style.display = visible===0 ? 'block' : 'none';
+  const vazio = document.getElementById('dirEmpty');
+  if(vazio) vazio.style.display = visible===0 ? 'block' : 'none';
+}
+
+function filterDir(tipo, el){
+  dirFiltroAtivo = tipo;
+  document.querySelectorAll('.dir-tab').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+  aplicarFiltroDiretorio();
 }
 
 const twitchChannels = [];
@@ -2774,52 +2775,142 @@ async function submitCom(e){
 const badgeClasses = {YouTube:'com-badge-youtube','LiveYouTube':'com-badge-youtube',Twitch:'com-badge-twitch','LiveTwitch':'com-badge-twitch',TikTok:'com-badge-tiktok',Discord:'com-badge-discord',Video:'com-badge-youtube',Outro:'com-badge-discord'};
 const badgeIcons = {YouTube:'📺',LiveYouTube:'🔴',Twitch:'🎮',LiveTwitch:'🔴',TikTok:'🎵',Discord:'💬',Video:'▶',Outro:'🔗'};
 
-function iniciarListenerConteudos(){
-  db.ref(CONTEUDOS_REF).on('value', (snapshot) => {
-    const dados = snapshot.val();
-    const grid = document.getElementById('comGrid');
-    if(!dados){
-      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;opacity:.5;font-family:\'Cinzel\',serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase">Nenhum conteúdo enviado ainda — seja o primeiro!</div>';
-      return;
-    }
-    const agora = Date.now();
-    let lista = Object.keys(dados).map(id => ({id, ...dados[id]}));
-    lista = lista.filter(item => item.nome && item.link); // ignora lixo malformado
-    const destaques = lista.filter(item => item.destaque && item.expiresAt > agora).sort((a,b)=>b.timestamp-a.timestamp);
-    const normais = lista.filter(item => !(item.destaque && item.expiresAt > agora)).sort((a,b)=>b.timestamp-a.timestamp);
-    const ordenado = [...destaques, ...normais];
+// Mural: itens somem da EXIBIÇÃO 48h após o timestamp (nada é apagado do banco).
+const DOIS_DIAS_MS = 2 * 24 * 60 * 60 * 1000;
+// Tolerância para relógios de visitantes adiantados; timestamps além disso são ignorados no mural.
+const TOLERANCIA_FUTURO_MS = 60 * 60 * 1000;
 
-    grid.innerHTML = ordenado.map(item => {
-      const isDestaque = item.destaque && item.expiresAt > agora;
-      const badgeClass = badgeClasses[item.tipo] || 'com-badge-discord';
-      const icon = badgeIcons[item.tipo] || '🔗';
-      const deleteBtn = usuarioAdminLogado ? `<button onclick="deletarConteudo('${item.id}')" style="position:absolute;top:8px;left:8px;z-index:5;background:rgba(139,26,10,.85);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.65rem;padding:4px 8px;cursor:pointer;border-radius:3px">🗑️ Deletar</button>` : '';
-      return `
-      <div class="com-card" style="position:relative">
-        ${deleteBtn}
-        ${isDestaque ? '<div style="position:absolute;top:8px;right:8px;z-index:5;background:linear-gradient(135deg,#c8972a,#8b6a1a);color:#fff;font-size:.6rem;padding:4px 10px;border-radius:3px;font-family:\'Cinzel\',serif;letter-spacing:.05em">⭐ DESTAQUE</div>' : ''}
-        <div class="com-badge ${badgeClass}">${item.tipo}</div>
-        <div class="com-thumb" style="background:linear-gradient(135deg,#1a0a0a,#2a0a0a)">
-          <span style="font-size:2.5rem">${icon}</span>
-        </div>
-        <div class="com-info">
-          <div class="com-title">${escapeHtml(item.nome)}</div>
-          <div class="com-desc">${escapeHtml(item.descricao||'')}</div>
-          <div class="com-author"><a href="${escapeHtml(item.link)}" target="_blank" rel="noopener" style="color:inherit">Visitar →</a></div>
-        </div>
-      </div>`;
-    }).join('');
-  });
-}
+// Tipos que entram no Diretório permanente (chave = valor de "tipo", valor = filtro de filterDir)
+const tiposDiretorio = {YouTube:'youtube', LiveYouTube:'youtube', Twitch:'twitch', LiveTwitch:'twitch', TikTok:'tiktok', Discord:'discord'};
+const dirRotulos = {YouTube:'YouTube', LiveYouTube:'YouTube · Live', Twitch:'Twitch', LiveTwitch:'Twitch · Live', TikTok:'TikTok', Discord:'Discord'};
+
+let conteudosCache = null;      // último snapshot recebido do Firebase (null = ainda não chegou)
+let listenerConteudosAtivo = false;
+
 function escapeHtml(str){
   const d = document.createElement('div');
-  d.textContent = str;
+  d.textContent = (str == null ? '' : String(str));
   return d.innerHTML;
+}
+// Para valores dentro de atributos HTML (escapa aspas também)
+function escapeAttr(str){
+  return escapeHtml(str).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+// Só aceita links http(s); bloqueia javascript:, data: etc. Retorna '' se inválido.
+function linkSeguro(link){
+  try{
+    const u = new URL(String(link));
+    return (u.protocol === 'http:' || u.protocol === 'https:') ? u.href : '';
+  }catch(e){ return ''; }
+}
+
+function listaDeConteudos(){
+  if(!conteudosCache) return [];
+  return Object.keys(conteudosCache)
+    .map(id => ({id, ...conteudosCache[id]}))
+    .filter(item => item && item.nome && item.link && linkSeguro(item.link)); // ignora lixo/links inseguros
+}
+
+// ----- MURAL (#comGrid): só itens com menos de 48h -----
+function renderizarComunidade(){
+  const grid = document.getElementById('comGrid');
+  if(!grid || conteudosCache === null) return; // ainda carregando: mantém "Carregando..."
+  const agora = Date.now();
+  const lista = listaDeConteudos().filter(item => {
+    if(typeof item.timestamp !== 'number') return false;
+    const idade = agora - item.timestamp;
+    return idade < DOIS_DIAS_MS && idade > -TOLERANCIA_FUTURO_MS;
+  });
+
+  if(lista.length === 0){
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;opacity:.5;font-family:\'Cinzel\',serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase">Nenhum conteúdo nas últimas 48h — seja o primeiro!</div>';
+    return;
+  }
+
+  const ehDestaque = item => item.destaque && item.expiresAt > agora;
+  const destaques = lista.filter(ehDestaque).sort((a,b)=>b.timestamp-a.timestamp);
+  const normais = lista.filter(item => !ehDestaque(item)).sort((a,b)=>b.timestamp-a.timestamp);
+  const ordenado = [...destaques, ...normais];
+
+  grid.innerHTML = ordenado.map(item => {
+    const isDestaque = ehDestaque(item);
+    const badgeClass = badgeClasses[item.tipo] || 'com-badge-discord';
+    const icon = badgeIcons[item.tipo] || '🔗';
+    const deleteBtn = usuarioAdminLogado ? `<button data-id="${escapeAttr(item.id)}" onclick="deletarConteudo(this.dataset.id)" style="position:absolute;top:8px;left:8px;z-index:5;background:rgba(139,26,10,.85);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.65rem;padding:4px 8px;cursor:pointer;border-radius:3px">🗑️ Deletar</button>` : '';
+    return `
+    <div class="com-card" style="position:relative">
+      ${deleteBtn}
+      ${isDestaque ? '<div style="position:absolute;top:8px;right:8px;z-index:5;background:linear-gradient(135deg,#c8972a,#8b6a1a);color:#fff;font-size:.6rem;padding:4px 10px;border-radius:3px;font-family:\'Cinzel\',serif;letter-spacing:.05em">⭐ DESTAQUE</div>' : ''}
+      <div class="com-badge ${badgeClass}">${escapeHtml(item.tipo)}</div>
+      <div class="com-thumb" style="background:linear-gradient(135deg,#1a0a0a,#2a0a0a)">
+        <span style="font-size:2.5rem">${icon}</span>
+      </div>
+      <div class="com-info">
+        <div class="com-title">${escapeHtml(item.nome)}</div>
+        <div class="com-desc">${escapeHtml(item.descricao||'')}</div>
+        <div class="com-author"><a href="${escapeAttr(linkSeguro(item.link))}" target="_blank" rel="noopener noreferrer" style="color:inherit">Visitar →</a></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ----- DIRETÓRIO (#dirGrid): só tipos de canal, NUNCA expira -----
+function renderizarDiretorio(){
+  const grid = document.getElementById('dirGrid');
+  if(!grid || conteudosCache === null) return;
+
+  // mais recentes primeiro; um mesmo link repetido aparece uma única vez
+  const vistos = new Set();
+  const agora = Date.now();
+  const tsOrdem = item => Math.min(typeof item.timestamp === 'number' ? item.timestamp : 0, agora);
+  const canais = listaDeConteudos()
+    .filter(item => tiposDiretorio[item.tipo])
+    .sort((a,b)=>tsOrdem(b)-tsOrdem(a))
+    .filter(item => {
+      const chave = linkSeguro(item.link).replace(/\/+$/,'').toLowerCase();
+      if(vistos.has(chave)) return false;
+      vistos.add(chave);
+      return true;
+    });
+
+  grid.innerHTML = canais.map(item => `
+    <div class="dir-card" data-tipo="${tiposDiretorio[item.tipo]}">
+      <div class="dir-icon">${badgeIcons[item.tipo] || '🔗'}</div>
+      <div class="dir-info">
+        <div class="dir-name">${escapeHtml(item.nome)}</div>
+        <div class="dir-type">${escapeHtml(dirRotulos[item.tipo])}</div>
+      </div>
+      <a href="${escapeAttr(linkSeguro(item.link))}" target="_blank" rel="noopener noreferrer" class="dir-link">Visitar →</a>
+    </div>`).join('');
+
+  aplicarFiltroDiretorio(); // respeita o filtro ativo e atualiza "Nenhum canal encontrado"
+}
+
+function renderizarConteudos(){
+  renderizarComunidade();
+  renderizarDiretorio();
+}
+
+// Um ÚNICO listener do Firebase (protegido contra chamadas repetidas)
+function iniciarListenerConteudos(){
+  if(listenerConteudosAtivo) return;
+  listenerConteudosAtivo = true;
+  db.ref(CONTEUDOS_REF).on('value', (snapshot) => {
+    conteudosCache = snapshot.val() || {};
+    renderizarConteudos();
+  }, (err) => {
+    console.error('Erro ao ler conteúdos do Firebase:', err);
+    listenerConteudosAtivo = false;
+    const grid = document.getElementById('comGrid');
+    if(grid && conteudosCache === null){
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;opacity:.5;font-family:\'Cinzel\',serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase">Não foi possível carregar os conteúdos agora.</div>';
+    }
+  });
 }
 document.addEventListener('DOMContentLoaded', iniciarListenerConteudos);
 
-// Limpa automaticamente destaques expirados (roda a cada minuto, só recalcula a exibição)
-setInterval(() => { if(document.getElementById('comGrid')) iniciarListenerConteudos(); }, 60000);
+// A cada minuto reavalia só o MURAL (itens de 48h somem sem recarregar). Não cria listeners novos.
+setInterval(renderizarComunidade, 60000);
 
 // ===== MODO ADMIN — login real via Firebase Authentication =====
 // A proteção de verdade está nas Regras do Firebase (só o UID abaixo pode escrever/apagar
@@ -2861,7 +2952,7 @@ auth.onAuthStateChanged((user) => {
     status.style.color = '';
     status.style.opacity = '.5';
   }
-  iniciarListenerConteudos(); // re-renderiza pra mostrar/esconder botoes de deletar
+  renderizarComunidade(); // re-renderiza pra mostrar/esconder botoes de deletar (sem criar novo listener)
 });
 
 function deletarConteudo(id){
