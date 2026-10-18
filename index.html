@@ -2855,11 +2855,17 @@ function renderizarComunidade(){
 }
 
 // ----- DIRETÓRIO (#dirGrid): só tipos de canal, NUNCA expira -----
+// Chave de "mesmo canal": plataforma + nome (ignora maiúsculas, acentos e espaços extras)
+function chaveDiretorio(item){
+  const nomeNorm = String(item.nome).normalize('NFD').replace(/[̀-ͯ]/g,'').trim().replace(/\s+/g,' ').toLowerCase();
+  return tiposDiretorio[item.tipo] + '|' + nomeNorm;
+}
+
 function renderizarDiretorio(){
   const grid = document.getElementById('dirGrid');
   if(!grid || conteudosCache === null) return;
 
-  // mais recentes primeiro; um mesmo link repetido aparece uma única vez
+  // mais recentes primeiro; um canal por nome em cada plataforma
   const vistos = new Set();
   const agora = Date.now();
   const tsOrdem = item => Math.min(typeof item.timestamp === 'number' ? item.timestamp : 0, agora);
@@ -2867,13 +2873,15 @@ function renderizarDiretorio(){
     .filter(item => tiposDiretorio[item.tipo])
     .sort((a,b)=>tsOrdem(b)-tsOrdem(a))
     .filter(item => {
-      const chave = linkSeguro(item.link).replace(/\/+$/,'').toLowerCase();
+      const chave = chaveDiretorio(item);
       if(vistos.has(chave)) return false;
       vistos.add(chave);
       return true;
     });
 
-  grid.innerHTML = canais.map(item => `
+  grid.innerHTML = canais.map(item => {
+    const deleteBtn = usuarioAdminLogado ? `<button data-chave="${escapeAttr(chaveDiretorio(item))}" onclick="deletarCanalDiretorio(this.dataset.chave)" title="Excluir este canal" style="flex-shrink:0;background:rgba(139,26,10,.85);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.65rem;padding:4px 8px;cursor:pointer;border-radius:3px">🗑️</button>` : '';
+    return `
     <div class="dir-card" data-tipo="${tiposDiretorio[item.tipo]}">
       <div class="dir-icon">${badgeIcons[item.tipo] || '🔗'}</div>
       <div class="dir-info">
@@ -2881,9 +2889,22 @@ function renderizarDiretorio(){
         <div class="dir-type">${escapeHtml(dirRotulos[item.tipo])}</div>
       </div>
       <a href="${escapeAttr(linkSeguro(item.link))}" target="_blank" rel="noopener noreferrer" class="dir-link">Visitar →</a>
-    </div>`).join('');
+      ${deleteBtn}
+    </div>`;
+  }).join('');
 
   aplicarFiltroDiretorio(); // respeita o filtro ativo e atualiza "Nenhum canal encontrado"
+}
+
+// Admin: exclui TODOS os registros do mesmo canal (mesma plataforma + nome), senão um duplicado antigo reapareceria.
+// Atenção: é o mesmo registro do mural, então some dos dois lugares.
+function deletarCanalDiretorio(chave){
+  if(!usuarioAdminLogado){ return; }
+  const alvos = listaDeConteudos().filter(item => tiposDiretorio[item.tipo] && chaveDiretorio(item) === chave);
+  if(alvos.length === 0) return;
+  if(!confirm('Excluir o canal "' + alvos[0].nome + '"' + (alvos.length > 1 ? ' (' + alvos.length + ' registros iguais)' : '') + '? Ele também some do mural.')) return;
+  Promise.all(alvos.map(item => db.ref(CONTEUDOS_REF + '/' + item.id).remove()))
+    .catch(err => alert('Erro ao deletar: ' + err.message));
 }
 
 function renderizarConteudos(){
@@ -2952,7 +2973,7 @@ auth.onAuthStateChanged((user) => {
     status.style.color = '';
     status.style.opacity = '.5';
   }
-  renderizarComunidade(); // re-renderiza pra mostrar/esconder botoes de deletar (sem criar novo listener)
+  renderizarConteudos(); // re-renderiza pra mostrar/esconder botoes de deletar (sem criar novo listener)
 });
 
 function deletarConteudo(id){
